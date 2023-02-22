@@ -1,1 +1,2 @@
-export {} 
+let value: any;
+export {};
