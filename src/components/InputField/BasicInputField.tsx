@@ -1,6 +1,5 @@
 import * as React from "react";
-import { InputBase, InputProps } from "@mui/material";
-import { StyledInputBase, StyledInputLabel } from "./BasicInputField.style";
+import { InputBase, InputProps, InputLabel } from "@mui/material";
 import { BasicInputFieldProps } from "./BasicInputField.types";
 
 export const BasicInputField: React.FC<BasicInputFieldProps & InputProps> = (
@@ -10,7 +9,7 @@ export const BasicInputField: React.FC<BasicInputFieldProps & InputProps> = (
 
   return (
     <section>
-      <StyledInputLabel htmlFor={id}>{placeholder}</StyledInputLabel>
+      <InputLabel htmlFor={id}>{placeholder}</InputLabel>
       <InputBase id={id} placeholder={placeholder} type={type} required />
     </section>
   );

@@ -7,8 +7,10 @@ export default function Link(theme: Theme) {
         root: {
           fontSize: 14,
           color: theme.palette.primary.dark,
+          textDecoration: theme.palette.primary.dark,
           ":hover": {
             color: theme.palette.secondary.dark,
+            textDecoration: theme.palette.secondary.light,
           },
         },
       },

@@ -1,13 +1,13 @@
-import { Link, Stack, Typography } from "@mui/material";
+import { Link, Paper, Stack, Typography } from "@mui/material";
 import * as React from "react";
 import { Logo } from "../logo/Logo";
-import { StyledBasicBox, StyledLink1, StyledLink3 } from "./BasicBox.style";
+import { StyledLink1, StyledLink2 } from "./BasicBox.style";
 import { BasicBoxProps } from "./BasicBox.types";
 
 export const BasicBox: React.FC<BasicBoxProps> = (props) => {
   const { title, children } = props;
   return (
-    <StyledBasicBox>
+    <Paper elevation={3}>
       <Logo />
       <Typography variant="h1">{title}</Typography>
       {children}
@@ -16,10 +16,10 @@ export const BasicBox: React.FC<BasicBoxProps> = (props) => {
           Mot de passe oublié ?
         </StyledLink1>
         <Typography variant="h6">{"Don't have an account? "}</Typography>
-        <StyledLink3 href="#" variant="body2">
+        <StyledLink2 href="#" variant="body2">
           {"S'INSCRIRE"}
-        </StyledLink3>
+        </StyledLink2>
       </Stack>
-    </StyledBasicBox>
+    </Paper>
   );
 };

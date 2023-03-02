@@ -30,8 +30,12 @@ export const colors = {
     dark: "#e65100",
   },
   background: {
-    paper: "#F2F2F2",
+    paper: "#F1FFFA", //"#F2F2F2",
     default: "#ffff",
+  },
+  text: {
+    main: "#404040",
+    dark: "#262626",
   },
   contrastThreshold: 3,
 };

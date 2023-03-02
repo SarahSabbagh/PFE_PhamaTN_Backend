@@ -10,7 +10,6 @@ import { PasswordInputProps } from "./PasswordInputProps.types";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import { useState } from "react";
-import { StyledInputLabel, StyledPasswordInput } from "./PasswordInput.style";
 
 export const PasswordInput: React.FC<PasswordInputProps & InputProps> = (
   props
@@ -26,7 +25,7 @@ export const PasswordInput: React.FC<PasswordInputProps & InputProps> = (
 
   return (
     <section>
-      <StyledInputLabel htmlFor={id}>{placeholder}</StyledInputLabel>
+      <InputLabel htmlFor={id}>{placeholder}</InputLabel>
       <InputBase
         id={id}
         placeholder={placeholder}
