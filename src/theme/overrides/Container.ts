@@ -6,10 +6,10 @@ export default function Container(theme: Theme) {
       styleOverrides: {
         root: {
           backgroundColor: theme.palette.background.default,
-          padding: 8,
+          padding: 2,
           display: "flex",
           flexDirection: "column",
-          justifContent: "center",
+          justifyContent: "center",
           alignItems: "center",
           fontSize: 16,
           minWidth: "100vw",

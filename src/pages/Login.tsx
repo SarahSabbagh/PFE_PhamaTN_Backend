@@ -1,11 +1,12 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { BasicInputField } from "../components/InputField/BasicInputField";
+import { BasicInputField } from "../components/InputField/basicInput/BasicInputField";
 import { SignInPaper } from "../components/signInComponents/signInPaper/SignInPaper";
 import { FC } from "react";
-import { PasswordInput } from "../components/InputField/PasswordInput";
+import { PasswordInput } from "../components/InputField/passwordInput/PasswordInput";
 import { SignInContainer } from "../components/signInComponents/signInContainer/SignInContainer";
 import { Button } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 
 export const SignIn: FC = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -18,23 +19,24 @@ export const SignIn: FC = () => {
   };
 
   return (
-    <SignInContainer title="SignIn">
-      <SignInPaper title="Sign in">
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          noValidate
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          marginTop="20px"
-          width="100%"
-        >
-          <BasicInputField id="email" placeholder="email" type="email" />
-          <PasswordInput id="password" placeholder="password" />
-          <Button type="submit">Connexion</Button>
-        </Box>
-      </SignInPaper>
+    <SignInContainer title="PharmaTN-SignIn">
+      <Grid>
+        <SignInPaper title="PharmaTN">
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            width="100%"
+          >
+            <BasicInputField id="email" placeholder="Email" type="email" />
+            <PasswordInput id="password" placeholder="Mot de passe" />
+            <Button type="submit">Connexion</Button>
+          </Box>
+        </SignInPaper>
+      </Grid>
     </SignInContainer>
   );
 };

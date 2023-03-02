@@ -1,7 +1,7 @@
 import { Link, Paper, Stack, Typography } from "@mui/material";
 import * as React from "react";
 import { Logo } from "../../logo/Logo";
-import { StyledLink1, StyledLink2 } from "./SignInPaper.style";
+import { SignInLink } from "../signInContainer/signInLink/SignInLink";
 import { SignInPaperProps } from "./SignInPaper.types";
 
 export const SignInPaper: React.FC<SignInPaperProps> = (props) => {
@@ -9,17 +9,11 @@ export const SignInPaper: React.FC<SignInPaperProps> = (props) => {
   return (
     <Paper elevation={3}>
       <Logo />
-      <Typography variant="h1">{title}</Typography>
+      <Typography variant="h1" display="flex" marginBottom="5%">
+        {title}
+      </Typography>
       {children}
-      <Stack>
-        <StyledLink1 href="#" variant="body2">
-          Mot de passe oublié ?
-        </StyledLink1>
-        <Typography variant="h6">{"Don't have an account? "}</Typography>
-        <StyledLink2 href="#" variant="body2">
-          {"S'INSCRIRE"}
-        </StyledLink2>
-      </Stack>
+      <SignInLink />
     </Paper>
   );
 };

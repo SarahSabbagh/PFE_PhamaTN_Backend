@@ -6,7 +6,7 @@ export const typography: TypographyOptions = {
     textAlign: "center",
     fontSize: "32px",
     fontWeight: 700,
-    color: colors.primary.dark, //colors.text.dark,,
+    color: colors.primary.main, //colors.text.dark,,
   },
   h2: {
     fontSize: "24px",
