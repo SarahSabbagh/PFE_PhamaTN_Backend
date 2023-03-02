@@ -1,10 +1,10 @@
 import { Link, Paper, Stack, Typography } from "@mui/material";
 import * as React from "react";
-import { Logo } from "../logo/Logo";
-import { StyledLink1, StyledLink2 } from "./BasicBox.style";
-import { BasicBoxProps } from "./BasicBox.types";
+import { Logo } from "../../logo/Logo";
+import { StyledLink1, StyledLink2 } from "./SignInPaper.style";
+import { SignInPaperProps } from "./SignInPaper.types";
 
-export const BasicBox: React.FC<BasicBoxProps> = (props) => {
+export const SignInPaper: React.FC<SignInPaperProps> = (props) => {
   const { title, children } = props;
   return (
     <Paper elevation={3}>

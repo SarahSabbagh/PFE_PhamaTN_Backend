@@ -6,6 +6,7 @@ import Link from "./overrides/Link";
 import InputLabel from "./overrides/InputLabel";
 import Paper from "./overrides/Paper";
 import Container from "./overrides/Container";
+import Box from "./overrides/Box";
 
 export default function ComponentsOverrides(theme: Theme) {
   return Object.assign(
@@ -15,6 +16,7 @@ export default function ComponentsOverrides(theme: Theme) {
     Link(theme),
     InputLabel,
     Paper(theme),
-    Container(theme)
+    Container(theme),
+    Box
   );
 }

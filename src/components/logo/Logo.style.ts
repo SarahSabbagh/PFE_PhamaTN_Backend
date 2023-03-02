@@ -3,4 +3,5 @@ export const StyledLogo = styled("img")({
   height: "15vmin",
   Width: 20,
   margin: "auto",
+  marginTop: "3%",
 });

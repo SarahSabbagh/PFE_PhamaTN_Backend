@@ -24,7 +24,7 @@ export const PasswordInput: React.FC<PasswordInputProps & InputProps> = (
   };
 
   return (
-    <section>
+    <>
       <InputLabel htmlFor={id}>{placeholder}</InputLabel>
       <InputBase
         id={id}
@@ -47,6 +47,6 @@ export const PasswordInput: React.FC<PasswordInputProps & InputProps> = (
           </InputAdornment>
         }
       />
-    </section>
+    </>
   );
 };

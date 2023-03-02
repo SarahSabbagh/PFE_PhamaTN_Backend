@@ -1,10 +1,10 @@
 import * as React from "react";
 import { FC } from "react";
 import { Helmet } from "react-helmet";
-import { PageSignInContainerProps } from "./SignInContainer.types";
+import { SignInContainerProps } from "./SignInContainer.types";
 import { RootStyle } from "./SignInContainer.style";
 
-export const PageContainer: FC<PageSignInContainerProps> = (props) => {
+export const SignInContainer: FC<SignInContainerProps> = (props) => {
   const { title, children } = props;
   return (
     <RootStyle>

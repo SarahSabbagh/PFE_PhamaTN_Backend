@@ -5,7 +5,6 @@ export default function InputBase(theme: Theme) {
     MuiInputBase: {
       styleOverrides: {
         root: {
-          width: "100%",
           height: 60,
           color: "darkslategray",
           backgroundColor: theme.palette.background.default,

@@ -6,6 +6,7 @@ export default function InputLabel() {
           textAlign: "left",
           fontSize: 14,
           marginButtom: 0,
+         
         },
       },
     },

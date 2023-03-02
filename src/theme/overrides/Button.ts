@@ -18,7 +18,7 @@ export default function Button(theme: Theme) {
           padding: 8,
           marginBottom: 8,
           marginTop: 8,
-          
+          textAlign: "center",
           boxShadow: "none",
           height: "60px",
         },

@@ -8,9 +8,9 @@ export const BasicInputField: React.FC<BasicInputFieldProps & InputProps> = (
   const { id, placeholder, type } = props;
 
   return (
-    <section>
+    <>
       <InputLabel htmlFor={id}>{placeholder}</InputLabel>
       <InputBase id={id} placeholder={placeholder} type={type} required />
-    </section>
+    </>
   );
 };

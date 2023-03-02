@@ -5,6 +5,7 @@ export default function Link(theme: Theme) {
     MuiLink: {
       styleOverrides: {
         root: {
+          textAlign: "center",
           fontSize: 14,
           color: theme.palette.primary.dark,
           textDecoration: theme.palette.primary.dark,

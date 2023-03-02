@@ -1,5 +1,5 @@
 import * as React from "react";
-export interface BasicBoxProps {
+export interface SignInPaperProps {
   children: JSX.Element;
   title: string;
 }
