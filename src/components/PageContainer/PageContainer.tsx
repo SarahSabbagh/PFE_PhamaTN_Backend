@@ -1,5 +1,16 @@
 import * as React from "react";
-import { styled } from "@mui/system";
-import { Container, ContainerProps } from "@mui/material";
+import { Container } from "@mui/material";
+import { Helmet } from "react-helmet";
+import { PageContainerProps } from "./PageContainer.types";
 
-export const RootStyle = styled(Container)<ContainerProps>({});
+
+export const PageContainer: React.FC<PageContainerProps> = (props) => {
+    const { title, children } = props;
+    return (
+      <Container>
+        <Helmet title={title} />
+        {children}
+      </Container>
+    );
+  };
+  

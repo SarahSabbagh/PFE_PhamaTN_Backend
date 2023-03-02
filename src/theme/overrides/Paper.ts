@@ -17,7 +17,7 @@ export default function Paper(theme: Theme) {
           alignItems: "center",
           padding: "6%",
           border: "1px solid" && theme.palette.background.paper,
-          borderRadius: 5,
+          borderRadius: 10,
           backgroundColor: theme.palette.background.paper,
         },
       },
