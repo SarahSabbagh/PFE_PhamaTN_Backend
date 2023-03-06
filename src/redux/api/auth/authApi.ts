@@ -14,7 +14,7 @@ const initialState: userState = {
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://127.0.0.1:8000/api/", //`${BASE_URL}`,
+    baseUrl: `${BASE_URL}`,
   }),
   endpoints: (builder) => ({
     Login: builder.mutation({
