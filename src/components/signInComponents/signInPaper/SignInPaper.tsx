@@ -1,6 +1,6 @@
 import { Link, Paper, Stack, Typography } from "@mui/material";
 import * as React from "react";
-import { Logo } from "../../logo/Logo";
+import { Logo } from "../../commonComponents/logo/Logo";
 import { SignInLink } from "../signInContainer/signInLink/SignInLink";
 import { SignInPaperProps } from "./SignInPaper.types";
 

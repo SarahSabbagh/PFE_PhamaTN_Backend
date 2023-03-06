@@ -1,25 +1,23 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import { FormControl, FormHelperText, Input, InputLabel } from "@mui/material";
-import { bgcolor } from "@mui/system";
-
+import { SignIn } from "./pages/Login";
+import { ThemeProvider } from "@emotion/react";
+import theme from "./theme/theme";
+import { CssBaseline } from "@mui/material";
+import { Register } from "./pages/Register";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>login page.</p>
-        <div>
-          <FormControl>
-            <InputLabel htmlFor="my-input">Email address</InputLabel>
-            <Input id="my-input" aria-describedby="my-helper-text" />
-            <FormHelperText id="my-helper-text">
-              We ll never share your email.
-            </FormHelperText>
-          </FormControl>
-        </div>
-      </header>
-    </div>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <CssBaseline />
+          <SignIn />
+        </Router>
+      </ThemeProvider>
+    </Provider>
   );
 }
 
