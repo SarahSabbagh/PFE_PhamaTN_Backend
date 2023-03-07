@@ -1,29 +1,35 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { endpoints } from "../../../core/constants/endpoints";
 
-import { BASE_URL } from "../../../configutre_URL";
-import { SIGN_IN } from "../../../core/constants/endpoints";
-import { IUser, LoginRequest } from "../types/IUser";
+import { ILoginRequest, IUser } from "../types/IUser";
+import { userApi } from "../user/userApi";
 
 export interface userState {
   user: IUser | null;
 }
-const initialState: userState = {
-  user: null,
-};
 
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${BASE_URL}`,
+    baseUrl: "http://127.0.0.1:8000", //`${BASE_URL}`,
   }),
   endpoints: (builder) => ({
-    Login: builder.mutation({
-      query({ LoginRequest }) {
+    login: builder.mutation<
+      {
+        status: string;
+        message: string;
+        user: IUser;
+        access_token: string;
+      },
+      ILoginRequest
+    >({
+      query(LoginRequest) {
+        console.log(LoginRequest);
         return {
-          url: "login", //SIGN_IN,
+          url: endpoints.SIGN_IN,
           method: "POST",
           body: LoginRequest,
-          //credentials: "include",
+          credentials: "include",
         };
       },
     }),

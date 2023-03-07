@@ -1,6 +1,5 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { BasicInputField } from "../components/commonComponents/InputField/basicInput/BasicInputField";
 import { SignInPaper } from "../components/signInComponents/signInPaper/SignInPaper";
 import { FC } from "react";
 import { PasswordInput } from "../components/commonComponents/InputField/passwordInput/PasswordInput";
@@ -21,8 +20,12 @@ export const Register: FC = () => {
             justifyContent="center"
             width="100%"
           >
-            <BasicInputField id="email" placeholder="Email" type="email" />
-            <PasswordInput id="password" placeholder="Mot de passe" />
+            <PasswordInput
+              id="password"
+              label="Mot de passe"
+              name="password"
+              placeholder="Mot de passe"
+            />
             <Button type="submit">Connexion</Button>
           </Box>
         </Paper>

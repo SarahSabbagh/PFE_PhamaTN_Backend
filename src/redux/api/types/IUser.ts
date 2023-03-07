@@ -12,7 +12,7 @@ export interface IUser {
   type: string;
 }
 
-export interface LoginRequest {
+export interface ILoginRequest {
   email: string;
   password: string;
 }
