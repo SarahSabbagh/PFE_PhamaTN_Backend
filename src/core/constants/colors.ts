@@ -41,6 +41,7 @@ export const colors = {
     dark: "#262626",
   },
   contrastThreshold: 3,
+
 };
 import { blue } from "@mui/material/colors";
 

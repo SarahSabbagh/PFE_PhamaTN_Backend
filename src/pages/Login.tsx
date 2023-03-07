@@ -12,9 +12,22 @@ import { FormInput } from "../components/commonComponents/InputField/formInput/F
 import { labels } from "../core/constants/label";
 import { buttonsValues } from "../core/constants/buttonsValues";
 import { pagesTitles } from "../core/constants/pagesTitle";
+import { TypeOf } from "zod";
+import { loginSchema } from "../core/utils/validator";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export const SignIn: FC = () => {
-  const methods = useForm<ILoginRequest>();
+  type ILoginRequest = TypeOf<typeof loginSchema>;
+
+  // ? Default Values
+  const defaultValues: ILoginRequest = {
+    email: "",
+    password: "",
+  };
+  const methods = useForm<ILoginRequest>({
+    resolver: zodResolver(loginSchema),
+    defaultValues,
+  });
   const {
     control,
     handleSubmit,
@@ -48,6 +61,7 @@ export const SignIn: FC = () => {
                 name="email"
                 required
               />
+
               <PasswordInput
                 id="password"
                 label={labels.PASSWORD}

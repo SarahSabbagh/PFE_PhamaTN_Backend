@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+  FormHelperText,
   IconButton,
   InputAdornment,
   InputBase,
@@ -55,7 +56,11 @@ export const PasswordInput: React.FC<PasswordInputProps & InputProps> = (
                 </IconButton>
               </InputAdornment>
             }
+            error={!!errors[name]}
           />
+          <FormHelperText id={id} error={!!errors[name]}>
+            {errors[name] ? (errors[name]?.message as string) : ""}
+          </FormHelperText>
         </>
       )}
     />

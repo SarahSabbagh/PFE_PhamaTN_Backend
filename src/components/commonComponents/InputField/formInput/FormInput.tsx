@@ -1,5 +1,10 @@
 import * as React from "react";
-import { InputBase, InputProps, InputLabel } from "@mui/material";
+import {
+  InputBase,
+  InputProps,
+  InputLabel,
+  FormHelperText,
+} from "@mui/material";
 import { FormInputProps } from "./FormInput.types";
 import { Controller, useFormContext } from "react-hook-form";
 
@@ -18,6 +23,9 @@ export const FormInput: React.FC<FormInputProps & InputProps> = (props) => {
         <>
           <InputLabel htmlFor={id}>{label}</InputLabel>
           <InputBase {...field} {...props} error={!!errors[name]} />
+          <FormHelperText id={id} error={!!errors[name]}>
+            {errors[name] ? (errors[name]?.message as unknown as string) : ""}
+          </FormHelperText>
         </>
       )}
     />
