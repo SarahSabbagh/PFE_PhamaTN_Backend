@@ -9,7 +9,6 @@ export default function InputBase(theme: Theme) {
           color: "darkslategray",
           backgroundColor: theme.palette.background.default,
           border: "1px solid #F2F2F2",
-
           borderRadius: 5,
           padding: 8,
           marginBottom: 8,

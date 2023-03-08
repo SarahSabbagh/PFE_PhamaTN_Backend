@@ -1,6 +1,10 @@
 import { TypographyOptions } from "@mui/material/styles/createTypography";
 import { colors } from "../../core/constants/colors";
-
+declare module '@mui/material/Button' {
+  interface TypographyPropsVariantOverrides {
+    dashed: true;
+  }
+}
 export const typography: TypographyOptions = {
   h1: {
     textAlign: "center",
@@ -33,6 +37,9 @@ export const typography: TypographyOptions = {
     lineHeight: 2,
     letterSpacing: "normal",
   },
+
+
+  caption: { color: colors.error.main },
 };
 export default function Typography() {
   return {

@@ -5,9 +5,13 @@ export default function FormHelperText(theme: Theme) {
     MuiFormHelperText: {
       styleOverrides: {
         root: {
-          fontSize: 9,
-          marginTop: 0,
-          paddingBottom: 7,
+          color: theme.palette.error.main,
+
+          marginTop: "-3px",
+          minHeight: "22px",
+          "&.Mui-error": {
+            color: theme.palette.error.main,
+          },
         },
       },
     },

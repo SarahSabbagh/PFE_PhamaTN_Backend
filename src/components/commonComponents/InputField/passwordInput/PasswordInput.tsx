@@ -6,6 +6,7 @@ import {
   InputBase,
   InputLabel,
   InputProps,
+  Stack,
 } from "@mui/material";
 import { PasswordInputProps } from "./PasswordInputProps.types";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
@@ -34,7 +35,7 @@ export const PasswordInput: React.FC<PasswordInputProps & InputProps> = (
       name={name}
       defaultValue=""
       render={({ field }) => (
-        <>
+        <Stack>
           <InputLabel htmlFor={id}>{label}</InputLabel>
           <InputBase
             {...field}
@@ -61,7 +62,7 @@ export const PasswordInput: React.FC<PasswordInputProps & InputProps> = (
           <FormHelperText id={id} error={!!errors[name]}>
             {errors[name] ? (errors[name]?.message as string) : ""}
           </FormHelperText>
-        </>
+        </Stack>
       )}
     />
   );

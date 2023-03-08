@@ -7,6 +7,8 @@ import InputLabel from "./overrides/InputLabel";
 import Paper from "./overrides/Paper";
 import Container from "./overrides/Container";
 import Box from "./overrides/Box";
+import Stack from "./overrides/Stack";
+import FormHelperText from "./overrides/FormHelperText";
 
 export default function ComponentsOverrides(theme: Theme) {
   return Object.assign(
@@ -17,6 +19,8 @@ export default function ComponentsOverrides(theme: Theme) {
     InputLabel,
     Paper(theme),
     Container(theme),
+    Stack,
+    FormHelperText(theme),
     Box
   );
 }
