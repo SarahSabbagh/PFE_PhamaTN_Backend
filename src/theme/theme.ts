@@ -6,8 +6,8 @@ import { palette } from "./palette";
 
 const theme = createTheme({
   palette,
-  typography,
   breakpoints,
+  typography,
 });
 theme.components = ComponentsOverrides(theme);
 export default theme;

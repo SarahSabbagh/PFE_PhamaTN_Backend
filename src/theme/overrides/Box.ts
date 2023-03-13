@@ -6,7 +6,6 @@ export default function Box() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          marginTop: "20px",
           alignText: "left",
         },
       },

@@ -1,19 +1,22 @@
 import { Link, Paper, Stack, Typography } from "@mui/material";
 import * as React from "react";
 import { Logo } from "../../commonComponents/logo/Logo";
-import { SignInLink } from "../signInContainer/signInLink/SignInLink";
+import { SignInLink } from "../signInLink/SignInLink";
+import { StyledSignInPaper, StyledTitle } from "./SignInPaper.style";
 import { SignInPaperProps } from "./SignInPaper.types";
 
 export const SignInPaper: React.FC<SignInPaperProps> = (props) => {
   const { title, children } = props;
   return (
-    <Paper elevation={3}>
+    <StyledSignInPaper elevation={3}>
+      {/* ----------------------------------------------  Logo  -------------------------------------------------*/}
       <Logo />
-      <Typography variant="h1" display="flex" marginBottom="5%">
-        {title}
-      </Typography>
+      {/* ----------------------------------------------  Title  -------------------------------------------------*/}
+      <StyledTitle variant="h1">{title}</StyledTitle>
+      {/* ----------------------------------------------  Children  -------------------------------------------------*/}
+
       {children}
       <SignInLink />
-    </Paper>
+    </StyledSignInPaper>
   );
 };

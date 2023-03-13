@@ -23,6 +23,9 @@ function App() {
             <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/login" element={<SignIn />} />
           </Routes>
+          <Routes>
+            <Route path="/register" element={<Register />} />
+          </Routes>
         </Router>
       </ThemeProvider>
     </Provider>
