@@ -8,4 +8,5 @@ export const palette = {
   warning: colors.warning,
   error: colors.error,
   background: colors.background,
+  text: colors.text,
 };

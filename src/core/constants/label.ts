@@ -1,4 +1,15 @@
 export const labels = {
+  NAME: "Nom",
   EMAIL: "Email",
   PASSWORD: "Mot de passe",
+  CONFIRM_PASSWORD: "Confirmer mot de passe",
+  ARE_YOU: "êtes- Vous?",
+  PHARMACY: "Pharmacie",
+  WHOLESALE: "Grossiste",
+  TYPE: "Type",
+  FIRST_NAME: "Prénom de pharmacien(ne)",
+  LAST_NAME: "Nom de pharmacien(ne)",
+  PHONE: "Téléphone",
+  FAX: "Fax",
+  ADDRESS:"Adresse",
 };

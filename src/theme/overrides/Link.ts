@@ -6,7 +6,7 @@ export default function Link(theme: Theme) {
       styleOverrides: {
         root: {
           textAlign: "center",
-          fontSize: 14,
+          fontSize: "0.875rem",
           color: theme.palette.primary.dark,
           textDecoration: theme.palette.primary.dark,
           ":hover": {

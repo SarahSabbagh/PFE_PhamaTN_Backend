@@ -4,22 +4,20 @@ import Button from "./overrides/Button";
 import Typography from "./overrides/Typography";
 import Link from "./overrides/Link";
 import InputLabel from "./overrides/InputLabel";
-import Paper from "./overrides/Paper";
 import Container from "./overrides/Container";
 import Box from "./overrides/Box";
-import Stack from "./overrides/Stack";
 import FormHelperText from "./overrides/FormHelperText";
+import Paper from "./overrides/Paper";
 
 export default function ComponentsOverrides(theme: Theme) {
   return Object.assign(
     Button(theme),
+    Paper(theme),
     Typography,
     InputBase(theme),
     Link(theme),
     InputLabel,
-    Paper(theme),
     Container(theme),
-    Stack,
     FormHelperText(theme),
     Box
   );

@@ -33,15 +33,14 @@ export const colors = {
     dark: "#e65100",
   },
   background: {
-    paper: "#F9FEFE", //"#F1FFFA", //"#F2F2F2",
+    paper: "#F8F8F8", //"#F9FEFE", //"#F1FFFA", //"#F2F2F2",
     default: "#ffff",
   },
   text: {
-    main: "#404040",
-    dark: "#262626",
+    primary: "#262626",
+    secondary: "#404040",
   },
   contrastThreshold: 3,
-
 };
 import { blue } from "@mui/material/colors";
 

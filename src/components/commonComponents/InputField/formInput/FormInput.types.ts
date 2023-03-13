@@ -4,4 +4,5 @@ export interface FormInputProps {
   id: string;
   label: string;
   name: string;
+  eyeIcon?: boolean;
 }

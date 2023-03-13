@@ -7,8 +7,8 @@ export default function FormHelperText(theme: Theme) {
         root: {
           color: theme.palette.error.main,
 
-          marginTop: "-3px",
-          minHeight: "22px",
+          marginTop: "-0.1875rem",
+          minHeight: "1.375rem",
           "&.Mui-error": {
             color: theme.palette.error.main,
           },

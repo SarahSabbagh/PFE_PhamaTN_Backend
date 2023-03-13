@@ -5,15 +5,16 @@ export default function InputBase(theme: Theme) {
     MuiInputBase: {
       styleOverrides: {
         root: {
-          height: 60,
+          width: "100%",
+          height: "3.125rem          ",
           color: "darkslategray",
           backgroundColor: theme.palette.background.default,
           border: "1px solid #F2F2F2",
-          borderRadius: 5,
-          padding: 8,
-          marginBottom: 8,
-          marginTop: 8,
-          fontSize: 16,
+          borderRadius: "0.3125rem",
+          padding: "0.5rem",
+          marginBottom: 6,
+          marginTop: "0.5rem",
+          fontSize: "1rem",
           textoverflow: "ellipsis",
           ":hover": {
             border: "2px solid ",

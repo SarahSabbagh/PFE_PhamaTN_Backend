@@ -4,9 +4,8 @@ export default function InputLabel() {
       styleOverrides: {
         root: {
           textAlign: "left",
-          fontSize: 14,
+          fontSize: "0.875rem",
           marginButtom: 0,
-         
         },
       },
     },
