@@ -5,19 +5,13 @@ export default function Paper(theme: Theme) {
     MuiPaper: {
       styleOverrides: {
         root: {
-          width: "30vw",
-          minWidth: "320px",
-          [theme.breakpoints.down("sm")]: {
-            height: "100vh",
-            width: "100vw",
-          },
+          padding: "2rem",
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
           alignItems: "center",
-          padding: "6%",
           border: "1px solid" && theme.palette.background.paper,
-          borderRadius: 10,
+          borderRadius: "0.7rem",
           backgroundColor: theme.palette.background.paper,
         },
       },

@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { BASE_URL } from "../../../configure_URL";
 import { endpoints } from "../../../core/constants/endpoints";
 
 import { ILoginRequest, IUser } from "../types/IUser";
-import { userApi } from "../user/userApi";
 
 export interface userState {
   user: IUser | null;
@@ -11,7 +11,7 @@ export interface userState {
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://127.0.0.1:8000", //`${BASE_URL}`,
+    baseUrl: `${BASE_URL}`,
   }),
   endpoints: (builder) => ({
     login: builder.mutation<

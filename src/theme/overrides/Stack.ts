@@ -1,11 +1,11 @@
-import { Theme } from "@mui/material";
-
-export default function Stack(theme: Theme) {
+export default function Stack() {
   return {
-    MuiStacKt: {
+    MuiStack: {
       styleOverrides: {
         root: {
-          minHeight: "122px",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
         },
       },
     },

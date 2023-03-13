@@ -2,19 +2,18 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { SignInPaper } from "../components/signInComponents/signInPaper/SignInPaper";
 import { FC } from "react";
-import { PasswordInput } from "../components/commonComponents/InputField/passwordInput/PasswordInput";
 import { SignInContainer } from "../components/signInComponents/signInContainer/SignInContainer";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useLoginMutation } from "../redux/api/auth/authApi";
-import { ILoginRequest } from "../redux/api/types/IUser";
 import { FormInput } from "../components/commonComponents/InputField/formInput/FormInput";
 import { labels } from "../core/constants/label";
 import { buttonsValues } from "../core/constants/buttonsValues";
-import { pagesTitles } from "../core/constants/pagesTitle";
+import { titles } from "../core/constants/title";
 import { TypeOf } from "zod";
 import { loginSchema } from "../core/utils/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ButtonSignIn } from "../components/signInComponents/buttonSignIn/ButtonSignIn";
 
 export const SignIn: FC = () => {
   type ILoginRequest = TypeOf<typeof loginSchema>;
@@ -36,13 +35,16 @@ export const SignIn: FC = () => {
 
   const [login] = useLoginMutation();
 
-  const submitHandler: SubmitHandler<ILoginRequest> = (data) => login(data);
+  const submitHandler: SubmitHandler<ILoginRequest> = (data) => {
+    login(data);
+    console.log(data);
+  };
 
   return (
-    <SignInContainer title={pagesTitles.SIGN_IN}>
+    <SignInContainer title={titles.PAGE_SIGN_IN}>
       <Grid>
         <FormProvider {...methods}>
-          <SignInPaper title={pagesTitles.APP}>
+          <SignInPaper title={titles.APP}>
             <Box
               component="form"
               onSubmit={handleSubmit(submitHandler)}
@@ -53,22 +55,31 @@ export const SignIn: FC = () => {
               justifyContent="center"
               width="100%"
             >
-              <FormInput
-                id="email"
-                placeholder={labels.EMAIL}
-                type="email"
-                label={labels.EMAIL}
-                name="email"
-                required
-              />
+              {/* ----------------------------------------  Email   ----------------------------------------------*/}
+              <Grid xs={12}>
+                <FormInput
+                  id="email"
+                  placeholder={labels.EMAIL}
+                  type="email"
+                  label={labels.EMAIL}
+                  name="email"
+                  required
+                />
+              </Grid>
+              {/* ----------------------------------------  Password   ----------------------------------------------*/}
+              <Grid xs={12}>
+                <FormInput
+                  id="password"
+                  type="password"
+                  label={labels.PASSWORD}
+                  name="password"
+                  placeholder={labels.PASSWORD}
+                  eyeIcon
+                />
+              </Grid>
+              {/* ----------------------------------------  Button SignIn   ----------------------------------------------*/}
 
-              <PasswordInput
-                id="password"
-                label={labels.PASSWORD}
-                name="password"
-                placeholder={labels.PASSWORD}
-              />
-              <Button type="submit">{buttonsValues.SIGN_IN}</Button>
+              <ButtonSignIn type="submit">{buttonsValues.SIGN_IN}</ButtonSignIn>
             </Box>
           </SignInPaper>
         </FormProvider>

@@ -6,7 +6,6 @@ export default function Container(theme: Theme) {
       styleOverrides: {
         root: {
           backgroundColor: theme.palette.background.default,
-          padding: 2,
           fontFamily: "Roboto abchanel-corpo Arial Helvetica sans-serif",
           display: "flex",
           flexDirection: "column",
@@ -14,7 +13,7 @@ export default function Container(theme: Theme) {
           alignItems: "center",
           fontSize: 16,
           minWidth: "100vw",
-          height: "100vh",
+          minHeight: "100vh",
         },
       },
     },
