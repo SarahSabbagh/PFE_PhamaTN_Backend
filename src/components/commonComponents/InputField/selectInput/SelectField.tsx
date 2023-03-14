@@ -8,7 +8,7 @@ import {
   Stack,
 } from "@mui/material";
 import * as React from "react";
-import { SelectEm, SelectFieldStyle } from "./SelectField.style";
+import { SyledPlaceholder, SelectFieldStyle } from "./SelectField.style";
 import { SelectFieldProps } from "./SelectField.types";
 
 const names = [
@@ -57,7 +57,7 @@ export const SelectField: React.FC<
         displayEmpty
       >
         <MenuItem disabled value="">
-          <SelectEm>item</SelectEm>
+          <SyledPlaceholder>{label}</SyledPlaceholder>
         </MenuItem>
         {names.map((name) => (
           <MenuItem key={name} value={name}>

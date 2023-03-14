@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Stack } from "@mui/material";
-import { labels } from "../../../core/constants/label";
 import { StyledChip, StyledQuestion } from "./RoleBlock.style";
 import DoneIcon from "@mui/icons-material/Done";
 import Grid from "@mui/material/Unstable_Grid2";

@@ -5,19 +5,20 @@ import {
   ChipProps,
   styled,
 } from "@mui/material";
+import { fonts } from "../../../core/constants/fonts";
 
 /* ----------------------------------------------  Styled Chip  -------------------------------------------------*/
 
 export const StyledChip = styled(Chip)<ChipProps>(({ theme }) => ({
+  fontFamily: fonts.POPPINS_REGULAR,
   color: theme.palette.text.secondary,
   fontSize: "0.875rem",
-  "&:focus": {
-    backgroundColor: theme.palette.secondary.light,
-  },
   "&:hover": { backgroundColor: theme.palette.secondary.light },
+  "&:focus": { backgroundColor: theme.palette.secondary.light },
 }));
 
 /* ----------------------------------------------  Styled Typography  -------------------------------------------------*/
 export const StyledQuestion = styled(Typography)<TypographyProps>({
   lineHeight: 2,
+  fontFamily: fonts.PRIMARY_BOLD,
 });

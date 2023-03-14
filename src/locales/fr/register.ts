@@ -5,10 +5,10 @@ export const register = {
 
   //label
   NAME_LABEL: "Nom",
-  EMAIL_LABEL: "Email",
+  EMAIL_LABEL: "E-mail",
   PASSWORD_LABEL: "Mot de passe",
   CONFIRM_PASSWORD_LABEL: "Confirmer mot de passe",
-  ARE_YOU_LABEL: "êtes- Vous?",
+  ARE_YOU_LABEL: "Etes- Vous?",
   PHARMACY_LABEL: "Pharmacie",
   WHOLESALE_LABEL: "Grossiste",
   TYPE_LABEL: "Type",

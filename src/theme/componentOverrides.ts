@@ -15,7 +15,6 @@ export default function ComponentsOverrides(theme: Theme) {
     Paper(theme),
     Typography,
     InputBase(theme),
-    Link(theme),
     InputLabel,
     Container(theme),
     FormHelperText(theme),
