@@ -2,28 +2,68 @@ import {
   InputLabel,
   InputProps,
   MenuItem,
+  Select,
   SelectChangeEvent,
+  SelectProps,
   Stack,
 } from "@mui/material";
 import * as React from "react";
-import { SelectFieldStyle } from "./SelectField.style";
+import { SelectEm, SelectFieldStyle } from "./SelectField.style";
 import { SelectFieldProps } from "./SelectField.types";
 
-export const SelectField: React.FC<SelectFieldProps & InputProps> = (props) => {
+const names = [
+  "Ariana",
+  "Béja",
+  "Ben Arous",
+  "Bizerte",
+  "Gabès",
+  "Gafsa",
+  "Jendouba",
+  "Kairouan",
+  "Kasserine",
+  "Kébili",
+  "Le Kef",
+  "Mahdia",
+  "La Manouba",
+  "Médenine",
+  "Monastir",
+  "Nabeul",
+  "Sfax",
+  "Sidi Bouzid",
+  "Siliana",
+  "Sousse",
+  "Tataouine",
+  "Tozeur",
+  "Tunis",
+  "Zaghouan",
+];
+export const SelectField: React.FC<
+  SelectFieldProps & SelectProps & InputProps
+> = (props) => {
   const { id, label, placeholder } = props;
 
-  const [age, setAge] = React.useState("");
+  const [name, setName] = React.useState("");
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+    setName(event.target.value);
   };
   return (
     <Stack>
       <InputLabel htmlFor={id}>{label}</InputLabel>
-      <SelectFieldStyle value={age} placeholder={placeholder}>
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
+      <SelectFieldStyle
+        value={name}
+        onChange={(event: any) => handleChange(event)}
+        id={id}
+        displayEmpty
+      >
+        <MenuItem disabled value="">
+          <SelectEm>item</SelectEm>
+        </MenuItem>
+        {names.map((name) => (
+          <MenuItem key={name} value={name}>
+            {name}
+          </MenuItem>
+        ))}
       </SelectFieldStyle>
     </Stack>
   );

@@ -26,7 +26,6 @@ export const StyledSignInPaper = styled(Paper)<PaperProps>(({ theme }) => ({
 }));
 
 export const StyledTitle = styled(Typography)<TypographyProps>(({ theme }) => ({
-  display: "flex",
   marginBottom: "2rem",
   [theme.breakpoints.down("sm")]: {
     marginBottom: "4rem",

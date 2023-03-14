@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { BASE_URL } from "../../../configure_URL";
+import { BASE_URL } from "../../../configuredURL";
 import { endpoints } from "../../../core/constants/endpoints";
 
 import { ILoginRequest, IUser } from "../types/IUser";
@@ -24,6 +24,9 @@ export const authApi = createApi({
       ILoginRequest
     >({
       query(LoginRequest) {
+        console.log(
+          `${process.env.REACT_APP_SERVER_ENDPOINT}` + endpoints.SIGN_IN
+        );
         console.log(LoginRequest);
         return {
           url: endpoints.SIGN_IN,

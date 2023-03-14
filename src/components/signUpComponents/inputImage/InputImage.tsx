@@ -2,6 +2,7 @@ import * as React from "react";
 import { InputLabel, Stack } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { StyledButton, StyledInput, StyledInputBase } from "./InputImage.style";
+import { InputImageProps } from "./InputImage.types";
 
 const convertSize = (size: number) => {
   const def = [
@@ -17,7 +18,8 @@ const convertSize = (size: number) => {
   }
 };
 
-export const InputImage: React.FC = () => {
+export const InputImage: React.FC<InputImageProps> = (props) => {
+  const {label, id ,placeholder}=props;
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = React.useState("");
   const handleClick = () => {
@@ -33,17 +35,17 @@ export const InputImage: React.FC = () => {
 
   return (
     <>
-      <InputLabel htmlFor="photo">photo de profil</InputLabel>
+      <InputLabel htmlFor={id}>{label}</InputLabel>
       <Stack direction={"row"}>
         <StyledInputBase
-          placeholder="photo de profil"
+          placeholder={placeholder}
           onClick={handleClick}
           value={inputValue}
           readOnly
         />
         <StyledButton
           component="label"
-          id="photo"
+          id={id}
           variant="contained"
           onClick={handleClick}
         >
