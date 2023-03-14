@@ -7,15 +7,14 @@ import { Box } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useLoginMutation } from "../redux/api/auth/authApi";
 import { FormInput } from "../components/commonComponents/InputField/formInput/FormInput";
-import { labels } from "../core/constants/label";
-import { buttonsValues } from "../core/constants/buttonsValues";
-import { titles } from "../core/constants/title";
 import { TypeOf } from "zod";
 import { loginSchema } from "../core/utils/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ButtonSignIn } from "../components/signInComponents/buttonSignIn/ButtonSignIn";
+import { useTranslation } from "react-i18next";
 
 export const SignIn: FC = () => {
+  const { t } = useTranslation();
   type ILoginRequest = TypeOf<typeof loginSchema>;
 
   // ? Default Values
@@ -41,14 +40,13 @@ export const SignIn: FC = () => {
   };
 
   return (
-    <SignInContainer title={titles.PAGE_SIGN_IN}>
+    <SignInContainer title={t("login.TITLE_PAGE_SIGN_IN")}>
       <Grid>
         <FormProvider {...methods}>
-          <SignInPaper title={titles.APP}>
+          <SignInPaper title={t("login.TITLE_APP")}>
             <Box
               component="form"
               onSubmit={handleSubmit(submitHandler)}
-              method="POST"
               noValidate
               display="flex"
               flexDirection="column"
@@ -59,9 +57,9 @@ export const SignIn: FC = () => {
               <Grid xs={12}>
                 <FormInput
                   id="email"
-                  placeholder={labels.EMAIL}
+                  placeholder={t("login.EMAIL_LABEL")}
                   type="email"
-                  label={labels.EMAIL}
+                  label={t("login.EMAIL_LABEL")}
                   name="email"
                   required
                 />
@@ -71,15 +69,15 @@ export const SignIn: FC = () => {
                 <FormInput
                   id="password"
                   type="password"
-                  label={labels.PASSWORD}
+                  label={t("login.PASSWORD_LABEL")}
                   name="password"
-                  placeholder={labels.PASSWORD}
+                  placeholder={t("login.PASSWORD_LABEL")}
                   eyeIcon
                 />
               </Grid>
               {/* ----------------------------------------  Button SignIn   ----------------------------------------------*/}
 
-              <ButtonSignIn type="submit">{buttonsValues.SIGN_IN}</ButtonSignIn>
+              <ButtonSignIn type="submit">{t("login.SIGN_IN")}</ButtonSignIn>
             </Box>
           </SignInPaper>
         </FormProvider>

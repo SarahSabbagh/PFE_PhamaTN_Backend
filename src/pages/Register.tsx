@@ -17,8 +17,11 @@ import { titles } from "../core/constants/title";
 import { SelectField } from "../components/commonComponents/InputField/selectInput/SelectField";
 import { SignInContainer } from "../components/signInComponents/signInContainer/SignInContainer";
 import { InputImage } from "../components/signUpComponents/inputImage/InputImage";
+import { useTranslation } from "react-i18next";
 
 export const Register: FC = () => {
+  const { t } = useTranslation();
+
   type ILoginRequest = TypeOf<typeof loginSchema>;
 
   // ? Default Values
@@ -41,14 +44,13 @@ export const Register: FC = () => {
     console.log(data);
 
   return (
-    <SignInContainer title={titles.PAGE_SIGN_UP}>
+    <SignInContainer title={t("register.TITLE_PAGE_SIGN_UP")}>
       <Grid container>
-        <SignUpPaper title={titles.SIGN_UP}>
+        <SignUpPaper title={t("register.TITLE_SIGN_UP")}>
           <FormProvider {...methods}>
             <Box
               component="form"
               onSubmit={handleSubmit(submitHandler)}
-              method="POST"
               noValidate
             >
               <Grid container rowSpacing={1} columnSpacing={2}>
@@ -56,9 +58,9 @@ export const Register: FC = () => {
                 <Grid xs={12} md={6}>
                   <FormInput
                     id="name"
-                    placeholder={labels.NAME}
+                    placeholder={t("register.NAME_LABEL")}
                     type="Text"
-                    label={labels.NAME}
+                    label={t("register.NAME_LABEL")}
                     name="name"
                     required
                   />
@@ -68,9 +70,9 @@ export const Register: FC = () => {
                 <Grid xs={12} md={6}>
                   <FormInput
                     id="email"
-                    placeholder={labels.EMAIL}
+                    placeholder={t("register.EMAIL_LABEL")}
                     type="email"
-                    label={labels.EMAIL}
+                    label={t("register.EMAIL_LABEL")}
                     name="email"
                     required
                   />
@@ -81,9 +83,9 @@ export const Register: FC = () => {
                   <FormInput
                     id="password"
                     type="password"
-                    label={labels.PASSWORD}
+                    label={t("register.PASSWORD_LABEL")}
                     name="password"
-                    placeholder={labels.PASSWORD}
+                    placeholder={t("register.PASSWORD_LABEL")}
                     eyeIcon
                   />
                 </Grid>
@@ -93,9 +95,9 @@ export const Register: FC = () => {
                   <FormInput
                     id="confirmPassword"
                     type="password"
-                    label={labels.CONFIRM_PASSWORD}
+                    label={t("register.CONFIRM_PASSWORD_LABEL")}
                     name="confirmPassword"
-                    placeholder={labels.CONFIRM_PASSWORD}
+                    placeholder={t("register.PASSWORD_LABEL")}
                     eyeIcon
                   />
                 </Grid>
@@ -109,9 +111,9 @@ export const Register: FC = () => {
                 <Grid xs={12} md={6}>
                   <FormInput
                     id="firstName"
-                    placeholder={labels.FIRST_NAME}
+                    placeholder={t("register.FIRST_NAME_LABEL")}
                     type="Text"
-                    label={labels.FIRST_NAME}
+                    label={t("register.FIRST_NAME_LABEL")}
                     name="firstName"
                     required
                   />
@@ -121,9 +123,9 @@ export const Register: FC = () => {
                 <Grid xs={12} md={6}>
                   <FormInput
                     id="lastName"
-                    placeholder={labels.LAST_NAME}
+                    placeholder={t("register.LAST_NAME_LABEL")}
                     type="Text"
-                    label={labels.LAST_NAME}
+                    label={t("register.LAST_NAME_LABEL")}
                     name="lastName"
                     required
                   />
@@ -133,23 +135,27 @@ export const Register: FC = () => {
                 <Grid xs={12} md={6}>
                   <SelectField
                     id="governorate"
-                    label="Gobernorate"
-                    placeholder="Governorate"
+                    label={t("register.GOVERNORATE_LABEL")}
+                    placeholder={t("register.GOVERNORATE_LABEL")}
                   />
                 </Grid>
 
                 {/* --------------------------------------------- City  -------------------------------------------------*/}
                 <Grid xs={12} md={6}>
-                  <SelectField id="city" label="Ville" placeholder="Ville" />
+                  <SelectField
+                    id="city"
+                    label={t("register.CITY_LABEL")}
+                    placeholder={t("register.CITY_LABEL")}
+                  />
                 </Grid>
 
                 {/* --------------------------------------------- Address -------------------------------------------------*/}
                 <Grid xs={12} md={6}>
                   <FormInput
                     id="address"
-                    placeholder={labels.ADDRESS}
+                    placeholder={t("register.ADDRESS_LABEL")}
                     type="Text"
-                    label={labels.ADDRESS}
+                    label={t("register.ADDRESS_LABEL")}
                     name="address"
                     required
                   />
@@ -157,16 +163,20 @@ export const Register: FC = () => {
 
                 {/* --------------------------------------------- Profil photo -------------------------------------------------*/}
                 <Grid xs={12} md={6}>
-                  <InputImage />
+                  <InputImage
+                    id="photo"
+                    label={t("register.IMAGE_LABEL")}
+                    placeholder={t("register.IMAGE_LABEL")}
+                  />
                 </Grid>
 
                 {/* --------------------------------------------- Phone -------------------------------------------------*/}
                 <Grid xs={12} md={6}>
                   <FormInput
                     id="phone"
-                    placeholder={labels.PHONE}
+                    placeholder={t("register.PHONE_LABEL")}
                     type="text"
-                    label={labels.PHONE}
+                    label={t("register.PHONE_LABEL")}
                     name="phone"
                     required
                   />
@@ -176,9 +186,9 @@ export const Register: FC = () => {
                 <Grid xs={12} md={6}>
                   <FormInput
                     id="fax"
-                    placeholder={labels.FAX}
+                    placeholder={t("register.FAX_LABEL")}
                     type="text"
-                    label={labels.FAX}
+                    label={t("register.FAX_LABEL")}
                     name="fax"
                     required
                   />
@@ -193,7 +203,7 @@ export const Register: FC = () => {
                   justifyContent="center"
                 >
                   <ButtonSignUp type="submit">
-                    {buttonsValues.SIGN_UP}
+                    {t("register.SIGN_UP")}
                   </ButtonSignUp>
                 </Grid>
               </Grid>
