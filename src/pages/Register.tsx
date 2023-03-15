@@ -137,12 +137,12 @@ export const Register: FC = () => {
                   />
                 </Grid>
 
-                {/* --------------------------------------------- City  -------------------------------------------------*/}
+                {/* --------------------------------------------- DELEGATION  -------------------------------------------------*/}
                 <Grid xs={12} md={6}>
                   <SelectField
                     id="city"
-                    label={t("register.CITY_LABEL")}
-                    placeholder={t("register.CITY_LABEL")}
+                    label={t("register.DELEGATION_LABEL")}
+                    placeholder={t("register.DELEGATION_LABEL")}
                   />
                 </Grid>
 

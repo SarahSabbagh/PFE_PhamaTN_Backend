@@ -15,7 +15,7 @@ export const register = {
   FIRST_NAME_LABEL: "Prénom de pharmacien(ne)",
   LAST_NAME_LABEL: "Nom de pharmacien(ne)",
   GOVERNORATE_LABEL: "Gouvernorat",
-  CITY_LABEL: "Ville",
+  DELEGATION_LABEL: "Délégation",
   IMAGE_LABEL: "Photo de profil",
   PHONE_LABEL: "Téléphone",
   FAX_LABEL: "Fax",

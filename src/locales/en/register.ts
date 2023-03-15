@@ -15,7 +15,7 @@ export const register = {
   FIRST_NAME_LABEL: "Pharmacy firstname",
   LAST_NAME_LABEL: "Pharmacy lastname",
   GOVERNORATE_LABEL: "Governorate",
-  CITY_LABEL: "City",
+  DELEGATION_LABEL: "Delegation",
   IMAGE_LABEL: "Profile picture",
   PHONE_LABEL: "Phone",
   FAX_LABEL: "Fax",
