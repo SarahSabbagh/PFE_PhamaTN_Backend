@@ -14,6 +14,9 @@ export const StyledButton = styled(
   ({ component = "button", ...props }: StyledButtonProps) =>
     React.createElement(component, props)
 )(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
   backgroundColor: theme.palette.primary.main,
   color: theme.palette.info.light,
   border: "1px solid",
@@ -29,13 +32,11 @@ export const StyledButton = styled(
   height: "3.125rem",
 }));
 
-export const StyledInputBase = styled(InputBase)<InputBaseProps>(
-  ({ theme }) => ({
-    borderRadius: "0.3125rem",
-    borderBottomRightRadius: 0,
-    borderTopRightRadius: 0,
-  })
-);
+export const StyledInputBase = styled(InputBase)<InputBaseProps>({
+  borderRadius: "0.3125rem",
+  borderBottomRightRadius: 0,
+  borderTopRightRadius: 0,
+});
 export const StyledInput = styled(Input)({
   display: "none",
 });

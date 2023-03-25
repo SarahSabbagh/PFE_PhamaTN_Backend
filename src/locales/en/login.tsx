@@ -16,6 +16,7 @@ export const signIn = {
   DO_NOT_HAVE_ACCOUNT: "Do not have an account ? ",
 
   //error message
+  IS_REQUIRED: "Is required",
   Email_IS_REQUIRED: " Email is required",
   EMAIL_INVALID: "Email is invalid",
 

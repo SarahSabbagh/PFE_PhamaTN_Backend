@@ -14,6 +14,7 @@ export const login = {
   DO_NOT_HAVE_ACCOUNT: "Vous n'avez pas de compte ? ",
 
   //error message
+  IS_REQUIRED: "Champ obligatoire",
   Email_IS_REQUIRED: "Veuillez entrer une adresse e-mail",
   EMAIL_INVALID: "Veuillez entrer une adresse e-mail valide ",
 
