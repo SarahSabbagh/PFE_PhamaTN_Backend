@@ -13,9 +13,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ButtonSignIn } from "../components/signInComponents/buttonSignIn/ButtonSignIn";
 import { useTranslation } from "react-i18next";
 
+export type ILoginRequest = TypeOf<typeof loginSchema>;
+
 export const SignIn: FC = () => {
   const { t } = useTranslation();
-  type ILoginRequest = TypeOf<typeof loginSchema>;
 
   // ? Default Values
   const defaultValues: ILoginRequest = {
@@ -25,6 +26,7 @@ export const SignIn: FC = () => {
   const methods = useForm<ILoginRequest>({
     resolver: zodResolver(loginSchema),
     defaultValues,
+    mode: "onChange",
   });
   const {
     control,
@@ -36,7 +38,6 @@ export const SignIn: FC = () => {
 
   const submitHandler: SubmitHandler<ILoginRequest> = (data) => {
     login(data);
-    console.log(data);
   };
 
   return (
@@ -72,7 +73,8 @@ export const SignIn: FC = () => {
                   label={t("login.PASSWORD_LABEL")}
                   name="password"
                   placeholder={t("login.PASSWORD_LABEL")}
-                  eyeIcon
+                  eyeicon
+                  autoComplete="off"
                 />
               </Grid>
               {/* ----------------------------------------  Button SignIn   ----------------------------------------------*/}

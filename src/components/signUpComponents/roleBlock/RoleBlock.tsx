@@ -1,59 +1,76 @@
 import * as React from "react";
-import { Stack } from "@mui/material";
+import {
+  Chip,
+  FormControlLabel,
+  FormHelperText,
+  FormLabel,
+  InputLabel,
+  Radio,
+  RadioGroup,
+  Stack,
+} from "@mui/material";
 import { StyledChip, StyledQuestion } from "./RoleBlock.style";
 import DoneIcon from "@mui/icons-material/Done";
 import Grid from "@mui/material/Unstable_Grid2";
-import { FormInput } from "../../commonComponents/InputField/formInput/FormInput";
 import { useTranslation } from "react-i18next";
+import { RoleBlockProps } from "./RoleBlock.types";
+import { Controller, useFormContext } from "react-hook-form";
+import { RadioType } from "./RadioType/RadioType";
 
-export const RoleBlock: React.FC = () => {
+export const RoleBlock: React.FC<RoleBlockProps> = (props) => {
+  const { name } = props;
   const { t } = useTranslation();
-
+  
+  const { control, setValue, getValues } = useFormContext();
   const [showType, setShowType] = React.useState(false);
-  const [typeWholesale, setTypeWholeSale] = React.useState(false);
 
   const handleClickHiddenType = () => {
-    setShowType((show) => (show = false));
-    setTypeWholeSale((Wholesale) => !Wholesale);
+    setValue(name, "1");
+    setShowType(false);
   };
   const handleClickPharmacy = () => {
-    setShowType((show) => !show);
+    setShowType(true);
+    setValue(name, "2");
   };
+
   return (
     <>
-      {/* --------------------------------------------- Role  -------------------------------------------------*/}
-      <Grid xs={12} md={6} marginTop={{ sm: 5 }}>
-        <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-          <StyledQuestion variant="h6">
-            {t("register.ARE_YOU_LABEL")}
-          </StyledQuestion>
-
-          {/* ----------------------------------------------  Pharmacy Chip  -------------------------------------------------*/}
-          <StyledChip
-            onClick={handleClickPharmacy}
-            label={t("register.PHARMACY_LABEL")}
-            icon={!showType ? <></> : <DoneIcon />}
-          />
-
-          {/* ----------------------------------------------  Wholesales Chip  -------------------------------------------------*/}
-          <StyledChip
-            onClick={handleClickHiddenType}
-            label={t("register.WHOLESALE_LABEL")}
-            icon={!typeWholesale || showType ? <></> : <DoneIcon />}
-          />
-        </Stack>
-      </Grid>
-
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => (
+          /* --------------------------------------------- Role  -------------------------------------------------*/
+          <Grid xs={12} sm={6} marginTop={{ sm: "1.75rem " }}>
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              spacing={{ lg: 2, sm: 1, xs: 2 }}
+            >
+              <StyledQuestion variant="h6">
+                {t("register.ARE_YOU_LABEL")}
+              </StyledQuestion>
+              {/* ----------------------------------------------  Wholesales Chip  -------------------------------------------------*/}
+              <StyledChip
+                onClick={handleClickHiddenType}
+                clickable={!showType && getValues(name) === "1"}
+                label={t("register.WHOLESALE_LABEL")}
+                icon={
+                  !showType && getValues(name) === "1" ? <DoneIcon /> : <></>
+                }
+              />
+              {/* ----------------------------------------------  Pharmacy Chip  -------------------------------------------------*/}
+              <StyledChip
+                {...field}
+                clickable={showType}
+                onClick={handleClickPharmacy}
+                label={t("register.PHARMACY_LABEL")}
+                icon={showType ? <DoneIcon /> : <></>}
+              />
+            </Stack>
+          </Grid>
+        )}
+      />
       {/* --------------------------------------------- Type  -------------------------------------------------*/}
-      <Grid xs={12} md={6} hidden={!showType}>
-        <FormInput
-          id="type"
-          placeholder={t("register.TYPE_LABEL")}
-          type="text"
-          label={t("register.TYPE_LABEL")}
-          name="type"
-        />
-      </Grid>
+      <RadioType name="type" show={showType} />
     </>
   );
 };

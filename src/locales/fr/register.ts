@@ -4,11 +4,11 @@ export const register = {
   SIGN_UP: "S'inscrire",
 
   //label
-  NAME_LABEL: "Nom",
+  NAME_LABEL: "Nom de pharmacie",
   EMAIL_LABEL: "E-mail",
   PASSWORD_LABEL: "Mot de passe",
-  CONFIRM_PASSWORD_LABEL: "Confirmer mot de passe",
-  ARE_YOU_LABEL: "Etes- Vous?",
+  CONFIRM_PASSWORD_LABEL: "Confirmer le mot de passe",
+  ARE_YOU_LABEL: "Êtes- Vous?",
   PHARMACY_LABEL: "Pharmacie",
   WHOLESALE_LABEL: "Grossiste",
   TYPE_LABEL: "Type",
@@ -20,4 +20,9 @@ export const register = {
   PHONE_LABEL: "Téléphone",
   FAX_LABEL: "Fax",
   ADDRESS_LABEL: "Adresse",
+
+  // error message
+  IS_REQUIRED: "Champ obligatoire",
+  INVALID: "invalide",
+  PASSWORD_NOT_MATCH: "Ce mot de passe ne correspond pas",
 };
