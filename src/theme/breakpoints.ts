@@ -5,7 +5,6 @@ declare module "@mui/material/styles" {
     md: true;
     lg: true;
     xl: true;
-    xxl: true;
   }
 }
 export const breakpoints = {
@@ -15,6 +14,5 @@ export const breakpoints = {
     md: 900,
     lg: 1200,
     xl: 1536,
-    xxl: 2000,
   },
 };

@@ -14,8 +14,11 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 
 export const FormInput: React.FC<FormInputProps & InputProps> = (props) => {
-  const { control } = useFormContext();
-  const { id, name, label, eyeicon } = props;
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+  const { id, name, label, eyeIcon } = props;
 
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -29,16 +32,16 @@ export const FormInput: React.FC<FormInputProps & InputProps> = (props) => {
     <Controller
       control={control}
       name={name}
-      render={({ field, fieldState: { error } }) => (
+      defaultValue=""
+      render={({ field }) => (
         <Stack>
           <InputLabel htmlFor={id}>{label}</InputLabel>
           <InputBase
             {...field}
             {...props}
-         
-            type={eyeicon ? (showPassword ? "text" : "password") : "text"}
+            type={eyeIcon ? (showPassword ? "text" : "password") : "text"}
             endAdornment={
-              props.eyeicon ? (
+              props.eyeIcon ? (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
@@ -54,10 +57,10 @@ export const FormInput: React.FC<FormInputProps & InputProps> = (props) => {
                 </InputAdornment>
               ) : null
             }
-            error={!!error}
+            error={!!errors[name]}
           />
-          <FormHelperText id={id} error={!!error}>
-            {error ? error?.message : ""}
+          <FormHelperText id={id} error={!!errors[name]}>
+            {errors[name] ? (errors[name]?.message as string) : ""}
           </FormHelperText>
         </Stack>
       )}

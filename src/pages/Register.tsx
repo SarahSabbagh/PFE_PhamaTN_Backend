@@ -2,8 +2,9 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import { FC } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
+import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
 import { TypeOf } from "zod";
-import { signUpSchema } from "../core/utils/validator";
+import { loginSchema } from "../core/utils/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { FormInput } from "../components/commonComponents/InputField/formInput/FormInput";
@@ -14,77 +15,30 @@ import { SelectField } from "../components/commonComponents/InputField/selectInp
 import { SignInContainer } from "../components/signInComponents/signInContainer/SignInContainer";
 import { InputImage } from "../components/signUpComponents/inputImage/InputImage";
 import { useTranslation } from "react-i18next";
-import { useRegisterMutation } from "../redux/api/auth/authApi";
-
-export type ISignUpRequest = TypeOf<typeof signUpSchema>;
 
 export const Register: FC = () => {
   const { t } = useTranslation();
 
-  const names = [
-    "Ariana",
-    "Béja",
-    "Ben Arous",
-    "Bizerte",
-    "Gabès",
-    "Gafsa",
-    "Jendouba",
-    "Kairouan",
-    "Kasserine",
-    "Kébili",
-    "Le Kef",
-    "Mahdia",
-    "La Manouba",
-    "Médenine",
-    "Monastir",
-    "Nabeul",
-    "Sfax",
-    "Sidi Bouzid",
-    "Siliana",
-    "Sousse",
-    "Tataouine",
-    "Tozeur",
-    "Tunis",
-    "Zaghouan",
-  ];
+  type ILoginRequest = TypeOf<typeof loginSchema>;
+
   // ? Default Values
-  const defaultValues: ISignUpRequest = {
-    name: "",
+  const defaultValues: ILoginRequest = {
     email: "",
     password: "",
-    confirmPassword: "",
-    pharmacyFirstName: "",
-    pharmacyLastName: "",
-    governorate: "1",
-    delegation: "1",
-    address: "",
-    role: "1",
-    //image: "",
-    type: "1",
-    fax: "",
-    phone: "",
   };
-  const [register] = useRegisterMutation();
 
-  const methods = useForm<ISignUpRequest>({
-    resolver: zodResolver(signUpSchema),
+  const methods = useForm<ILoginRequest>({
+    resolver: zodResolver(loginSchema),
     defaultValues,
-    //   mode: "onChange",
   });
-  const { handleSubmit } = methods;
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
 
-  const submitHandler: SubmitHandler<ISignUpRequest> = async (data) => {
-    const { confirmPassword, ...rest } = data;
-
-    register({ ...rest })
-      .unwrap()
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  const submitHandler: SubmitHandler<ILoginRequest> = (data) =>
+    console.log(data);
 
   return (
     <SignInContainer title={t("register.TITLE_PAGE_SIGN_UP")}>
@@ -98,7 +52,7 @@ export const Register: FC = () => {
             >
               <Grid container rowSpacing={1} columnSpacing={2}>
                 {/* ------------------------------------------------  Name  --------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid xs={12} md={6}>
                   <FormInput
                     id="name"
                     placeholder={t("register.NAME_LABEL")}
@@ -110,7 +64,7 @@ export const Register: FC = () => {
                 </Grid>
 
                 {/* ---------------------------------------------  Email  ----------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid xs={12} md={6}>
                   <FormInput
                     id="email"
                     placeholder={t("register.EMAIL_LABEL")}
@@ -122,84 +76,78 @@ export const Register: FC = () => {
                 </Grid>
 
                 {/* --------------------------------------------- Password   -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid xs={12} md={6}>
                   <FormInput
                     id="password"
                     type="password"
                     label={t("register.PASSWORD_LABEL")}
                     name="password"
                     placeholder={t("register.PASSWORD_LABEL")}
-                    eyeicon
-                    autoComplete="off"
+                    eyeIcon
                   />
                 </Grid>
 
                 {/* --------------------------------------------- Confirm password  -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid xs={12} md={6}>
                   <FormInput
                     id="confirmPassword"
                     type="password"
                     label={t("register.CONFIRM_PASSWORD_LABEL")}
                     name="confirmPassword"
                     placeholder={t("register.PASSWORD_LABEL")}
-                    eyeicon
-                    autoComplete="off"
+                    eyeIcon
                   />
                 </Grid>
 
                 {/* --------------------------------------------- Role and Pharmacy Type -------------------------------------------------*/}
-                <Grid container xs={12} minHeight={"120px"}>
-                  <RoleBlock name="role" />
+                <Grid container xs={12} minHeight={"140px"}>
+                  <RoleBlock />
                 </Grid>
 
-                {/* --------------------------------------------- Pharmacy First Name -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                {/* --------------------------------------------- First Name -------------------------------------------------*/}
+                <Grid xs={12} md={6}>
                   <FormInput
                     id="firstName"
                     placeholder={t("register.FIRST_NAME_LABEL")}
                     type="Text"
                     label={t("register.FIRST_NAME_LABEL")}
-                    name="pharmacyFirstName"
+                    name="firstName"
                     required
                   />
                 </Grid>
 
-                {/* --------------------------------------------- Pharmacie Last Name  -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                {/* --------------------------------------------- Last Name  -------------------------------------------------*/}
+                <Grid xs={12} md={6}>
                   <FormInput
                     id="lastName"
                     placeholder={t("register.LAST_NAME_LABEL")}
                     type="Text"
                     label={t("register.LAST_NAME_LABEL")}
-                    name="pharmacyLastName"
+                    name="lastName"
                     required
                   />
                 </Grid>
 
                 {/* --------------------------------------------- Governorate  -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid xs={12} md={6}>
                   <SelectField
                     id="governorate"
                     label={t("register.GOVERNORATE_LABEL")}
                     placeholder={t("register.GOVERNORATE_LABEL")}
-                    name="governorate"
-                    options={names}
                   />
                 </Grid>
 
                 {/* --------------------------------------------- DELEGATION  -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid xs={12} md={6}>
                   <SelectField
-                    id="delegation"
+                    id="city"
                     label={t("register.DELEGATION_LABEL")}
                     placeholder={t("register.DELEGATION_LABEL")}
-                    name="delegation"
-                    options={names}
                   />
                 </Grid>
 
                 {/* --------------------------------------------- Address -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid xs={12} md={6}>
                   <FormInput
                     id="address"
                     placeholder={t("register.ADDRESS_LABEL")}
@@ -211,18 +159,16 @@ export const Register: FC = () => {
                 </Grid>
 
                 {/* --------------------------------------------- Profil photo -------------------------------------------------*/}
-                {/*<Grid xs={12} sm={6}>
+                <Grid xs={12} md={6}>
                   <InputImage
-                    id="image"
+                    id="photo"
                     label={t("register.IMAGE_LABEL")}
                     placeholder={t("register.IMAGE_LABEL")}
-                    name="image"
-                    //  value={defaultValues.photo}
                   />
-  </Grid>*/}
+                </Grid>
 
                 {/* --------------------------------------------- Phone -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid xs={12} md={6}>
                   <FormInput
                     id="phone"
                     placeholder={t("register.PHONE_LABEL")}
@@ -234,7 +180,7 @@ export const Register: FC = () => {
                 </Grid>
 
                 {/* --------------------------------------------- Fax -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid xs={12} md={6}>
                   <FormInput
                     id="fax"
                     placeholder={t("register.FAX_LABEL")}

@@ -4,7 +4,7 @@ export const register = {
   SIGN_UP: "Sign-up",
 
   //label
-  NAME_LABEL: "Pharmacy name",
+  NAME_LABEL: "Name",
   EMAIL_LABEL: "Email",
   PASSWORD_LABEL: "Password",
   CONFIRM_PASSWORD_LABEL: "Confirm password",
@@ -20,8 +20,4 @@ export const register = {
   PHONE_LABEL: "Phone",
   FAX_LABEL: "Fax",
   ADDRESS_LABEL: "Address",
-  // error message
-  IS_REQUIRED: "Is required",
-  INVALID: "invalid",
-  PASSWORD_NOT_MATCH: "Password don't match", //Ce mot de passe ne correspond pas
 };
