@@ -4,7 +4,7 @@ import { SignInPaper } from "../components/signInComponents/signInPaper/SignInPa
 import { FC } from "react";
 import { SignInContainer } from "../components/signInComponents/signInContainer/SignInContainer";
 import { Box } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
+import Grid from "@mui/material/Grid";
 import { useLoginMutation } from "../redux/api/auth/authApi";
 import { FormInput } from "../components/commonComponents/InputField/formInput/FormInput";
 import { TypeOf } from "zod";
@@ -26,11 +26,7 @@ export const SignIn: FC = () => {
     resolver: zodResolver(loginSchema),
     defaultValues,
   });
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = methods;
+  const { handleSubmit } = methods;
 
   const [login] = useLoginMutation();
 
@@ -47,15 +43,13 @@ export const SignIn: FC = () => {
             <Box
               component="form"
               onSubmit={handleSubmit(submitHandler)}
-              method="POST"
               noValidate
               display="flex"
               flexDirection="column"
               justifyContent="center"
               width="100%"
             >
-              {/* ----------------------------------------  Email   ----------------------------------------------*/}
-              <Grid xs={12}>
+              <Grid item xs={12}>
                 <FormInput
                   id="email"
                   placeholder={t("login.EMAIL_LABEL")}
@@ -65,8 +59,7 @@ export const SignIn: FC = () => {
                   required
                 />
               </Grid>
-              {/* ----------------------------------------  Password   ----------------------------------------------*/}
-              <Grid xs={12}>
+              <Grid item xs={12}>
                 <FormInput
                   id="password"
                   type="password"
@@ -76,8 +69,6 @@ export const SignIn: FC = () => {
                   eyeIcon
                 />
               </Grid>
-              {/* ----------------------------------------  Button SignIn   ----------------------------------------------*/}
-
               <ButtonSignIn type="submit">{t("login.SIGN_IN")}</ButtonSignIn>
             </Box>
           </SignInPaper>

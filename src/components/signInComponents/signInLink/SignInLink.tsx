@@ -7,14 +7,10 @@ export const SignInLink: React.FC = () => {
   const { t } = useTranslation();
   return (
     <Stack>
-      {/* ----------------------------------------------  Link Forget Password  ----------------------------------------*/}
-
       <StyledLinkForgetPassword href="#" variant="body2">
         {t("login.FORGET_PASSWORD")}
       </StyledLinkForgetPassword>
       <Typography variant="h6"> {t("login.DO_NOT_HAVE_ACCOUNT")}</Typography>
-      {/* ----------------------------------------------  Link SignUp  -------------------------------------------------*/}
-
       <StyledLinkSignUp href="/register" variant="body2">
         {t("login.SIGN_UP")}
       </StyledLinkSignUp>

@@ -5,7 +5,7 @@ export default function InputLabel() {
         root: {
           textAlign: "left",
           fontSize: "0.875rem",
-          marginButtom: 0,
+          marginBottom: 0,
         },
       },
     },

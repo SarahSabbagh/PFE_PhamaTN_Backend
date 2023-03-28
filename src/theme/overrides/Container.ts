@@ -11,7 +11,7 @@ export default function Container(theme: Theme) {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          fontSize: 16,
+          fontSize: "1rem",
           minWidth: "100vw",
           minHeight: "100vh",
         },
