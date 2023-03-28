@@ -12,15 +12,13 @@ export default function InputBase(theme: Theme) {
           border: "1px solid #F2F2F2",
           borderRadius: "0.3125rem",
           padding: "0.5rem",
-          marginBottom: 6,
-          marginTop: "0.5rem",
+          margin: "0.5rem 0",
           fontSize: "1rem",
           textoverflow: "ellipsis",
           ":hover": {
             border: "2px solid ",
             borderColor: theme.palette.primary.light,
           },
-
           "&.Mui-error": {
             borderColor: theme.palette.error.main,
           },

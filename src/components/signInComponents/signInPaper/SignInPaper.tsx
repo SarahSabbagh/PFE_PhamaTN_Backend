@@ -9,12 +9,8 @@ export const SignInPaper: React.FC<SignInPaperProps> = (props) => {
   const { title, children } = props;
   return (
     <StyledSignInPaper elevation={3}>
-      {/* ----------------------------------------------  Logo  -------------------------------------------------*/}
       <Logo />
-      {/* ----------------------------------------------  Title  -------------------------------------------------*/}
       <StyledTitle variant="h1">{title}</StyledTitle>
-      {/* ----------------------------------------------  Children  -------------------------------------------------*/}
-
       {children}
       <SignInLink />
     </StyledSignInPaper>

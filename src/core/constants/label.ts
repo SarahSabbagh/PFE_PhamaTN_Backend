@@ -3,7 +3,7 @@ export const labels = {
   EMAIL: "Email",
   PASSWORD: "Mot de passe",
   CONFIRM_PASSWORD: "Confirmer mot de passe",
-  ARE_YOU: "êtes- Vous?",
+  ARE_YOU: "Êtes-vous?",
   PHARMACY: "Pharmacie",
   WHOLESALE: "Grossiste",
   TYPE: "Type",
@@ -11,5 +11,5 @@ export const labels = {
   LAST_NAME: "Nom de pharmacien(ne)",
   PHONE: "Téléphone",
   FAX: "Fax",
-  ADDRESS:"Adresse",
+  ADDRESS: "Adresse",
 };
