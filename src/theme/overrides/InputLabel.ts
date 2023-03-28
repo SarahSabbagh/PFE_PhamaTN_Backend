@@ -8,7 +8,7 @@ export default function InputLabel() {
           fontFamily: fonts.PRIMARY,
           textAlign: "left",
           fontSize: "0.875rem",
-          marginButtom: 0,
+          marginBottom: 0,
         },
       },
     },

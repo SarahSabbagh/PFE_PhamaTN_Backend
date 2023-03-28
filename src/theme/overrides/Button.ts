@@ -5,20 +5,8 @@ export default function Button(theme: Theme) {
     MuiButton: {
       styleOverrides: {
         root: {
-          "&:hover": {
-            backgroundColor: theme.palette.primary.light,
-            borderColor: theme.palette.primary.light,
-          },
-          "&:active": {
-            backgroundColor: theme.palette.primary.light,
-            borderColor: theme.palette.primary.light,
-          },
-          backgroundColor: theme.palette.primary.main,
-          color: theme.palette.info.light,
+          padding: "0.5rem",
           border: "1px solid",
-          borderColor: theme.palette.primary.main,
-          marginBottom: "0.5rem",
-          marginTop: "0.5rem",
           textAlign: "center",
         },
       },

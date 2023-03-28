@@ -3,7 +3,7 @@ import { Paper, PaperProps, styled } from "@mui/material";
 
 export const StyledSignUpPaper = styled(Paper)<PaperProps>(({ theme }) => ({
   width: "60vw",
-  margin: "4rem",
+  margin: "4rem auto",
   [theme.breakpoints.down("md")]: {
     width: "100vw",
     minHeight: "100vh",

@@ -7,12 +7,9 @@ export const SignUpPaper: React.FC<SignUpPaperProps> = (props) => {
   const { title, children } = props;
   return (
     <StyledSignUpPaper elevation={5}>
-      {/* ----------------------------------------------  Title Sign Up  -------------------------------------------------*/}
-      <Typography variant="h2" display="flex" marginBottom="5%">
+      <Typography variant="h2" marginBottom="5%">
         {title}
       </Typography>
-      {/* ----------------------------------------------  Children  -------------------------------------------------*/}
-
       {children}
     </StyledSignUpPaper>
   );

@@ -14,16 +14,11 @@ export const StyledButton = styled(Button)<ButtonProps>(({ theme }) => ({
   border: "1px solid",
   borderColor: theme.palette.primary.main,
   borderRadius: "1.25rem",
-  padding: "0.5rem",
-  marginBottom: "0.5rem",
-  marginTop: "0.5rem",
+  margin: "0.5rem auto",
   fontSize: "1.2rem",
   width: "19.75rem",
-  marginLeft: "auto",
-  marginRight: "auto",
-  textAlign: "center",
   height: "3.75rem",
   [theme.breakpoints.down("sm")]: {
-    width: "50vw",
+    width: "60vw",
   },
 }));

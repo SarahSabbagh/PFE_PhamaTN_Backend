@@ -1,17 +1,8 @@
 import * as React from "react";
-import {
-  Chip,
-  FormControlLabel,
-  FormHelperText,
-  FormLabel,
-  InputLabel,
-  Radio,
-  RadioGroup,
-  Stack,
-} from "@mui/material";
+import { Stack } from "@mui/material";
 import { StyledChip, StyledQuestion } from "./RoleBlock.style";
 import DoneIcon from "@mui/icons-material/Done";
-import Grid from "@mui/material/Unstable_Grid2";
+import Grid from "@mui/material/Grid";
 import { useTranslation } from "react-i18next";
 import { RoleBlockProps } from "./RoleBlock.types";
 import { Controller, useFormContext } from "react-hook-form";
@@ -20,7 +11,7 @@ import { RadioType } from "./RadioType/RadioType";
 export const RoleBlock: React.FC<RoleBlockProps> = (props) => {
   const { name } = props;
   const { t } = useTranslation();
-  
+
   const { control, setValue, getValues } = useFormContext();
   const [showType, setShowType] = React.useState(false);
 
@@ -39,8 +30,7 @@ export const RoleBlock: React.FC<RoleBlockProps> = (props) => {
         name={name}
         control={control}
         render={({ field }) => (
-          /* --------------------------------------------- Role  -------------------------------------------------*/
-          <Grid xs={12} sm={6} marginTop={{ sm: "1.75rem " }}>
+          <Grid container item xs={12} sm={6} marginTop={{ sm: "1.75rem " }}>
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={{ lg: 2, sm: 1, xs: 2 }}
@@ -48,7 +38,6 @@ export const RoleBlock: React.FC<RoleBlockProps> = (props) => {
               <StyledQuestion variant="h6">
                 {t("register.ARE_YOU_LABEL")}
               </StyledQuestion>
-              {/* ----------------------------------------------  Wholesales Chip  -------------------------------------------------*/}
               <StyledChip
                 onClick={handleClickHiddenType}
                 clickable={!showType && getValues(name) === "1"}
@@ -57,7 +46,6 @@ export const RoleBlock: React.FC<RoleBlockProps> = (props) => {
                   !showType && getValues(name) === "1" ? <DoneIcon /> : <></>
                 }
               />
-              {/* ----------------------------------------------  Pharmacy Chip  -------------------------------------------------*/}
               <StyledChip
                 {...field}
                 clickable={showType}
@@ -69,7 +57,6 @@ export const RoleBlock: React.FC<RoleBlockProps> = (props) => {
           </Grid>
         )}
       />
-      {/* --------------------------------------------- Type  -------------------------------------------------*/}
       <RadioType name="type" show={showType} />
     </>
   );

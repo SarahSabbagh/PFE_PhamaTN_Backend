@@ -19,11 +19,6 @@ export const FormInput: React.FC<FormInputProps & InputProps> = (props) => {
 
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
 
   return (
     <Controller
@@ -35,7 +30,6 @@ export const FormInput: React.FC<FormInputProps & InputProps> = (props) => {
           <InputBase
             {...field}
             {...props}
-         
             type={eyeicon ? (showPassword ? "text" : "password") : "text"}
             endAdornment={
               props.eyeicon ? (
@@ -43,7 +37,6 @@ export const FormInput: React.FC<FormInputProps & InputProps> = (props) => {
                   <IconButton
                     aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
                   >
                     {showPassword ? (
                       <VisibilityOutlinedIcon />

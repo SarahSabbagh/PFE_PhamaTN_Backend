@@ -1,7 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { FC } from "react";
-import Grid from "@mui/material/Unstable_Grid2";
+import Grid from "@mui/material/Grid";
 import { TypeOf } from "zod";
 import { signUpSchema } from "../core/utils/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -96,9 +96,8 @@ export const Register: FC = () => {
               onSubmit={handleSubmit(submitHandler)}
               noValidate
             >
-              <Grid container rowSpacing={1} columnSpacing={2}>
-                {/* ------------------------------------------------  Name  --------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+              <Grid container item rowSpacing={1} columnSpacing={2}>
+                <Grid item xs={12} sm={6}>
                   <FormInput
                     id="name"
                     placeholder={t("register.NAME_LABEL")}
@@ -109,8 +108,7 @@ export const Register: FC = () => {
                   />
                 </Grid>
 
-                {/* ---------------------------------------------  Email  ----------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <FormInput
                     id="email"
                     placeholder={t("register.EMAIL_LABEL")}
@@ -121,8 +119,7 @@ export const Register: FC = () => {
                   />
                 </Grid>
 
-                {/* --------------------------------------------- Password   -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <FormInput
                     id="password"
                     type="password"
@@ -134,8 +131,7 @@ export const Register: FC = () => {
                   />
                 </Grid>
 
-                {/* --------------------------------------------- Confirm password  -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <FormInput
                     id="confirmPassword"
                     type="password"
@@ -147,13 +143,11 @@ export const Register: FC = () => {
                   />
                 </Grid>
 
-                {/* --------------------------------------------- Role and Pharmacy Type -------------------------------------------------*/}
-                <Grid container xs={12} minHeight={"120px"}>
+                <Grid container item xs={12} minHeight={"120px"}>
                   <RoleBlock name="role" />
                 </Grid>
 
-                {/* --------------------------------------------- Pharmacy First Name -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <FormInput
                     id="firstName"
                     placeholder={t("register.FIRST_NAME_LABEL")}
@@ -164,8 +158,7 @@ export const Register: FC = () => {
                   />
                 </Grid>
 
-                {/* --------------------------------------------- Pharmacie Last Name  -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <FormInput
                     id="lastName"
                     placeholder={t("register.LAST_NAME_LABEL")}
@@ -176,8 +169,7 @@ export const Register: FC = () => {
                   />
                 </Grid>
 
-                {/* --------------------------------------------- Governorate  -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <SelectField
                     id="governorate"
                     label={t("register.GOVERNORATE_LABEL")}
@@ -187,8 +179,7 @@ export const Register: FC = () => {
                   />
                 </Grid>
 
-                {/* --------------------------------------------- DELEGATION  -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <SelectField
                     id="delegation"
                     label={t("register.DELEGATION_LABEL")}
@@ -198,8 +189,7 @@ export const Register: FC = () => {
                   />
                 </Grid>
 
-                {/* --------------------------------------------- Address -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <FormInput
                     id="address"
                     placeholder={t("register.ADDRESS_LABEL")}
@@ -210,19 +200,16 @@ export const Register: FC = () => {
                   />
                 </Grid>
 
-                {/* --------------------------------------------- Profil photo -------------------------------------------------*/}
-                {/*<Grid xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <InputImage
                     id="image"
                     label={t("register.IMAGE_LABEL")}
                     placeholder={t("register.IMAGE_LABEL")}
                     name="image"
-                    //  value={defaultValues.photo}
                   />
-  </Grid>*/}
+                </Grid>
 
-                {/* --------------------------------------------- Phone -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <FormInput
                     id="phone"
                     placeholder={t("register.PHONE_LABEL")}
@@ -233,8 +220,7 @@ export const Register: FC = () => {
                   />
                 </Grid>
 
-                {/* --------------------------------------------- Fax -------------------------------------------------*/}
-                <Grid xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>
                   <FormInput
                     id="fax"
                     placeholder={t("register.FAX_LABEL")}
@@ -245,8 +231,8 @@ export const Register: FC = () => {
                   />
                 </Grid>
 
-                {/* --------------------------------------------- Button Sign up -------------------------------------------------*/}
                 <Grid
+                  item
                   xs={12}
                   minHeight={"122px"}
                   display="flex"
