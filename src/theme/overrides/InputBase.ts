@@ -1,4 +1,5 @@
 import { Theme } from "@mui/material";
+import { fonts } from "../../core/constants/fonts";
 
 export default function InputBase(theme: Theme) {
   return {
@@ -13,6 +14,7 @@ export default function InputBase(theme: Theme) {
           borderRadius: "0.3125rem",
           padding: "0.5rem",
           margin: "0.5rem 0",
+          fontFamily: fonts.PRIMARY,
           fontSize: "1rem",
           textoverflow: "ellipsis",
           ":hover": {

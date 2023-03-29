@@ -7,18 +7,19 @@ import {
   Stack,
   InputAdornment,
   IconButton,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
 import { FormInputProps } from "./FormInput.types";
 import { Controller, useFormContext } from "react-hook-form";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 
 export const FormInput: React.FC<FormInputProps & InputProps> = (props) => {
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext();
-  const { id, name, label, eyeIcon } = props;
+  const { control } = useFormContext();
+  const { id, name, label, eyeicon } = props;
 
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -27,16 +28,15 @@ export const FormInput: React.FC<FormInputProps & InputProps> = (props) => {
     <Controller
       control={control}
       name={name}
-      defaultValue=""
-      render={({ field }) => (
+      render={({ field, fieldState: { error } }) => (
         <Stack>
           <InputLabel htmlFor={id}>{label}</InputLabel>
           <InputBase
             {...field}
             {...props}
-            type={eyeIcon ? (showPassword ? "text" : "password") : "text"}
+            type={eyeicon ? (showPassword ? "text" : "password") : "text"}
             endAdornment={
-              props.eyeIcon ? (
+              props.eyeicon ? (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
@@ -51,10 +51,10 @@ export const FormInput: React.FC<FormInputProps & InputProps> = (props) => {
                 </InputAdornment>
               ) : null
             }
-            error={!!errors[name]}
+            error={!!error}
           />
-          <FormHelperText id={id} error={!!errors[name]}>
-            {errors[name] ? (errors[name]?.message as string) : ""}
+          <FormHelperText id={id} error={!!error}>
+            {error ? error?.message : ""}
           </FormHelperText>
         </Stack>
       )}

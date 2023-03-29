@@ -1,4 +1,5 @@
 import { Theme } from "@mui/material";
+import { fonts } from "../../core/constants/fonts";
 
 export default function Container(theme: Theme) {
   return {
@@ -6,7 +7,7 @@ export default function Container(theme: Theme) {
       styleOverrides: {
         root: {
           backgroundColor: theme.palette.background.default,
-          fontFamily: "Roboto abchanel-corpo Arial Helvetica sans-serif",
+          fontFamily: fonts.PRIMARY,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",

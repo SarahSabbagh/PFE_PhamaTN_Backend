@@ -1,30 +1,44 @@
 import {
+  FormHelperText,
   InputLabel,
   InputProps,
   MenuItem,
-  SelectChangeEvent,
+  SelectProps,
   Stack,
 } from "@mui/material";
 import * as React from "react";
-import { SelectFieldStyle } from "./SelectField.style";
+import { Controller, useFormContext } from "react-hook-form";
+import { SyledPlaceholder, SelectFieldStyle } from "./SelectField.style";
 import { SelectFieldProps } from "./SelectField.types";
 
-export const SelectField: React.FC<SelectFieldProps & InputProps> = (props) => {
-  const { id, label, placeholder } = props;
+export const SelectField: React.FC<
+  SelectFieldProps & SelectProps & InputProps
+> = (props) => {
+  const { id, label, name, options } = props;
+  const { control } = useFormContext();
 
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
-  };
   return (
-    <Stack>
-      <InputLabel htmlFor={id}>{label}</InputLabel>
-      <SelectFieldStyle value={age} placeholder={placeholder}>
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
-      </SelectFieldStyle>
-    </Stack>
+    <Controller
+      control={control}
+      name={name}
+      render={({ field, fieldState: { error } }) => (
+        <Stack>
+          <InputLabel htmlFor={id}>{label}</InputLabel>
+          <SelectFieldStyle {...field} id={id} displayEmpty error={!!error}>
+            <MenuItem disabled value="">
+              <SyledPlaceholder>{label}</SyledPlaceholder>
+            </MenuItem>
+            {options.map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </SelectFieldStyle>
+          <FormHelperText id={id} error={!!error}>
+            {error ? error?.message : ""}
+          </FormHelperText>
+        </Stack>
+      )}
+    />
   );
 };
