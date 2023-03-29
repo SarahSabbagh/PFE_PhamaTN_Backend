@@ -7,13 +7,9 @@ import {
   Stack,
   InputAdornment,
   IconButton,
-  InputAdornment,
-  IconButton,
 } from "@mui/material";
 import { FormInputProps } from "./FormInput.types";
 import { Controller, useFormContext } from "react-hook-form";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 

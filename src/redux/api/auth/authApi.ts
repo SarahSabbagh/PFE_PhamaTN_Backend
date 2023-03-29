@@ -29,7 +29,6 @@ export const authApi = createApi({
     }),
     register: builder.mutation({
       query(registerRequest: IRegisterRequest) {
-        console.log(registerRequest);
         return {
           url: "/api/auth/register",
           headers: headers,
