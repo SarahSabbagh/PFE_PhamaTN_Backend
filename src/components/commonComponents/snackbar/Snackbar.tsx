@@ -18,7 +18,7 @@ export const CustomizedSnackbars: React.FC<
     <Snackbar
       open={open}
       autoHideDuration={6000}
-      anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      anchorOrigin={{ vertical: "top", horizontal: "left" }}
     >
       <AlertStyle severity={severity}>{message}</AlertStyle>
     </Snackbar>

@@ -12,12 +12,13 @@ import { loginSchema } from "../core/utils/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ButtonSignIn } from "../components/signInComponents/buttonSignIn/ButtonSignIn";
 import { useTranslation } from "react-i18next";
+import { CustomizedSnackbars } from "../components/commonComponents/snackbar/Snackbar";
 
 export type ILoginRequest = TypeOf<typeof loginSchema>;
 
 export const SignIn: FC = () => {
   const { t } = useTranslation();
-
+  const [unauthorized, setUnauthorized] = React.useState(false);
   // ? Default Values
   const defaultValues: ILoginRequest = {
     email: "",
@@ -28,18 +29,31 @@ export const SignIn: FC = () => {
     defaultValues,
     mode: "onChange",
   });
-  const { handleSubmit } = methods;
+  const {
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
 
   const [login] = useLoginMutation();
-
-  const submitHandler: SubmitHandler<ILoginRequest> = (data) => {
-    const response = login(data).unwrap();
+  const submitHandler: SubmitHandler<ILoginRequest> = async (data) => {
+    login(data)
+      .unwrap()
+      .catch((error) => {
+        if (error.status == 401) {
+          setUnauthorized(true);
+        }
+      });
   };
 
   return (
     <SignInContainer title={t("login.TITLE_PAGE_SIGN_IN")}>
       <Grid>
         <FormProvider {...methods}>
+          <CustomizedSnackbars
+            open={unauthorized}
+            severity="error"
+            message={t("login.UNAUTHORIZED")}
+          />
           <SignInPaper title={t("login.TITLE_APP")}>
             <Box
               component="form"
@@ -71,9 +85,9 @@ export const SignIn: FC = () => {
                   autoComplete="off"
                 />
               </Grid>
-              {/* ----------------------------------------  Button SignIn   ----------------------------------------------*/}
-
-              <ButtonSignIn type="submit">{t("login.SIGN_IN")}</ButtonSignIn>
+              <ButtonSignIn loading={isSubmitting} type="submit">
+                {t("login.SIGN_IN")}
+              </ButtonSignIn>
             </Box>
           </SignInPaper>
         </FormProvider>

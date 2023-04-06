@@ -19,7 +19,7 @@ export const signIn = {
   IS_REQUIRED: "Is required",
   Email_IS_REQUIRED: " Email is required",
   EMAIL_INVALID: "Email is invalid",
-
+  UNAUTHORIZED: "unauthorized",
   PASSWORD_IS_REQUIRED: " Password is required",
   PASSWORD_MIN_8_CHARACTERS: "Password must be more than 8 characters",
   PASSWOED_LESS_32_CHARACTERS: "Password must be less than 32 characters",

@@ -58,7 +58,7 @@ export const Register: FC = () => {
     resetField,
     setError,
     reset,
-    formState: { isLoading, isSubmitSuccessful },
+    formState: { isSubmitting, isSubmitSuccessful },
   } = methods;
 
   React.useEffect(() => {
@@ -70,10 +70,9 @@ export const Register: FC = () => {
 
   const { data: delagations = [] } = useDelegationsQuery(watch("governorate"));
   const [isRegistered, setIsRegistered] = React.useState(false);
-  let errorMsg;
   const submitHandler: SubmitHandler<ISignUpRequest> = async (data) => {
     const { confirmPassword, ...rest } = data;
-    const response = register({ ...rest })
+    register({ ...rest })
       .unwrap()
       .then(() => {
         setIsRegistered(true);
@@ -85,7 +84,6 @@ export const Register: FC = () => {
             message: error.data.errors.email[0],
           });
         }
-        console.log(error);
       });
   };
 
@@ -124,7 +122,6 @@ export const Register: FC = () => {
                       type="email"
                       label={t("register.EMAIL_LABEL")}
                       name="email"
-                      errorMessage={errorMsg}
                       required
                     />
                   </Grid>
@@ -249,7 +246,7 @@ export const Register: FC = () => {
                     flexDirection="column"
                     justifyContent="center"
                   >
-                    <ButtonSignUp type="submit">
+                    <ButtonSignUp loading={isSubmitting} type="submit">
                       {t("register.SIGN_UP")}
                     </ButtonSignUp>
                   </Grid>

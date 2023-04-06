@@ -19,14 +19,11 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation<ILoginResponse, ILoginRequest>({
       query(loginRequest) {
-        console.log(loginRequest);
         return {
           url: endpoints.SIGN_IN,
           method: "POST",
           body: loginRequest,
-         
         };
-        
       },
     }),
     register: builder.mutation({
