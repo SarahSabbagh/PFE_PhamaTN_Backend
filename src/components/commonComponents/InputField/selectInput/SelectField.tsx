@@ -25,12 +25,12 @@ export const SelectField: React.FC<
         <Stack>
           <InputLabel htmlFor={id}>{label}</InputLabel>
           <SelectFieldStyle {...field} id={id} displayEmpty error={!!error}>
-            <MenuItem disabled value="">
+            <MenuItem disabled value="0">
               <SyledPlaceholder>{label}</SyledPlaceholder>
             </MenuItem>
             {options.map((option) => (
-              <MenuItem key={option} value={option}>
-                {option}
+              <MenuItem key={option.id} value={option.id}>
+                {option.name}
               </MenuItem>
             ))}
           </SelectFieldStyle>

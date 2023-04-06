@@ -1,3 +1,4 @@
+import { regionApi } from "./api/region/regionApi";
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { authApi } from "./api/auth/authApi";
@@ -8,10 +9,15 @@ export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
+    [regionApi.reducerPath]: regionApi.reducer,
     userState: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({}).concat([authApi.middleware, userApi.middleware]),
+    getDefaultMiddleware({}).concat([
+      authApi.middleware,
+      userApi.middleware,
+      regionApi.middleware,
+    ]),
 });
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

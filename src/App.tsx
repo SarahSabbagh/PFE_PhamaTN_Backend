@@ -8,6 +8,7 @@ import { Register } from "./pages/Register";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import { I18nextProvider } from "react-i18next";
+import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 
 import {
   BrowserRouter as Router,
@@ -17,6 +18,7 @@ import {
 } from "react-router-dom";
 
 import i18n from "./locales/i18n";
+import { regionApi } from "./redux/api/region/regionApi";
 
 function App() {
   return (

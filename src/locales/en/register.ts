@@ -22,6 +22,8 @@ export const register = {
   ADDRESS_LABEL: "Address",
   // error message
   IS_REQUIRED: "Is required",
-  INVALID: "invalid",
+  INVALID: "Invalid",
   PASSWORD_NOT_MATCH: "Password don't match", //Ce mot de passe ne correspond pas
+
+  SENT_CERIFICATION_LINK:"An email has been sent to your email address with a verification—link.",
 };

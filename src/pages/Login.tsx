@@ -33,7 +33,7 @@ export const SignIn: FC = () => {
   const [login] = useLoginMutation();
 
   const submitHandler: SubmitHandler<ILoginRequest> = (data) => {
-    login(data);
+    const response = login(data).unwrap();
   };
 
   return (
