@@ -2,7 +2,6 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { SignInPaper } from "../components/signInComponents/signInPaper/SignInPaper";
 import { FC } from "react";
-import { SignInContainer } from "../components/signInComponents/signInContainer/SignInContainer";
 import { Box } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { useLoginMutation } from "../redux/api/auth/authApi";
@@ -13,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ButtonSignIn } from "../components/signInComponents/buttonSignIn/ButtonSignIn";
 import { useTranslation } from "react-i18next";
 import { CustomizedSnackbars } from "../components/commonComponents/snackbar/Snackbar";
+import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
 
 export type ILoginRequest = TypeOf<typeof loginSchema>;
 
@@ -46,7 +46,7 @@ export const SignIn: FC = () => {
   };
 
   return (
-    <SignInContainer title={t("login.TITLE_PAGE_SIGN_IN")}>
+    <PageContainer background title={t("login.TITLE_PAGE_SIGN_IN")}>
       <Grid>
         <FormProvider {...methods}>
           <CustomizedSnackbars
@@ -92,6 +92,6 @@ export const SignIn: FC = () => {
           </SignInPaper>
         </FormProvider>
       </Grid>
-    </SignInContainer>
+    </PageContainer>
   );
 };

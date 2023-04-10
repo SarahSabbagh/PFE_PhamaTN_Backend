@@ -11,7 +11,6 @@ import { ButtonSignUp } from "../components/signUpComponents/buttonSignUp/Button
 import { RoleBlock } from "../components/signUpComponents/roleBlock/RoleBlock";
 import { SignUpPaper } from "../components/signUpComponents/signUpPaper/signUpPaper";
 import { SelectField } from "../components/commonComponents/InputField/selectInput/SelectField";
-import { SignInContainer } from "../components/signInComponents/signInContainer/SignInContainer";
 import { InputImage } from "../components/signUpComponents/inputImage/InputImage";
 import { useTranslation } from "react-i18next";
 import { useRegisterMutation } from "../redux/api/auth/authApi";
@@ -20,6 +19,7 @@ import {
   useGovernoratesQuery,
 } from "../redux/api/region/regionApi";
 import { CustomizedSnackbars } from "../components/commonComponents/snackbar/Snackbar";
+import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
 
 export type ISignUpRequest = TypeOf<typeof signUpSchema>;
 
@@ -89,7 +89,7 @@ export const Register: FC = () => {
 
   return (
     <>
-      <SignInContainer title={t("register.TITLE_PAGE_SIGN_UP")}>
+      <PageContainer background title={t("register.TITLE_PAGE_SIGN_UP")}>
         <Grid container>
           <CustomizedSnackbars
             open={isRegistered}
@@ -255,7 +255,7 @@ export const Register: FC = () => {
             </FormProvider>
           </SignUpPaper>
         </Grid>
-      </SignInContainer>
+      </PageContainer>
     </>
   );
 };
