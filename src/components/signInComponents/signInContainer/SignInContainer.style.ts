@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Container, ContainerProps, styled } from "@mui/material";
-import image from "../../../assets/bg.jpeg";
+import image from "../../../assets/bg4.jpg";
 
 export const RootStyle = styled(Container)<ContainerProps>({
   backgroundImage: `url(${image})`,
