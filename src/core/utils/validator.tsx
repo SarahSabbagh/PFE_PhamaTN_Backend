@@ -35,12 +35,12 @@ export const signUpSchema = loginSchema
       .nonempty(errorMessage.IS_REQUIRED)
       .max(60, errorMessage.max_60_CHARACTERS)
       .min(3, errorMessage.min_3_CHARACTERS),
-    governorate: string().nonempty(errorMessage.IS_REQUIRED),
-    delegation: string().nonempty(errorMessage.IS_REQUIRED),
+    governorate: number().positive(errorMessage.IS_REQUIRED),
+    delegation: number().positive(errorMessage.IS_REQUIRED),
     address: string().nonempty(errorMessage.IS_REQUIRED),
     role: string().nonempty(errorMessage.IS_REQUIRED),
     type: string().nullable(),
-    photo:any().optional(),
+    photo: any().optional(),
     /*photo: any()
       .refine(
         (files) => files?.[0]?.size <= MAX_FILE_SIZE,

@@ -23,6 +23,8 @@ export const register = {
 
   // error message
   IS_REQUIRED: "Champ obligatoire",
-  INVALID: "invalide",
+  INVALID: "Invalide",
   PASSWORD_NOT_MATCH: "Ce mot de passe ne correspond pas",
+
+  SENT_CERIFICATION_LINK:" Un e-mail a été envoyé à votre adresse e-mail avec un lien de vérification.",
 };

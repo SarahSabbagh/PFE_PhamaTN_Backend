@@ -1,6 +1,3 @@
-import { TypeOf } from "zod";
-import { loginSchema, signUpSchema } from "../../../core/utils/validator";
-
 export interface IUser {
   name: string;
   email: string;
@@ -20,8 +17,8 @@ export interface IRegisterRequest {
   email: string;
   password: string;
   role: string;
-  governorate: string;
-  delegation: string;
+  governorate: number;
+  delegation: number;
   pharmacyFirstName: string;
   pharmacyLastName: string;
   // image?: any;
