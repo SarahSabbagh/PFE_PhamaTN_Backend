@@ -1,3 +1,3 @@
 export const layout: React.FC = () => {
-  return <></>;
+  return null;
 };
