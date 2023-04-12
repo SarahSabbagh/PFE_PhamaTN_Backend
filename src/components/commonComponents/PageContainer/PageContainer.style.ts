@@ -7,7 +7,7 @@ export const RootStyle = styled(Container)<
   ContainerProps & StyledPageContainerProps
 >(
   (props) =>
-    props.background == true && {
+    props.background === true && {
       backgroundImage: `url(${image})`,
       backgroundRepeat: "no-repeat",
       backgroundSize: "100% 100% ",

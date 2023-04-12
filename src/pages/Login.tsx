@@ -13,6 +13,7 @@ import { ButtonSignIn } from "../components/signInComponents/buttonSignIn/Button
 import { useTranslation } from "react-i18next";
 import { CustomizedSnackbars } from "../components/commonComponents/snackbar/Snackbar";
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
+import { Footer } from "../layouts/footer/Footer";
 
 export type ILoginRequest = TypeOf<typeof loginSchema>;
 
@@ -46,52 +47,55 @@ export const SignIn: FC = () => {
   };
 
   return (
-    <PageContainer background title={t("login.TITLE_PAGE_SIGN_IN")}>
-      <Grid>
-        <FormProvider {...methods}>
-          <CustomizedSnackbars
-            open={unauthorized}
-            severity="error"
-            message={t("login.UNAUTHORIZED")}
-          />
-          <SignInPaper title={t("login.TITLE_APP")}>
-            <Box
-              component="form"
-              onSubmit={handleSubmit(submitHandler)}
-              noValidate
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              width="100%"
-            >
-              <Grid item xs={12}>
-                <FormInput
-                  id="email"
-                  placeholder={t("login.EMAIL_LABEL")}
-                  type="email"
-                  label={t("login.EMAIL_LABEL")}
-                  name="email"
-                  required
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormInput
-                  id="password"
-                  type="password"
-                  label={t("login.PASSWORD_LABEL")}
-                  name="password"
-                  placeholder={t("login.PASSWORD_LABEL")}
-                  eyeicon
-                  autoComplete="off"
-                />
-              </Grid>
-              <ButtonSignIn loading={isSubmitting} type="submit">
-                {t("login.SIGN_IN")}
-              </ButtonSignIn>
-            </Box>
-          </SignInPaper>
-        </FormProvider>
-      </Grid>
-    </PageContainer>
+    <>
+      <PageContainer background title={t("login.TITLE_PAGE_SIGN_IN")}>
+        <Grid>
+          <FormProvider {...methods}>
+            <CustomizedSnackbars
+              open={unauthorized}
+              severity="error"
+              message={t("login.UNAUTHORIZED")}
+            />
+            <SignInPaper title={t("login.TITLE_APP")}>
+              <Box
+                component="form"
+                onSubmit={handleSubmit(submitHandler)}
+                noValidate
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                width="100%"
+              >
+                <Grid item xs={12}>
+                  <FormInput
+                    id="email"
+                    placeholder={t("login.EMAIL_LABEL")}
+                    type="email"
+                    label={t("login.EMAIL_LABEL")}
+                    name="email"
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormInput
+                    id="password"
+                    type="password"
+                    label={t("login.PASSWORD_LABEL")}
+                    name="password"
+                    placeholder={t("login.PASSWORD_LABEL")}
+                    eyeicon
+                    autoComplete="off"
+                  />
+                </Grid>
+                <ButtonSignIn loading={isSubmitting} type="submit">
+                  {t("login.SIGN_IN")}
+                </ButtonSignIn>
+              </Box>
+            </SignInPaper>
+          </FormProvider>
+        </Grid>
+      </PageContainer>
+      <Footer />
+    </>
   );
 };

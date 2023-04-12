@@ -4,5 +4,5 @@ export interface PageContainerProps {
   background?: boolean;
 }
 export interface StyledPageContainerProps {
-  background: boolean;
+  background?: boolean;
 }

@@ -12,12 +12,12 @@ const def = [
   [1024 * 1024 * 1024, "Go"],
   [1024 * 1024 * 1024 * 1024, "To"],
 ];
-const convertSize = (size: number) => {
+/*const convertSize = (size: number) => {
   for (let i = 1; i < def.length; i++) {
     if (size < def[i][0])
       return (size / Number(def[i - 1][0])).toFixed(2) + " " + def[i - 1][1];
   }
-};
+};*/
 
 export const InputImage: React.FC<InputImageProps> = (props) => {
   const { name, label, id } = props;
