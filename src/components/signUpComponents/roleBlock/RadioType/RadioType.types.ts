@@ -1,4 +1,4 @@
 export interface RadioTypeProps {
-  show: boolean;
+  //show: boolean;
   name: string;
 }

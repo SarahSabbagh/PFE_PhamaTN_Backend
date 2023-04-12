@@ -1,7 +1,6 @@
 import { Link, LinkProps, styled } from "@mui/material";
 import { fonts } from "../../../core/constants/fonts";
 
-/* ---------------------------------------------- styled Link Forget Password -----------------------------------------*/
 export const StyledLinkForgetPassword = styled(Link)<LinkProps>(
   ({ theme }) => ({
     fontSize: "0.875rem",
@@ -16,7 +15,6 @@ export const StyledLinkForgetPassword = styled(Link)<LinkProps>(
   })
 );
 
-/* ----------------------------------------------  Styled Link SignUp  -------------------------------------------------*/
 export const StyledLinkSignUp = styled(Link)<LinkProps>(({ theme }) => ({
   fontFamily: fonts.SECONDARY_BOLD,
   fontSize: "0.875rem",

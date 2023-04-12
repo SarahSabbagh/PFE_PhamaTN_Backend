@@ -57,7 +57,7 @@ export const RoleBlock: React.FC<RoleBlockProps> = (props) => {
           </Grid>
         )}
       />
-      <RadioType name="type" show={showType} />
+      {showType && <RadioType name="type" />}
     </>
   );
 };

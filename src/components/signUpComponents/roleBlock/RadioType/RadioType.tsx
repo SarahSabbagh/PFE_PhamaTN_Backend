@@ -6,7 +6,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { RadioTypeProps } from "./RadioType.types";
 
 export const RadioType: React.FC<RadioTypeProps> = (props) => {
-  const { name, show } = props;
+  const { name } = props;
   const { t } = useTranslation();
   const { control } = useFormContext();
 
@@ -15,7 +15,7 @@ export const RadioType: React.FC<RadioTypeProps> = (props) => {
       name={name}
       control={control}
       render={({ field }) => (
-        <Grid container item xs={12} sm={6} hidden={!show}>
+        <Grid container item xs={12} sm={6} >
           <InputLabel htmlFor="type">{t("register.TYPE_LABEL")}</InputLabel>
           <RadioGroup {...field} row>
             <FormControlLabel value="1" control={<Radio />} label="Jour" />
