@@ -43,7 +43,11 @@ export const RoleBlock: React.FC<RoleBlockProps> = (props) => {
                 clickable={!showType && getValues(name) === "1"}
                 label={t("register.WHOLESALE_LABEL")}
                 icon={
-                  !showType && getValues(name) === "1" ? <DoneIcon /> : <></>
+                  !showType && getValues(name) === "1" ? (
+                    <DoneIcon color="primary" />
+                  ) : (
+                    <></>
+                  )
                 }
               />
               <StyledChip
@@ -51,7 +55,7 @@ export const RoleBlock: React.FC<RoleBlockProps> = (props) => {
                 clickable={showType}
                 onClick={handleClickPharmacy}
                 label={t("register.PHARMACY_LABEL")}
-                icon={showType ? <DoneIcon /> : <></>}
+                icon={showType ? <DoneIcon color="primary" /> : <></>}
               />
             </Stack>
           </Grid>

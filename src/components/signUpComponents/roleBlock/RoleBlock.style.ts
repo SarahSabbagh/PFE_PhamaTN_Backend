@@ -13,8 +13,14 @@ export const StyledChip = styled(Chip)<ChipProps>(({ theme }) => ({
   fontSize: "0.875rem",
   "&:hover": { backgroundColor: theme.palette.secondary.light },
   "&:focus": { backgroundColor: theme.palette.secondary.light },
-  "&.MuiChip-colorError	": { color: theme.palette.error.main },
-  " &.MuiChip-clickable": { backgroundColor: theme.palette.primary.light },
+  "&.MuiChip-colorError": { color: theme.palette.error.main },
+  "&.MuiChip-clickable": {
+    backgroundColor: theme.palette.primary.light,
+    color: theme.palette.background.default,
+  },
+  "& .MuiSvgIcon-colorPrimary": {
+    color: theme.palette.background.default,
+  },
 }));
 
 export const StyledQuestion = styled(Typography)<TypographyProps>({
