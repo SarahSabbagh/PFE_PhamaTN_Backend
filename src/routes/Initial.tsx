@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate, useLoaderData } from "react-router-dom";
 import { SignIn } from "../pages/Login";
 import { Register } from "../pages/Register";
 import { ErrorPage } from "../pages/Error";
