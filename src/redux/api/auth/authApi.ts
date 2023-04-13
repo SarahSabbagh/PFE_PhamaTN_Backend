@@ -3,7 +3,6 @@ import { BASE_URL } from "../../../configuredURL";
 import { endpoints } from "../../../core/constants/endpoints";
 import { prepareHeaders } from "../../../core/utils/rtk.config";
 import { ILoginRequest } from "../../../pages/Login";
-import { ISignUpRequest } from "../../../pages/Register";
 import { ILoginResponse, IRegisterRequest, IUser } from "../types/IUser";
 
 export interface userState {
