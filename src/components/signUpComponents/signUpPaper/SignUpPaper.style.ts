@@ -4,6 +4,7 @@ import { Paper, PaperProps, styled } from "@mui/material";
 export const StyledSignUpPaper = styled(Paper)<PaperProps>(({ theme }) => ({
   width: "60vw",
   margin: "4rem auto",
+  borderRadius: "0.7rem",
   [theme.breakpoints.down("md")]: {
     width: "100vw",
     minHeight: "100vh",
