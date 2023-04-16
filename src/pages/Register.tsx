@@ -38,7 +38,7 @@ export const Register: FC = () => {
     delegation: 0,
     address: "",
     role: "1",
-    //image: "",
+    image: "",
     type: "1",
     fax: "",
     phone: "",
@@ -71,7 +71,8 @@ export const Register: FC = () => {
   const { data: delagations = [] } = useDelegationsQuery(watch("governorate"));
   const submitHandler: SubmitHandler<ISignUpRequest> = async (data) => {
     const { confirmPassword, ...rest } = data;
-    register({ ...rest })
+
+    await register({ ...rest })
       .unwrap()
       .catch((error: any) => {
         if (error.data.errors.email) {

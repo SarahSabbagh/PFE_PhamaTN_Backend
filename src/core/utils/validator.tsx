@@ -40,7 +40,7 @@ export const signUpSchema = loginSchema
     address: string().nonempty(errorMessage.IS_REQUIRED),
     role: string().nonempty(errorMessage.IS_REQUIRED),
     type: string().nullable(),
-    photo: any().optional(),
+    image: any().optional(),
     /*photo: any()
       .refine(
         (files) => files?.[0]?.size <= MAX_FILE_SIZE,
