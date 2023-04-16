@@ -18,15 +18,15 @@ import {
   useDelegationsQuery,
   useGovernoratesQuery,
 } from "../redux/api/region/regionApi";
-import { CustomizedSnackbars } from "../components/commonComponents/snackbar/Snackbar";
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export type ISignUpRequest = TypeOf<typeof signUpSchema>;
 
 export const Register: FC = () => {
   const { t } = useTranslation();
 
-  // ? Default Values
   const defaultValues: ISignUpRequest = {
     name: "",
     email: "",
@@ -44,40 +44,36 @@ export const Register: FC = () => {
     phone: "",
   };
 
-  const [register] = useRegisterMutation();
+  const [register, { isSuccess, isLoading }] = useRegisterMutation();
   const { data: governorates = [] } = useGovernoratesQuery();
 
   const methods = useForm<ISignUpRequest>({
     resolver: zodResolver(signUpSchema),
     defaultValues,
-    //   mode: "onChange",
+    mode: "onChange",
   });
-  const {
-    handleSubmit,
-    watch,
-    resetField,
-    setError,
-    reset,
-    formState: { isSubmitting, isSubmitSuccessful },
-  } = methods;
+  const { handleSubmit, watch, resetField, setError, reset } = methods;
 
   React.useEffect(() => {
     resetField("delegation");
   }, [watch("governorate")]);
+
   React.useEffect(() => {
-    reset(defaultValues);
-  }, [isSubmitSuccessful]);
+    const VerificationLinkMessage = t("register.SENT_VERIFICATION_LINK");
+    if (isSuccess) {
+      reset(defaultValues);
+      toast.success(VerificationLinkMessage, {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  }, [isLoading]);
 
   const { data: delagations = [] } = useDelegationsQuery(watch("governorate"));
-  const [isRegistered, setIsRegistered] = React.useState(false);
   const submitHandler: SubmitHandler<ISignUpRequest> = async (data) => {
     const { confirmPassword, ...rest } = data;
     register({ ...rest })
       .unwrap()
-      .then(() => {
-        setIsRegistered(true);
-      })
-      .catch((error) => {
+      .catch((error: any) => {
         if (error.data.errors.email) {
           setError("email", {
             type: "server",
@@ -90,11 +86,7 @@ export const Register: FC = () => {
   return (
     <PageContainer background title={t("register.TITLE_PAGE_SIGN_UP")}>
       <Grid container>
-        <CustomizedSnackbars
-          open={isRegistered}
-          severity="success"
-          message={t("register.SENT_CERIFICATION_LINK")}
-        />
+        <ToastContainer />
         <SignUpPaper title={t("register.TITLE_SIGN_UP")}>
           <FormProvider {...methods}>
             <Box
@@ -245,7 +237,7 @@ export const Register: FC = () => {
                   flexDirection="column"
                   justifyContent="center"
                 >
-                  <ButtonSignUp loading={isSubmitting} type="submit">
+                  <ButtonSignUp loading={isLoading} type="submit">
                     {t("register.SIGN_UP")}
                   </ButtonSignUp>
                 </Grid>

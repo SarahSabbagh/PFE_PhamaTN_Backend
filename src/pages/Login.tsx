@@ -11,16 +11,16 @@ import { loginSchema } from "../core/utils/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ButtonSignIn } from "../components/signInComponents/buttonSignIn/ButtonSignIn";
 import { useTranslation } from "react-i18next";
-import { CustomizedSnackbars } from "../components/commonComponents/snackbar/Snackbar";
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export type ILoginRequest = TypeOf<typeof loginSchema>;
 
 export const SignIn: FC = () => {
   const { t } = useTranslation();
-  const [unauthorized, setUnauthorized] = React.useState(false);
-  // ? Default Values
+
   const defaultValues: ILoginRequest = {
     email: "",
     password: "",
@@ -30,37 +30,31 @@ export const SignIn: FC = () => {
     defaultValues,
     mode: "onChange",
   });
-  const {
-    handleSubmit,
-    formState: { isSubmitting },
-  } = methods;
+  const { handleSubmit } = methods;
 
-  const [login, { isLoading, isSuccess }] = useLoginMutation();
+  const [login, { isLoading, isSuccess, isError }] = useLoginMutation();
   const submitHandler: SubmitHandler<ILoginRequest> = async (data) => {
-    await login(data)
-      .unwrap()
-      .catch((error) => {
-        if (error.status == 401) {
-          setUnauthorized(true);
-        }
-      });
+    await login(data).unwrap();
   };
+  
   const navigate = useNavigate();
 
   React.useEffect(() => {
     if (isSuccess) {
       navigate("/");
     }
+    if (isError) {
+      toast.error(t("login.UNAUTHORIZED"), {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   }, [isLoading]);
+
   return (
     <PageContainer background title={t("login.TITLE_PAGE_SIGN_IN")}>
       <Grid>
         <FormProvider {...methods}>
-          <CustomizedSnackbars
-            open={unauthorized}
-            severity="error"
-            message={t("login.UNAUTHORIZED")}
-          />{" "}
+          <ToastContainer />
           <SignInPaper title={t("login.TITLE_APP")}>
             <Box
               component="form"
@@ -92,7 +86,7 @@ export const SignIn: FC = () => {
                   autoComplete="off"
                 />
               </Grid>
-              <ButtonSignIn loading={isSubmitting} type="submit">
+              <ButtonSignIn loading={isLoading} type="submit">
                 {t("login.SIGN_IN")}
               </ButtonSignIn>
             </Box>

@@ -26,5 +26,6 @@ export const register = {
   INVALID: "Invalide",
   PASSWORD_NOT_MATCH: "Ce mot de passe ne correspond pas",
 
-  SENT_CERIFICATION_LINK:" Un e-mail a été envoyé à votre adresse e-mail avec un lien de vérification.",
+  SENT_VERIFICATION_LINK:
+    " Un e-mail a été envoyé à votre adresse e-mail avec un lien de vérification.",
 };
