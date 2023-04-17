@@ -7,9 +7,10 @@ export interface IUser {
   delegation: string;
   pharmacyName: string;
   pharmacyLastname: string;
+  image?: string | null;
   phone: string;
   fax: string;
-  type: string;
+  type?: string | null;
   address: string;
 }
 export interface IRegisterRequest {
@@ -21,7 +22,7 @@ export interface IRegisterRequest {
   delegation: number;
   pharmacyFirstName: string;
   pharmacyLastName: string;
-  // image?: any;
+  image?: File | null;
   phone: string;
   fax: string;
   type?: string | null;

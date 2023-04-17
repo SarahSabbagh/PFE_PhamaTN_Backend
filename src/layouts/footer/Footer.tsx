@@ -8,7 +8,7 @@ import { Item } from "./item/Item";
 export const Footer: React.FC<FooterProps> = (props) => {
   //const { children } = props;
   return (
-    <StyledFooter container  direction={"row"}>
+    <StyledFooter container direction={"row"}>
       <Item email title="Email" description="pharmaTN@gmail.com" />
       <Item
         address

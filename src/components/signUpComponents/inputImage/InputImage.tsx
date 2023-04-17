@@ -30,7 +30,7 @@ export const InputImage: React.FC<InputImageProps> = (props) => {
   let size: number;
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    files !== null && setValue(name, files[0].name);
+    files !== null && setValue(name, files[0]);
     // if (files !== null) {
     // if (files[0].size <= 1024 * 1024) {
     //   setValue(name, files[0].name);
@@ -53,7 +53,7 @@ export const InputImage: React.FC<InputImageProps> = (props) => {
               {...field}
               {...props}
               onClick={handleClick}
-              value={getValues(name)}
+              value={getValues(name).name}
               readOnly
               // error={size > 1024 * 1024 && !!error}
             />

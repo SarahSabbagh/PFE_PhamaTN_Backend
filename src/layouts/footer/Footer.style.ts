@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Grid, GridProps, styled } from "@mui/material";
-import { fonts } from "../../core/constants/fonts";
 
 export const StyledFooter = styled(Grid)<GridProps>(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
