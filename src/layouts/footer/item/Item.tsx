@@ -9,7 +9,7 @@ import { StyledGridItem } from "./Item.style";
 export const Item: React.FC<ItemProps> = (props) => {
   const { address, email, phone, title, description } = props;
   return (
-    <StyledGridItem width={"100%"} container item rowSpacing={1} sm={4} md={3}>
+    <StyledGridItem width={"100%"} container item rowSpacing={1} sm={4}>
       <Grid item xs={2}>
         {address && !email && !phone && <RoomOutlinedIcon fontSize="large" />}
         {email && !address && !phone && <EmailOutlinedIcon fontSize="large" />}

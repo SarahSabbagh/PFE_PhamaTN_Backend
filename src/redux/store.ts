@@ -4,6 +4,7 @@ import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { authApi } from "./api/auth/authApi";
 import { userApi } from "./api/user/userApi";
 import userReducer from "./features/userSlice";
+import authReducer from "./features/authSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     [regionApi.reducerPath]: regionApi.reducer,
     userState: userReducer,
+    auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({}).concat([
@@ -19,9 +21,7 @@ export const store = configureStore({
       regionApi.middleware,
     ]),
 });
-// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
 
 setupListeners(store.dispatch);

@@ -11,7 +11,6 @@ export default function Paper(theme: Theme) {
           flexDirection: "column",
           alignItems: "center",
           border: "1px solid" && theme.palette.background.paper,
-          borderRadius: "0.7rem",
           backgroundColor: theme.palette.background.paper,
         },
       },

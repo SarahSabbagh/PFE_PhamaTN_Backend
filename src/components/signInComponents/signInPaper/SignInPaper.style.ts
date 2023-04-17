@@ -11,6 +11,7 @@ export const StyledSignInPaper = styled(Paper)<PaperProps>(({ theme }) => ({
   width: "30vw",
   minWidth: "20rem",
   margin: "2rem",
+  borderRadius: "0.7rem",
   [theme.breakpoints.down("lg")]: {
     width: "40vw",
   },

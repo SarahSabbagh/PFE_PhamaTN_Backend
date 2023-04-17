@@ -4,16 +4,15 @@ import { endpoints } from "../../../core/constants/endpoints";
 import { prepareHeaders } from "../../../core/utils/rtk.config";
 import { ILoginRequest } from "../../../pages/Login";
 import { ILoginResponse, IRegisterRequest, IUser } from "../types/IUser";
+import { setUser } from "../../features/userSlice";
+import { setAccessToken } from "../../features/authSlice";
 
-export interface userState {
-  user: IUser | null;
-}
 const headers = { Accept: "application/json" };
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${BASE_URL}`,
-    //prepareHeaders: prepareHeaders,
+    prepareHeaders: prepareHeaders,
   }),
   endpoints: (builder) => ({
     login: builder.mutation<ILoginResponse, ILoginRequest>({
@@ -23,6 +22,15 @@ export const authApi = createApi({
           method: "POST",
           body: loginRequest,
         };
+      },
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setUser(data.user));
+          dispatch(setAccessToken(data.access_token));
+        } catch (error) {
+          /* empty */
+        }
       },
     }),
     register: builder.mutation({
@@ -35,7 +43,14 @@ export const authApi = createApi({
         };
       },
     }),
+    logout: builder.mutation<void, void>({
+      query: () => ({
+        url: endpoints.LOGOUT,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation, useLogoutMutation } =
+  authApi;
