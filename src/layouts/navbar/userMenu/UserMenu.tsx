@@ -11,13 +11,12 @@ import { StyledIconButton, StyledLink, StyledMenu } from "./UserMenu.style";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { NavbarProps } from "../Navbar.types";
-import { useLogoutMutation } from "../../../redux/api/auth/authApi";
 
 export const UserMenu: React.FC<NavbarProps> = (props) => {
   const { anchorEl, handleClose, handleOpen } = props;
-  const [logout] = useLogoutMutation();
-  const handleLogout = async () => {
-    await logout();
+  const handleLogout = () => {
+    // logout();
+    localStorage.clear();
   };
 
   return (

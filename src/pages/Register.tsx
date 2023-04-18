@@ -26,7 +26,7 @@ export type ISignUpRequest = TypeOf<typeof signUpSchema>;
 
 export const Register: FC = () => {
   const { t } = useTranslation();
-
+  const VerificationLinkMessage = t("register.SENT_VERIFICATION_LINK");
   const defaultValues: ISignUpRequest = {
     name: "",
     email: "",
@@ -38,15 +38,13 @@ export const Register: FC = () => {
     delegation: 0,
     address: "",
     role: "1",
-    image: "",
+    //image: undefined,
     type: "1",
     fax: "",
     phone: "",
   };
-
-  const [register, { isSuccess, isLoading }] = useRegisterMutation();
+  const [register, { isLoading }] = useRegisterMutation();
   const { data: governorates = [] } = useGovernoratesQuery();
-
   const methods = useForm<ISignUpRequest>({
     resolver: zodResolver(signUpSchema),
     defaultValues,
@@ -58,27 +56,29 @@ export const Register: FC = () => {
     resetField("delegation");
   }, [watch("governorate")]);
 
-  React.useEffect(() => {
-    const VerificationLinkMessage = t("register.SENT_VERIFICATION_LINK");
-    if (isSuccess) {
-      reset(defaultValues);
-      toast.success(VerificationLinkMessage, {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    }
-  }, [isLoading]);
-
   const { data: delagations = [] } = useDelegationsQuery(watch("governorate"));
+
   const submitHandler: SubmitHandler<ISignUpRequest> = async (data) => {
     const { confirmPassword, ...rest } = data;
-
-    await register({ ...rest })
+    register({ ...rest })
       .unwrap()
+      .then(() => {
+        reset(defaultValues);
+        toast.success(VerificationLinkMessage, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      })
       .catch((error: any) => {
         if (error.data.errors.email) {
           setError("email", {
             type: "server",
             message: error.data.errors.email[0],
+          });
+        }
+        if (error.data.errors.image) {
+          setError("image", {
+            type: "server",
+            message: error.data.errors.image[0],
           });
         }
       });

@@ -1,6 +1,6 @@
 import { any, literal, number, object, optional, string } from "zod";
 import { errorMessage } from "../constants/errorMessages";
-
+import z from "zod";
 const phoneExp = /^[2|9|5|7][0-9]{7}$/;
 const faxExp = /^7[0-9]{7}$/;
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
@@ -40,7 +40,7 @@ export const signUpSchema = loginSchema
     address: string().nonempty(errorMessage.IS_REQUIRED),
     role: string().nonempty(errorMessage.IS_REQUIRED),
     type: string().nullable(),
-    image: any().optional(),
+    image: z.instanceof(FileList).optional().nullable(),
     /*photo: any()
       .refine(
         (files) => files?.[0]?.size <= MAX_FILE_SIZE,
