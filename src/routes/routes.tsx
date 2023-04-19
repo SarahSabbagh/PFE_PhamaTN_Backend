@@ -4,16 +4,17 @@ import { SignIn } from "../pages/Login";
 import { Register } from "../pages/Register";
 import { ErrorPage } from "../pages/Error";
 import { Home } from "../pages/Home";
-import { PrivateRoute, PrivateRouteNoAuth } from "./gards/gards";
 import { Layout, LayoutLogin } from "../layouts/GlobalLayout";
 import { Profile } from "../pages/Profile";
 import { Settings } from "../pages/Settings";
 import { Dashboard } from "../pages/dashboard";
+import { PrivateRouteNoAuth } from "./privateRoutes/PrivateRouteNoAuth";
+import { PrivateRouteAuth } from "./privateRoutes/PrivateRouteAuth";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <PrivateRoute component={Layout} />,
+    element: <PrivateRouteAuth component={Layout} />,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -45,7 +46,7 @@ export const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: "/register",
+        path: "register",
         element: <Register />,
         errorElement: <ErrorPage />,
       },
