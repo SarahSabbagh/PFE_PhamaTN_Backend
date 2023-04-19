@@ -4,8 +4,10 @@ import { Footer } from "./footer/Footer";
 import ResponsiveAppBar from "./navbar/Navbar";
 import { Container, Grid } from "@mui/material";
 import ResponsiveSideBar from "./sidebar/Sidebar";
-
-export const Layout: React.FC = () => {
+interface ILayout {
+  children: JSX.Element;
+}
+export const Layout: React.FC<ILayout> = (prop) => {
   return (
     <>
       <ResponsiveAppBar />
@@ -14,18 +16,18 @@ export const Layout: React.FC = () => {
           <ResponsiveSideBar />
         </Grid>
         <Grid item xs={9} mt={3}>
-          <Outlet />
+          {prop.children}
         </Grid>
       </Grid>
       <Footer />
     </>
   );
 };
-export const LayoutLogin: React.FC = () => {
+export const LayoutLogin: React.FC<ILayout> = (prop) => {
   return (
     <Grid>
       <ResponsiveAppBar />
-      <Outlet />
+      {prop.children}
       <Footer />
     </Grid>
   );

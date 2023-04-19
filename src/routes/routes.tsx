@@ -10,46 +10,61 @@ import { Settings } from "../pages/Settings";
 import { Dashboard } from "../pages/dashboard";
 import { PrivateRouteNoAuth } from "./privateRoutes/PrivateRouteNoAuth";
 import { PrivateRouteAuth } from "./privateRoutes/PrivateRouteAuth";
+import { NOTFOUND } from "dns";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <PrivateRouteAuth component={Layout} />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        index: true,
-        element: <Home />,
-      },
-      {
-        path: "profile",
-        element: <Profile />,
-      },
-      {
-        path: "settings",
-        element: <Settings />,
-      },
-      {
-        path: "dashboard",
-        element: <Dashboard />,
-      },
-    ],
+    element: (
+      <Layout>
+        <PrivateRouteAuth component={Home} />
+      </Layout>
+    ),
   },
   {
-    path: "/",
-    element: <PrivateRouteNoAuth component={LayoutLogin} />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "login",
-        element: <SignIn />,
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: "register",
-        element: <Register />,
-        errorElement: <ErrorPage />,
-      },
-    ],
+    id: "PROFILES",
+    path: "profile",
+    element: (
+      <Layout>
+        <PrivateRouteAuth component={Profile} />
+      </Layout>
+    ),
   },
+  {
+    id: "SETTINGS",
+    path: "settings",
+    element: (
+      <Layout>
+        <PrivateRouteAuth component={Settings} />
+      </Layout>
+    ),
+  },
+  {
+    id: "DASHBOARD",
+    path: "dashboard",
+    element: (
+      <Layout>
+        <PrivateRouteAuth component={Dashboard} />
+      </Layout>
+    ),
+  },
+  {
+    id: "LOGIN",
+    path: "login",
+    element: (
+      <LayoutLogin>
+        <PrivateRouteNoAuth component={SignIn} />
+      </LayoutLogin>
+    ),
+  },
+  {
+    id: "REGISTER",
+    path: "register",
+    element: (
+      <LayoutLogin>
+        <PrivateRouteNoAuth component={Register} />
+      </LayoutLogin>
+    ),
+  },
+  { path: "*", element: <ErrorPage /> },
 ]);

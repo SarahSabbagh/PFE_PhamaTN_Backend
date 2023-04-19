@@ -12,7 +12,7 @@ import {
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { StyledBoxSideBar, StyledLink } from "./Sidebar.style";
-import { SideBarMenuList } from "./SideBarMenuList";
+import { SideBarMenuList } from "../../core/constants/list/menuList/SideBarMenuList";
 
 const ResponsiveSideBar: React.FC = () => {
   const [open, setOpen] = React.useState(true);

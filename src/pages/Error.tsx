@@ -1,21 +1,18 @@
 import React from "react";
 import { FC } from "react";
-import { useRouteError } from "react-router-dom";
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
 import { Divider, Stack, Typography } from "@mui/material";
 
 export const ErrorPage: FC = () => {
-  const error: any = useRouteError();
-
   return (
-    <PageContainer title={error.statusText}>
+    <PageContainer title="Page not found">
       <Stack
         direction="row"
         divider={<Divider orientation="vertical" flexItem />}
         spacing={3}
       >
-        <Typography variant="h3">{error.status}</Typography>
-        <Typography variant="h3">{error.statusText}</Typography>
+        <Typography variant="h1">404</Typography>
+        <Typography variant="h1">Page not found</Typography>
       </Stack>
     </PageContainer>
   );
