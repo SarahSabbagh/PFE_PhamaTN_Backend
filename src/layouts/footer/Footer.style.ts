@@ -11,5 +11,5 @@ export const StyledFooter = styled(Grid)<GridProps>(({ theme }) => ({
   minHeight: "4rem",
   justifyContent: "center",
   alignItems: "center",
-  minWidth: "100vw",
+  minWidth: "100%",
 }));

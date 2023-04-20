@@ -13,7 +13,7 @@ export default function Container(theme: Theme) {
           justifyContent: "center",
           alignItems: "center",
           fontSize: "1rem",
-          width: "100%",
+          minWidth: "100%",
           minHeight: "100vh",
         },
       },

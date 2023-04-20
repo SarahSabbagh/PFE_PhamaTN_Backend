@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import { I18nextProvider } from "react-i18next";
 import { RouterProvider } from "react-router-dom";
 import i18n from "./locales/i18n";
-import { Routes } from "./routes/Routes";
+import { Routes } from "./routes/routes";
 
 function App() {
   return (
