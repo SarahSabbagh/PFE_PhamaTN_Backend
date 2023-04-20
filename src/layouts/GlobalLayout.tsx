@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Footer } from "./footer/Footer";
 import { Grid } from "@mui/material";
-import{ ResponsiveSideBar} from "./sidebar/Sidebar";
-import {ResponsiveAppBar} from "./navbar/Navbar";
+import { ResponsiveSideBar } from "./sidebar/Sidebar";
+import { ResponsiveAppBar } from "./navbar/Navbar";
 interface ILayout {
   children: JSX.Element;
 }
@@ -26,7 +26,7 @@ export const Layout: React.FC<ILayout> = (prop) => {
         handleDrawerClose={handleDrawerClose}
       />
       <Grid container item>
-        <Grid item md={3} lg={2}>
+        <Grid item md={3} lg={2} xxl={1}>
           <ResponsiveSideBar
             openDrawer={open}
             handleDrawerClose={handleDrawerClose}
