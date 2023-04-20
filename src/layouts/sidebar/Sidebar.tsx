@@ -1,59 +1,35 @@
 import * as React from "react";
+import { IconButton } from "@mui/material";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import {
-  Collapse,
-  Divider,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+  StyledBoxSideBar,
+  StyledDrawer,
+  StyledDrawerPermanent,
+} from "./Sidebar.style";
+import { SidebarProps } from "./Sidebar.types";
+import { ListSidebar } from "./ListSidebar";
 
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-import { StyledBoxSideBar, StyledLink } from "./Sidebar.style";
-import { SideBarMenuList } from "../../core/constants/list/menuList/SideBarMenuList";
-
-const ResponsiveSideBar: React.FC = () => {
-  const [open, setOpen] = React.useState(true);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
+export const ResponsiveSideBar: React.FC<SidebarProps> = (props) => {
+  const { openDrawer, handleDrawerClose } = props;
   return (
     <StyledBoxSideBar>
-      <List>
-        {SideBarMenuList.map((item) => (
-          <>
-            <ListItem key={item.id} disablePadding sx={{ flex: 1 }}>
-              <StyledLink to={item.url}>
-                <ListItemButton key={item.title} onClick={handleClick}>
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.title} />
-                </ListItemButton>
-              </StyledLink>   </ListItem>
-              {item.subMenu && (open ? <ExpandLess /> : <ExpandMore />) && (
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                  <List disablePadding>
-                    {item.subMenu.map((nestedPage) => (
-                      <ListItem key={nestedPage.id} disablePadding>
-                        <StyledLink to={nestedPage.url}>
-                          <ListItemButton key={nestedPage.title} sx={{ pl: 4 }}>
-                            <ListItemIcon>{nestedPage.icon}</ListItemIcon>
-                            <ListItemText primary={nestedPage.title} />
-                          </ListItemButton>
-                        </StyledLink>
-                      </ListItem>
-                    ))}
-                  </List>
-                </Collapse>
-              )}
-         
-            <Divider />
-          </>
-        ))}
-      </List>
+      <StyledDrawerPermanent variant="permanent" anchor="left" open>
+        <ListSidebar />
+      </StyledDrawerPermanent>
+      <StyledDrawer
+        variant="persistent"
+        anchor="left"
+        open={openDrawer}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile.
+        }}
+      >
+        <IconButton onClick={handleDrawerClose}>
+          <ChevronLeftIcon />
+        </IconButton>
+
+        <ListSidebar />
+      </StyledDrawer>
     </StyledBoxSideBar>
   );
 };
-export default ResponsiveSideBar;

@@ -12,17 +12,16 @@ export const LogoNavbar: React.FC<StyledLogoNavbarProps> = (props) => {
       isNotAuthenticated={isNotAuthenticated}
       item
       container
+      xs="auto"
     >
       <Grid item>
         <StyledLogo src={logoPharmaTn} alt="logo PharmaTN" />
       </Grid>
-      {!logoxs && (
-        <Grid item>
-          <StyledTypography isNotAuthenticated to="/">
-            PHARMATN
-          </StyledTypography>
-        </Grid>
-      )}
+      <Grid item>
+        <StyledTypography isNotAuthenticated to="/">
+          PHARMATN
+        </StyledTypography>
+      </Grid>
     </StyledGrid>
   );
 };

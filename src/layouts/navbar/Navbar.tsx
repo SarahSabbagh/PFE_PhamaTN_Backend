@@ -1,45 +1,35 @@
 import * as React from "react";
 import Toolbar from "@mui/material/Toolbar";
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import { LogoNavbar } from "./logoNavbar/LogoNavbar";
 import { StyledAppBar } from "./Navbar.style";
-import { IconMenu } from "./iconMenu/IconMenu";
 import { MenuList } from "./navMenu/NavMenu";
 import { UserMenu } from "./userMenu/UserMenu";
 import { useAccessToken } from "../../hooks/authHooks";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
+import { SidebarProps } from "../sidebar/Sidebar.types";
+import { IconMenu } from "./iconMenu/IconMenu";
 const pagesAutnentication = [
   { route: "/login", name: "Login" },
   { route: "/register", name: "Register" },
 ];
 
-const ResponsiveAppBar: React.FC = () => {
+export const ResponsiveAppBar: React.FC<SidebarProps> = (props) => {
+  const { openDrawer, handleDrawerOpen, handleDrawerClose } = props;
   const isAuthenticated: boolean = useAccessToken();
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
+
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
 
   return (
-    <StyledAppBar isAuthenticated>
+    <StyledAppBar isAuthenticated={isAuthenticated}>
       <Grid width="97vw">
         <Toolbar disableGutters>
           {!isAuthenticated && (
@@ -52,7 +42,12 @@ const ResponsiveAppBar: React.FC = () => {
           {isAuthenticated && (
             <>
               <LogoNavbar />
-              <LogoNavbar logoxs />
+              <IconMenu
+                openDrawer={openDrawer}
+                handleDrawerClose={handleDrawerClose}
+                handleDrawerOpen={handleDrawerOpen}
+              />
+
               <Grid
                 sx={{
                   position: "relative",
@@ -60,43 +55,7 @@ const ResponsiveAppBar: React.FC = () => {
                   cursor: "pointer",
                 }}
               >
-                <LanguageOutlinedIcon color="primary" />
-              </Grid>
-              <Grid
-                sx={{
-                  position: "relative",
-                  marginRight: "1rem",
-                  cursor: "pointer",
-                }}
-              >
-                <NotificationsIcon color="primary" />
-                <Grid
-                  item
-                  sx={{
-                    position: "absolute",
-                    top: "-.3rem",
-                    right: ".7rem",
-                  }}
-                >
-                  <Typography
-                    color={"white"}
-                    sx={{
-                      height: 15,
-                      width: 15,
-                      position: "absolute",
-                      fontSize: ".7rem",
-                      fontWeight: "700",
-                      bgcolor: "red",
-                      borderRadius: "50%",
-                      display: " flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                    component={"span"}
-                  >
-                    2
-                  </Typography>
-                </Grid>
+                <LanguageOutlinedIcon color="primary" fontSize="large" />
               </Grid>
               <UserMenu
                 anchorEl={anchorElUser}
@@ -110,4 +69,3 @@ const ResponsiveAppBar: React.FC = () => {
     </StyledAppBar>
   );
 };
-export default ResponsiveAppBar;
