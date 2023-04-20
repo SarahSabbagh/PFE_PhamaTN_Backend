@@ -1,23 +1,21 @@
 import * as React from "react";
 import Toolbar from "@mui/material/Toolbar";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { LogoNavbar } from "./logoNavbar/LogoNavbar";
 import { StyledAppBar } from "./Navbar.style";
 import { IconMenu } from "./iconMenu/IconMenu";
 import { MenuList } from "./navMenu/NavMenu";
 import { UserMenu } from "./userMenu/UserMenu";
 import { useAccessToken } from "../../hooks/authHooks";
-
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 const pagesAutnentication = [
   { route: "/login", name: "Login" },
   { route: "/register", name: "Register" },
 ];
-const pages = [
-  { route: "Dashboard", name: "Dashboard" },
-  { route: "/", name: "Home" },
-];
+
 const ResponsiveAppBar: React.FC = () => {
-  const isAuthenticated = useAccessToken();
+  const isAuthenticated: boolean = useAccessToken();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -41,8 +39,8 @@ const ResponsiveAppBar: React.FC = () => {
   };
 
   return (
-    <StyledAppBar>
-      <Grid width="95vw">
+    <StyledAppBar isAuthenticated>
+      <Grid width="97vw">
         <Toolbar disableGutters>
           {!isAuthenticated && (
             <>
@@ -54,19 +52,52 @@ const ResponsiveAppBar: React.FC = () => {
           {isAuthenticated && (
             <>
               <LogoNavbar />
-              <IconMenu
-                pages={pages}
-                anchorEl={anchorElNav}
-                handleClose={handleCloseNavMenu}
-                handleOpen={handleOpenNavMenu}
-              />
               <LogoNavbar logoxs />
-              <MenuList
-                anchorEl={anchorElNav}
-                handleClose={handleCloseNavMenu}
-                handleOpen={handleOpenNavMenu}
-                pages={pages}
-              />
+              <Grid
+                sx={{
+                  position: "relative",
+                  marginRight: "1rem",
+                  cursor: "pointer",
+                }}
+              >
+                <LanguageOutlinedIcon color="primary" />
+              </Grid>
+              <Grid
+                sx={{
+                  position: "relative",
+                  marginRight: "1rem",
+                  cursor: "pointer",
+                }}
+              >
+                <NotificationsIcon color="primary" />
+                <Grid
+                  item
+                  sx={{
+                    position: "absolute",
+                    top: "-.3rem",
+                    right: ".7rem",
+                  }}
+                >
+                  <Typography
+                    color={"white"}
+                    sx={{
+                      height: 15,
+                      width: 15,
+                      position: "absolute",
+                      fontSize: ".7rem",
+                      fontWeight: "700",
+                      bgcolor: "red",
+                      borderRadius: "50%",
+                      display: " flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    component={"span"}
+                  >
+                    2
+                  </Typography>
+                </Grid>
+              </Grid>
               <UserMenu
                 anchorEl={anchorElUser}
                 handleClose={handleCloseUserMenu}

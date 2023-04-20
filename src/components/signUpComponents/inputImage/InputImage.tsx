@@ -27,18 +27,13 @@ export const InputImage: React.FC<InputImageProps> = (props) => {
   const handleClick = () => {
     inputRef.current?.click();
   };
-  let size: number;
+  let imageName = "";
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    files !== null && setValue(name, files[0]);
-    // if (files !== null) {
-    // if (files[0].size <= 1024 * 1024) {
-    //   setValue(name, files[0].name);
-    // } else {
-    //  setValue(name, "");
-    //  size = files[0].size;
-    // }
-    // }
+    if (files !== null) {
+      setValue(name, files);
+      imageName = files[0].name;
+    }
   };
 
   return (
@@ -53,9 +48,8 @@ export const InputImage: React.FC<InputImageProps> = (props) => {
               {...field}
               {...props}
               onClick={handleClick}
-              value={getValues(name).name}
+              value={imageName}
               readOnly
-              // error={size > 1024 * 1024 && !!error}
             />
 
             <StyledButton
@@ -75,7 +69,7 @@ export const InputImage: React.FC<InputImageProps> = (props) => {
           />
 
           <FormHelperText id={id} error={!!error}>
-            {/* {error ? size > 1024 * 1024 && error?.message : ""}*/}
+            {error ? error?.message : ""}
           </FormHelperText>
         </>
       )}

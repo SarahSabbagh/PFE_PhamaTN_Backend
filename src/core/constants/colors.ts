@@ -1,3 +1,5 @@
+import { blue, grey } from "@mui/material/colors";
+
 export const colors = {
   primary: {
     light: "#1976d2",
@@ -40,8 +42,6 @@ export const colors = {
     primary: "#262626",
     secondary: "#404040",
   },
-  contrastThreshold: 3,
+  grey: { light: grey[300], main: grey[500], dark: grey[700] },
+  blue: { light: blue[300], main: blue[500], dark: blue[700] },
 };
-import { blue } from "@mui/material/colors";
-
-const color = blue[500];

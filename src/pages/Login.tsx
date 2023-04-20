@@ -12,15 +12,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ButtonSignIn } from "../components/signInComponents/buttonSignIn/ButtonSignIn";
 import { useTranslation } from "react-i18next";
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { globalVariables } from "../core/constants/globalVariables";
+import { IErrorResponseLogin } from "../redux/api/types/IResponseRequest";
 
 export type ILoginRequest = TypeOf<typeof loginSchema>;
 
 export const SignIn: FC = () => {
   const { t } = useTranslation();
-
+  const navigate = useNavigate();
   const defaultValues: ILoginRequest = {
     email: "",
     password: "",
@@ -32,23 +34,21 @@ export const SignIn: FC = () => {
   });
   const { handleSubmit } = methods;
 
-  const [login, { isLoading, isSuccess, isError }] = useLoginMutation();
-  const submitHandler: SubmitHandler<ILoginRequest> = async (data) => {
-    await login(data).unwrap();
-  };
-  
-  const navigate = useNavigate();
-
-  React.useEffect(() => {
-    if (isSuccess) {
-      navigate("/");
-    }
-    if (isError) {
-      toast.error(t("login.UNAUTHORIZED"), {
-        position: toast.POSITION.TOP_CENTER,
+  const [login, { isLoading }] = useLoginMutation();
+  const submitHandler: SubmitHandler<ILoginRequest> = (data) => {
+    login(data)
+      .unwrap()
+      .then((response) => {
+        localStorage.setItem(globalVariables.TOKEN, response.access_token);
+        navigate("/", { replace: true });
+        console.log(response.access_token);
+      })
+      .catch(() => {
+        toast.error(t("login.UNAUTHORIZED"), {
+          position: toast.POSITION.TOP_CENTER,
+        });
       });
-    }
-  }, [isLoading]);
+  };
 
   return (
     <PageContainer background title={t("login.TITLE_PAGE_SIGN_IN")}>

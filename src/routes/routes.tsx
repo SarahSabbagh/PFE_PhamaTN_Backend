@@ -4,44 +4,67 @@ import { SignIn } from "../pages/Login";
 import { Register } from "../pages/Register";
 import { ErrorPage } from "../pages/Error";
 import { Home } from "../pages/Home";
-import { PrivateRoute, PrivateRouteNoAuth } from "./gards/gards";
-import { Layout } from "../layouts/GlobalLayout";
+import { Layout, LayoutLogin } from "../layouts/GlobalLayout";
 import { Profile } from "../pages/Profile";
 import { Settings } from "../pages/Settings";
 import { Dashboard } from "../pages/dashboard";
+import { PrivateRouteNoAuth } from "./privateRoutes/PrivateRouteNoAuth";
+import { PrivateRouteAuth } from "./privateRoutes/PrivateRouteAuth";
+import { NOTFOUND } from "dns";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        index: true,
-        element: <PrivateRoute component={Home} />,
-      },
-      {
-        path: "login",
-        element: <PrivateRouteNoAuth component={SignIn} />,
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: "/register",
-        element: <PrivateRouteNoAuth component={Register} />,
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: "profile",
-        element: <PrivateRoute component={Profile} />,
-      },
-      {
-        path: "settings",
-        element: <PrivateRoute component={Settings} />,
-      },
-      {
-        path: "dashboard",
-        element: <PrivateRoute component={Dashboard} />,
-      },
-    ],
+    element: (
+      <Layout>
+        <PrivateRouteAuth component={Home} />
+      </Layout>
+    ),
   },
+  {
+    id: "PROFILES",
+    path: "profile",
+    element: (
+      <Layout>
+        <PrivateRouteAuth component={Profile} />
+      </Layout>
+    ),
+  },
+  {
+    id: "SETTINGS",
+    path: "settings",
+    element: (
+      <Layout>
+        <PrivateRouteAuth component={Settings} />
+      </Layout>
+    ),
+  },
+  {
+    id: "DASHBOARD",
+    path: "dashboard",
+    element: (
+      <Layout>
+        <PrivateRouteAuth component={Dashboard} />
+      </Layout>
+    ),
+  },
+  {
+    id: "LOGIN",
+    path: "login",
+    element: (
+      <LayoutLogin>
+        <PrivateRouteNoAuth component={SignIn} />
+      </LayoutLogin>
+    ),
+  },
+  {
+    id: "REGISTER",
+    path: "register",
+    element: (
+      <LayoutLogin>
+        <PrivateRouteNoAuth component={Register} />
+      </LayoutLogin>
+    ),
+  },
+  { path: "*", element: <ErrorPage /> },
 ]);
