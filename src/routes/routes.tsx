@@ -11,7 +11,7 @@ import { Dashboard } from "../pages/dashboard";
 import { PrivateRouteNoAuth } from "./privateRoutes/PrivateRouteNoAuth";
 import { PrivateRouteAuth } from "./privateRoutes/PrivateRouteAuth";
 
-export const router = createBrowserRouter([
+export const Routes = createBrowserRouter([
   {
     path: "/",
     element: (
