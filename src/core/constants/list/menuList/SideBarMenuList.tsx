@@ -4,6 +4,7 @@ import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import AutoGraphOutlinedIcon from "@mui/icons-material/AutoGraphOutlined";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
+import { paths } from "../../path";
 
 export interface ISideBarMenuList {
   id: string;
@@ -23,7 +24,7 @@ export const SideBarMenuList: ISideBarMenuList[] = [
   {
     id: "DASHBOARD",
     title: "Dashboard",
-    url: "Dashboard",
+    url: paths.DASHBOARD,
     icon: (
       <DashboardOutlinedIcon style={{ fontSize: 32 }} viewBox="0 0 32 32" />
     ),
@@ -31,13 +32,13 @@ export const SideBarMenuList: ISideBarMenuList[] = [
   {
     id: "USERS",
     title: "Users",
-    url: "/",
+    url: paths.USERS,
     icon: <PeopleAltOutlinedIcon />,
   },
   {
     id: "MEDICATION_Information",
     title: "Medication information",
-    url: "/",
+    url: paths.MEDICATION,
     icon: <MedicationOutlinedIcon />,
     subMenu: [
       {
@@ -52,7 +53,7 @@ export const SideBarMenuList: ISideBarMenuList[] = [
   {
     id: "STATISTIQUE",
     title: "Statistique",
-    url: "/",
+    url: paths.STATISTIQUE,
 
     icon: <AutoGraphOutlinedIcon />,
   },

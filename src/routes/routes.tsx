@@ -10,6 +10,7 @@ import { Settings } from "../pages/Settings";
 import { Dashboard } from "../pages/dashboard";
 import { PrivateRouteNoAuth } from "./privateRoutes/PrivateRouteNoAuth";
 import { PrivateRouteAuth } from "./privateRoutes/PrivateRouteAuth";
+import { paths } from "../core/constants/path";
 
 export const Routes = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ export const Routes = createBrowserRouter([
   },
   {
     id: "PROFILES",
-    path: "profile",
+    path: paths.PROFILE,
     element: (
       <Layout>
         <PrivateRouteAuth component={Profile} />
@@ -31,7 +32,7 @@ export const Routes = createBrowserRouter([
   },
   {
     id: "SETTINGS",
-    path: "settings",
+    path: paths.SETTINGS,
     element: (
       <Layout>
         <PrivateRouteAuth component={Settings} />
@@ -40,7 +41,7 @@ export const Routes = createBrowserRouter([
   },
   {
     id: "DASHBOARD",
-    path: "dashboard",
+    path: paths.DASHBOARD,
     element: (
       <Layout>
         <PrivateRouteAuth component={Dashboard} />
@@ -49,7 +50,7 @@ export const Routes = createBrowserRouter([
   },
   {
     id: "USERS",
-    path: "/",
+    path: paths.USERS,
     element: (
       <Layout>
         <PrivateRouteAuth component={Dashboard} />
@@ -58,7 +59,7 @@ export const Routes = createBrowserRouter([
   },
   {
     id: "LOGIN",
-    path: "login",
+    path: paths.LOGIN,
     element: (
       <LayoutLogin>
         <PrivateRouteNoAuth component={SignIn} />
@@ -67,7 +68,7 @@ export const Routes = createBrowserRouter([
   },
   {
     id: "REGISTER",
-    path: "register",
+    path: paths.REGISTER,
     element: (
       <LayoutLogin>
         <PrivateRouteNoAuth component={Register} />
