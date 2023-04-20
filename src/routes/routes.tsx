@@ -10,7 +10,6 @@ import { Settings } from "../pages/Settings";
 import { Dashboard } from "../pages/dashboard";
 import { PrivateRouteNoAuth } from "./privateRoutes/PrivateRouteNoAuth";
 import { PrivateRouteAuth } from "./privateRoutes/PrivateRouteAuth";
-import { NOTFOUND } from "dns";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +41,15 @@ export const router = createBrowserRouter([
   {
     id: "DASHBOARD",
     path: "dashboard",
+    element: (
+      <Layout>
+        <PrivateRouteAuth component={Dashboard} />
+      </Layout>
+    ),
+  },
+  {
+    id: "USERS",
+    path: "/",
     element: (
       <Layout>
         <PrivateRouteAuth component={Dashboard} />

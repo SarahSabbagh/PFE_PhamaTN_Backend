@@ -1,8 +1,6 @@
 import {
   Grid,
   GridProps,
-  Typography,
-  TypographyProps,
   styled,
 } from "@mui/material";
 import { StyledLogoNavbarProps } from "./LogoNavbar.types";
@@ -15,23 +13,17 @@ export const StyledLogo = styled("img")({
   marginRight: "0.0625rem",
 });
 export const StyledGrid = styled(Grid)<GridProps & StyledLogoNavbarProps>(
-  ({ logoxs, isNotAuthenticated, theme }) => ({
+  () => ({
     flexDirection: "row",
     alignItems: "center",
-    [theme.breakpoints.up("md")]: {
-      display: !isNotAuthenticated && (logoxs ? "none" : "flex"),
-    },
-    [theme.breakpoints.down("md")]: {
-      display: !isNotAuthenticated && (logoxs ? "flex" : "none"),
-    },
   })
 );
-export const StyledTypography = styled(Link)<LinkProps & StyledLogoNavbarProps>(
+export const  StyledTypography = styled(Link)<LinkProps & StyledLogoNavbarProps>(
   ({ isNotAuthenticated, theme }) => ({
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("sm")]: {
       display: isNotAuthenticated ? "flex" : "none",
     },
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
       display: isNotAuthenticated ? "none" : "flex",
     },
     marginRight: "0.125rem",

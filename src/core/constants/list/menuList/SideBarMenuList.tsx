@@ -31,7 +31,7 @@ export const SideBarMenuList: ISideBarMenuList[] = [
   {
     id: "USERS",
     title: "Users",
-    url: "Users",
+    url: "/",
     icon: <PeopleAltOutlinedIcon />,
   },
   {
