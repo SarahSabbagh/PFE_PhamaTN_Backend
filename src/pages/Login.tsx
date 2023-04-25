@@ -41,7 +41,6 @@ export const SignIn: FC = () => {
       .then((response) => {
         localStorage.setItem(globalVariables.TOKEN, response.access_token);
         navigate("/", { replace: true });
-        console.log(response.access_token);
       })
       .catch(() => {
         toast.error(t("login.UNAUTHORIZED"), {

@@ -16,12 +16,12 @@ export const RoleBlock: React.FC<RoleBlockProps> = (props) => {
   const [showType, setShowType] = React.useState(false);
 
   const handleClickHiddenType = () => {
-    setValue(name, "1");
+    setValue(name, "2");
     setShowType(false);
   };
   const handleClickPharmacy = () => {
     setShowType(true);
-    setValue(name, "2");
+    setValue(name, "3");
   };
 
   return (
@@ -40,10 +40,10 @@ export const RoleBlock: React.FC<RoleBlockProps> = (props) => {
               </StyledQuestion>
               <StyledChip
                 onClick={handleClickHiddenType}
-                clickable={!showType && getValues(name) === "1"}
+                clickable={!showType && getValues(name) === "2"}
                 label={t("register.WHOLESALE_LABEL")}
                 icon={
-                  !showType && getValues(name) === "1" ? (
+                  !showType && getValues(name) === "2" ? (
                     <DoneIcon color="primary" />
                   ) : (
                     <></>

@@ -37,7 +37,7 @@ export const Register: FC = () => {
     governorate: 0,
     delegation: 0,
     address: "",
-    role: "1",
+    role: "2",
     //image: undefined,
     type: "1",
     fax: "",

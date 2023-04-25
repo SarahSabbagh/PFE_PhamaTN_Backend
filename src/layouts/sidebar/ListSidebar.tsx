@@ -1,6 +1,6 @@
 import * as React from "react";
 import {
-    Avatar,
+  Avatar,
   Collapse,
   Divider,
   List,
@@ -23,16 +23,19 @@ export const ListSidebar: React.FC = () => {
 
   return (
     <>
-      {" "}
       <Avatar>A</Avatar>
       <List>
         {SideBarMenuList.map((item) => (
           <>
-            <ListItem key={item.id} disablePadding sx={{ flex: 1 }}>
+            <ListItem
+              key={item.id}
+              disablePadding
+              sx={{ flex: 1, width: "100%" }}
+            >
               <StyledLink to={item.url}>
-                <ListItemButton key={item.title} onClick={handleClick}>
+                <ListItemButton onClick={handleClick}>
                   <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.title} />{" "}
+                  <ListItemText primary={item.title} />
                   {item.subMenu && (open ? <ExpandLess /> : <ExpandMore />)}
                 </ListItemButton>
               </StyledLink>
@@ -44,7 +47,7 @@ export const ListSidebar: React.FC = () => {
                   {item.subMenu.map((nestedPage) => (
                     <ListItem key={nestedPage.id} disablePadding>
                       <StyledLink to={nestedPage.url}>
-                        <ListItemButton key={nestedPage.title} sx={{ pl: 4 }}>
+                        <ListItemButton sx={{ pl: 4, minWidth: "100%" }}>
                           <ListItemIcon>{nestedPage.icon}</ListItemIcon>
                           <ListItemText primary={nestedPage.title} />
                         </ListItemButton>
