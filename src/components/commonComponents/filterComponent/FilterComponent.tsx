@@ -26,7 +26,6 @@ export const Filter: React.FC = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  //------------------------------------------------------
   const [chipData, setChipData] = React.useState<ChipData[]>([]);
   const handleChange =
     (id: number) => (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -6,22 +6,50 @@ import { CustomizedTableToolBar } from "../tableToolBar/TableToolBar";
 import { CustomizedTableHead } from "../tableHead/TableHead";
 import { TableContent } from "../tableContent/TableContent";
 import { TableFactoryProps } from "./TableFactory.types";
+import { CustomizedTablePagination } from "../tablePagination/TablePagination";
 
 export const TableFactory = <T,>(
   props: React.PropsWithChildren<TableFactoryProps<T>>
 ) => {
-  const { columns, data, title, handleQueryChange } = props;
+  const {
+    handleChangeRowsPerPage,
+    handleChangePage,
+    page,
+    rowsPerPage,
+    columns,
+    data,
+    title,
+    actions,
+    rowsPerPageOptions,
+    handleQueryChange,
+  } = props;
 
   return (
-    <TableContainer component={Paper}>
-      <CustomizedTableToolBar
-        handleQueryChange={handleQueryChange}
-        title={title}
+    <Paper>
+      <TableContainer>
+        <CustomizedTableToolBar
+          handleQueryChange={handleQueryChange}
+          title={title}
+        />
+        <Table aria-label="simple table">
+          <CustomizedTableHead columns={columns} />
+          <TableContent<T>
+            columns={columns}
+            data={data}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            actions={actions}
+          />
+        </Table>
+      </TableContainer>
+      <CustomizedTablePagination<T>
+        rowsPerPageOptions={rowsPerPageOptions}
+        count={data.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        handleChangePage={handleChangePage}
+        handleChangeRowsPerPage={handleChangeRowsPerPage}
       />
-      <Table aria-label="simple table">
-        <CustomizedTableHead columns={columns} />
-        <TableContent<T> columns={columns} data={data} />
-      </Table>
-    </TableContainer>
+    </Paper>
   );
 };

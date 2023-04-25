@@ -6,43 +6,51 @@ import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import { IconButton, Switch } from "@mui/material";
 import { CustomizedTableRowProps } from "./CustomizedTableRow.types";
-
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
+import {
+  StandardCell,
+  StatusCell,
+  ActionsCell,
+  ActivationCell,
+} from "./customizedTableCell/CustomizedTableCell";
 export const CustomizedTableRow = <T,>(
   props: React.PropsWithChildren<CustomizedTableRowProps<T>>
 ) => {
-  const { item, columns } = props;
+  const { item, columns, actions } = props;
+
   return (
     <TableRow>
-      {columns.map((col: any) => (
-        <TableCell key={col.accessor} align="center">
-          {col.accessor !== "status" && col.accessor !== "active" ? (
-            item[col.accessor]
-          ) : col.accessor === "status" ? (
-            <IconButton aria-label="delete">
-              {item[col.accessor] === 2 ? (
-                <TaskAltOutlinedIcon color="success" />
-              ) : item[col.accessor] === 1 ? (
-                <PendingOutlinedIcon />
-              ) : (
-                <UnpublishedOutlinedIcon color="error" />
-              )}
-            </IconButton>
-          ) : (
-            col.accessor === "active" && (
-              <Switch
-                sx={{
-                  [".MuiSwitch-switchBase"]: {
-                    color: "red",
-                  },
-                }}
-                defaultChecked={item[col.accessor]}
-                color="success"
-                // onChange={handleChange}
-              />
-            )
-          )}
-        </TableCell>
-      ))}
+      {columns.map(
+        (col: any) =>
+          (col.accessor === "status" && (
+            <StatusCell
+              key={col.accessor}
+              accessor={col.accessor}
+              element={item[col.accessor]}
+            />
+          )) ||
+          (col.accessor === "active" && (
+            <ActivationCell
+              key={col.accessor}
+              accessor={col.accessor}
+              element={item[col.accessor]}
+            />
+          )) ||
+          (col.label === "Action" && (
+            <ActionsCell
+              accessor={col.accessor}
+              key={col.accessor}
+              actions={actions}
+            />
+          )) || (
+            <StandardCell
+              accessor={col.accessor}
+              key={col.accessor}
+              element={item[col.accessor]}
+            />
+          )
+      )}
     </TableRow>
   );
 };

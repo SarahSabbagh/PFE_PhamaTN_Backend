@@ -6,12 +6,19 @@ import { CustomizedTableRow } from "../tableRows/CustomizedTableRow";
 export const TableContent = <T,>(
   props: React.PropsWithChildren<TableContentProps<T>>
 ) => {
-  const { data, columns } = props;
+  const { actions, data, columns, page, rowsPerPage } = props;
   return (
     <TableBody>
-      {data.map((item: T, index) => (
-        <CustomizedTableRow<T> key={index} item={item} columns={columns} />
-      ))}
+      {data
+        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+        .map((item: T, index) => (
+          <CustomizedTableRow<T>
+            actions={actions}
+            key={index}
+            item={item}
+            columns={columns}
+          />
+        ))}
     </TableBody>
   );
 };

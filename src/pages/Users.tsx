@@ -21,9 +21,12 @@ const userColumns: ITableHead[] = [
   { label: "Last Name", accessor: "pharmacyLastName" },
   { label: "Status", accessor: "status" },
   { label: "Mode", accessor: "active" },
+  { label: "Action", accessor: "" },
 ];
 
 export const UsersPage: FC = () => {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const { data: users = [], isLoading } = useUsersQuery();
   const [UpdateUser] = useUpdateUserMutation();
   const [query, setQuery] = React.useState("");
@@ -39,16 +42,38 @@ export const UsersPage: FC = () => {
         user.pharmacyLastName.toLowerCase().includes(query)
     );
   };
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
   return (
     <PageContainer title={"Users"}>
-      <Grid sx={{ mr: 3, ml: 3 }}>
+      <Grid
+        sx={{
+          //  width: "100%",
+          mr: "auto",
+          ml: "auto",
+        }}
+      >
         <Grid item>
           <TableFactory<IUser>
             columns={userColumns}
             data={search(users)}
             handleQueryChange={handleQueryChange}
-            title={"User"}
+            title={"Users"}
             isLoading={isLoading}
+            page={page}
+            actions={{ edit: true, delete: true }}
+            rowsPerPageOptions={[1, 10, 25, 100]}
+            rowsPerPage={rowsPerPage}
+            handleChangePage={handleChangePage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
           />
         </Grid>
       </Grid>

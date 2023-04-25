@@ -1,13 +1,18 @@
 import { ITableHead } from "../tableHead/TableHead.types";
-interface IActions {
-  edit: boolean;
-  delete: boolean;
+export interface IActions {
+  edit?: boolean;
+  delete?: boolean;
 }
 export interface TableFactoryProps<T> {
   data: T[];
   handleQueryChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   title: string;
   columns: ITableHead[];
-  actions?: IActions;
+  actions: IActions;
   isLoading: Boolean;
+  page: number;
+  rowsPerPageOptions: number[];
+  rowsPerPage: number;
+  handleChangePage: (event: unknown, newPage: number) => void;
+  handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
