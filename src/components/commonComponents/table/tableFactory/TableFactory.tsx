@@ -8,7 +8,7 @@ import { TableContent } from "../tableContent/TableContent";
 import { TableFactoryProps } from "./TableFactory.types";
 import { CustomizedTablePagination } from "../tablePagination/TablePagination";
 import { LoadingTableContent } from "../tableContent/loadingTableContent/LoadingTableContent";
-import { StyledPaper } from "./TableFactory.style";
+import { StyledPaper, StyledTableContainer } from "./TableFactory.style";
 
 export const TableFactory = <T,>(
   props: React.PropsWithChildren<TableFactoryProps<T>>
@@ -29,7 +29,7 @@ export const TableFactory = <T,>(
 
   return (
     <StyledPaper>
-      <TableContainer>
+      <StyledTableContainer>
         <CustomizedTableToolBar
           handleQueryChange={handleQueryChange}
           title={title}
@@ -48,7 +48,7 @@ export const TableFactory = <T,>(
             />
           )}
         </Table>
-      </TableContainer>
+      </StyledTableContainer>
       <CustomizedTablePagination<T>
         rowsPerPageOptions={rowsPerPageOptions}
         count={data.length}
