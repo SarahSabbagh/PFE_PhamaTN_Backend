@@ -2,6 +2,7 @@ import * as React from "react";
 import { Paper, PaperProps, styled } from "@mui/material";
 
 export const StyledPaper = styled(Paper)<PaperProps>(({ theme }) => ({
+  marginTop:"5rem",
   [theme.breakpoints.up("xl")]: {
     width: 1200,
   },
