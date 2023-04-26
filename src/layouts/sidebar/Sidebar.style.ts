@@ -5,7 +5,7 @@ import { Link, LinkProps } from "react-router-dom";
 export const StyledBoxSideBar = styled(Box)<BoxProps>(({ theme }) => ({
   minHeight: "100%",
   [theme.breakpoints.up("md")]: {
-    minWidth: 250,
+    minWidth: "15.625rem",
   },
   justifyContent: "flex-start",
 }));
@@ -20,7 +20,7 @@ export const StyledLink = styled(Link)<LinkProps>(({ theme }) => ({
 export const StyledDrawer = styled(Drawer)<DrawerProps>(({ theme }) => ({
   "& .MuiDrawer-paper": {
     padding: "8rem 0",
-    minWidth: 250,
+    minWidth: "15.625rem",
     justifyContent: "flex-start",
   },
   [theme.breakpoints.up("md")]: {
@@ -35,7 +35,7 @@ export const StyledDrawerPermanent = styled(Drawer)<DrawerProps>(
   ({ theme }) => ({
     "& .MuiDrawer-paper": {
       padding: "8rem 0",
-      minWidth: 250,
+      minWidth: "15.625rem",
       justifyContent: "flex-start",
     },
     [theme.breakpoints.down("md")]: {

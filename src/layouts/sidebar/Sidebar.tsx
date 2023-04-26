@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IconButton } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import {
   StyledBoxSideBar,
@@ -25,7 +25,8 @@ export const ResponsiveSideBar: React.FC<SidebarProps> = (props) => {
           keepMounted: true, // Better open performance on mobile.
         }}
       >
-        <Logo />
+        <Logo sidebarLogo />
+
         <IconButton onClick={handleDrawerClose}>
           <ChevronLeftIcon />
         </IconButton>

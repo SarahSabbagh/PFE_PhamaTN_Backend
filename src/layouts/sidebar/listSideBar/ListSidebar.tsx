@@ -12,7 +12,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { StyledLink } from "../Sidebar.style";
 import { SideBarMenuList } from "../../../core/constants/list/menuList/SideBarMenuList";
-import { StyledListItemIcon } from "./ListSidebar.style";
+import { StyledList, StyledListItemIcon } from "./ListSidebar.style";
 
 export const ListSidebar: React.FC = () => {
   const [open, setOpen] = React.useState(true);
@@ -22,7 +22,7 @@ export const ListSidebar: React.FC = () => {
   };
 
   return (
-    <List sx={{ minWidth: "100%" }}>
+    <StyledList>
       {SideBarMenuList.map((item) => (
         <>
           <ListItem key={item.id} disablePadding>
@@ -56,6 +56,6 @@ export const ListSidebar: React.FC = () => {
           <Divider />
         </>
       ))}
-    </List>
+    </StyledList>
   );
 };
