@@ -9,7 +9,7 @@ export interface TableFactoryProps<T> {
   title: string;
   columns: ITableHead[];
   actions: IActions;
-  isLoading: Boolean;
+  isLoading: boolean;
   page: number;
   rowsPerPageOptions: number[];
   rowsPerPage: number;

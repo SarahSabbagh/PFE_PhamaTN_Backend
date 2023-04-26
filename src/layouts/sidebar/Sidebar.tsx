@@ -7,7 +7,8 @@ import {
   StyledDrawerPermanent,
 } from "./Sidebar.style";
 import { SidebarProps } from "./Sidebar.types";
-import { ListSidebar } from "./ListSidebar";
+import { ListSidebar } from "./listSideBar/ListSidebar";
+import { Logo } from "../../components/commonComponents/logo/Logo";
 
 export const ResponsiveSideBar: React.FC<SidebarProps> = (props) => {
   const { openDrawer, handleDrawerClose } = props;
@@ -24,10 +25,10 @@ export const ResponsiveSideBar: React.FC<SidebarProps> = (props) => {
           keepMounted: true, // Better open performance on mobile.
         }}
       >
+        <Logo />
         <IconButton onClick={handleDrawerClose}>
           <ChevronLeftIcon />
         </IconButton>
-
         <ListSidebar />
       </StyledDrawer>
     </StyledBoxSideBar>

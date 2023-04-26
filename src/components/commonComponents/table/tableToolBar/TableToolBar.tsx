@@ -3,6 +3,7 @@ import { Grid, Typography } from "@mui/material";
 import { SearchField } from "../../searchField/SearchField";
 import { Filter } from "../../filterComponent/FilterComponent";
 import { TableToolBarProps } from "./TableToolBar.types";
+import { StyledTitle } from "./TableToolBar.style";
 
 export const CustomizedTableToolBar: React.FC<TableToolBarProps> = (props) => {
   const { handleQueryChange, title } = props;
@@ -10,7 +11,7 @@ export const CustomizedTableToolBar: React.FC<TableToolBarProps> = (props) => {
   return (
     <Grid container item sx={{ alignItems: "center" }}>
       <Grid item xs={12}>
-        <Typography variant="h2">{title}</Typography>
+        <StyledTitle>{title}</StyledTitle>
       </Grid>
       <Grid item xs>
         <SearchField onQueryChange={handleQueryChange} />

@@ -26,7 +26,7 @@ export const Layout: React.FC<ILayout> = (prop) => {
         handleDrawerClose={handleDrawerClose}
       />
       <Grid container item>
-        <Grid item md={3} lg={2} xxl={1}>
+        <Grid item xs="auto" >
           <ResponsiveSideBar
             openDrawer={open}
             handleDrawerClose={handleDrawerClose}

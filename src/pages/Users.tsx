@@ -37,9 +37,9 @@ export const UsersPage: FC = () => {
   const search = (users: IUser[]) => {
     return users.filter(
       (user) =>
-        user.name.toLowerCase().includes(query) ||
-        user.pharmacyFirstName.toLowerCase().includes(query) ||
-        user.pharmacyLastName.toLowerCase().includes(query)
+        user.name?.toLowerCase()?.includes(query) ||
+        user.pharmacyFirstName?.toLowerCase()?.includes(query) ||
+        user.pharmacyLastName?.toLowerCase()?.includes(query)
     );
   };
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -54,28 +54,20 @@ export const UsersPage: FC = () => {
   };
   return (
     <PageContainer title={"Users"}>
-      <Grid
-        sx={{
-          //  width: "100%",
-          mr: "auto",
-          ml: "auto",
-        }}
-      >
-        <Grid item>
-          <TableFactory<IUser>
-            columns={userColumns}
-            data={search(users)}
-            handleQueryChange={handleQueryChange}
-            title={"Users"}
-            isLoading={isLoading}
-            page={page}
-            actions={{ edit: true, delete: true }}
-            rowsPerPageOptions={[1, 10, 25, 100]}
-            rowsPerPage={rowsPerPage}
-            handleChangePage={handleChangePage}
-            handleChangeRowsPerPage={handleChangeRowsPerPage}
-          />
-        </Grid>
+      <Grid>
+        <TableFactory<IUser>
+          columns={userColumns}
+          data={search(users)}
+          handleQueryChange={handleQueryChange}
+          title={"Users"}
+          isLoading={isLoading}
+          page={page}
+          actions={{ edit: true, delete: true }}
+          rowsPerPageOptions={[1, 10, 25, 100]}
+          rowsPerPage={rowsPerPage}
+          handleChangePage={handleChangePage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
+        />
       </Grid>
     </PageContainer>
   );

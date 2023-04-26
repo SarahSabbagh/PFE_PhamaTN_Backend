@@ -7,6 +7,8 @@ import { CustomizedTableHead } from "../tableHead/TableHead";
 import { TableContent } from "../tableContent/TableContent";
 import { TableFactoryProps } from "./TableFactory.types";
 import { CustomizedTablePagination } from "../tablePagination/TablePagination";
+import { LoadingTableContent } from "../tableContent/loadingTableContent/LoadingTableContent";
+import { StyledPaper } from "./TableFactory.style";
 
 export const TableFactory = <T,>(
   props: React.PropsWithChildren<TableFactoryProps<T>>
@@ -20,12 +22,13 @@ export const TableFactory = <T,>(
     data,
     title,
     actions,
+    isLoading,
     rowsPerPageOptions,
     handleQueryChange,
   } = props;
 
   return (
-    <Paper>
+    <StyledPaper>
       <TableContainer>
         <CustomizedTableToolBar
           handleQueryChange={handleQueryChange}
@@ -33,13 +36,17 @@ export const TableFactory = <T,>(
         />
         <Table aria-label="simple table">
           <CustomizedTableHead columns={columns} />
-          <TableContent<T>
-            columns={columns}
-            data={data}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            actions={actions}
-          />
+          {isLoading ? (
+            <LoadingTableContent />
+          ) : (
+            <TableContent<T>
+              columns={columns}
+              data={data}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              actions={actions}
+            />
+          )}
         </Table>
       </TableContainer>
       <CustomizedTablePagination<T>
@@ -50,6 +57,6 @@ export const TableFactory = <T,>(
         handleChangePage={handleChangePage}
         handleChangeRowsPerPage={handleChangeRowsPerPage}
       />
-    </Paper>
+    </StyledPaper>
   );
 };

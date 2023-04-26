@@ -1,8 +1,4 @@
-import {
-  Grid,
-  GridProps,
-  styled,
-} from "@mui/material";
+import { Grid, GridProps, styled } from "@mui/material";
 import { StyledLogoNavbarProps } from "./LogoNavbar.types";
 import { Link, LinkProps } from "react-router-dom";
 
@@ -12,18 +8,17 @@ export const StyledLogo = styled("img")({
   maxWidth: "4rem",
   marginRight: "0.0625rem",
 });
-export const StyledGrid = styled(Grid)<GridProps & StyledLogoNavbarProps>(
-  () => ({
-    flexDirection: "row",
-    alignItems: "center",
-  })
-);
-export const  StyledTypography = styled(Link)<LinkProps & StyledLogoNavbarProps>(
+export const StyledGrid = styled(Grid)<GridProps>(() => ({
+  flexDirection: "row",
+  alignItems: "center",
+}));
+export const StyledTypography = styled(Link)<LinkProps & StyledLogoNavbarProps>(
   ({ isNotAuthenticated, theme }) => ({
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("md")]: {
       display: isNotAuthenticated ? "flex" : "none",
     },
-    [theme.breakpoints.down("sm")]: {
+
+    [theme.breakpoints.down("md")]: {
       display: isNotAuthenticated ? "none" : "flex",
     },
     marginRight: "0.125rem",
@@ -32,5 +27,12 @@ export const  StyledTypography = styled(Link)<LinkProps & StyledLogoNavbarProps>
     letterSpacing: ".1rem",
     color: theme.palette.primary.main,
     textDecoration: "none",
+  })
+);
+export const StyledGridLogo = styled(Grid)<GridProps & StyledLogoNavbarProps>(
+  ({ isNotAuthenticated, theme }) => ({
+    [theme.breakpoints.down("md")]: {
+      display: isNotAuthenticated ? "none" : "flex",
+    },
   })
 );

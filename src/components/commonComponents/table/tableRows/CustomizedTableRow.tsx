@@ -1,13 +1,8 @@
 import * as React from "react";
-import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
-import UnpublishedOutlinedIcon from "@mui/icons-material/UnpublishedOutlined";
-import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
-import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
-import { IconButton, Switch } from "@mui/material";
+import { Stack, TableCell, TableRow, Typography } from "@mui/material";
+import InboxIcon from "@mui/icons-material/Inbox";
 import { CustomizedTableRowProps } from "./CustomizedTableRow.types";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
+
 import {
   StandardCell,
   StatusCell,
@@ -51,6 +46,18 @@ export const CustomizedTableRow = <T,>(
             />
           )
       )}
+    </TableRow>
+  );
+};
+export const EmptyTableRow: React.FC = () => {
+  return (
+    <TableRow>
+      <TableCell align="center" colSpan={12}>
+        <Stack direction="column" justifyContent="center" alignItems="center">
+          <InboxIcon color="disabled" fontSize="large" />
+          <Typography>No data </Typography>
+        </Stack>
+      </TableCell>
     </TableRow>
   );
 };

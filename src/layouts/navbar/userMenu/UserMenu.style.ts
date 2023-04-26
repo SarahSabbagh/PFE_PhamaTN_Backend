@@ -10,18 +10,14 @@ import { Link, LinkProps } from "react-router-dom";
 
 export const StyledIconButton = styled(IconButton)<IconButtonProps>({
   padding: 0,
-  marginLeft: "0.125rem",
+  marginLeft: "0.5rem",
 });
 export const StyledMenu = styled(Menu)<MenuProps>(({ theme }) => ({
   "& .MuiPaper-root": {
     overflow: "visible",
     marginTop: "0.125rem",
-    "& .MuiAvatar-root": {
-      width: "2rem",
-      height: "2rem",
-      marginLeft: "-0.03125rem",
-      marginRight: "0.0625rem",
-    },
+    padding: 0,
+
     "&:before": {
       content: '""',
       display: "block",
