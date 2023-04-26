@@ -15,8 +15,6 @@ export const StyledBox = styled(Box)<BoxProps & NavbarMenuProps>(
   })
 );
 export const StyledButton = styled(Button)<ButtonProps>(() => ({
-  marginBottom: 2,
-  marginTop: 2,
   color: "primary",
   display: "block",
   border: "none",

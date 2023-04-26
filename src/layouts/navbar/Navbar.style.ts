@@ -7,8 +7,7 @@ export const StyledAppBar = styled(AppBar)<AppBarProps & styledAppBarProps>(
   ({ isAuthenticated, theme }) => ({
     position: !isAuthenticated ? "static" : "fixed",
     zIndex: theme.zIndex.drawer + 1,
-    padding: " 0.5rem",
-    height: "4.6875rem",
+    maxHeight: "4.6875rem",
     minWidth: "100%",
     marginBottom: "0.1rem",
     backgroundColor: theme.palette.background.default,

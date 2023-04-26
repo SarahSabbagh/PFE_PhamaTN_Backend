@@ -25,9 +25,7 @@ export const SideBarMenuList: ISideBarMenuList[] = [
     id: "DASHBOARD",
     title: "Dashboard",
     url: paths.DASHBOARD,
-    icon: (
-      <DashboardOutlinedIcon style={{ fontSize: 32 }} viewBox="0 0 32 32" />
-    ),
+    icon: <DashboardOutlinedIcon />,
   },
   {
     id: "USERS",
@@ -37,7 +35,7 @@ export const SideBarMenuList: ISideBarMenuList[] = [
   },
   {
     id: "MEDICATION_Information",
-    title: "Medication information",
+    title: "Drugs Info",
     url: paths.MEDICATION,
     icon: <MedicationOutlinedIcon />,
     subMenu: [
@@ -47,7 +45,7 @@ export const SideBarMenuList: ISideBarMenuList[] = [
         url: "/",
         icon: <FeedOutlinedIcon />,
       },
-      { id: "DCI", title: "dci", url: "/", icon: <FeedOutlinedIcon /> },
+      { id: "DCI", title: "DCI", url: "/", icon: <FeedOutlinedIcon /> },
     ],
   },
   {

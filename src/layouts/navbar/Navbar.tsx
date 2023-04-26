@@ -11,6 +11,7 @@ import { SidebarProps } from "../sidebar/Sidebar.types";
 import { IconMenu } from "./iconMenu/IconMenu";
 import { useLocation } from "react-router-dom";
 import { paths } from "../../core/constants/path";
+import { StyledIconButton } from "./userMenu/UserMenu.style";
 const pageLogin = [{ route: paths.LOGIN, name: "Login" }];
 const pageRegister = [{ route: paths.REGISTER, name: "Register" }];
 
@@ -33,44 +34,37 @@ export const ResponsiveAppBar: React.FC<SidebarProps> = (props) => {
   };
   return (
     <StyledAppBar isAuthenticated={isAuthenticated}>
-      <Grid width="97vw">
-        <Toolbar disableGutters>
-          {!isAuthenticated && (
-            <>
-              <LogoNavbar isNotAuthenticated />
-              <MenuList
-                pages={isCurrentURL(paths.LOGIN) ? pageRegister : pageLogin}
-                isAuthenticated
-              />
-            </>
-          )}
+      <Grid width="95vw">
+        {!isAuthenticated && (
+          <Toolbar disableGutters>
+            <LogoNavbar isNotAuthenticated />
+            <MenuList
+              pages={isCurrentURL(paths.LOGIN) ? pageRegister : pageLogin}
+              isAuthenticated
+            />
+          </Toolbar>
+        )}
 
-          {isAuthenticated && (
-            <>
-              <LogoNavbar />
-              <IconMenu
-                openDrawer={openDrawer}
-                handleDrawerClose={handleDrawerClose}
-                handleDrawerOpen={handleDrawerOpen}
-              />
+        {isAuthenticated && (
+          <Toolbar disableGutters>
+            <LogoNavbar />
+            <IconMenu
+              openDrawer={openDrawer}
+              handleDrawerClose={handleDrawerClose}
+              handleDrawerOpen={handleDrawerOpen}
+            />
 
-              <Grid
-                sx={{
-                  position: "relative",
-                  marginRight: "1rem",
-                  cursor: "pointer",
-                }}
-              >
-                <LanguageOutlinedIcon color="primary" fontSize="large" />
-              </Grid>
-              <UserMenu
-                anchorEl={anchorElUser}
-                handleClose={handleCloseUserMenu}
-                handleOpen={handleOpenUserMenu}
-              />
-            </>
-          )}
-        </Toolbar>
+            <StyledIconButton>
+              <LanguageOutlinedIcon color="primary" fontSize="large" />
+            </StyledIconButton>
+
+            <UserMenu
+              anchorEl={anchorElUser}
+              handleClose={handleCloseUserMenu}
+              handleOpen={handleOpenUserMenu}
+            />
+          </Toolbar>
+        )}
       </Grid>
     </StyledAppBar>
   );

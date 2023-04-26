@@ -4,12 +4,14 @@ import {
   Badge,
   Box,
   Divider,
+  Grid,
   ListItemIcon,
   MenuItem,
   Tooltip,
 } from "@mui/material";
 import { StyledIconButton, StyledLink, StyledMenu } from "./UserMenu.style";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import PersonIcon from "@mui/icons-material/Person";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { NavbarProps } from "../Navbar.types";
@@ -31,20 +33,19 @@ export const UserMenu: React.FC<NavbarProps> = (props) => {
   };
 
   return (
-    <React.Fragment>
+    <Grid item>
       <Box>
         <Tooltip title="Account settings">
           <StyledIconButton
             onClick={handleOpen}
-            size="small"
             aria-label={notificationsLabel(100)}
           >
             <Badge
               badgeContent={100}
               color="error"
               anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
+                vertical: "top",
+                horizontal: "right",
               }}
             >
               <Avatar>A</Avatar>
@@ -62,7 +63,10 @@ export const UserMenu: React.FC<NavbarProps> = (props) => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> <StyledLink to="/Profile">Profile </StyledLink>
+          <ListItemIcon>
+            <PersonIcon fontSize="small" />
+          </ListItemIcon>
+          <StyledLink to="/Profile">Profile </StyledLink>
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
@@ -70,16 +74,7 @@ export const UserMenu: React.FC<NavbarProps> = (props) => {
             <NotificationsIcon fontSize="small" />
           </ListItemIcon>
           <StyledLink onClick={handleLogout} to="/">
-            <Badge
-              badgeContent={100}
-              color="error"
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-            >
-              Notifications
-            </Badge>
+            Notifications
           </StyledLink>
         </MenuItem>
         <MenuItem onClick={handleClose}>
@@ -97,6 +92,6 @@ export const UserMenu: React.FC<NavbarProps> = (props) => {
           </StyledLink>
         </MenuItem>
       </StyledMenu>
-    </React.Fragment>
+    </Grid>
   );
 };

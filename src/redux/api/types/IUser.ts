@@ -1,15 +1,17 @@
 export interface IUser {
+  id: number;
   name: string;
   email: string;
-  password: string;
   role: string;
   governorate: string;
   delegation: string;
-  pharmacyName: string;
-  pharmacyLastname: string;
+  pharmacyFirstName: string;
+  pharmacyLastName: string;
   image?: string | null;
   phone: string;
   fax: string;
   type?: string | null;
   address: string;
+  status: number;
+  active: boolean;
 }

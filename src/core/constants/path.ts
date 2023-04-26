@@ -4,7 +4,7 @@ export const paths = {
   SETTINGS: "/settings",
   PROFILE: "/profile",
   DASHBOARD: "/dashboard",
-  USERS: "/",
+  USERS: "/users",
   STATISTIQUE: "/",
-  MEDICATION:"/"
+  MEDICATION: "/",
 };

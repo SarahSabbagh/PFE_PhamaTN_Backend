@@ -11,6 +11,7 @@ import { Dashboard } from "../pages/dashboard";
 import { PrivateRouteNoAuth } from "./privateRoutes/PrivateRouteNoAuth";
 import { PrivateRouteAuth } from "./privateRoutes/PrivateRouteAuth";
 import { paths } from "../core/constants/path";
+import { UsersPage } from "../pages/Users";
 
 export const Routes = createBrowserRouter([
   {
@@ -53,7 +54,7 @@ export const Routes = createBrowserRouter([
     path: paths.USERS,
     element: (
       <Layout>
-        <PrivateRouteAuth component={Dashboard} />
+        <PrivateRouteAuth component={UsersPage} />
       </Layout>
     ),
   },
