@@ -12,54 +12,70 @@ import {
   RadioGroup,
 } from "@mui/material";
 import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined";
+import { status } from "../../../core/constants/status";
+import { activation } from "../../../core/constants/activation";
+import { FilterProps } from "./FilterComponent.types";
+import { roles } from "../../../core/constants/roles";
 
-interface ChipData {
-  key: number;
-  label: string;
+interface IFilterData {
+  role?: number;
+  status?: number;
+  activationMode?: boolean;
 }
-export const Filter: React.FC = () => {
+interface Ilabel {
+  role?: string;
+  status?: string;
+  activationMode?: string;
+}
+
+export const Filter: React.FC<FilterProps> = ({ recievedFilterData }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const [chipData, setChipData] = React.useState<ChipData[]>([]);
+  const [chipDaa, setChipDaa] = React.useState<IFilterData>({});
+  const [labels, setLabels] = React.useState<Ilabel>({});
+
   const handleChange =
-    (id: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      setChipData(
-        chipData
-          .filter((data) => data.key !== id)
-          .concat([
-            {
-              key: id,
-              label: (event.target as HTMLInputElement).value,
-            },
-          ])
-      );
+    (propertyToUpdate: keyof IFilterData) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setChipDaa({ ...chipDaa, [propertyToUpdate]: event.target.value });
+      setLabels({
+        ...labels,
+        [propertyToUpdate]:
+          event.target.labels && event.target.labels[0].innerText,
+      });
     };
-  const handleDelete = (chipToDelete: ChipData) => () => {
-    setChipData((chips) =>
-      chips.filter((chip) => chip.key !== chipToDelete.key)
-    );
+  console.log(chipDaa);
+  const handleDelete = (propertyToUpdate: keyof IFilterData) => () => {
+    const { [propertyToUpdate]: deletedProperty, ...rest } = chipDaa;
+    const { [propertyToUpdate]: deletedPropertyLabel, ...restLabels } = labels;
+    setLabels(restLabels);
+    setChipDaa(rest);
   };
 
-  const valueRadioGroup = (key: number): string => {
-    const value = chipData.filter((chip) => chip.key == key);
-    return value[0] ? value[0].label : "";
-  };
+  React.useEffect(() => {
+    recievedFilterData(chipDaa);
+  }, [chipDaa, recievedFilterData]);
+  const properties = Object.keys(chipDaa) as Array<keyof IFilterData>;
   return (
     <Grid container item xs="auto" sx={{ alignItems: "center" }}>
-      <Grid item>
-        {chipData.map((data) => (
-          <Chip
-            key={data.key}
-            label={data.label}
-            onDelete={handleDelete(data)}
-          />
-        ))}
+      <Grid item mr={2}>
+        {properties.map(
+          (property) =>
+            chipDaa[property] && (
+              <Chip
+                key={property}
+                label={labels[property]}
+                onDelete={handleDelete(property)}
+              />
+            )
+        )}
       </Grid>
       <Grid item>
         <Button endIcon={<FilterListOutlinedIcon />} onClick={handleClick}>
@@ -80,21 +96,22 @@ export const Filter: React.FC = () => {
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 name="radio-buttons-group"
-                value={valueRadioGroup(0)}
-                onChange={handleChange(0)}
+                value={chipDaa.status}
+                onChange={handleChange("status")}
               >
                 <FormControlLabel
-                  value="pending"
+                  title="Pending"
+                  value={status.PENDING}
                   control={<Radio />}
                   label="Pending"
                 />
                 <FormControlLabel
-                  value="accepted"
+                  value={status.ACCEPTED}
                   control={<Radio />}
                   label="Accepted"
                 />
                 <FormControlLabel
-                  value="refused"
+                  value={status.REFUSED}
                   control={<Radio />}
                   label="Refused"
                 />
@@ -103,20 +120,22 @@ export const Filter: React.FC = () => {
           </MenuItem>
           <MenuItem>
             <FormControl>
-              <FormLabel id="demo-radio-buttons-group-label">Etat</FormLabel>
+              <FormLabel id="demo-radio-buttons-group-label">
+                Activation Mode
+              </FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 name="radio-buttons-group"
-                value={valueRadioGroup(1)}
-                onChange={handleChange(1)}
+                value={chipDaa.activationMode}
+                onChange={handleChange("activationMode")}
               >
                 <FormControlLabel
-                  value="active"
+                  value={activation.ACTIVATED}
                   control={<Radio />}
                   label="Active"
                 />
                 <FormControlLabel
-                  value="desactive"
+                  value={activation.DISABLED}
                   control={<Radio />}
                   label="Desactive"
                 />
@@ -129,21 +148,21 @@ export const Filter: React.FC = () => {
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 name="radio-buttons-group"
-                onChange={handleChange(2)}
-                value={valueRadioGroup(2)}
+                onChange={handleChange("role")}
+                value={chipDaa.role}
               >
                 <FormControlLabel
-                  value="Admin"
+                  value={roles.ADMINISTRATOR}
                   control={<Radio />}
                   label="Admin"
                 />
                 <FormControlLabel
-                  value="pharmacy"
+                  value={roles.PHARMACY}
                   control={<Radio />}
                   label="Pharmacy"
                 />
                 <FormControlLabel
-                  value="wholesale"
+                  value={roles.WHOLESALER}
                   control={<Radio />}
                   label="wholesale"
                 />

@@ -15,7 +15,7 @@ export const CustomizedTablePagination = <T,>(
   } = props;
   return (
     <TablePagination
-      sx={{ width: "100%" }}
+      // sx={{ width: "100%" }}
       rowsPerPageOptions={[1, 10, 25, 100]}
       SelectProps={{ sx: { width: "5rem", height: "2.5rem" } }}
       component="div"

@@ -6,7 +6,7 @@ import { TableToolBarProps } from "./TableToolBar.types";
 import { StyledTitle } from "./TableToolBar.style";
 
 export const CustomizedTableToolBar: React.FC<TableToolBarProps> = (props) => {
-  const { handleQueryChange, title } = props;
+  const { handleQueryChange, title, recievedFilterData } = props;
 
   return (
     <Grid container item sx={{ alignItems: "center" }}>
@@ -16,7 +16,7 @@ export const CustomizedTableToolBar: React.FC<TableToolBarProps> = (props) => {
       <Grid item xs>
         <SearchField onQueryChange={handleQueryChange} />
       </Grid>
-      <Filter />
+      <Filter recievedFilterData={recievedFilterData} />
     </Grid>
   );
 };

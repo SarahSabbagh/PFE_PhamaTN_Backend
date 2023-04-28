@@ -1,5 +1,11 @@
 import * as React from "react";
-import { Stack, TableCell, TableRow, Typography } from "@mui/material";
+import {
+  Stack,
+  TableBody,
+  TableCell,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import InboxIcon from "@mui/icons-material/Inbox";
 import { CustomizedTableRowProps } from "./CustomizedTableRow.types";
 
@@ -9,10 +15,12 @@ import {
   ActionsCell,
   ActivationCell,
 } from "./customizedTableCell/CustomizedTableCell";
+import { useUserActivationMutation } from "../../../../redux/api/admin/AdminApi";
 export const CustomizedTableRow = <T,>(
   props: React.PropsWithChildren<CustomizedTableRowProps<T>>
 ) => {
   const { item, columns, actions } = props;
+  const [userActivation] = useUserActivationMutation();
 
   return (
     <TableRow>
@@ -23,6 +31,7 @@ export const CustomizedTableRow = <T,>(
               key={col.accessor}
               accessor={col.accessor}
               element={item[col.accessor]}
+              id={item.id}
             />
           )) ||
           (col.accessor === "active" && (
@@ -30,6 +39,7 @@ export const CustomizedTableRow = <T,>(
               key={col.accessor}
               accessor={col.accessor}
               element={item[col.accessor]}
+              id={item.id}
             />
           )) ||
           (col.label === "Action" && (
@@ -37,9 +47,11 @@ export const CustomizedTableRow = <T,>(
               accessor={col.accessor}
               key={col.accessor}
               actions={actions}
+              id={item.id}
             />
           )) || (
             <StandardCell
+              id={item.id}
               accessor={col.accessor}
               key={col.accessor}
               element={item[col.accessor]}
@@ -51,13 +63,15 @@ export const CustomizedTableRow = <T,>(
 };
 export const EmptyTableRow: React.FC = () => {
   return (
-    <TableRow>
-      <TableCell align="center" colSpan={12}>
-        <Stack direction="column" justifyContent="center" alignItems="center">
-          <InboxIcon color="disabled" fontSize="large" />
-          <Typography>No data </Typography>
-        </Stack>
-      </TableCell>
-    </TableRow>
+    <TableBody>
+      <TableRow>
+        <TableCell align="center" colSpan={12}>
+          <Stack direction="column" justifyContent="center" alignItems="center">
+            <InboxIcon color="disabled" fontSize="large" />
+            <Typography>No data </Typography>
+          </Stack>
+        </TableCell>
+      </TableRow>
+    </TableBody>
   );
 };

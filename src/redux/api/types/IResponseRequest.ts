@@ -40,3 +40,13 @@ export interface IError {
   image?: string[];
   email?: string[];
 }
+export interface IUserFilterRequest {
+  role?: number;
+  status?: number;
+  activationMode?: boolean;
+  search?: string;
+}
+export interface IResponse {
+  status?: string;
+  message?: string;
+}

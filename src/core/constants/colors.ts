@@ -44,5 +44,10 @@ export const colors = {
   },
   paper: "#FCFEFF",
   grey: { light: grey[300], main: grey[500], dark: grey[700] },
-  blue: { light: blue[300], main: blue[500], dark: blue[700] },
+  blue: {
+    xlight: blue[100],
+    light: blue[300],
+    main: blue[500],
+    dark: blue[700],
+  },
 };

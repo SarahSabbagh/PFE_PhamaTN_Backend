@@ -20,11 +20,11 @@ export const StyledTableContainer = styled(TableContainer)<TableContainerProps>(
     [theme.breakpoints.up("xl")]: {
       minWidth: 1100,
     },
-    [theme.breakpoints.down("xl")]: {
-      width: 820,
+    [theme.breakpoints.up("lg")]: {
+      width: 850,
     },
-    [theme.breakpoints.down("lg") && theme.breakpoints.up("md")]: {
-      width: 600,
+    [theme.breakpoints.down("lg")]: {
+      width: 570,
     },
 
     [theme.breakpoints.down("md")]: {
