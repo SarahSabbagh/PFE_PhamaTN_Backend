@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import {
   StyledBoxSideBar,

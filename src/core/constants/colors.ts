@@ -43,7 +43,12 @@ export const colors = {
     secondary: "#404040",
   },
   paper: "#FCFEFF",
-  grey: { light: grey[300], main: grey[500], dark: grey[700] },
+  grey: {
+    xlight: grey[200],
+    light: grey[300],
+    main: grey[500],
+    dark: grey[700],
+  },
   blue: {
     xlight: blue[100],
     light: blue[300],

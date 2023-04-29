@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Box, BoxProps, Drawer, DrawerProps, styled } from "@mui/material";
 import { Link, LinkProps } from "react-router-dom";
-import { colors } from "../../core/constants/colors";
 
 export const StyledBoxSideBar = styled(Box)<BoxProps>(({ theme }) => ({
   minHeight: "100%",
@@ -40,7 +39,7 @@ export const StyledDrawerPermanent = styled(Drawer)<DrawerProps>(
       justifyContent: "flex-start",
 
       marginTop: "4rem",
-      // border: "1px solid" && theme.palette.background.paper,
+      border: "1px solid" && theme.palette.background.paper,
       backgroundColor: theme.palette.background.default,
     },
     [theme.breakpoints.down("md")]: {

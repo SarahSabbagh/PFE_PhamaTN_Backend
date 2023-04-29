@@ -28,13 +28,13 @@ export const TableFactory = <T,>(
   } = props;
 
   return (
-    <StyledPaper>
+    <StyledPaper elevation={3}>
       <CustomizedTableToolBar
         handleQueryChange={handleQueryChange}
         title={title}
         recievedFilterData={recievedFilterData}
       />
-      <StyledTableContainer>
+      <StyledTableContainer >
         <Table aria-label="simple table">
           <CustomizedTableHead columns={columns} />
           {isLoading ? (

@@ -1,13 +1,11 @@
 import * as React from "react";
 import { TableContainer, TableContainerProps } from "@mui/material";
 import { Paper, PaperProps, styled } from "@mui/material";
-import { colors } from "../../../../core/constants/colors";
 
 export const StyledPaper = styled(Paper)<PaperProps>(({ theme }) => ({
   marginTop: "5rem",
-  padding: "2rem",
   border: "1px solid" && theme.palette.background.paper,
-  backgroundColor: colors.paper,
+  backgroundColor: theme.palette.background.default,
   [theme.breakpoints.down("lg") && theme.breakpoints.up("md")]: {
     padding: "1rem",
   },
@@ -17,6 +15,7 @@ export const StyledPaper = styled(Paper)<PaperProps>(({ theme }) => ({
 }));
 export const StyledTableContainer = styled(TableContainer)<TableContainerProps>(
   ({ theme }) => ({
+    padding: "1rem",
     [theme.breakpoints.up("xl")]: {
       minWidth: 1100,
     },
@@ -29,7 +28,6 @@ export const StyledTableContainer = styled(TableContainer)<TableContainerProps>(
 
     [theme.breakpoints.down("md")]: {
       width: "100vw",
-      padding: "1rem",
     },
   })
 );
