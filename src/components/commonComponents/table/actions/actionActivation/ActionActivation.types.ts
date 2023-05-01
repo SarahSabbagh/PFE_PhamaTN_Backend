@@ -2,8 +2,6 @@ import * as React from "react";
 
 export interface ActionActivationProps {
   open: boolean;
-  handleActivation: () => any;
+  handleActivation: () => void;
   handleClose: () => void;
-  handleClickOpen: () => void;
-  id: number;
 }

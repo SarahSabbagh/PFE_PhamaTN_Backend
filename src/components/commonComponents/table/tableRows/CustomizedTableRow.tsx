@@ -8,19 +8,22 @@ import {
 } from "@mui/material";
 import InboxIcon from "@mui/icons-material/Inbox";
 import { CustomizedTableRowProps } from "./CustomizedTableRow.types";
-
 import {
   StandardCell,
   StatusCell,
   ActionsCell,
   ActivationCell,
 } from "./customizedTableCell/CustomizedTableCell";
-import { useUserActivationMutation } from "../../../../redux/api/admin/AdminApi";
 export const CustomizedTableRow = <T,>(
   props: React.PropsWithChildren<CustomizedTableRowProps<T>>
 ) => {
-  const { item, columns, actions } = props;
-  const [userActivation] = useUserActivationMutation();
+  const {
+    item,
+    columns,
+    actions,
+    handleActivationMode,
+    handleUpdateUserStatus,
+  } = props;
 
   return (
     <TableRow>
@@ -32,6 +35,7 @@ export const CustomizedTableRow = <T,>(
               accessor={col.accessor}
               element={item[col.accessor]}
               id={item.id}
+              handleUpdateUserStatus={handleUpdateUserStatus}
             />
           )) ||
           (col.accessor === "active" && (
@@ -39,6 +43,7 @@ export const CustomizedTableRow = <T,>(
               key={col.accessor}
               accessor={col.accessor}
               element={item[col.accessor]}
+              handleActivationMode={handleActivationMode}
               id={item.id}
             />
           )) ||

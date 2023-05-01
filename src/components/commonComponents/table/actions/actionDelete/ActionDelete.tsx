@@ -7,9 +7,10 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { ActionDeleteProps } from "./ActionDelete.types";
 import { Grid, Typography } from "@mui/material";
+import { CancelButton, DeleteButton } from "./ActionDelete.style";
 
 export const ActionDelete: React.FC<ActionDeleteProps> = (props) => {
-  const { open, handleClose } = props;
+  const { open, handleClose, handleDelete } = props;
 
   return (
     <Grid>
@@ -30,21 +31,8 @@ export const ActionDelete: React.FC<ActionDeleteProps> = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button
-            sx={{ boxShadow: "none", color: "grey" }}
-            onClick={handleClose}
-          >
-            Cancel
-          </Button>
-          <Button
-            color="error"
-            variant="contained"
-            sx={{ boxShadow: "none" }}
-            onClick={handleClose}
-            autoFocus
-          >
-            Delete
-          </Button>
+          <CancelButton onClick={handleClose}>Cancel</CancelButton>
+          <DeleteButton onClick={handleDelete}>Delete</DeleteButton>
         </DialogActions>
       </Dialog>
     </Grid>

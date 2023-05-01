@@ -1,8 +1,10 @@
+import { number } from "zod";
+import { status } from "./../../../core/constants/status";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IUser } from "../types/IUser";
 import { prepareHeaders } from "../../../core/utils/rtk.config";
 import { endpoints } from "../../../core/constants/endpoints";
-import { IResponse, IUserFilterRequest } from "../types/IResponseRequest";
+import { IFilterResponse, IResponse, IUserFilterRequest } from "../types/IResponseRequest";
 
 const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT as string;
 
@@ -15,31 +17,31 @@ export const adminApi = createApi({
   keepUnusedDataFor: 0,
   tagTypes: ["Admin"],
   endpoints: (builder) => ({
-    userFilter: builder.query<IUser[], IUserFilterRequest>({
+    userFilter: builder.query<IFilterResponse<IUser[]>, IUserFilterRequest>({
       query(request) {
         return {
           url: endpoints.USER_FILTER,
           params: request,
         };
       },
-      transformResponse: (response: { data: IUser[] }) => response.data,
     }),
-    userActivation: builder.mutation<IResponse, { id: number }>({
-      query(payload: { id: number }) {
+    userActivation: builder.mutation<IResponse, number>({
+      query(id) {
         return {
-          url: endpoints.USER_ACTIVATION,
-          method: "post",
-          body: payload,
+          url: endpoints.USER_ACTIVATION + id,
+          method: "PUT",
         };
       },
     }),
 
-    updateUserStatus: builder.mutation<IResponse, number[]>({
-      query(body) {
+    updateUserStatus: builder.mutation<
+      IResponse,
+      { id: number; status: number }
+    >({
+      query({ id, status }) {
         return {
-          url: endpoints.UPDATE_USER_STATUS,
-          method: "POST",
-          body: body,
+          url: endpoints.UPDATE_USER_STATUS + `${id}/${status}`,
+          method: "PUT",
         };
       },
     }),

@@ -38,37 +38,36 @@ export const Filter: React.FC<FilterProps> = ({ recievedFilterData }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const [chipDaa, setChipDaa] = React.useState<IFilterData>({});
+  const [chipData, setChipData] = React.useState<IFilterData>({});
   const [labels, setLabels] = React.useState<Ilabel>({});
 
   const handleChange =
     (propertyToUpdate: keyof IFilterData) =>
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setChipDaa({ ...chipDaa, [propertyToUpdate]: event.target.value });
+      setChipData({ ...chipData, [propertyToUpdate]: event.target.value });
       setLabels({
         ...labels,
         [propertyToUpdate]:
           event.target.labels && event.target.labels[0].innerText,
       });
     };
-  console.log(chipDaa);
   const handleDelete = (propertyToUpdate: keyof IFilterData) => () => {
-    const { [propertyToUpdate]: deletedProperty, ...rest } = chipDaa;
+    const { [propertyToUpdate]: deletedProperty, ...rest } = chipData;
     const { [propertyToUpdate]: deletedPropertyLabel, ...restLabels } = labels;
     setLabels(restLabels);
-    setChipDaa(rest);
+    setChipData(rest);
   };
 
   React.useEffect(() => {
-    recievedFilterData(chipDaa);
-  }, [chipDaa, recievedFilterData]);
-  const properties = Object.keys(chipDaa) as Array<keyof IFilterData>;
+    recievedFilterData(chipData);
+  }, [chipData, recievedFilterData]);
+  const properties = Object.keys(chipData) as Array<keyof IFilterData>;
   return (
     <Grid container item xs="auto" sx={{ alignItems: "center" }}>
       <Grid item mr={2}>
         {properties.map(
           (property) =>
-            chipDaa[property] && (
+            chipData[property] && (
               <Chip
                 key={property}
                 label={labels[property]}
@@ -96,7 +95,7 @@ export const Filter: React.FC<FilterProps> = ({ recievedFilterData }) => {
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 name="radio-buttons-group"
-                value={chipDaa.status}
+                value={chipData.status}
                 onChange={handleChange("status")}
               >
                 <FormControlLabel
@@ -126,7 +125,7 @@ export const Filter: React.FC<FilterProps> = ({ recievedFilterData }) => {
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 name="radio-buttons-group"
-                value={chipDaa.activationMode}
+                value={chipData.activationMode}
                 onChange={handleChange("activationMode")}
               >
                 <FormControlLabel
@@ -149,7 +148,7 @@ export const Filter: React.FC<FilterProps> = ({ recievedFilterData }) => {
                 aria-labelledby="demo-radio-buttons-group-label"
                 name="radio-buttons-group"
                 onChange={handleChange("role")}
-                value={chipDaa.role}
+                value={chipData.role}
               >
                 <FormControlLabel
                   value={roles.ADMINISTRATOR}

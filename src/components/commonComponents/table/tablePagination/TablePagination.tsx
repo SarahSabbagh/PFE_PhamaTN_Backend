@@ -1,29 +1,28 @@
 import * as React from "react";
-import TablePagination from "@mui/material/TablePagination";
+import TablePagination, {
+  TablePaginationProps,
+} from "@mui/material/TablePagination";
+import { Grid } from "@mui/material";
 
-import { CustomizedTablePaginationProps } from "./TablePagination.type";
-
-export const CustomizedTablePagination = <T,>(
-  props: React.PropsWithChildren<CustomizedTablePaginationProps<T>>
-) => {
+export const CustomizedTablePagination = (props: TablePaginationProps) => {
   const {
-    handleChangeRowsPerPage,
-    handleChangePage,
+    rowsPerPageOptions,
+    onRowsPerPageChange,
+    onPageChange,
     page,
     rowsPerPage,
     count,
   } = props;
   return (
     <TablePagination
-      // sx={{ width: "100%" }}
-      rowsPerPageOptions={[1, 10, 25, 100]}
+      rowsPerPageOptions={rowsPerPageOptions}
       SelectProps={{ sx: { width: "5rem", height: "2.5rem" } }}
-      component="div"
+      component={Grid}
       count={count}
       rowsPerPage={rowsPerPage}
       page={page}
-      onPageChange={handleChangePage}
-      onRowsPerPageChange={handleChangeRowsPerPage}
+      onPageChange={onPageChange}
+      onRowsPerPageChange={onRowsPerPageChange}
     />
   );
 };

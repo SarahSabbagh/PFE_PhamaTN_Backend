@@ -45,6 +45,14 @@ export interface IUserFilterRequest {
   status?: number;
   activationMode?: boolean;
   search?: string;
+  page?: number;
+  page_size?: number;
+  sortBy?: string;
+  sortOrder?: string;
+}
+export interface IFilterResponse<T> {
+  data: T;
+  total: number;
 }
 export interface IResponse {
   status?: string;

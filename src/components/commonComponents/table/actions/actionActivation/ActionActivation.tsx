@@ -7,9 +7,10 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Grid, Typography } from "@mui/material";
 import { ActionActivationProps } from "./ActionActivation.types";
+import { CancelButton, ConfirmButton } from "./ActionActivation.style";
 
 export const ActionActivation: React.FC<ActionActivationProps> = (props) => {
-  const { open, handleClose, handleActivation, id } = props;
+  const { open, handleClose, handleActivation} = props;
 
   return (
     <Grid>
@@ -28,17 +29,8 @@ export const ActionActivation: React.FC<ActionActivationProps> = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button
-            color="error"
-            variant="contained"
-            sx={{ boxShadow: "none" }}
-            onClick={handleClose}
-          >
-            Cancel
-          </Button>
-          <Button variant="contained" onClick={handleActivation} autoFocus>
-            Comfirm
-          </Button>
+          <CancelButton onClick={handleClose}>Cancel</CancelButton>
+          <ConfirmButton onClick={handleActivation}>Confirm</ConfirmButton>
         </DialogActions>
       </Dialog>
     </Grid>

@@ -3,20 +3,24 @@ import { ITableHead } from "../tableHead/TableHead.types";
 export interface IActions {
   edit?: boolean;
   delete?: boolean;
+  handleDelete?: (id: number) => void;
 }
-
+export interface IPagination {
+  edit?: boolean;
+  delete?: boolean;
+  handleDelete?: (id: number) => void;
+}
 export interface TableFactoryProps<T> {
-  data: T[] | undefined;
+  data: T | undefined;
   handleQueryChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   title: string;
+  onRequestSort?: (event: React.MouseEvent<unknown>, newSortBy: string) => void;
+  sortOrder?: "desc" | "asc";
+  sortBy?: string;
   columns: ITableHead[];
   actions: IActions;
   isLoading: boolean;
   recievedFilterData: (data: IUserFilterRequest) => void;
-  handleActivation?: () => void;
-  page: number;
-  rowsPerPageOptions: number[];
-  rowsPerPage: number;
-  handleChangePage: (event: unknown, newPage: number) => void;
-  handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleActivationMode?: (id: number) => void;
+  handleUpdateUserStatus?: (id: number, status: number) => void;
 }
