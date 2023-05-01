@@ -1,62 +1,78 @@
 import * as React from "react";
 import Table from "@mui/material/Table";
-import TableContainer from "@mui/material/TableContainer";
-import Paper from "@mui/material/Paper";
 import { CustomizedTableToolBar } from "../tableToolBar/TableToolBar";
 import { CustomizedTableHead } from "../tableHead/TableHead";
 import { TableContent } from "../tableContent/TableContent";
 import { TableFactoryProps } from "./TableFactory.types";
 import { CustomizedTablePagination } from "../tablePagination/TablePagination";
 import { LoadingTableContent } from "../tableContent/loadingTableContent/LoadingTableContent";
-import { StyledPaper } from "./TableFactory.style";
+import { StyledPaper, StyledTableContainer } from "./TableFactory.style";
+import { EmptyTableRow } from "../tableRows/CustomizedTableRow";
+import { TablePaginationProps } from "@mui/material";
 
 export const TableFactory = <T,>(
-  props: React.PropsWithChildren<TableFactoryProps<T>>
+  props: React.PropsWithChildren<TableFactoryProps<T> & TablePaginationProps>
 ) => {
   const {
-    handleChangeRowsPerPage,
-    handleChangePage,
-    page,
-    rowsPerPage,
+    count,
     columns,
     data,
     title,
     actions,
     isLoading,
+    onRequestSort,
+    sortOrder,
+    sortBy,
+    handleActivationMode,
+    recievedFilterData,
     rowsPerPageOptions,
+    onPageChange,
+    onRowsPerPageChange,
+    page,
+    rowsPerPage,
+    handleUpdateUserStatus,
     handleQueryChange,
   } = props;
-
   return (
-    <StyledPaper>
-      <TableContainer>
-        <CustomizedTableToolBar
-          handleQueryChange={handleQueryChange}
-          title={title}
-        />
-        <Table aria-label="simple table">
-          <CustomizedTableHead columns={columns} />
+    <StyledPaper elevation={3}>
+      <CustomizedTableToolBar
+        handleQueryChange={handleQueryChange}
+        title={title}
+        recievedFilterData={recievedFilterData}
+      />
+      <StyledTableContainer>
+        <Table size="small" aria-label="simple table">
+          <CustomizedTableHead
+            onRequestSort={onRequestSort}
+            sortOrder={sortOrder}
+            sortBy={sortBy}
+            columns={columns}
+          />
           {isLoading ? (
             <LoadingTableContent />
-          ) : (
+          ) : data && count > 0 ? (
             <TableContent<T>
               columns={columns}
               data={data}
-              rowsPerPage={rowsPerPage}
-              page={page}
               actions={actions}
+              handleActivationMode={handleActivationMode}
+              handleUpdateUserStatus={handleUpdateUserStatus}
             />
+          ) : (
+            <EmptyTableRow />
           )}
         </Table>
-      </TableContainer>
-      <CustomizedTablePagination<T>
-        rowsPerPageOptions={rowsPerPageOptions}
-        count={data.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        handleChangePage={handleChangePage}
-        handleChangeRowsPerPage={handleChangeRowsPerPage}
-      />
+        {data && count > 0 && (
+          <CustomizedTablePagination
+            rowsPerPageOptions={rowsPerPageOptions}
+            count={count}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={onPageChange}
+            onRowsPerPageChange={onRowsPerPageChange}
+          />
+        )}
+      </StyledTableContainer>
     </StyledPaper>
   );
 };

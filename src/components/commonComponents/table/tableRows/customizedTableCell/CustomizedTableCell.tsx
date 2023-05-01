@@ -6,14 +6,11 @@ import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import { IconButton, Switch } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
-import { CustomizedTableRowProps } from "../CustomizedTableRow.types";
-import { IActions } from "../../tableFactory/TableFactory.types";
-
-export interface TableCellsProps {
-  element?: string | number | boolean;
-  accessor: string;
-  actions?: IActions;
-}
+import { ActionDelete } from "../../actions/actionDelete/ActionDelete";
+import { EditModal } from "../../actions/actionEdit/ActionEdit";
+import { ActionChangeStatus } from "../../actions/actionChangeStatus/ActionChangeStatus";
+import { ActionActivation } from "../../actions/actionActivation/ActionActivation";
+import { TableCellsProps } from "./CustomizedTableCell.types";
 
 export const StandardCell: React.FC<TableCellsProps> = (props) => {
   const { element, accessor } = props;
@@ -29,40 +26,103 @@ export const StandardCell: React.FC<TableCellsProps> = (props) => {
     </TableCell>
   );
 };
+
 export const ActivationCell: React.FC<TableCellsProps> = (props) => {
-  const { element } = props;
+  const { element, id, handleActivationMode } = props;
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleActivation = () => {
+    setOpen(false);
+    handleActivationMode && handleActivationMode(id);
+  };
+  const handleclose = () => {
+    setOpen(false);
+  };
   return (
     <TableCell align="center">
       <Switch
         defaultChecked={Boolean(element)}
         color="success"
-        // onChange={handleChange}
+        onChange={handleClickOpen}
+        disabled={id === 1}
+      />
+      <ActionActivation
+        open={open}
+        handleActivation={handleActivation}
+        handleClose={handleclose}
       />
     </TableCell>
   );
 };
+
 export const ActionsCell: React.FC<TableCellsProps> = (props) => {
-  const { actions } = props;
+  const { actions, id } = props;
+  const [openDelete, setOpenDelete] = React.useState(false);
+  const [openEdit, setOpenEdit] = React.useState(false);
+
+  const handleClickOpenDelete = () => setOpenDelete(true);
+  const handleCloseDelete = () => setOpenDelete(false);
+  const handleDelete = () => {
+    setOpenDelete(false);
+    console.log("delete");
+    actions?.handleDelete && actions?.handleDelete(id);
+  };
+
+  const handleOpenEdit = () => setOpenEdit(true);
+  const handleCloseEdit = () => setOpenEdit(false);
+
   return actions ? (
     <TableCell align="center">
       {actions.delete && (
-        <IconButton>
-          <DeleteOutlineOutlinedIcon color="error" />
-        </IconButton>
+        <>
+          <IconButton onClick={handleClickOpenDelete} disabled={id === 1}>
+            <DeleteOutlineOutlinedIcon color="error" />
+          </IconButton>
+          <ActionDelete
+            open={openDelete}
+            handleDelete={handleDelete}
+            handleClose={handleCloseDelete}
+          />
+        </>
       )}
       {actions.edit && (
-        <IconButton>
-          <ModeOutlinedIcon />
-        </IconButton>
+        <>
+          <IconButton onClick={handleOpenEdit}>
+            <ModeOutlinedIcon />
+          </IconButton>
+          <EditModal
+            open={openEdit}
+            handleOpen={handleOpenEdit}
+            handleClose={handleCloseEdit}
+          />
+        </>
       )}
     </TableCell>
   ) : null;
 };
+
 export const StatusCell: React.FC<TableCellsProps> = (props) => {
-  const { element } = props;
+  const { element, id, handleUpdateUserStatus } = props;
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleStatus = (status: number) => {
+    setOpen(false);
+    handleUpdateUserStatus && handleUpdateUserStatus(id, status);
+  };
+
   return (
     <TableCell align="center">
-      <IconButton>
+      <IconButton onClick={handleClickOpen} disabled={id === 1}>
         {element === 2 ? (
           <TaskAltOutlinedIcon color="success" />
         ) : element === 1 ? (
@@ -71,6 +131,11 @@ export const StatusCell: React.FC<TableCellsProps> = (props) => {
           <UnpublishedOutlinedIcon color="error" />
         )}
       </IconButton>
+      <ActionChangeStatus
+        open={open}
+        handleStatus={handleStatus}
+        handleClose={handleClose}
+      />
     </TableCell>
   );
 };

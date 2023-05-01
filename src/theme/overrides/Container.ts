@@ -6,7 +6,7 @@ export default function Container(theme: Theme) {
     MuiContainer: {
       styleOverrides: {
         root: {
-          backgroundColor: theme.palette.background.default,
+          //   backgroundColor: theme.palette.background.default,
           fontFamily: fonts.PRIMARY,
           display: "flex",
           flexDirection: "column",

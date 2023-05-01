@@ -12,5 +12,5 @@ export const PrivateRouteAuth: React.FC<Props> = ({
     return <RouteComponent />;
   }
 
-  return <Navigate to="login" />;
+  return <Navigate to="/login" />;
 };

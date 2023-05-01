@@ -35,13 +35,25 @@ export const colors = {
     dark: "#e65100",
   },
   background: {
-    paper: "#F8F8F8", //"#F9FEFE", //"#F1FFFA", //"#F2F2F2",
+    paper: "#F8F8F8",
     default: "#ffff",
   },
   text: {
-    primary: "#262626",
-    secondary: "#404040",
+    primary: "#344563",
+    secondary: "#42526e",
   },
-  grey: { light: grey[300], main: grey[500], dark: grey[700] },
-  blue: { light: blue[300], main: blue[500], dark: blue[700] },
+  paper: "#FCFEFF",
+  grey: {
+    xlight: grey[200],
+    light: grey[300],
+    main: grey[500],
+    dark: grey[700],
+  },
+  blue: {
+    xlight: blue[100],
+    light: blue[300],
+    main: blue[500],
+    dark: blue[700],
+  },
+  containerColor: "#f4f5f7",
 };

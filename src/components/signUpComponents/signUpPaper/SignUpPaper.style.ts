@@ -5,6 +5,9 @@ export const StyledSignUpPaper = styled(Paper)<PaperProps>(({ theme }) => ({
   width: "60vw",
   margin: "4rem auto",
   borderRadius: "0.7rem",
+  padding: "2rem",
+  border: "1px solid" && theme.palette.background.paper,
+  backgroundColor: theme.palette.background.paper,
   [theme.breakpoints.down("md")]: {
     width: "100vw",
     minHeight: "100vh",
