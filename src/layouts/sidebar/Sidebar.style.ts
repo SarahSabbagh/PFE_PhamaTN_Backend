@@ -1,5 +1,11 @@
 import * as React from "react";
-import { Box, BoxProps, Drawer, DrawerProps, styled } from "@mui/material";
+import {
+  Box,
+  BoxProps,
+  Drawer,
+  DrawerProps,
+  styled,
+} from "@mui/material";
 import { Link, LinkProps } from "react-router-dom";
 
 export const StyledBoxSideBar = styled(Box)<BoxProps>(({ theme }) => ({
@@ -37,7 +43,6 @@ export const StyledDrawerPermanent = styled(Drawer)<DrawerProps>(
       padding: "8rem 0",
       minWidth: "15.625rem",
       justifyContent: "flex-start",
-
       marginTop: "4rem",
       border: "1px solid" && theme.palette.background.paper,
       backgroundColor: theme.palette.background.default,
@@ -50,3 +55,4 @@ export const StyledDrawerPermanent = styled(Drawer)<DrawerProps>(
     },
   })
 );
+

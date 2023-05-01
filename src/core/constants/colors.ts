@@ -39,8 +39,8 @@ export const colors = {
     default: "#ffff",
   },
   text: {
-    primary: "#262626",
-    secondary: "#404040",
+    primary: "#344563",
+    secondary: "#42526e",
   },
   paper: "#FCFEFF",
   grey: {
@@ -55,4 +55,5 @@ export const colors = {
     main: blue[500],
     dark: blue[700],
   },
+  containerColor: "#f4f5f7",
 };

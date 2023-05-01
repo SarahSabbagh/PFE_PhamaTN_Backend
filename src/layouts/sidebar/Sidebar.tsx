@@ -26,7 +26,6 @@ export const ResponsiveSideBar: React.FC<SidebarProps> = (props) => {
         }}
       >
         <Logo sidebarLogo />
-
         <IconButton onClick={handleDrawerClose}>
           <ChevronLeftIcon />
         </IconButton>

@@ -14,5 +14,5 @@ export const RootStyle = styled(Container)<
         backgroundSize: "100% 100% ",
         backgroundPosition: "center",
       }
-    : { backgroundColor: colors.grey.xlight }
+    : { backgroundColor: colors.containerColor }
 );
