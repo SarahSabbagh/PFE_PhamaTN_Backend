@@ -1,7 +1,8 @@
 import * as React from "react";
 
-export interface ActionEditProps {
+export interface ModalEditProps {
+  id: number;
   open: boolean;
-  handleOpen: () => void;
+  formType: string;
   handleClose: () => void;
 }

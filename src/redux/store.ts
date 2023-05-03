@@ -4,6 +4,7 @@ import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { authApi } from "./api/auth/authApi";
 import { userApi } from "./api/user/userApi";
 import { adminApi } from "./api/admin/AdminApi";
+import { dciApi } from "./api/dci/dciApi";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     [regionApi.reducerPath]: regionApi.reducer,
     [adminApi.reducerPath]: adminApi.reducer,
+    [dciApi.reducerPath]: dciApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({}).concat([
@@ -18,6 +20,7 @@ export const store = configureStore({
       userApi.middleware,
       regionApi.middleware,
       adminApi.middleware,
+      dciApi.middleware,
     ]),
 });
 export type RootState = ReturnType<typeof store.getState>;

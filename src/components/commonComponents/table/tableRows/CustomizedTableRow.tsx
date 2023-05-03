@@ -14,6 +14,7 @@ import {
   ActionsCell,
   ActivationCell,
 } from "./customizedTableCell/CustomizedTableCell";
+
 export const CustomizedTableRow = <T,>(
   props: React.PropsWithChildren<CustomizedTableRowProps<T>>
 ) => {
@@ -66,6 +67,7 @@ export const CustomizedTableRow = <T,>(
     </TableRow>
   );
 };
+
 export const EmptyTableRow: React.FC = () => {
   return (
     <TableBody>

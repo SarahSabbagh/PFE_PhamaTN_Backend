@@ -24,7 +24,6 @@ export const TableFactory = <T,>(
     sortOrder,
     sortBy,
     handleActivationMode,
-    recievedFilterData,
     rowsPerPageOptions,
     onPageChange,
     onRowsPerPageChange,
@@ -38,7 +37,9 @@ export const TableFactory = <T,>(
       <CustomizedTableToolBar
         handleQueryChange={handleQueryChange}
         title={title}
-        recievedFilterData={recievedFilterData}
+        filter={actions?.filter}
+        add={actions?.add}
+        recievedFilterData={actions?.recievedFilterData}
       />
       <StyledTableContainer>
         <Table size="small" aria-label="simple table">

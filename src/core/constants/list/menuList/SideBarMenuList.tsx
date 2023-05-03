@@ -42,10 +42,10 @@ export const SideBarMenuList: ISideBarMenuList[] = [
       {
         id: "MEDICATION",
         title: "Medications",
-        url: "/",
+        url: paths.MEDICATION,
         icon: <FeedOutlinedIcon />,
       },
-      { id: "DCI", title: "DCI", url: "/", icon: <FeedOutlinedIcon /> },
+      { id: "DCI", title: "DCI", url: paths.DCI, icon: <FeedOutlinedIcon /> },
     ],
   },
   {

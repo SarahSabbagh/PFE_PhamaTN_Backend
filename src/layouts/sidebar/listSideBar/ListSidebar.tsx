@@ -23,7 +23,7 @@ export const ListSidebar: React.FC = () => {
 
   return (
     <StyledList>
-      {SideBarMenuList.map((item) => (
+      {SideBarMenuList.map((item, index) => (
         <>
           <ListItem key={item.id} disablePadding>
             <StyledLink to={item.url}>
@@ -36,7 +36,7 @@ export const ListSidebar: React.FC = () => {
           </ListItem>
 
           {item.subMenu && (
-            <Collapse in={open} timeout="auto" unmountOnExit>
+            <Collapse key={index} in={open} timeout="auto" unmountOnExit>
               <List disablePadding>
                 {item.subMenu.map((nestedPage) => (
                   <ListItem key={nestedPage.id} disablePadding>

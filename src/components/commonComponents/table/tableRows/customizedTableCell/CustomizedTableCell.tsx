@@ -7,7 +7,7 @@ import { IconButton, Switch } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
 import { ActionDelete } from "../../actions/actionDelete/ActionDelete";
-import { EditModal } from "../../actions/actionEdit/ActionEdit";
+import { EditModal } from "../../actions/modalEdit/ModalEdit";
 import { ActionChangeStatus } from "../../actions/actionChangeStatus/ActionChangeStatus";
 import { ActionActivation } from "../../actions/actionActivation/ActionActivation";
 import { TableCellsProps } from "./CustomizedTableCell.types";
@@ -47,7 +47,6 @@ export const ActivationCell: React.FC<TableCellsProps> = (props) => {
         defaultChecked={Boolean(element)}
         color="success"
         onChange={handleClickOpen}
-        disabled={id === 1}
       />
       <ActionActivation
         open={open}
@@ -67,7 +66,6 @@ export const ActionsCell: React.FC<TableCellsProps> = (props) => {
   const handleCloseDelete = () => setOpenDelete(false);
   const handleDelete = () => {
     setOpenDelete(false);
-    console.log("delete");
     actions?.handleDelete && actions?.handleDelete(id);
   };
 
@@ -78,7 +76,7 @@ export const ActionsCell: React.FC<TableCellsProps> = (props) => {
     <TableCell align="center">
       {actions.delete && (
         <>
-          <IconButton onClick={handleClickOpenDelete} disabled={id === 1}>
+          <IconButton onClick={handleClickOpenDelete}>
             <DeleteOutlineOutlinedIcon color="error" />
           </IconButton>
           <ActionDelete
@@ -94,8 +92,9 @@ export const ActionsCell: React.FC<TableCellsProps> = (props) => {
             <ModeOutlinedIcon />
           </IconButton>
           <EditModal
+            id={id}
+            formType={actions.formType ?? ""}
             open={openEdit}
-            handleOpen={handleOpenEdit}
             handleClose={handleCloseEdit}
           />
         </>
@@ -122,7 +121,7 @@ export const StatusCell: React.FC<TableCellsProps> = (props) => {
 
   return (
     <TableCell align="center">
-      <IconButton onClick={handleClickOpen} disabled={id === 1}>
+      <IconButton onClick={handleClickOpen}>
         {element === 2 ? (
           <TaskAltOutlinedIcon color="success" />
         ) : element === 1 ? (

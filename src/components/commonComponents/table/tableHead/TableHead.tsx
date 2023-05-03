@@ -11,7 +11,6 @@ export const CustomizedTableHead: React.FC<CustomizedTableHeadProps> = (
   const { columns, onRequestSort, sortOrder, sortBy } = props;
   const createSortHandler =
     (newSortBy: string) => (event: React.MouseEvent<unknown>) => {
-      console.log("newSortBy", newSortBy);
       onRequestSort && onRequestSort(event, newSortBy);
     };
 
