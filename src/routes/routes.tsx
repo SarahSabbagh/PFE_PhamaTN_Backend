@@ -13,7 +13,7 @@ import { PrivateRouteAuth } from "./privateRoutes/PrivateRouteAuth";
 import { paths } from "../core/constants/path";
 import { UsersPage } from "../pages/Users";
 
-export const Routes = createBrowserRouter([
+export const routes = createBrowserRouter([
   {
     path: "/",
     element: (
