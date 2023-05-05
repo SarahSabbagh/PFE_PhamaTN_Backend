@@ -6,13 +6,10 @@ import { TableFactory } from "../../components/commonComponents/table/tableFacto
 import {
   useDeleteDcisMutation,
   useFilterDcisQuery,
-  useUpdateDciMutation,
 } from "../../redux/api/dci/dciApi";
 import { IDci } from "../../redux/api/types/IDci";
 import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
-import { SubmitHandler } from "react-hook-form";
-import { toast } from "react-toastify";
 
 export const DcisPage: FC = () => {
   const [page, setPage] = React.useState(0);
@@ -75,10 +72,10 @@ export const DcisPage: FC = () => {
           title={"DCI"}
           isLoading={isLoading}
           actions={{
-            add: false,
-
+            add: true,
+            addFormType: formTypes.ADD_DCI_MODAL,
             edit: true,
-            formType: formTypes.DCI_MODAL,
+            editFormType: formTypes.EDIT_DCI_MODAL,
             delete: true,
             handleDelete: handleDciDelete,
           }}

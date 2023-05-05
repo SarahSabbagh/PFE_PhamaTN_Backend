@@ -11,17 +11,17 @@ import { useTranslation } from "react-i18next";
 import {
   useShowDciQuery,
   useUpdateDciMutation,
-} from "../../../redux/api/dci/dciApi";
-import { FormInput } from "../InputField/formInput/FormInput";
+} from "../../../../redux/api/dci/dciApi";
+import { FormInput } from "../../InputField/formInput/FormInput";
 import { FormEditProps } from "./EditDciForm.types";
-import { ConfirmButtonStyled } from "./formButton/ConfirmButton.styles";
-import { CancelButton } from "./formButton/CancelButton.styles";
+import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
+import { CancelButton } from "../formButton/CancelButton.styles";
 import { useToasts } from "react-toast-notifications";
 
 export const EditDciForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
   const { addToast, removeToast } = useToasts();
   const { data, isLoading } = useShowDciQuery(id);
-  const [updatedci] = useUpdateDciMutation();
+  const [updateDci] = useUpdateDciMutation();
   const methods = useForm<{ name: string }>({
     //resolver: zodResolver(signUpSchema),
     mode: "onChange",
@@ -29,7 +29,7 @@ export const EditDciForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
   const { handleSubmit } = methods;
 
   const submitHandler: SubmitHandler<{ name: string }> = async (data) => {
-    updatedci({ id, name: data.name })
+    updateDci({ id, name: data.name })
       .unwrap()
       .then(() => {
         addToast("Saved Successfully", {

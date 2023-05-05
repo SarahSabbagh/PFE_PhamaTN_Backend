@@ -10,6 +10,7 @@ export const dciApi = createApi({
   reducerPath: "dciApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${BASE_URL}`,
+    headers: { Accept: "application/json" },
     prepareHeaders: prepareHeaders,
   }),
   tagTypes: ["Dci"],
@@ -54,6 +55,13 @@ export const dciApi = createApi({
         method: "PUT",
       }),
     }),
+    addDci: builder.mutation<IResponse, string>({
+      query: (request) => ({
+        url: endpoints.DCIS,
+        method: "POST",
+        body: { name: request },
+      }),
+    }),
   }),
 });
 export const {
@@ -62,4 +70,5 @@ export const {
   useDeleteDcisMutation,
   useUpdateDciMutation,
   useShowDciQuery,
+  useAddDciMutation,
 } = dciApi;

@@ -4,8 +4,9 @@ import { ITableHead } from "../tableHead/TableHead.types";
 export interface IActions {
   filter?: boolean;
   add?: boolean;
+  addFormType?: string;
   edit?: boolean;
-  formType?: string;
+  editFormType?: string;
   delete?: boolean;
   handleDelete?: (id: number) => void;
   recievedFilterData?: (data: IUserFilterRequest) => void;

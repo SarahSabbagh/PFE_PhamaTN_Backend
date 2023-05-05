@@ -4,9 +4,17 @@ import { SearchField } from "../../searchField/SearchField";
 import { Filter } from "../../filterComponent/FilterComponent";
 import { TableToolBarProps } from "./TableToolBar.types";
 import { StyledTitle } from "./TableToolBar.style";
+import { AddElement } from "./addElement/AddElement";
 
 export const CustomizedTableToolBar: React.FC<TableToolBarProps> = (props) => {
-  const { filter, add, handleQueryChange, title, recievedFilterData } = props;
+  const {
+    filter,
+    add,
+    handleQueryChange,
+    title,
+    recievedFilterData,
+    addFormType,
+  } = props;
 
   return (
     <Grid container item sx={{ alignItems: "center", p: "1rem" }}>
@@ -16,7 +24,7 @@ export const CustomizedTableToolBar: React.FC<TableToolBarProps> = (props) => {
       <Grid item xs>
         <SearchField onQueryChange={handleQueryChange} />
       </Grid>
-      {/*add && <Filter recievedFilterData={recievedFilterData} />*/}
+      {add && addFormType && <AddElement formType={addFormType} />}
       {filter && recievedFilterData && (
         <Filter recievedFilterData={recievedFilterData} />
       )}

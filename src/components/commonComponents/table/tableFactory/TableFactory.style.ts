@@ -15,7 +15,8 @@ export const StyledPaper = styled(Paper)<PaperProps>(({ theme }) => ({
 }));
 export const StyledTableContainer = styled(TableContainer)<TableContainerProps>(
   ({ theme }) => ({
-    padding: "1rem",
+    //padding: "1rem",
+    maxHeight: "30rem",
     [theme.breakpoints.up("xl")]: {
       minWidth: 1100,
     },

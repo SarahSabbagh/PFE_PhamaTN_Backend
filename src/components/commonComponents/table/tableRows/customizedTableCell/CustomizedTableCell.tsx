@@ -11,6 +11,7 @@ import { EditModal } from "../../actions/modalEdit/ModalEdit";
 import { ActionChangeStatus } from "../../actions/actionChangeStatus/ActionChangeStatus";
 import { ActionActivation } from "../../actions/actionActivation/ActionActivation";
 import { TableCellsProps } from "./CustomizedTableCell.types";
+import { StyledTableCell } from "./CustomizedTableCell.style";
 
 export const StandardCell: React.FC<TableCellsProps> = (props) => {
   const { element, accessor } = props;
@@ -26,7 +27,6 @@ export const StandardCell: React.FC<TableCellsProps> = (props) => {
     </TableCell>
   );
 };
-
 export const ActivationCell: React.FC<TableCellsProps> = (props) => {
   const { element, id, handleActivationMode } = props;
   const [open, setOpen] = React.useState(false);
@@ -42,7 +42,10 @@ export const ActivationCell: React.FC<TableCellsProps> = (props) => {
     setOpen(false);
   };
   return (
-    <TableCell align="center">
+    <StyledTableCell
+      //stickyColumn stickyIndex={1}
+      align="center"
+    >
       <Switch
         defaultChecked={Boolean(element)}
         color="success"
@@ -53,7 +56,7 @@ export const ActivationCell: React.FC<TableCellsProps> = (props) => {
         handleActivation={handleActivation}
         handleClose={handleclose}
       />
-    </TableCell>
+    </StyledTableCell>
   );
 };
 
@@ -73,7 +76,11 @@ export const ActionsCell: React.FC<TableCellsProps> = (props) => {
   const handleCloseEdit = () => setOpenEdit(false);
 
   return actions ? (
-    <TableCell align="center">
+    <StyledTableCell
+      sx={{ display: "flex", justifyContent: "center" }}
+      //stickyColumn
+      align="center"
+    >
       {actions.delete && (
         <>
           <IconButton onClick={handleClickOpenDelete}>
@@ -93,13 +100,13 @@ export const ActionsCell: React.FC<TableCellsProps> = (props) => {
           </IconButton>
           <EditModal
             id={id}
-            formType={actions.formType ?? ""}
+            formType={actions.editFormType ?? ""}
             open={openEdit}
             handleClose={handleCloseEdit}
           />
         </>
       )}
-    </TableCell>
+    </StyledTableCell>
   ) : null;
 };
 
@@ -120,7 +127,10 @@ export const StatusCell: React.FC<TableCellsProps> = (props) => {
   };
 
   return (
-    <TableCell align="center">
+    <StyledTableCell
+      //stickyColumn stickyIndex={2}
+      align="center"
+    >
       <IconButton onClick={handleClickOpen}>
         {element === 2 ? (
           <TaskAltOutlinedIcon color="success" />
@@ -135,6 +145,6 @@ export const StatusCell: React.FC<TableCellsProps> = (props) => {
         handleStatus={handleStatus}
         handleClose={handleClose}
       />
-    </TableCell>
+    </StyledTableCell>
   );
 };

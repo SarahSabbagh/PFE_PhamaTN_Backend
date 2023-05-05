@@ -1,4 +1,6 @@
 export const formTypes = {
-  DCI_MODAL: "dciModal",
-  MEDICATION_MODAL: "medicationModal",
+  EDIT_DCI_MODAL: "editDciModal",
+  EDIT_MEDICATION_MODAL: "editMedicationModal",
+  ADD_DCI_MODAL: "addDciModal",
+  ADD_MEDICATION_MODAL: "addMedicationModal",
 };

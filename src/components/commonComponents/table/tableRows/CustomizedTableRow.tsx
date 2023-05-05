@@ -34,6 +34,7 @@ export const CustomizedTableRow = <T,>(
             <StatusCell
               key={col.accessor}
               accessor={col.accessor}
+              stickyIndex={col.stickyIndex}
               element={item[col.accessor]}
               id={item.id}
               handleUpdateUserStatus={handleUpdateUserStatus}
@@ -43,6 +44,7 @@ export const CustomizedTableRow = <T,>(
             <ActivationCell
               key={col.accessor}
               accessor={col.accessor}
+              stickyIndex={col.stickyIndex}
               element={item[col.accessor]}
               handleActivationMode={handleActivationMode}
               id={item.id}
@@ -51,6 +53,7 @@ export const CustomizedTableRow = <T,>(
           (col.label === "Action" && (
             <ActionsCell
               accessor={col.accessor}
+              stickyIndex={col.stickyIndex}
               key={col.accessor}
               actions={actions}
               id={item.id}

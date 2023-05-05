@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ModalEditProps } from "./ModalEdit.types";
-import { Dialog, Grid, Paper } from "@mui/material";
-import { EditDciForm } from "../../../forms/EditDciForm";
+import { Dialog, Grid } from "@mui/material";
+import { EditDciForm } from "../../../forms/editDciForm/EditDciForm";
 import { formTypes } from "../../../../../core/constants/formType";
 
 export const EditModal: React.FC<ModalEditProps> = (props) => {
@@ -14,8 +14,8 @@ export const EditModal: React.FC<ModalEditProps> = (props) => {
         aria-labelledby={formType}
         aria-describedby="modal-modal-description"
       >
-        {formType === formTypes.MEDICATION_MODAL && <></>}
-        {formType === formTypes.DCI_MODAL && (
+        {formType === formTypes.EDIT_MEDICATION_MODAL && <></>}
+        {formType === formTypes.EDIT_DCI_MODAL && (
           <EditDciForm handleClose={handleClose} id={id} />
         )}
       </Dialog>

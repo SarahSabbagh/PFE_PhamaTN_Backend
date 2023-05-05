@@ -5,5 +5,6 @@ export interface TableToolBarProps {
   title: string;
   filter?: boolean;
   add?: boolean;
+  addFormType?: string;
   recievedFilterData?: (data: IUserFilterRequest) => void;
 }

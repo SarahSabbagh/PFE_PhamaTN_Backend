@@ -39,10 +39,11 @@ export const TableFactory = <T,>(
         title={title}
         filter={actions?.filter}
         add={actions?.add}
+        addFormType={actions?.addFormType}
         recievedFilterData={actions?.recievedFilterData}
       />
       <StyledTableContainer>
-        <Table size="small" aria-label="simple table">
+        <Table stickyHeader size="small" aria-label="simple table">
           <CustomizedTableHead
             onRequestSort={onRequestSort}
             sortOrder={sortOrder}
