@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   Collapse,
   Divider,
+  Grid,
   List,
   ListItem,
   ListItemButton,
@@ -15,19 +16,23 @@ import { SideBarMenuList } from "../../../core/constants/list/menuList/SideBarMe
 import { StyledList, StyledListItemIcon } from "./ListSidebar.style";
 
 export const ListSidebar: React.FC = () => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [collapse, setCollapse] = React.useState<string>("");
 
-  const handleClick = () => {
+  const handleClick = (id: string) => {
     setOpen(!open);
+    setCollapse(id);
   };
 
   return (
     <StyledList>
-      {SideBarMenuList.map((item, index) => (
-        <>
-          <ListItem key={item.id} disablePadding>
+      {SideBarMenuList.map((item) => (
+        <Grid key={item.id}>
+          <ListItem disablePadding>
             <StyledLink to={item.url}>
-              <ListItemButton onClick={handleClick}>
+              <ListItemButton
+                onClick={item.subMenu && (() => handleClick(item.id))}
+              >
                 <StyledListItemIcon>{item.icon}</StyledListItemIcon>
                 <ListItemText primary={item.title} />
                 {item.subMenu && (open ? <ExpandLess /> : <ExpandMore />)}
@@ -36,7 +41,11 @@ export const ListSidebar: React.FC = () => {
           </ListItem>
 
           {item.subMenu && (
-            <Collapse key={index} in={open} timeout="auto" unmountOnExit>
+            <Collapse
+              in={open && collapse === item.id}
+              timeout="auto"
+              unmountOnExit
+            >
               <List disablePadding>
                 {item.subMenu.map((nestedPage) => (
                   <ListItem key={nestedPage.id} disablePadding>
@@ -54,7 +63,7 @@ export const ListSidebar: React.FC = () => {
             </Collapse>
           )}
           <Divider />
-        </>
+        </Grid>
       ))}
     </StyledList>
   );

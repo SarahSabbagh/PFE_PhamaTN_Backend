@@ -1,11 +1,5 @@
 import * as React from "react";
-import {
-  Box,
-  BoxProps,
-  Drawer,
-  DrawerProps,
-  styled,
-} from "@mui/material";
+import { Box, BoxProps, Drawer, DrawerProps, styled } from "@mui/material";
 import { Link, LinkProps } from "react-router-dom";
 
 export const StyledBoxSideBar = styled(Box)<BoxProps>(({ theme }) => ({
@@ -40,10 +34,9 @@ export const StyledDrawer = styled(Drawer)<DrawerProps>(({ theme }) => ({
 export const StyledDrawerPermanent = styled(Drawer)<DrawerProps>(
   ({ theme }) => ({
     "& .MuiDrawer-paper": {
-      padding: "8rem 0",
+      padding: "6rem 0",
       minWidth: "15.625rem",
       justifyContent: "flex-start",
-      marginTop: "4rem",
       border: "1px solid" && theme.palette.background.paper,
       backgroundColor: theme.palette.background.default,
     },
@@ -55,4 +48,3 @@ export const StyledDrawerPermanent = styled(Drawer)<DrawerProps>(
     },
   })
 );
-

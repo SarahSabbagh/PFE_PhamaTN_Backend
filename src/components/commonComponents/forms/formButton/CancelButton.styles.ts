@@ -4,7 +4,7 @@ import { colors } from "../../../../core/constants/colors";
 
 export const CancelButton = styled(Button)<ButtonProps>(({ theme }) => ({
   minWidth: "6rem",
-  borderRadius: "3rem",
+  marginRight: " 0.25rem",
   color: theme.palette.background.default,
   backgroundColor: colors.grey.main,
 

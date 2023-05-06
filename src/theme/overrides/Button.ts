@@ -6,7 +6,6 @@ export default function Button(theme: Theme) {
       styleOverrides: {
         root: {
           padding: "0.5rem",
-          border: "1px solid",
           textAlign: "center",
         },
       },

@@ -2,7 +2,7 @@ import * as React from "react";
 import Toolbar from "@mui/material/Toolbar";
 import { Grid } from "@mui/material";
 import { LogoNavbar } from "./logoNavbar/LogoNavbar";
-import { StyledAppBar } from "./Navbar.style";
+import { StyledAppBar, StyledGrid } from "./Navbar.style";
 import { MenuList } from "./navMenu/NavMenu";
 import { UserMenu } from "./userMenu/UserMenu";
 import { useAccessToken } from "../../hooks/authHooks";
@@ -34,7 +34,7 @@ export const ResponsiveAppBar: React.FC<SidebarProps> = (props) => {
   };
   return (
     <StyledAppBar isAuthenticated={isAuthenticated}>
-      <Grid width="95vw">
+      <StyledGrid>
         {!isAuthenticated && (
           <Toolbar disableGutters>
             <LogoNavbar isNotAuthenticated />
@@ -65,7 +65,7 @@ export const ResponsiveAppBar: React.FC<SidebarProps> = (props) => {
             />
           </Toolbar>
         )}
-      </Grid>
+      </StyledGrid>
     </StyledAppBar>
   );
 };

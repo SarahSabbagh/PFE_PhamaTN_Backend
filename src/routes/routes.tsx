@@ -3,7 +3,6 @@ import { createBrowserRouter } from "react-router-dom";
 import { SignIn } from "../pages/Login";
 import { Register } from "../pages/Register";
 import { ErrorPage } from "../pages/Error";
-import { Home } from "../pages/Home";
 import { Layout, LayoutLogin } from "../layouts/GlobalLayout";
 import { Profile } from "../pages/Profile";
 import { Settings } from "../pages/Settings";
@@ -19,7 +18,7 @@ export const routes = createBrowserRouter([
     path: "/",
     element: (
       <Layout>
-        <PrivateRouteAuth component={Home} />
+        <PrivateRouteAuth component={Dashboard} />
       </Layout>
     ),
   },
@@ -67,7 +66,6 @@ export const routes = createBrowserRouter([
         <PrivateRouteAuth component={DcisPage} />
       </Layout>
     ),
-
   },
   {
     id: "LOGIN",

@@ -56,4 +56,5 @@ export const colors = {
     dark: blue[700],
   },
   containerColor: "#f4f5f7",
+  PlaceholderColor: "#B5B5B5",
 };

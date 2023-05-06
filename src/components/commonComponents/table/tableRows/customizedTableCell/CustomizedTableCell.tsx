@@ -3,7 +3,7 @@ import TableCell from "@mui/material/TableCell";
 import UnpublishedOutlinedIcon from "@mui/icons-material/UnpublishedOutlined";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
-import { IconButton, Switch } from "@mui/material";
+import { Grid, IconButton, Switch } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
 import { ActionDelete } from "../../actions/actionDelete/ActionDelete";
@@ -35,8 +35,8 @@ export const ActivationCell: React.FC<TableCellsProps> = (props) => {
     setOpen(true);
   };
   const handleActivation = () => {
-    setOpen(false);
     handleActivationMode && handleActivationMode(id);
+    setOpen(false);
   };
   const handleclose = () => {
     setOpen(false);
@@ -47,7 +47,7 @@ export const ActivationCell: React.FC<TableCellsProps> = (props) => {
       align="center"
     >
       <Switch
-        defaultChecked={Boolean(element)}
+        checked={Boolean(element)}
         color="success"
         onChange={handleClickOpen}
       />
@@ -77,35 +77,36 @@ export const ActionsCell: React.FC<TableCellsProps> = (props) => {
 
   return actions ? (
     <StyledTableCell
-      sx={{ display: "flex", justifyContent: "center" }}
       //stickyColumn
       align="center"
     >
-      {actions.delete && (
-        <>
-          <IconButton onClick={handleClickOpenDelete}>
-            <DeleteOutlineOutlinedIcon color="error" />
-          </IconButton>
-          <ActionDelete
-            open={openDelete}
-            handleDelete={handleDelete}
-            handleClose={handleCloseDelete}
-          />
-        </>
-      )}
-      {actions.edit && (
-        <>
-          <IconButton onClick={handleOpenEdit}>
-            <ModeOutlinedIcon />
-          </IconButton>
-          <EditModal
-            id={id}
-            formType={actions.editFormType ?? ""}
-            open={openEdit}
-            handleClose={handleCloseEdit}
-          />
-        </>
-      )}
+      <Grid display="flex" justifyContent="center">
+        {actions.delete && (
+          <>
+            <IconButton onClick={handleClickOpenDelete}>
+              <DeleteOutlineOutlinedIcon color="error" />
+            </IconButton>
+            <ActionDelete
+              open={openDelete}
+              handleDelete={handleDelete}
+              handleClose={handleCloseDelete}
+            />
+          </>
+        )}
+        {actions.edit && (
+          <>
+            <IconButton onClick={handleOpenEdit}>
+              <ModeOutlinedIcon />
+            </IconButton>
+            <EditModal
+              id={id}
+              formType={actions.editFormType ?? ""}
+              open={openEdit}
+              handleClose={handleCloseEdit}
+            />
+          </>
+        )}
+      </Grid>
     </StyledTableCell>
   ) : null;
 };

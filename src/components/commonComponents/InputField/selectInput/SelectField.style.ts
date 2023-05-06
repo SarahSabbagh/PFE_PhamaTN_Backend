@@ -1,5 +1,7 @@
 import {
   InputProps,
+  MenuItem,
+  MenuItemProps,
   PaperProps,
   Select,
   styled,
@@ -7,6 +9,7 @@ import {
   TypographyProps,
 } from "@mui/material";
 import { fonts } from "../../../../core/constants/fonts";
+import { colors } from "../../../../core/constants/colors";
 
 export const SelectFieldStyle = styled(Select)<InputProps & PaperProps>(
   ({ theme }) => ({
@@ -17,10 +20,15 @@ export const SelectFieldStyle = styled(Select)<InputProps & PaperProps>(
     "& .MuiSelect-outlined": {
       OverflowX: "scroll",
     },
-    padding: 0,
   })
 );
 export const SyledPlaceholder = styled(Typography)<TypographyProps>({
-  color: "#B5B5B5",
+  color: colors.PlaceholderColor,
   fontFamily: fonts.PRIMARY,
+});
+
+export const SyledMenuItem = styled(MenuItem)<MenuItemProps>({
+  "&.MuiMenu-paper": { padding: 0 },
+  // color: colors.PlaceholderColor,
+  // fontFamily: fonts.PRIMARY,
 });

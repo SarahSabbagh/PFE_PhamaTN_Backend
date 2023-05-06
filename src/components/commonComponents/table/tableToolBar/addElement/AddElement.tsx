@@ -18,7 +18,11 @@ export const AddElement: React.FC<AddElementProps> = (props) => {
   };
   return (
     <>
-      <Button endIcon={<AddOutlinedIcon />} onClick={handleClickOpen}>
+      <Button
+        variant="contained"
+        endIcon={<AddOutlinedIcon />}
+        onClick={handleClickOpen}
+      >
         Add
       </Button>
       <Grid>

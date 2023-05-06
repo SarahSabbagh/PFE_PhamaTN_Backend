@@ -13,7 +13,7 @@ export const dciApi = createApi({
     headers: { Accept: "application/json" },
     prepareHeaders: prepareHeaders,
   }),
-  tagTypes: ["Dci"],
+  tagTypes: ["Dcis", "Dci"],
   endpoints: (builder) => ({
     dcis: builder.query<IFilterResponse<IDci[]>, IDciRequest>({
       query(request) {
@@ -31,6 +31,7 @@ export const dciApi = createApi({
           params: request,
         };
       },
+      providesTags: ["Dcis"],
     }),
     deleteDcis: builder.mutation<IResponse, number>({
       query(id) {
@@ -39,6 +40,7 @@ export const dciApi = createApi({
           method: "DELETE",
         };
       },
+      invalidatesTags: ["Dcis"],
     }),
     showDci: builder.query<{ data: IDci }, number>({
       query(id) {
@@ -46,7 +48,9 @@ export const dciApi = createApi({
           url: endpoints.DCIS + "/" + id,
         };
       },
+      providesTags: ["Dci"],
     }),
+
     updateDci: builder.mutation<IResponse, IDci>({
       query: ({ id, name }) => ({
         headers: { Accept: "application/json" },
@@ -54,6 +58,7 @@ export const dciApi = createApi({
         params: { name: name },
         method: "PUT",
       }),
+      invalidatesTags: ["Dcis"],
     }),
     addDci: builder.mutation<IResponse, string>({
       query: (request) => ({
@@ -61,6 +66,7 @@ export const dciApi = createApi({
         method: "POST",
         body: { name: request },
       }),
+      invalidatesTags: ["Dcis"],
     }),
   }),
 });

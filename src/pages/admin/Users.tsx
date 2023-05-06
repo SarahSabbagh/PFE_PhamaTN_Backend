@@ -8,9 +8,9 @@ import {
   useUpdateUserStatusMutation,
   useUserActivationMutation,
   useUserFilterQuery,
+  useDeleteUserMutation,
 } from "../../redux/api/admin/AdminApi";
 import { IUserFilterRequest } from "../../redux/api/types/IResponseRequest";
-import { useDeleteUserMutation } from "../../redux/api/user/userApi";
 import { userColumns } from "../../core/constants/tableColumns/userColumns";
 
 export interface IFilterData {

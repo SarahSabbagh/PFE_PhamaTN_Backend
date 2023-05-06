@@ -15,6 +15,10 @@ export const StyledSignInPaper = styled(Paper)<PaperProps>(({ theme }) => ({
   border: "1px solid" && theme.palette.background.paper,
   backgroundColor: theme.palette.background.paper,
   borderRadius: "0.7rem",
+  display: "flex",
+  justifyContent: "center",
+  flexDirection: "column",
+  alignItems: "center",
   [theme.breakpoints.down("lg")]: {
     width: "40vw",
   },

@@ -77,7 +77,11 @@ export const Filter: React.FC<FilterProps> = ({ recievedFilterData }) => {
         )}
       </Grid>
       <Grid item>
-        <Button endIcon={<FilterListOutlinedIcon />} onClick={handleClick}>
+        <Button
+          variant="contained"
+          endIcon={<FilterListOutlinedIcon />}
+          onClick={handleClick}
+        >
           Add filter
         </Button>
         <Menu

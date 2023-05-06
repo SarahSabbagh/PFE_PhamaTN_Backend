@@ -48,7 +48,7 @@ export const EditDciForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
   }, []);
   return (
     <>
-      <DialogTitle variant="h3" color="primary">
+      <DialogTitle align="center" variant="h3" color="primary">
         Edit DCI
       </DialogTitle>
       <DialogContent>

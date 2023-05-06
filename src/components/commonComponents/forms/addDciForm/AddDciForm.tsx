@@ -31,7 +31,7 @@ export const AddDciForm: React.FC<FormAddProps> = ({ handleClose }) => {
 
   return (
     <>
-      <DialogTitle variant="h3" color="primary">
+      <DialogTitle align="center" variant="h3" color="primary">
         Add DCI
       </DialogTitle>
       <DialogContent>
