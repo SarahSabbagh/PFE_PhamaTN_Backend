@@ -8,8 +8,8 @@ import { Provider } from "react-redux";
 import { I18nextProvider } from "react-i18next";
 import { RouterProvider } from "react-router-dom";
 import i18n from "./locales/i18n";
-import { routes } from "./routes/Routes";
 import { ToastProvider } from "react-toast-notifications";
+import { routes } from "./routes/Routes";
 
 function App() {
   return (
