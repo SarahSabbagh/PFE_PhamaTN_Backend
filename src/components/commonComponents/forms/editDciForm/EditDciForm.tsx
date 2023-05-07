@@ -17,21 +17,27 @@ import { FormEditProps } from "./EditDciForm.types";
 import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
 import { CancelButton } from "../formButton/CancelButton.styles";
 import { useToasts } from "react-toast-notifications";
+import { dciSchema } from "../../../../core/utils/validator";
+import { TypeOf } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+type IDciRequest = TypeOf<typeof dciSchema>;
 
 export const EditDciForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
   const { addToast, removeToast } = useToasts();
   const { data, isLoading } = useShowDciQuery(id);
   const [updateDci] = useUpdateDciMutation();
-  const methods = useForm<{ name: string }>({
-    //resolver: zodResolver(signUpSchema),
+  const methods = useForm<IDciRequest>({
+    resolver: zodResolver(dciSchema),
     mode: "onChange",
   });
   const { handleSubmit } = methods;
 
-  const submitHandler: SubmitHandler<{ name: string }> = async (data) => {
+  const submitHandler: SubmitHandler<IDciRequest> = async (data) => {
     updateDci({ id, name: data.name })
       .unwrap()
       .then(() => {
+        handleClose();
         addToast("Saved Successfully", {
           appearance: "success",
           key: "edit-dci",
@@ -75,7 +81,7 @@ export const EditDciForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
                 </Grid>
                 <Grid item xs={12} display="flex" justifyContent="center">
                   <CancelButton onClick={handleClose}>Cancel</CancelButton>
-                  <ConfirmButtonStyled onClick={handleClose} type="submit">
+                  <ConfirmButtonStyled type="submit">
                     {isLoading ? (
                       <CircularProgress color="inherit" size={16} />
                     ) : (

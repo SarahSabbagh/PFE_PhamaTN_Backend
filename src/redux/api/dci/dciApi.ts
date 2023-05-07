@@ -58,7 +58,7 @@ export const dciApi = createApi({
         params: { name: name },
         method: "PUT",
       }),
-      invalidatesTags: ["Dcis"],
+      invalidatesTags: ["Dci", "Dcis"],
     }),
     addDci: builder.mutation<IResponse, string>({
       query: (request) => ({

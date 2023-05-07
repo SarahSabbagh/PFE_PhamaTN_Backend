@@ -13,20 +13,29 @@ import { FormInput } from "../../InputField/formInput/FormInput";
 import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
 import { CancelButton } from "../formButton/CancelButton.styles";
 import { FormAddProps } from "./AddDciForm.types";
+import { TypeOf } from "zod";
+import { dciSchema } from "../../../../core/utils/validator";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+type IDciRequest = TypeOf<typeof dciSchema>;
 
 export const AddDciForm: React.FC<FormAddProps> = ({ handleClose }) => {
   const [addDci, { isLoading }] = useAddDciMutation();
 
-  const methods = useForm<{ name: string }>({
-    //resolver: zodResolver(signUpSchema),
+  const methods = useForm<IDciRequest>({
+    resolver: zodResolver(dciSchema),
     defaultValues: { name: "" },
     mode: "onChange",
   });
   const { handleSubmit } = methods;
 
-  const submitHandler: SubmitHandler<{ name: string }> = (data) => {
+  const submitHandler: SubmitHandler<IDciRequest> = (data) => {
     console.log(data.name);
-    addDci(data.name).unwrap();
+    addDci(data.name)
+      .unwrap()
+      .then(() => {
+        handleClose();
+      });
   };
 
   return (
@@ -54,7 +63,7 @@ export const AddDciForm: React.FC<FormAddProps> = ({ handleClose }) => {
               </Grid>
               <Grid item xs={12} display="flex" justifyContent="center">
                 <CancelButton onClick={handleClose}>Cancel</CancelButton>
-                <ConfirmButtonStyled onClick={handleClose} type="submit">
+                <ConfirmButtonStyled type="submit">
                   {isLoading ? (
                     <CircularProgress color="inherit" size={16} />
                   ) : (
