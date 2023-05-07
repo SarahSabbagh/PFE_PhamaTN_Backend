@@ -1,4 +1,4 @@
-import { IUserFilterRequest } from "../../../../redux/api/types/IResponseRequest";
+import { IFilterRequest } from "../../../../redux/api/types/IResponseRequest";
 import { ITableHead } from "../tableHead/TableHead.types";
 
 export interface IActions {
@@ -9,7 +9,7 @@ export interface IActions {
   editFormType?: string;
   delete?: boolean;
   handleDelete?: (id: number) => void;
-  recievedFilterData?: (data: IUserFilterRequest) => void;
+  recievedFilterData?: (data: IFilterRequest) => void;
 }
 
 export interface TableFactoryProps<T> {

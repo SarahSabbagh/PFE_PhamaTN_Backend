@@ -76,7 +76,6 @@ export const EditDciForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
                     label="Name"
                     name="name"
                     defaultValue={data?.data?.name}
-                    required
                   />
                 </Grid>
                 <Grid item xs={12} display="flex" justifyContent="center">

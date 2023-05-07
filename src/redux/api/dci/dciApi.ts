@@ -1,8 +1,13 @@
 import { endpoints } from "./../../../core/constants/endpoints";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { prepareHeaders } from "../../../core/utils/rtk.config";
-import { IFilterResponse, IResponse } from "../types/IResponseRequest";
-import { IDci, IDciFilterRequest, IDciRequest } from "../types/IDci";
+import {
+  IFilterRequest,
+  IFilterResponse,
+  IRequest,
+  IResponse,
+  ISimpleElement,
+} from "../types/IResponseRequest";
 
 const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT as string;
 
@@ -15,16 +20,10 @@ export const dciApi = createApi({
   }),
   tagTypes: ["Dcis", "Dci"],
   endpoints: (builder) => ({
-    dcis: builder.query<IFilterResponse<IDci[]>, IDciRequest>({
-      query(request) {
-        return {
-          url: endpoints.DCIS,
-          params: request,
-        };
-      },
-    }),
-
-    filterDcis: builder.query<IFilterResponse<IDci[]>, IDciFilterRequest>({
+    filterDcis: builder.query<
+      IFilterResponse<ISimpleElement[]>,
+      IFilterRequest
+    >({
       query(request) {
         return {
           url: endpoints.FILTER_DCIS,
@@ -42,7 +41,7 @@ export const dciApi = createApi({
       },
       invalidatesTags: ["Dcis"],
     }),
-    showDci: builder.query<{ data: IDci }, number>({
+    showDci: builder.query<{ data: ISimpleElement }, number>({
       query(id) {
         return {
           url: endpoints.DCIS + "/" + id,
@@ -51,7 +50,7 @@ export const dciApi = createApi({
       providesTags: ["Dci"],
     }),
 
-    updateDci: builder.mutation<IResponse, IDci>({
+    updateDci: builder.mutation<IResponse, ISimpleElement>({
       query: ({ id, name }) => ({
         headers: { Accept: "application/json" },
         url: endpoints.DCIS + "/" + id,
@@ -71,7 +70,6 @@ export const dciApi = createApi({
   }),
 });
 export const {
-  useDcisQuery,
   useFilterDcisQuery,
   useDeleteDcisMutation,
   useUpdateDciMutation,

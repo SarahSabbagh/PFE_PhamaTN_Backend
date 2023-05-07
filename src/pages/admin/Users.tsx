@@ -10,8 +10,8 @@ import {
   useUserFilterQuery,
   useDeleteUserMutation,
 } from "../../redux/api/admin/AdminApi";
-import { IUserFilterRequest } from "../../redux/api/types/IResponseRequest";
 import { userColumns } from "../../core/constants/tableColumns/userColumns";
+import { IFilterRequest } from "../../redux/api/types/IResponseRequest";
 
 export interface IFilterData {
   role?: string;
@@ -22,7 +22,7 @@ export const UsersPage: FC = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
-  const [FilterData, setFilterData] = React.useState<IUserFilterRequest>({});
+  const [FilterData, setFilterData] = React.useState<IFilterRequest>({});
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
 

@@ -1,32 +1,35 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IUser } from "../types/IUser";
 import { prepareHeaders } from "../../../core/utils/rtk.config";
 import { endpoints } from "../../../core/constants/endpoints";
 import {
   IFilterRequest,
   IFilterResponse,
   IResponse,
+  ISimpleElement,
 } from "../types/IResponseRequest";
 
 const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT as string;
 
-export const adminApi = createApi({
-  reducerPath: "adminApi",
+export const marqueApi = createApi({
+  reducerPath: "marqueApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${BASE_URL}`,
+    baseUrl: `${BASE_URL}` + endpoints.MARQUE,
     prepareHeaders: prepareHeaders,
   }),
   // keepUnusedDataFor: 60000,
-  tagTypes: ["Admin"],
+  tagTypes: ["Marque", "Marques"],
   endpoints: (builder) => ({
-    userFilter: builder.query<IFilterResponse<IUser[]>, IFilterRequest>({
+    marquesFilter: builder.query<
+      IFilterResponse<ISimpleElement[]>,
+      IFilterRequest
+    >({
       query(request) {
         return {
-          url: endpoints.ADMIN + endpoints.USER_FILTER,
+          url: endpoints.FILTER_DCIS,
           params: request,
         };
       },
-      providesTags: ["Admin"],
+      providesTags: ["Marques"],
     }),
     userActivation: builder.mutation<IResponse, number>({
       query(id) {
@@ -35,7 +38,7 @@ export const adminApi = createApi({
           method: "PUT",
         };
       },
-      invalidatesTags: ["Admin"],
+      invalidatesTags: ["Marque"],
     }),
 
     updateUserStatus: builder.mutation<
@@ -49,7 +52,7 @@ export const adminApi = createApi({
           method: "PUT",
         };
       },
-      invalidatesTags: ["Admin"],
+      invalidatesTags: ["Marque"],
     }),
     deleteUser: builder.mutation<IResponse, number>({
       query(id) {
@@ -58,13 +61,8 @@ export const adminApi = createApi({
           method: "DELETE",
         };
       },
-      invalidatesTags: ["Admin"],
+      invalidatesTags: ["Marque"],
     }),
   }),
 });
-export const {
-  useUserFilterQuery,
-  useUpdateUserStatusMutation,
-  useUserActivationMutation,
-  useDeleteUserMutation,
-} = adminApi;
+export const { useMarquesFilterQuery } = marqueApi;

@@ -10,6 +10,7 @@ export const endpoints = {
   USER_FILTER: "/users/filter",
   UPDATE_USER_STATUS: "/updateStatusUser/",
   USERS: "/api/users",
+  MARQUE: "/api/marques/",
   DCIS: "/api/dcis",
   FILTER_DCIS: "/api/filter_dci",
 };
