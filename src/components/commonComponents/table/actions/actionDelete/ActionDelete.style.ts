@@ -4,7 +4,6 @@ import { colors } from "../../../../../core/constants/colors";
 
 export const DeleteButton = styled(Button)<ButtonProps>(({ theme }) => ({
   minWidth: "6rem",
-  borderRadius: "3rem",
   backgroundColor: theme.palette.error.main,
   color: theme.palette.background.default,
 
@@ -15,7 +14,6 @@ export const DeleteButton = styled(Button)<ButtonProps>(({ theme }) => ({
 }));
 export const CancelButton = styled(Button)<ButtonProps>(({ theme }) => ({
   minWidth: "6rem",
-  borderRadius: "3rem",
   color: theme.palette.background.default,
   backgroundColor: colors.grey.main,
 

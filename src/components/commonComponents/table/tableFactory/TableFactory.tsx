@@ -24,7 +24,6 @@ export const TableFactory = <T,>(
     sortOrder,
     sortBy,
     handleActivationMode,
-    recievedFilterData,
     rowsPerPageOptions,
     onPageChange,
     onRowsPerPageChange,
@@ -38,10 +37,13 @@ export const TableFactory = <T,>(
       <CustomizedTableToolBar
         handleQueryChange={handleQueryChange}
         title={title}
-        recievedFilterData={recievedFilterData}
+        filter={actions?.filter}
+        add={actions?.add}
+        addFormType={actions?.addFormType}
+        recievedFilterData={actions?.recievedFilterData}
       />
       <StyledTableContainer>
-        <Table size="small" aria-label="simple table">
+        <Table stickyHeader size="small" aria-label="simple table">
           <CustomizedTableHead
             onRequestSort={onRequestSort}
             sortOrder={sortOrder}

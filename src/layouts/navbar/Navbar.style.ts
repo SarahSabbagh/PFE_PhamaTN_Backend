@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppBar, AppBarProps, styled } from "@mui/material";
+import { AppBar, AppBarProps, Grid, GridProps, styled } from "@mui/material";
 interface styledAppBarProps {
   isAuthenticated: boolean;
 }
@@ -13,3 +13,6 @@ export const StyledAppBar = styled(AppBar)<AppBarProps & styledAppBarProps>(
     backgroundColor: theme.palette.background.default,
   })
 );
+export const StyledGrid = styled(Grid)<GridProps>(() => ({
+  padding: "0 1rem",
+}));

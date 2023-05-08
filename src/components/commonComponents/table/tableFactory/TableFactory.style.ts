@@ -3,7 +3,7 @@ import { TableContainer, TableContainerProps } from "@mui/material";
 import { Paper, PaperProps, styled } from "@mui/material";
 
 export const StyledPaper = styled(Paper)<PaperProps>(({ theme }) => ({
-  marginTop: "5rem",
+  margin: "6rem 0 3rem 0",
   border: "1px solid" && theme.palette.background.paper,
   backgroundColor: theme.palette.background.default,
   [theme.breakpoints.down("lg") && theme.breakpoints.up("md")]: {
@@ -15,7 +15,8 @@ export const StyledPaper = styled(Paper)<PaperProps>(({ theme }) => ({
 }));
 export const StyledTableContainer = styled(TableContainer)<TableContainerProps>(
   ({ theme }) => ({
-    padding: "1rem",
+    //padding: "1rem",
+    maxHeight: "30rem",
     [theme.breakpoints.up("xl")]: {
       minWidth: 1100,
     },

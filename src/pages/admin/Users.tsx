@@ -1,32 +1,18 @@
 import * as React from "react";
 import { FC } from "react";
 import { Grid } from "@mui/material";
-import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
-import { IUser } from "../redux/api/types/IUser";
-import { ITableHead } from "../components/commonComponents/table/tableHead/TableHead.types";
-import { TableFactory } from "../components/commonComponents/table/tableFactory/TableFactory";
+import { PageContainer } from "../../components/commonComponents/PageContainer/PageContainer";
+import { IUser } from "../../redux/api/types/IUser";
+import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
 import {
   useUpdateUserStatusMutation,
   useUserActivationMutation,
   useUserFilterQuery,
-} from "../redux/api/admin/AdminApi";
-import { IUserFilterRequest } from "../redux/api/types/IResponseRequest";
-import { useDeleteUserMutation } from "../redux/api/user/userApi";
+  useDeleteUserMutation,
+} from "../../redux/api/admin/AdminApi";
+import { IUserFilterRequest } from "../../redux/api/types/IResponseRequest";
+import { userColumns } from "../../core/constants/tableColumns/userColumns";
 
-const userColumns: ITableHead[] = [
-  { label: "ID", accessor: "id", sortable: true },
-  { label: "Name", accessor: "name", sortable: true },
-  { label: "Email", accessor: "email", sortable: true },
-  { label: "Role", accessor: "role" },
-  { label: "Governorate", accessor: "governorate" },
-  { label: "Delegation", accessor: "delegation" },
-  { label: "First Name", accessor: "pharmacyFirstName", sortable: true },
-  { label: "Last Name", accessor: "pharmacyLastName", sortable: true },
-  { label: "Address", accessor: "address", sortable: true },
-  { label: "Status", accessor: "status" },
-  { label: "Mode", accessor: "active" },
-  { label: "Action", accessor: "" },
-];
 export interface IFilterData {
   role?: string;
   status?: string;
@@ -104,6 +90,8 @@ export const UsersPage: FC = () => {
           title={"Users"}
           isLoading={isLoading}
           actions={{
+            filter: true,
+            recievedFilterData: (data) => setFilterData(data),
             delete: true,
             handleDelete: handleUserDelete,
           }}
@@ -115,7 +103,6 @@ export const UsersPage: FC = () => {
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-          recievedFilterData={(data) => setFilterData(data)}
         />
       </Grid>
     </PageContainer>

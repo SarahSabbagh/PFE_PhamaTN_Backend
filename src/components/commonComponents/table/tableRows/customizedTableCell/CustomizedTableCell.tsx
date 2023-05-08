@@ -3,14 +3,15 @@ import TableCell from "@mui/material/TableCell";
 import UnpublishedOutlinedIcon from "@mui/icons-material/UnpublishedOutlined";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
-import { IconButton, Switch } from "@mui/material";
+import { Grid, IconButton, Switch } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
 import { ActionDelete } from "../../actions/actionDelete/ActionDelete";
-import { EditModal } from "../../actions/actionEdit/ActionEdit";
+import { EditModal } from "../../actions/modalEdit/ModalEdit";
 import { ActionChangeStatus } from "../../actions/actionChangeStatus/ActionChangeStatus";
 import { ActionActivation } from "../../actions/actionActivation/ActionActivation";
 import { TableCellsProps } from "./CustomizedTableCell.types";
+import { StyledTableCell } from "./CustomizedTableCell.style";
 
 export const StandardCell: React.FC<TableCellsProps> = (props) => {
   const { element, accessor } = props;
@@ -26,7 +27,6 @@ export const StandardCell: React.FC<TableCellsProps> = (props) => {
     </TableCell>
   );
 };
-
 export const ActivationCell: React.FC<TableCellsProps> = (props) => {
   const { element, id, handleActivationMode } = props;
   const [open, setOpen] = React.useState(false);
@@ -35,26 +35,28 @@ export const ActivationCell: React.FC<TableCellsProps> = (props) => {
     setOpen(true);
   };
   const handleActivation = () => {
-    setOpen(false);
     handleActivationMode && handleActivationMode(id);
+    setOpen(false);
   };
   const handleclose = () => {
     setOpen(false);
   };
   return (
-    <TableCell align="center">
+    <StyledTableCell
+      //stickyColumn stickyIndex={1}
+      align="center"
+    >
       <Switch
-        defaultChecked={Boolean(element)}
+        checked={Boolean(element)}
         color="success"
         onChange={handleClickOpen}
-        disabled={id === 1}
       />
       <ActionActivation
         open={open}
         handleActivation={handleActivation}
         handleClose={handleclose}
       />
-    </TableCell>
+    </StyledTableCell>
   );
 };
 
@@ -67,7 +69,6 @@ export const ActionsCell: React.FC<TableCellsProps> = (props) => {
   const handleCloseDelete = () => setOpenDelete(false);
   const handleDelete = () => {
     setOpenDelete(false);
-    console.log("delete");
     actions?.handleDelete && actions?.handleDelete(id);
   };
 
@@ -75,32 +76,38 @@ export const ActionsCell: React.FC<TableCellsProps> = (props) => {
   const handleCloseEdit = () => setOpenEdit(false);
 
   return actions ? (
-    <TableCell align="center">
-      {actions.delete && (
-        <>
-          <IconButton onClick={handleClickOpenDelete} disabled={id === 1}>
-            <DeleteOutlineOutlinedIcon color="error" />
-          </IconButton>
-          <ActionDelete
-            open={openDelete}
-            handleDelete={handleDelete}
-            handleClose={handleCloseDelete}
-          />
-        </>
-      )}
-      {actions.edit && (
-        <>
-          <IconButton onClick={handleOpenEdit}>
-            <ModeOutlinedIcon />
-          </IconButton>
-          <EditModal
-            open={openEdit}
-            handleOpen={handleOpenEdit}
-            handleClose={handleCloseEdit}
-          />
-        </>
-      )}
-    </TableCell>
+    <StyledTableCell
+      //stickyColumn
+      align="center"
+    >
+      <Grid display="flex" justifyContent="center">
+        {actions.delete && (
+          <>
+            <IconButton onClick={handleClickOpenDelete}>
+              <DeleteOutlineOutlinedIcon color="error" />
+            </IconButton>
+            <ActionDelete
+              open={openDelete}
+              handleDelete={handleDelete}
+              handleClose={handleCloseDelete}
+            />
+          </>
+        )}
+        {actions.edit && (
+          <>
+            <IconButton onClick={handleOpenEdit}>
+              <ModeOutlinedIcon />
+            </IconButton>
+            <EditModal
+              id={id}
+              formType={actions.editFormType ?? ""}
+              open={openEdit}
+              handleClose={handleCloseEdit}
+            />
+          </>
+        )}
+      </Grid>
+    </StyledTableCell>
   ) : null;
 };
 
@@ -121,8 +128,11 @@ export const StatusCell: React.FC<TableCellsProps> = (props) => {
   };
 
   return (
-    <TableCell align="center">
-      <IconButton onClick={handleClickOpen} disabled={id === 1}>
+    <StyledTableCell
+      //stickyColumn stickyIndex={2}
+      align="center"
+    >
+      <IconButton onClick={handleClickOpen}>
         {element === 2 ? (
           <TaskAltOutlinedIcon color="success" />
         ) : element === 1 ? (
@@ -136,6 +146,6 @@ export const StatusCell: React.FC<TableCellsProps> = (props) => {
         handleStatus={handleStatus}
         handleClose={handleClose}
       />
-    </TableCell>
+    </StyledTableCell>
   );
 };

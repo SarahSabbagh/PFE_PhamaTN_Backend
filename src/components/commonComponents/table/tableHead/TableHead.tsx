@@ -1,9 +1,9 @@
 import * as React from "react";
-import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import { CustomizedTableHeadProps } from "./TableHead.types";
-import { StyledHead } from "./TableHead.style";
 import { StyledSortLabel } from "./tableSortHead/TableSortHead.style";
+import { StyledTableCell } from "../tableRows/customizedTableCell/CustomizedTableCell.style";
+import { TableHead } from "@mui/material";
 
 export const CustomizedTableHead: React.FC<CustomizedTableHeadProps> = (
   props
@@ -11,15 +11,20 @@ export const CustomizedTableHead: React.FC<CustomizedTableHeadProps> = (
   const { columns, onRequestSort, sortOrder, sortBy } = props;
   const createSortHandler =
     (newSortBy: string) => (event: React.MouseEvent<unknown>) => {
-      console.log("newSortBy", newSortBy);
       onRequestSort && onRequestSort(event, newSortBy);
     };
 
   return (
-    <StyledHead>
+    <TableHead>
       <TableRow>
         {columns.map((element, index) => (
-          <TableCell key={index} align="center">
+          <StyledTableCell
+            headColumn
+            //stickyIndex={element.stickyIndex}
+            //stickyColumn={element.isSticky && element.isSticky}
+            key={index}
+            align="center"
+          >
             {element.sortable ? (
               <StyledSortLabel
                 active
@@ -32,9 +37,9 @@ export const CustomizedTableHead: React.FC<CustomizedTableHeadProps> = (
             ) : (
               element.label
             )}
-          </TableCell>
+          </StyledTableCell>
         ))}
       </TableRow>
-    </StyledHead>
+    </TableHead>
   );
 };

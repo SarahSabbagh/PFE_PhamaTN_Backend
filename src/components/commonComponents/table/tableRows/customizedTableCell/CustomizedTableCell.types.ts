@@ -4,6 +4,7 @@ export interface TableCellsProps {
   element?: string | number | boolean;
   accessor: string;
   actions?: IActions;
+  stickyIndex?: number;
   handleActivationMode?: (id: number) => void;
   handleUpdateUserStatus?: (id: number, status: number) => void;
   id: number;

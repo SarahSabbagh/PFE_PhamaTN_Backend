@@ -10,6 +10,7 @@ import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import { ActionChangeStatusProps } from "./ActionChangeStatus.type";
 import { status } from "../../../../../core/constants/status";
+import { StyledDialogActions } from "../StyledDialogActions.style";
 
 export const ActionChangeStatus: React.FC<ActionChangeStatusProps> = (
   props
@@ -24,15 +25,15 @@ export const ActionChangeStatus: React.FC<ActionChangeStatusProps> = (
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle align="center" id="alert-dialog-title">
           <Typography variant="h3">{"User status "}</Typography>
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText align="center" id="alert-dialog-description">
             {"Are you sure  want to change user status ?"}
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <StyledDialogActions>
           <IconButton onClick={() => handleStatus(status.ACCEPTED)}>
             <TaskAltOutlinedIcon color="success" />
           </IconButton>
@@ -42,7 +43,7 @@ export const ActionChangeStatus: React.FC<ActionChangeStatusProps> = (
           <IconButton onClick={() => handleStatus(status.PENDING)}>
             <PendingOutlinedIcon />
           </IconButton>
-        </DialogActions>
+        </StyledDialogActions>
       </Dialog>
     </Grid>
   );

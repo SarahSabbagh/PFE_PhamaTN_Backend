@@ -10,16 +10,19 @@ export const regionApi = createApi({
     baseUrl: `${BASE_URL}`,
     //prepareHeaders: prepareHeaders,
   }),
-  tagTypes: ["Governorate"],
+  tagTypes: ["Governorate", "Delegation"],
 
   endpoints: (builder) => ({
     governorates: builder.query<Governorate[], void>({
       query: () => ({ url: endpoints.GOVERNORATES }),
+      providesTags: ["Governorate"],
+
       transformResponse: (response: { data: Governorate[] }) => response.data,
     }),
     delegations: builder.query<Governorate[], number>({
       query: (id) => ({
         url: `/api/delegations/belongsToSameGovernorate/${id}`,
+        providesTags: ["Delegation"],
         transformResponse: (response: { data: Governorate[] }) => response.data,
       }),
     }),

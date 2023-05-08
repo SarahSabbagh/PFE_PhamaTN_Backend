@@ -1,6 +1,8 @@
 export interface ITableHead {
   label: string;
   accessor: string;
+  isSticky?: boolean;
+  stickyIndex?: number;
   type?: string;
   sortable?: boolean;
 }

@@ -2,7 +2,6 @@ import * as React from "react";
 import MedicationOutlinedIcon from "@mui/icons-material/MedicationOutlined";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import AutoGraphOutlinedIcon from "@mui/icons-material/AutoGraphOutlined";
-import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import { paths } from "../../path";
 
@@ -25,7 +24,7 @@ export const SideBarMenuList: ISideBarMenuList[] = [
     id: "DASHBOARD",
     title: "Dashboard",
     url: paths.DASHBOARD,
-    icon: <DashboardOutlinedIcon />,
+    icon: <AutoGraphOutlinedIcon />,
   },
   {
     id: "USERS",
@@ -42,17 +41,10 @@ export const SideBarMenuList: ISideBarMenuList[] = [
       {
         id: "MEDICATION",
         title: "Medications",
-        url: "/",
+        url: paths.MEDICATION,
         icon: <FeedOutlinedIcon />,
       },
-      { id: "DCI", title: "DCI", url: "/", icon: <FeedOutlinedIcon /> },
+      { id: "DCI", title: "DCI", url: paths.DCI, icon: <FeedOutlinedIcon /> },
     ],
-  },
-  {
-    id: "STATISTIQUE",
-    title: "Statistique",
-    url: paths.STATISTIQUE,
-
-    icon: <AutoGraphOutlinedIcon />,
   },
 ];

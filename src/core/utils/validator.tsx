@@ -58,3 +58,9 @@ export const signUpSchema = loginSchema
     path: ["confirmPassword"],
     message: errorMessage.INVALID,
   });
+  export const dciSchema = object({
+    name: string()
+    .nonempty(errorMessage.IS_REQUIRED)
+    .max(60, errorMessage.max_60_CHARACTERS)
+   
+  });

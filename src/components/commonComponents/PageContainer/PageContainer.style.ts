@@ -9,10 +9,11 @@ export const RootStyle = styled(Container)<
 >((props) =>
   props.background
     ? {
+        padding: "0 !important",
         backgroundImage: `url(${image})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "100% 100% ",
         backgroundPosition: "center",
       }
-    : { backgroundColor: colors.containerColor }
+    : { backgroundColor: colors.containerColor, padding: 0 }
 );

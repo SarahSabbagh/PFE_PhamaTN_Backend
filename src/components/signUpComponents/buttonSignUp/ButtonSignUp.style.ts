@@ -22,3 +22,4 @@ export const StyledButton = styled(Button)<ButtonProps>(({ theme }) => ({
     width: "60vw",
   },
 }));
+

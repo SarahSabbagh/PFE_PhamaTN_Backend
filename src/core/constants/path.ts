@@ -3,8 +3,8 @@ export const paths = {
   REGISTER: "/register",
   SETTINGS: "/settings",
   PROFILE: "/profile",
-  DASHBOARD: "/dashboard",
+  DASHBOARD: "/",
   USERS: "/users",
-  STATISTIQUE: "/",
   MEDICATION: "/",
+  DCI: "/DCI",
 };
