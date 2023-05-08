@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ModalEditProps } from "./ModalEdit.types";
 import { Dialog, Grid } from "@mui/material";
-import { EditDciForm } from "../../../forms/dciForm/editDciForm/EditDciForm";
+import { EditDciForm } from "../../../forms/editForm/EditDci";
 import { formTypes } from "../../../../../core/constants/formType";
 
 export const EditModal: React.FC<ModalEditProps> = (props) => {

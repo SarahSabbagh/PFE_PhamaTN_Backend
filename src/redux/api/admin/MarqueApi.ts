@@ -13,7 +13,7 @@ const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT as string;
 export const marqueApi = createApi({
   reducerPath: "marqueApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${BASE_URL}` + endpoints.MARQUE,
+    baseUrl: `${BASE_URL}`,
     prepareHeaders: prepareHeaders,
   }),
   // keepUnusedDataFor: 60000,
@@ -34,7 +34,7 @@ export const marqueApi = createApi({
     deleteMarque: builder.mutation<IResponse, number>({
       query(id) {
         return {
-          url: "/" + id,
+          url: endpoints.MARQUE + "/" + id,
           method: "DELETE",
         };
       },
@@ -43,7 +43,7 @@ export const marqueApi = createApi({
     showMarque: builder.query<{ data: ISimpleElement }, number>({
       query(id) {
         return {
-          url: "/" + id,
+          url: endpoints.MARQUE + "/" + id,
         };
       },
       providesTags: ["Marque"],
@@ -52,7 +52,7 @@ export const marqueApi = createApi({
     updateMarque: builder.mutation<IResponse, ISimpleElement>({
       query: ({ id, name }) => ({
         headers: { Accept: "application/json" },
-        url: "/" + id,
+        url: endpoints.MARQUE + "/" + id,
         params: { name: name },
         method: "PUT",
       }),
@@ -60,7 +60,7 @@ export const marqueApi = createApi({
     }),
     addMarque: builder.mutation<IResponse, string>({
       query: (request) => ({
-        url: "",
+        url: endpoints.MARQUE,
         method: "POST",
         body: { name: request },
       }),

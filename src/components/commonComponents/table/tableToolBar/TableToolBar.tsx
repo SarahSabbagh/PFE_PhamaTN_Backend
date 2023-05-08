@@ -5,7 +5,7 @@ import { Filter } from "../../filterComponent/FilterComponent";
 import { TableToolBarProps } from "./TableToolBar.types";
 import { StyledTitle } from "./TableToolBar.style";
 import { AddElement } from "./addElement/AddElement";
-import { FormAddProps } from "../../forms/dciForm/addDciForm/AddDciForm.types";
+import { FormAddProps } from "../../forms/addForm/AddForm.types";
 
 export const CustomizedTableToolBar = <FormValues extends Record<string, any>>(
   props: React.PropsWithChildren<TableToolBarProps & FormAddProps<FormValues>>
@@ -24,7 +24,8 @@ export const CustomizedTableToolBar = <FormValues extends Record<string, any>>(
     isLoadingAddForm,
     isSuccessAddForm,
     handleClickOpen,
-    handleClose,open,
+    handleClose,
+    open,
   } = props;
 
   return (

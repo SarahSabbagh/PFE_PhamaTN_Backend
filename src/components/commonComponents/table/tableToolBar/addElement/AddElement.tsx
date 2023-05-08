@@ -3,8 +3,8 @@ import { Button, Dialog, Grid } from "@mui/material";
 import { formTypes } from "../../../../../core/constants/formType";
 import { AddElementProps } from "./AddElement.types";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { AddDciForm } from "../../../forms/dciForm/addDciForm/AddDciForm";
-import { FormAddProps } from "../../../forms/dciForm/addDciForm/AddDciForm.types";
+import { AddForm } from "../../../forms/addForm/AddForm";
+import { FormAddProps } from "../../../forms/addForm/AddForm.types";
 
 export const AddElement = <FormValues extends Record<string, any>>(
   props: React.PropsWithChildren<AddElementProps & FormAddProps<FormValues>>
@@ -40,7 +40,7 @@ export const AddElement = <FormValues extends Record<string, any>>(
         >
           {formType === formTypes.ADD_MEDICATION_MODAL && <></>}
           {formType === formTypes.ADD_DCI_MODAL && (
-            <AddDciForm
+            <AddForm
               handleClose={handleClose}
               titleAddForm={titleAddForm}
               defaultAddValues={defaultAddValues}

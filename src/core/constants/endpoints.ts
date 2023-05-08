@@ -13,5 +13,7 @@ export const endpoints = {
   MARQUE: "/api/marques",
   DCIS: "/api/dcis",
   FILTER_DCIS: "/api/filter_dci",
-  FILTER_MARQUE: "/filter",
+  FILTER_MARQUE: "/api/filter_marque",
+  FILTER_FORM: "/api/filter_forms",
+  FILTER_CATEGORY: "/api/filter_category",
 };

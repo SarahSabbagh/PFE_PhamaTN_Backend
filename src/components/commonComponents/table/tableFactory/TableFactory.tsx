@@ -9,7 +9,7 @@ import { LoadingTableContent } from "../tableContent/loadingTableContent/Loading
 import { StyledPaper, StyledTableContainer } from "./TableFactory.style";
 import { EmptyTableRow } from "../tableRows/CustomizedTableRow";
 import { TablePaginationProps } from "@mui/material";
-import { FormAddProps } from "../../forms/dciForm/addDciForm/AddDciForm.types";
+import { FormAddProps } from "../../forms/addForm/AddForm.types";
 
 export const TableFactory = <T, FormValues extends Record<string, any>>(
   props: React.PropsWithChildren<
@@ -41,7 +41,8 @@ export const TableFactory = <T, FormValues extends Record<string, any>>(
     isLoadingAddForm,
     isSuccessAddForm,
     handleClose,
-    handleClickOpen,open
+    handleClickOpen,
+    open,
   } = props;
   return (
     <StyledPaper elevation={3}>

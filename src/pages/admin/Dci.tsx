@@ -7,6 +7,7 @@ import {
   useAddDciMutation,
   useDeleteDcisMutation,
   useFilterDcisQuery,
+  useShowDciQuery,
   useUpdateDciMutation,
 } from "../../redux/api/dci/dciApi";
 import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
@@ -50,24 +51,12 @@ export const DcisPage: FC = () => {
   const handleDciDelete = (id: number) => {
     deleteDcis(id).unwrap();
   };
-  const [updateDci] = useUpdateDciMutation();
 
   const submitHandlerAdd: SubmitHandler<IDciRequest> = (data) => {
     addDci(data.name)
       .unwrap()
       .then(() => {
         handleClose();
-      });
-  };
-  const submitHandler: SubmitHandler<ISimpleElement> = async (data) => {
-    updateDci({ id: data.id, name: data.name })
-      .unwrap()
-      .then(() => {
-        // handleClose();
-        addToast("Saved Successfully", {
-          appearance: "success",
-          key: "edit-dci",
-        });
       });
   };
 
@@ -137,6 +126,3 @@ export const DcisPage: FC = () => {
     </PageContainer>
   );
 };
-function addToast(arg0: string, arg1: { appearance: string; key: string }) {
-  throw new Error("Function not implemented.");
-}
