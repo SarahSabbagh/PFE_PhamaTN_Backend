@@ -17,4 +17,5 @@ export const endpoints = {
   FILTER_FORM: "/api/filter_forms",
   FORM: "/api/forms",
   FILTER_CATEGORY: "/api/filter_category",
+  CATEGORY: "/api/categories",
 };

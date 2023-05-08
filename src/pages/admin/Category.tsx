@@ -3,15 +3,23 @@ import { FC } from "react";
 import { Grid } from "@mui/material";
 import { PageContainer } from "../../components/commonComponents/PageContainer/PageContainer";
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
-import {
-  useDeleteDcisMutation,
-  useFilterDcisQuery,
-} from "../../redux/api/dci/dciApi";
+
 import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
+import {
+  useAddCategoryMutation,
+  useCategoriesFilterQuery,
+  useDeleteCategoryMutation,
+} from "../../redux/api/admin/CategoryApi";
+import { TypeOf } from "zod";
+import { dciSchema } from "../../core/utils/validator";
+import { SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-export const DcisPage: FC = () => {
+type IDciRequest = TypeOf<typeof dciSchema>;
+
+export const CategoriesPage: FC = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
@@ -26,7 +34,7 @@ export const DcisPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading } = useFilterDcisQuery({
+  const { data, isLoading } = useCategoriesFilterQuery({
     ...(query && { search: query }),
     ...{
       page_size: rowsPerPage,
@@ -35,10 +43,20 @@ export const DcisPage: FC = () => {
       sortOrder: sortOrder,
     },
   });
-  const [deleteDcis] = useDeleteDcisMutation();
+  const [addCategory, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
+    useAddCategoryMutation();
 
-  const handleDciDelete = (id: number) => {
-    deleteDcis(id).unwrap();
+  const submitHandlerAdd: SubmitHandler<IDciRequest> = (data) => {
+    addCategory(data.name)
+      .unwrap()
+      .then(() => {
+        handleClose();
+      });
+  };
+  const [deleteCategory] = useDeleteCategoryMutation();
+
+  const handleCategoryDelete = (id: number) => {
+    deleteCategory(id).unwrap();
   };
 
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,7 +86,7 @@ export const DcisPage: FC = () => {
   };
 
   return (
-    <PageContainer title={"DCI"}>
+    <PageContainer title={"Category"}>
       <Grid>
         <TableFactory<ISimpleElement[], any>
           columns={dciColumns}
@@ -77,19 +95,25 @@ export const DcisPage: FC = () => {
           sortOrder={sortOrder}
           sortBy={sortBy}
           handleQueryChange={handleQueryChange}
-          title={"DCI"}
+          title={"Category"}
           isLoading={isLoading}
           actions={{
             add: true,
             addFormType: formTypes.ADD_DCI_MODAL,
             edit: true,
-            editFormType: formTypes.EDIT_DCI_MODAL,
+            editFormType: formTypes.EDIT_CATEGORY_MODAL,
             delete: true,
-            handleDelete: handleDciDelete,
+            handleDelete: handleCategoryDelete,
           }}
           handleClose={handleClose}
           handleClickOpen={handleClickOpen}
           open={open}
+          titleAddForm="add Category"
+          defaultAddValues={{ name: "" }}
+          addResolver={zodResolver(dciSchema)}
+          onSubmitAdd={submitHandlerAdd}
+          isLoadingAddForm={addIsLoading}
+          isSuccessAddForm={isSuccessAdd}
           page={page}
           count={data?.total ?? 0}
           rowsPerPageOptions={[10, 25, 50, 100]}

@@ -17,6 +17,7 @@ import { dciSchema } from "../../../../core/utils/validator";
 import { TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormEditProps } from "./EditForm.types";
+import { useShowCategoryQuery, useUpdateCategoryMutation } from "../../../../redux/api/admin/CategoryApi";
 
 type IDciRequest = TypeOf<typeof dciSchema>;
 
@@ -96,10 +97,4 @@ export const EditCategoryForm: React.FC<FormEditProps> = ({
     </>
   );
 };
-function useShowCategoryQuery(id: number): { data: any; isLoading: any } {
-  throw new Error("Function not implemented.");
-}
 
-function useUpdateCategoryMutation(): [any] {
-  throw new Error("Function not implemented.");
-}
