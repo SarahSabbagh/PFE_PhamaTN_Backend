@@ -16,6 +16,7 @@ import { dciSchema } from "../../../../core/utils/validator";
 import { TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormEditProps } from "./EditForm.types";
+import { useShowFormQuery, useUpdateFormMutation } from "../../../../redux/api/admin/FormApi";
 
 type IDciRequest = TypeOf<typeof dciSchema>;
 
@@ -92,10 +93,4 @@ export const EditForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
     </>
   );
 };
-function useShowFormQuery(id: number): { data: any; isLoading: any } {
-  throw new Error("Function not implemented.");
-}
 
-function useUpdateFormMutation(): [any] {
-  throw new Error("Function not implemented.");
-}

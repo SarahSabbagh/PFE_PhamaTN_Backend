@@ -6,6 +6,7 @@ import { userApi } from "./api/user/userApi";
 import { adminApi } from "./api/admin/AdminApi";
 import { dciApi } from "./api/dci/dciApi";
 import { marqueApi } from "./api/admin/MarqueApi";
+import { formApi } from "./api/admin/FormApi";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,8 @@ export const store = configureStore({
     [adminApi.reducerPath]: adminApi.reducer,
     [dciApi.reducerPath]: dciApi.reducer,
     [marqueApi.reducerPath]: marqueApi.reducer,
+    [formApi.reducerPath]: formApi.reducer,
+
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({}).concat([
@@ -23,7 +26,7 @@ export const store = configureStore({
       regionApi.middleware,
       adminApi.middleware,
       dciApi.middleware,
-      marqueApi.middleware,
+      marqueApi.middleware,formApi.middleware
     ]),
 });
 export type RootState = ReturnType<typeof store.getState>;
