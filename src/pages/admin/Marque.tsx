@@ -8,9 +8,16 @@ import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
 import {
+  useAddMarqueMutation,
   useDeleteMarqueMutation,
   useMarquesFilterQuery,
 } from "../../redux/api/admin/MarqueApi";
+import { TypeOf } from "zod";
+import { dciSchema } from "../../core/utils/validator";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler } from "react-hook-form";
+
+type IDciRequest = TypeOf<typeof dciSchema>;
 
 export const MarquesPage: FC = () => {
   const [page, setPage] = React.useState(0);
@@ -36,12 +43,21 @@ export const MarquesPage: FC = () => {
       sortOrder: sortOrder,
     },
   });
+  const [addMarque, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
+    useAddMarqueMutation();
+
   const [deleteMarque] = useDeleteMarqueMutation();
 
   const handleMarqueDelete = (id: number) => {
     deleteMarque(id).unwrap();
   };
-
+  const submitHandlerAdd: SubmitHandler<IDciRequest> = (data) => {
+    addMarque(data.name)
+      .unwrap()
+      .then(() => {
+        handleClose();
+      });
+  };
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTimeout(() => {
       setQuery(event.target.value.trim());
@@ -71,7 +87,7 @@ export const MarquesPage: FC = () => {
   return (
     <PageContainer title={"Marques"}>
       <Grid>
-        <TableFactory<ISimpleElement[], any>
+        <TableFactory<ISimpleElement[], IDciRequest>
           columns={dciColumns}
           data={data?.data}
           onRequestSort={onRequestSort}
@@ -84,13 +100,19 @@ export const MarquesPage: FC = () => {
             add: true,
             addFormType: formTypes.ADD_DCI_MODAL,
             edit: true,
-            editFormType: formTypes.EDIT_DCI_MODAL,
+            editFormType: formTypes.EDIT_MARQUE_MODAL,
             delete: true,
             handleDelete: handleMarqueDelete,
           }}
           handleClose={handleClose}
           handleClickOpen={handleClickOpen}
           open={open}
+          titleAddForm="add marque"
+          defaultAddValues={{ name: "" }}
+          addResolver={zodResolver(dciSchema)}
+          onSubmitAdd={submitHandlerAdd}
+          isLoadingAddForm={addIsLoading}
+          isSuccessAddForm={isSuccessAdd}
           page={page}
           count={data?.total ?? 0}
           rowsPerPageOptions={[10, 25, 50, 100]}
