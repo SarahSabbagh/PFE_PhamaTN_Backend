@@ -25,7 +25,15 @@ export const UsersPage: FC = () => {
   const [FilterData, setFilterData] = React.useState<IFilterRequest>({});
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
+  const [open, setOpen] = React.useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const { data, isLoading } = useUserFilterQuery({
     ...(query && { search: query }),
     ...FilterData,
@@ -80,7 +88,7 @@ export const UsersPage: FC = () => {
   return (
     <PageContainer title={"Users"}>
       <Grid>
-        <TableFactory<IUser[]>
+        <TableFactory<IUser[], any>
           columns={userColumns}
           data={data?.data}
           onRequestSort={onRequestSort}
@@ -95,6 +103,9 @@ export const UsersPage: FC = () => {
             delete: true,
             handleDelete: handleUserDelete,
           }}
+          handleClose={handleClose}
+          handleClickOpen={handleClickOpen}
+          open={open}
           handleActivationMode={handleActivationMode}
           handleUpdateUserStatus={handleUpdateUserStatus}
           page={page}

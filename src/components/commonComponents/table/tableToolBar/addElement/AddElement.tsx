@@ -4,18 +4,24 @@ import { formTypes } from "../../../../../core/constants/formType";
 import { AddElementProps } from "./AddElement.types";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { AddDciForm } from "../../../forms/dciForm/addDciForm/AddDciForm";
+import { FormAddProps } from "../../../forms/dciForm/addDciForm/AddDciForm.types";
 
-export const AddElement: React.FC<AddElementProps> = (props) => {
-  const { formType } = props;
-  const [open, setOpen] = React.useState(false);
+export const AddElement = <FormValues extends Record<string, any>>(
+  props: React.PropsWithChildren<AddElementProps & FormAddProps<FormValues>>
+) => {
+  const {
+    isSuccessAddForm,
+    formType,
+    titleAddForm,
+    defaultAddValues,
+    addResolver,
+    onSubmitAdd,
+    isLoadingAddForm,
+    handleClickOpen,
+    handleClose,
+    open,
+  } = props;
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
   return (
     <>
       <Button
@@ -34,7 +40,15 @@ export const AddElement: React.FC<AddElementProps> = (props) => {
         >
           {formType === formTypes.ADD_MEDICATION_MODAL && <></>}
           {formType === formTypes.ADD_DCI_MODAL && (
-            <AddDciForm handleClose={handleClose} />
+            <AddDciForm
+              handleClose={handleClose}
+              titleAddForm={titleAddForm}
+              defaultAddValues={defaultAddValues}
+              addResolver={addResolver}
+              onSubmitAdd={onSubmitAdd}
+              isLoadingAddForm={isLoadingAddForm}
+              isSuccessAddForm={isSuccessAddForm}
+            />
           )}
         </Dialog>
       </Grid>

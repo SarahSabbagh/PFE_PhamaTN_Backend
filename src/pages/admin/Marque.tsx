@@ -18,7 +18,15 @@ export const MarquesPage: FC = () => {
   const [query, setQuery] = React.useState<string>("");
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
+  const [open, setOpen] = React.useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const { data, isLoading } = useMarquesFilterQuery({
     ...(query && { search: query }),
     ...{
@@ -63,7 +71,7 @@ export const MarquesPage: FC = () => {
   return (
     <PageContainer title={"Marques"}>
       <Grid>
-        <TableFactory<ISimpleElement[]>
+        <TableFactory<ISimpleElement[], any>
           columns={dciColumns}
           data={data?.data}
           onRequestSort={onRequestSort}
@@ -80,6 +88,9 @@ export const MarquesPage: FC = () => {
             delete: true,
             handleDelete: handleMarqueDelete,
           }}
+          handleClose={handleClose}
+          handleClickOpen={handleClickOpen}
+          open={open}
           page={page}
           count={data?.total ?? 0}
           rowsPerPageOptions={[10, 25, 50, 100]}

@@ -6,5 +6,7 @@ export interface TableToolBarProps {
   filter?: boolean;
   add?: boolean;
   addFormType?: string;
+  handleClickOpen: () => void;
+  open: boolean;
   recievedFilterData?: (data: IFilterRequest) => void;
 }
