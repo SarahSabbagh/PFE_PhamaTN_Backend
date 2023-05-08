@@ -25,44 +25,53 @@ export const marqueApi = createApi({
     >({
       query(request) {
         return {
-          url: endpoints.FILTER_DCIS,
+          url: endpoints.FILTER_MARQUE,
           params: request,
         };
       },
       providesTags: ["Marques"],
     }),
-    userActivation: builder.mutation<IResponse, number>({
+    deleteMarque: builder.mutation<IResponse, number>({
       query(id) {
         return {
-          url: endpoints.ADMIN + endpoints.USER_ACTIVATION + id,
-          method: "PUT",
-        };
-      },
-      invalidatesTags: ["Marque"],
-    }),
-
-    updateUserStatus: builder.mutation<
-      IResponse,
-      { id: number; status: number }
-    >({
-      query({ id, status }) {
-        return {
-          url:
-            endpoints.ADMIN + endpoints.UPDATE_USER_STATUS + `${id}/${status}`,
-          method: "PUT",
-        };
-      },
-      invalidatesTags: ["Marque"],
-    }),
-    deleteUser: builder.mutation<IResponse, number>({
-      query(id) {
-        return {
-          url: endpoints.USERS + "/" + id,
+          url: "/" + id,
           method: "DELETE",
         };
       },
-      invalidatesTags: ["Marque"],
+      invalidatesTags: ["Marques"],
+    }),
+    showMarque: builder.query<{ data: ISimpleElement }, number>({
+      query(id) {
+        return {
+          url: "/" + id,
+        };
+      },
+      providesTags: ["Marque"],
+    }),
+
+    updateMarque: builder.mutation<IResponse, ISimpleElement>({
+      query: ({ id, name }) => ({
+        headers: { Accept: "application/json" },
+        url: "/" + id,
+        params: { name: name },
+        method: "PUT",
+      }),
+      invalidatesTags: ["Marque", "Marques"],
+    }),
+    addMarque: builder.mutation<IResponse, string>({
+      query: (request) => ({
+        url: "",
+        method: "POST",
+        body: { name: request },
+      }),
+      invalidatesTags: ["Marques"],
     }),
   }),
 });
-export const { useMarquesFilterQuery } = marqueApi;
+export const {
+  useMarquesFilterQuery,
+  useAddMarqueMutation,
+  useDeleteMarqueMutation,
+  useShowMarqueQuery,
+  useUpdateMarqueMutation,
+} = marqueApi;

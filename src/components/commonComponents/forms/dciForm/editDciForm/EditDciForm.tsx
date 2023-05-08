@@ -11,13 +11,13 @@ import { useTranslation } from "react-i18next";
 import {
   useShowDciQuery,
   useUpdateDciMutation,
-} from "../../../../redux/api/dci/dciApi";
-import { FormInput } from "../../InputField/formInput/FormInput";
+} from "../../../../../redux/api/dci/dciApi";
+import { FormInput } from "../../../InputField/formInput/FormInput";
 import { FormEditProps } from "./EditDciForm.types";
-import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
-import { CancelButton } from "../formButton/CancelButton.styles";
+import { ConfirmButtonStyled } from "../../formButton/ConfirmButton.styles";
+import { CancelButton } from "../../formButton/CancelButton.styles";
 import { useToasts } from "react-toast-notifications";
-import { dciSchema } from "../../../../core/utils/validator";
+import { dciSchema } from "../../../../../core/utils/validator";
 import { TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 

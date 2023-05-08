@@ -2,8 +2,8 @@ import * as React from "react";
 import { Button, Dialog, Grid } from "@mui/material";
 import { formTypes } from "../../../../../core/constants/formType";
 import { AddElementProps } from "./AddElement.types";
-import { AddDciForm } from "../../../forms/addDciForm/AddDciForm";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { AddDciForm } from "../../../forms/dciForm/addDciForm/AddDciForm";
 
 export const AddElement: React.FC<AddElementProps> = (props) => {
   const { formType } = props;

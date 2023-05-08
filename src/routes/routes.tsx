@@ -12,6 +12,7 @@ import { PrivateRouteAuth } from "./privateRoutes/PrivateRouteAuth";
 import { paths } from "../core/constants/path";
 import { UsersPage } from "../pages/admin/Users";
 import { DcisPage } from "../pages/admin/Dci";
+import { MarquesPage } from "../pages/admin/Marque";
 
 export const routes = createBrowserRouter([
   {
@@ -64,6 +65,15 @@ export const routes = createBrowserRouter([
     element: (
       <Layout>
         <PrivateRouteAuth component={DcisPage} />
+      </Layout>
+    ),
+  },
+  {
+    id: "MARQUE",
+    path: paths.MARQUE,
+    element: (
+      <Layout>
+        <PrivateRouteAuth component={MarquesPage} />
       </Layout>
     ),
   },

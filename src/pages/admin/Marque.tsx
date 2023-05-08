@@ -3,22 +3,23 @@ import { FC } from "react";
 import { Grid } from "@mui/material";
 import { PageContainer } from "../../components/commonComponents/PageContainer/PageContainer";
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
-import {
-  useDeleteDcisMutation,
-  useFilterDcisQuery,
-} from "../../redux/api/dci/dciApi";
+
 import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
+import {
+  useDeleteMarqueMutation,
+  useMarquesFilterQuery,
+} from "../../redux/api/admin/MarqueApi";
 
-export const DcisPage: FC = () => {
+export const MarquesPage: FC = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
 
-  const { data, isLoading } = useFilterDcisQuery({
+  const { data, isLoading } = useMarquesFilterQuery({
     ...(query && { search: query }),
     ...{
       page_size: rowsPerPage,
@@ -27,10 +28,10 @@ export const DcisPage: FC = () => {
       sortOrder: sortOrder,
     },
   });
-  const [deleteDcis] = useDeleteDcisMutation();
+  const [deleteMarque] = useDeleteMarqueMutation();
 
-  const handleDciDelete = (id: number) => {
-    deleteDcis(id).unwrap();
+  const handleMarqueDelete = (id: number) => {
+    deleteMarque(id).unwrap();
   };
 
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +61,7 @@ export const DcisPage: FC = () => {
   };
 
   return (
-    <PageContainer title={"DCI"}>
+    <PageContainer title={"Marques"}>
       <Grid>
         <TableFactory<ISimpleElement[]>
           columns={dciColumns}
@@ -69,7 +70,7 @@ export const DcisPage: FC = () => {
           sortOrder={sortOrder}
           sortBy={sortBy}
           handleQueryChange={handleQueryChange}
-          title={"DCI"}
+          title={"Marques"}
           isLoading={isLoading}
           actions={{
             add: true,
@@ -77,7 +78,7 @@ export const DcisPage: FC = () => {
             edit: true,
             editFormType: formTypes.EDIT_DCI_MODAL,
             delete: true,
-            handleDelete: handleDciDelete,
+            handleDelete: handleMarqueDelete,
           }}
           page={page}
           count={data?.total ?? 0}
