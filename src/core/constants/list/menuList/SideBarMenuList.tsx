@@ -35,7 +35,7 @@ export const SideBarMenuList: ISideBarMenuList[] = [
   {
     id: "MEDICATION_Information",
     title: "Drugs Info",
-    url: paths.MEDICATION,
+    url: "",
     icon: <MedicationOutlinedIcon />,
     subMenu: [
       {
@@ -45,6 +45,24 @@ export const SideBarMenuList: ISideBarMenuList[] = [
         icon: <FeedOutlinedIcon />,
       },
       { id: "DCI", title: "DCI", url: paths.DCI, icon: <FeedOutlinedIcon /> },
+      {
+        id: "MARQUE",
+        title: "Marque",
+        url: paths.MARQUE,
+        icon: <FeedOutlinedIcon />,
+      },
+      {
+        id: "CATEGORY",
+        title: "Category",
+        url: paths.CATEGORY,
+        icon: <FeedOutlinedIcon />,
+      },
+      {
+        id: "FORM",
+        title: "Form",
+        url: paths.FORM,
+        icon: <FeedOutlinedIcon />,
+      },
     ],
   },
 ];

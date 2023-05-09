@@ -1,13 +1,11 @@
-import { number } from "zod";
-import { status } from "./../../../core/constants/status";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IUser } from "../types/IUser";
 import { prepareHeaders } from "../../../core/utils/rtk.config";
 import { endpoints } from "../../../core/constants/endpoints";
 import {
+  IFilterRequest,
   IFilterResponse,
   IResponse,
-  IUserFilterRequest,
 } from "../types/IResponseRequest";
 
 const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT as string;
@@ -21,7 +19,7 @@ export const adminApi = createApi({
   // keepUnusedDataFor: 60000,
   tagTypes: ["Admin"],
   endpoints: (builder) => ({
-    userFilter: builder.query<IFilterResponse<IUser[]>, IUserFilterRequest>({
+    userFilter: builder.query<IFilterResponse<IUser[]>, IFilterRequest>({
       query(request) {
         return {
           url: endpoints.ADMIN + endpoints.USER_FILTER,

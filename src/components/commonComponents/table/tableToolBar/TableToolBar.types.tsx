@@ -1,4 +1,4 @@
-import { IUserFilterRequest } from "../../../../redux/api/types/IResponseRequest";
+import { IFilterRequest } from "../../../../redux/api/types/IResponseRequest";
 
 export interface TableToolBarProps {
   handleQueryChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -6,5 +6,7 @@ export interface TableToolBarProps {
   filter?: boolean;
   add?: boolean;
   addFormType?: string;
-  recievedFilterData?: (data: IUserFilterRequest) => void;
+  handleClickOpen: () => void;
+  open: boolean;
+  recievedFilterData?: (data: IFilterRequest) => void;
 }

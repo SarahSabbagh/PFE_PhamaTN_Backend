@@ -9,9 +9,12 @@ import { LoadingTableContent } from "../tableContent/loadingTableContent/Loading
 import { StyledPaper, StyledTableContainer } from "./TableFactory.style";
 import { EmptyTableRow } from "../tableRows/CustomizedTableRow";
 import { TablePaginationProps } from "@mui/material";
+import { FormAddProps } from "../../forms/addForm/AddForm.types";
 
-export const TableFactory = <T,>(
-  props: React.PropsWithChildren<TableFactoryProps<T> & TablePaginationProps>
+export const TableFactory = <T, FormValues extends Record<string, any>>(
+  props: React.PropsWithChildren<
+    TableFactoryProps<T> & TablePaginationProps & FormAddProps<FormValues>
+  >
 ) => {
   const {
     count,
@@ -31,6 +34,15 @@ export const TableFactory = <T,>(
     rowsPerPage,
     handleUpdateUserStatus,
     handleQueryChange,
+    titleAddForm,
+    defaultAddValues,
+    addResolver,
+    onSubmitAdd,
+    isLoadingAddForm,
+    isSuccessAddForm,
+    handleClose,
+    handleClickOpen,
+    open,
   } = props;
   return (
     <StyledPaper elevation={3}>
@@ -41,6 +53,15 @@ export const TableFactory = <T,>(
         add={actions?.add}
         addFormType={actions?.addFormType}
         recievedFilterData={actions?.recievedFilterData}
+        titleAddForm={titleAddForm}
+        defaultAddValues={defaultAddValues}
+        addResolver={addResolver}
+        onSubmitAdd={onSubmitAdd}
+        isLoadingAddForm={isLoadingAddForm}
+        isSuccessAddForm={isSuccessAddForm}
+        handleClose={handleClose}
+        handleClickOpen={handleClickOpen}
+        open={open}
       />
       <StyledTableContainer>
         <Table stickyHeader size="small" aria-label="simple table">

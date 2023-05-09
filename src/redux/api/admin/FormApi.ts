@@ -1,78 +1,77 @@
-import { endpoints } from "./../../../core/constants/endpoints";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { prepareHeaders } from "../../../core/utils/rtk.config";
+import { endpoints } from "../../../core/constants/endpoints";
 import {
   IFilterRequest,
   IFilterResponse,
-  IRequest,
   IResponse,
   ISimpleElement,
 } from "../types/IResponseRequest";
 
 const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT as string;
 
-export const dciApi = createApi({
-  reducerPath: "dciApi",
+export const formApi = createApi({
+  reducerPath: "formApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${BASE_URL}`,
-    headers: { Accept: "application/json" },
     prepareHeaders: prepareHeaders,
   }),
-  tagTypes: ["Dcis", "Dci"],
+  // keepUnusedDataFor: 60000,
+  tagTypes: ["Form", "Forms"],
   endpoints: (builder) => ({
-    filterDcis: builder.query<
+    formsFilter: builder.query<
       IFilterResponse<ISimpleElement[]>,
       IFilterRequest
     >({
       query(request) {
         return {
-          url: endpoints.FILTER_DCIS,
+          url: endpoints.FILTER_FORM,
           params: request,
         };
       },
-      providesTags: ["Dcis"],
+      providesTags: ["Forms"],
     }),
-    deleteDcis: builder.mutation<IResponse, number>({
+    deleteForm: builder.mutation<IResponse, number>({
       query(id) {
         return {
-          url: endpoints.DCIS + "/" + id,
+          url: endpoints.FORM + "/" + id,
           method: "DELETE",
         };
       },
-      invalidatesTags: ["Dcis"],
+      invalidatesTags: ["Forms"],
     }),
-    showDci: builder.query<{ data: ISimpleElement }, number>({
+    showForm: builder.query<{ data: ISimpleElement }, number>({
       query(id) {
         return {
-          url: endpoints.DCIS + "/" + id,
+          url: endpoints.FORM + "/" + id,
         };
       },
-      providesTags: ["Dci"],
+      providesTags: ["Form"],
     }),
 
-    updateDci: builder.mutation<IResponse, ISimpleElement>({
+    updateForm: builder.mutation<IResponse, ISimpleElement>({
       query: ({ id, name }) => ({
         headers: { Accept: "application/json" },
-        url: endpoints.DCIS + "/" + id,
+        url: endpoints.FORM + "/" + id,
         params: { name: name },
         method: "PUT",
       }),
-      invalidatesTags: ["Dci", "Dcis"],
+      invalidatesTags: ["Form", "Forms"],
     }),
-    addDci: builder.mutation<IResponse, string>({
+    addForm: builder.mutation<IResponse, string>({
       query: (request) => ({
-        url: endpoints.DCIS,
+        url: endpoints.FORM,
         method: "POST",
         body: { name: request },
       }),
-      invalidatesTags: ["Dcis"],
+      invalidatesTags: ["Forms"],
     }),
   }),
 });
 export const {
-  useFilterDcisQuery,
-  useDeleteDcisMutation,
-  useUpdateDciMutation,
-  useShowDciQuery,
-  useAddDciMutation,
-} = dciApi;
+  useFormsFilterQuery,
+  useAddFormMutation,
+  useDeleteFormMutation,
+  useShowFormQuery,
+  useUpdateFormMutation,
+} = formApi;

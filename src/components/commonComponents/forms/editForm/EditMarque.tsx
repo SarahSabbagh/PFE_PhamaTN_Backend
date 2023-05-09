@@ -8,25 +8,29 @@ import {
 } from "@mui/material";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import {
-  useShowDciQuery,
-  useUpdateDciMutation,
-} from "../../../../redux/api/dci/dciApi";
+
 import { FormInput } from "../../InputField/formInput/FormInput";
-import { FormEditProps } from "./EditDciForm.types";
 import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
 import { CancelButton } from "../formButton/CancelButton.styles";
 import { useToasts } from "react-toast-notifications";
 import { dciSchema } from "../../../../core/utils/validator";
 import { TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FormEditProps } from "./EditForm.types";
+import {
+  useShowMarqueQuery,
+  useUpdateMarqueMutation,
+} from "../../../../redux/api/admin/MarqueApi";
 
 type IDciRequest = TypeOf<typeof dciSchema>;
 
-export const EditDciForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
+export const EditMarqueForm: React.FC<FormEditProps> = ({
+  id,
+  handleClose,
+}) => {
   const { addToast, removeToast } = useToasts();
-  const { data, isLoading } = useShowDciQuery(id);
-  const [updateDci] = useUpdateDciMutation();
+  const { data, isLoading } = useShowMarqueQuery(id);
+  const [updateMarque] = useUpdateMarqueMutation();
   const methods = useForm<IDciRequest>({
     resolver: zodResolver(dciSchema),
     mode: "onChange",
@@ -34,13 +38,13 @@ export const EditDciForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
   const { handleSubmit } = methods;
 
   const submitHandler: SubmitHandler<IDciRequest> = async (data) => {
-    updateDci({ id, name: data.name })
+    updateMarque({ id, name: data.name })
       .unwrap()
       .then(() => {
         handleClose();
         addToast("Saved Successfully", {
           appearance: "success",
-          key: "edit-dci",
+          key: "edit-marque",
         });
       });
   };
@@ -55,7 +59,7 @@ export const EditDciForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
   return (
     <>
       <DialogTitle align="center" variant="h3" color="primary">
-        Edit DCI
+        Edit marque
       </DialogTitle>
       <DialogContent>
         {isLoading ? (
@@ -76,7 +80,6 @@ export const EditDciForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
                     label="Name"
                     name="name"
                     defaultValue={data?.data?.name}
-                    required
                   />
                 </Grid>
                 <Grid item xs={12} display="flex" justifyContent="center">

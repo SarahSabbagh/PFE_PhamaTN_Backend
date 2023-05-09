@@ -3,24 +3,22 @@ import { FC } from "react";
 import { Grid } from "@mui/material";
 import { PageContainer } from "../../components/commonComponents/PageContainer/PageContainer";
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
-import {
-  useAddDciMutation,
-  useDeleteDcisMutation,
-  useFilterDcisQuery,
-  useShowDciQuery,
-  useUpdateDciMutation,
-} from "../../redux/api/dci/dciApi";
 import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
 import { TypeOf } from "zod";
 import { dciSchema } from "../../core/utils/validator";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler } from "react-hook-form";
+import {
+  useAddFormMutation,
+  useDeleteFormMutation,
+  useFormsFilterQuery,
+} from "../../redux/api/admin/FormApi";
 
 type IDciRequest = TypeOf<typeof dciSchema>;
 
-export const DcisPage: FC = () => {
+export const FormsPage: FC = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
@@ -35,7 +33,7 @@ export const DcisPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading } = useFilterDcisQuery({
+  const { data, isLoading } = useFormsFilterQuery({
     ...(query && { search: query }),
     ...{
       page_size: rowsPerPage,
@@ -44,22 +42,21 @@ export const DcisPage: FC = () => {
       sortOrder: sortOrder,
     },
   });
-  const [deleteDcis] = useDeleteDcisMutation();
-  const [addDci, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
-    useAddDciMutation();
+  const [addForm, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
+    useAddFormMutation();
 
-  const handleDciDelete = (id: number) => {
-    deleteDcis(id).unwrap();
+  const [deleteForm] = useDeleteFormMutation();
+
+  const handleFormDelete = (id: number) => {
+    deleteForm(id).unwrap();
   };
-
   const submitHandlerAdd: SubmitHandler<IDciRequest> = (data) => {
-    addDci(data.name)
+    addForm(data.name)
       .unwrap()
       .then(() => {
         handleClose();
       });
   };
-
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTimeout(() => {
       setQuery(event.target.value.trim());
@@ -87,7 +84,7 @@ export const DcisPage: FC = () => {
   };
 
   return (
-    <PageContainer title={"DCI"}>
+    <PageContainer title={"Forms"}>
       <Grid>
         <TableFactory<ISimpleElement[], IDciRequest>
           columns={dciColumns}
@@ -96,20 +93,20 @@ export const DcisPage: FC = () => {
           sortOrder={sortOrder}
           sortBy={sortBy}
           handleQueryChange={handleQueryChange}
-          title={"DCI"}
+          title={"Forms"}
           isLoading={isLoading}
           actions={{
             add: true,
             addFormType: formTypes.ADD_DCI_MODAL,
             edit: true,
-            editFormType: formTypes.EDIT_DCI_MODAL,
+            editFormType: formTypes.EDIT_FORM_MODAL,
             delete: true,
-            handleDelete: handleDciDelete,
+            handleDelete: handleFormDelete,
           }}
           handleClose={handleClose}
           handleClickOpen={handleClickOpen}
           open={open}
-          titleAddForm="add DCI"
+          titleAddForm="add Form"
           defaultAddValues={{ name: "" }}
           addResolver={zodResolver(dciSchema)}
           onSubmitAdd={submitHandlerAdd}

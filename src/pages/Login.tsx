@@ -16,7 +16,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { globalVariables } from "../core/constants/globalVariables";
-import { IErrorResponseLogin } from "../redux/api/types/IResponseRequest";
+import { IErrorResponseLogin } from "../redux/api/types/ILoginRegister";
 
 export type ILoginRequest = TypeOf<typeof loginSchema>;
 

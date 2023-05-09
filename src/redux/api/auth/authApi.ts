@@ -7,7 +7,7 @@ import {
   ILoginResponse,
   IRegisterRequest,
   IRegisterResponse,
-} from "../types/IResponseRequest";
+} from "../types/ILoginRegister";
 
 const headers = { Accept: "application/json" };
 export const authApi = createApi({

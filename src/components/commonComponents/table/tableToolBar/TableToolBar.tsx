@@ -1,12 +1,15 @@
 import * as React from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import { SearchField } from "../../searchField/SearchField";
 import { Filter } from "../../filterComponent/FilterComponent";
 import { TableToolBarProps } from "./TableToolBar.types";
 import { StyledTitle } from "./TableToolBar.style";
 import { AddElement } from "./addElement/AddElement";
+import { FormAddProps } from "../../forms/addForm/AddForm.types";
 
-export const CustomizedTableToolBar: React.FC<TableToolBarProps> = (props) => {
+export const CustomizedTableToolBar = <FormValues extends Record<string, any>>(
+  props: React.PropsWithChildren<TableToolBarProps & FormAddProps<FormValues>>
+) => {
   const {
     filter,
     add,
@@ -14,6 +17,15 @@ export const CustomizedTableToolBar: React.FC<TableToolBarProps> = (props) => {
     title,
     recievedFilterData,
     addFormType,
+    titleAddForm,
+    defaultAddValues,
+    addResolver,
+    onSubmitAdd,
+    isLoadingAddForm,
+    isSuccessAddForm,
+    handleClickOpen,
+    handleClose,
+    open,
   } = props;
 
   return (
@@ -24,7 +36,20 @@ export const CustomizedTableToolBar: React.FC<TableToolBarProps> = (props) => {
       <Grid item xs>
         <SearchField onQueryChange={handleQueryChange} />
       </Grid>
-      {add && addFormType && <AddElement formType={addFormType} />}
+      {add && addFormType && (
+        <AddElement
+          formType={addFormType}
+          titleAddForm={titleAddForm}
+          defaultAddValues={defaultAddValues}
+          addResolver={addResolver}
+          onSubmitAdd={onSubmitAdd}
+          handleClickOpen={handleClickOpen}
+          handleClose={handleClose}
+          isLoadingAddForm={isLoadingAddForm}
+          isSuccessAddForm={isSuccessAddForm}
+          open={open}
+        />
+      )}
       {filter && recievedFilterData && (
         <Filter recievedFilterData={recievedFilterData} />
       )}
