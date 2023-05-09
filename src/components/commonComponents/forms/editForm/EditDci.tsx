@@ -8,10 +8,7 @@ import {
 } from "@mui/material";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import {
-  useShowDciQuery,
-  useUpdateDciMutation,
-} from "../../../../redux/api/dci/dciApi";
+import { useUpdateDciMutation } from "../../../../redux/api/dci/dciApi";
 import { FormInput } from "../../InputField/formInput/FormInput";
 import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
 import { CancelButton } from "../formButton/CancelButton.styles";
@@ -23,15 +20,21 @@ import { FormEditProps } from "./EditForm.types";
 
 type IDciRequest = TypeOf<typeof dciSchema>;
 
-export const EditDciForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
+export const EditDciForm: React.FC<FormEditProps> = ({
+  id,
+  handleClose,
+  itemName,
+}) => {
   const { addToast, removeToast } = useToasts();
-  const { data, isLoading } = useShowDciQuery(id);
   const [updateDci] = useUpdateDciMutation();
   const methods = useForm<IDciRequest>({
     resolver: zodResolver(dciSchema),
     mode: "onChange",
   });
-  const { handleSubmit } = methods;
+  const {
+    handleSubmit,
+    formState: { isLoading },
+  } = methods;
 
   const submitHandler: SubmitHandler<IDciRequest> = async (data) => {
     updateDci({ id, name: data.name })
@@ -58,42 +61,36 @@ export const EditDciForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
         Edit DCI
       </DialogTitle>
       <DialogContent>
-        {isLoading ? (
-          <Grid display="flex" justifyContent="center">
-            <CircularProgress color="inherit" />
-          </Grid>
-        ) : (
-          <FormProvider {...methods}>
-            <Box
-              component="form"
-              onSubmit={handleSubmit(submitHandler)}
-              noValidate
-            >
-              <Grid container spacing={1}>
-                <Grid item xs={12}>
-                  <FormInput
-                    id="name"
-                    placeholder="Name"
-                    type="Text"
-                    label="Name"
-                    name="name"
-                    defaultValue={data?.data?.name}
-                  />
-                </Grid>
-                <Grid item xs={12} display="flex" justifyContent="center">
-                  <CancelButton onClick={handleClose}>Cancel</CancelButton>
-                  <ConfirmButtonStyled type="submit">
-                    {isLoading ? (
-                      <CircularProgress color="inherit" size={16} />
-                    ) : (
-                      "edit"
-                    )}
-                  </ConfirmButtonStyled>
-                </Grid>
+        <FormProvider {...methods}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit(submitHandler)}
+            noValidate
+          >
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <FormInput
+                  id="name"
+                  placeholder="Name"
+                  type="Text"
+                  label="Name"
+                  name="name"
+                  defaultValue={itemName}
+                />
               </Grid>
-            </Box>
-          </FormProvider>
-        )}
+              <Grid item xs={12} display="flex" justifyContent="center">
+                <CancelButton onClick={handleClose}>Cancel</CancelButton>
+                <ConfirmButtonStyled type="submit">
+                  {isLoading ? (
+                    <CircularProgress color="inherit" size={16} />
+                  ) : (
+                    "edit"
+                  )}
+                </ConfirmButtonStyled>
+              </Grid>
+            </Grid>
+          </Box>
+        </FormProvider>
       </DialogContent>
     </>
   );

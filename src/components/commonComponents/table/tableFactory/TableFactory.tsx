@@ -23,6 +23,7 @@ export const TableFactory = <T, FormValues extends Record<string, any>>(
     isLoading,
     handleActivationMode,
     handleUpdateUserStatus,
+    handleModal,
     isFetching,
   } = props;
   return (
@@ -44,6 +45,7 @@ export const TableFactory = <T, FormValues extends Record<string, any>>(
               actions={actions}
               handleActivationMode={handleActivationMode}
               handleUpdateUserStatus={handleUpdateUserStatus}
+              handleModal={handleModal}
             />
           ) : (
             <EmptyTableRow />

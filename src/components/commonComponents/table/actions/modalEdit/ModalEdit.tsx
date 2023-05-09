@@ -8,7 +8,7 @@ import { EditForm } from "../../../forms/editForm/EditForm";
 import { EditCategoryForm } from "../../../forms/editForm/EditCategory";
 
 export const EditModal: React.FC<ModalEditProps> = (props) => {
-  const { open, handleClose, formType, id } = props;
+  const { open, handleClose, formType, id, itemName } = props;
   return (
     <Grid>
       <Dialog
@@ -19,16 +19,24 @@ export const EditModal: React.FC<ModalEditProps> = (props) => {
       >
         {formType === formTypes.EDIT_MEDICATION_MODAL && <></>}
         {formType === formTypes.EDIT_DCI_MODAL && (
-          <EditDciForm handleClose={handleClose} id={id} />
+          <EditDciForm handleClose={handleClose} id={id} itemName={itemName} />
         )}
         {formType === formTypes.EDIT_MARQUE_MODAL && (
-          <EditMarqueForm handleClose={handleClose} id={id} />
+          <EditMarqueForm
+            handleClose={handleClose}
+            id={id}
+            itemName={itemName}
+          />
         )}
         {formType === formTypes.EDIT_FORM_MODAL && (
-          <EditForm handleClose={handleClose} id={id} />
+          <EditForm handleClose={handleClose} id={id} itemName={itemName} />
         )}
         {formType === formTypes.EDIT_CATEGORY_MODAL && (
-          <EditCategoryForm handleClose={handleClose} id={id} />
+          <EditCategoryForm
+            handleClose={handleClose}
+            id={id}
+            itemName={itemName}
+          />
         )}
       </Dialog>
     </Grid>

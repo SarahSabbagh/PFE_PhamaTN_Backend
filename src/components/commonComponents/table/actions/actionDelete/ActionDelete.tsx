@@ -9,7 +9,7 @@ import { CancelButton, DeleteButton } from "./ActionDelete.style";
 import { StyledDialogActions } from "../StyledDialogActions.style";
 
 export const ActionDelete: React.FC<ActionDeleteProps> = (props) => {
-  const { open, handleClose, handleDelete } = props;
+  const { open, handleClose, handleDelete, itemName } = props;
 
   return (
     <Grid>
@@ -21,12 +21,12 @@ export const ActionDelete: React.FC<ActionDeleteProps> = (props) => {
       >
         <DialogTitle align="center" id="alert-dialog-title">
           <Typography variant="h3" color="error">
-            {"Delete user"}
+            {"Delete"}
           </Typography>
         </DialogTitle>
         <DialogContent>
           <DialogContentText align="center" id="alert-dialog-description">
-            {"Are you sure  want to delete this user?"}
+            Are you sure want to delete <strong>{itemName}</strong> ?
           </DialogContentText>
         </DialogContent>
         <StyledDialogActions>

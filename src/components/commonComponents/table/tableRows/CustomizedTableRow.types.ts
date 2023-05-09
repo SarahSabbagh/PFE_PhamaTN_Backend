@@ -11,8 +11,3 @@ export interface CustomizedTableRowProps<
   handleActivationMode?: (id: number) => void;
   handleUpdateUserStatus?: (id: number, status: number) => void;
 }
-export interface StickyCellProps {
-  headColumn?: boolean;
-  stickyColumn?: boolean;
-  stickyIndex?: number;
-}

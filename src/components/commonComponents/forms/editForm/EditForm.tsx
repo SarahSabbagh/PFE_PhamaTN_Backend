@@ -16,19 +16,25 @@ import { dciSchema } from "../../../../core/utils/validator";
 import { TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormEditProps } from "./EditForm.types";
-import { useShowFormQuery, useUpdateFormMutation } from "../../../../redux/api/admin/FormApi";
+import { useUpdateFormMutation } from "../../../../redux/api/admin/FormApi";
 
 type IDciRequest = TypeOf<typeof dciSchema>;
 
-export const EditForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
+export const EditForm: React.FC<FormEditProps> = ({
+  id,
+  handleClose,
+  itemName,
+}) => {
   const { addToast, removeToast } = useToasts();
-  const { data, isLoading } = useShowFormQuery(id);
   const [updateForm] = useUpdateFormMutation();
   const methods = useForm<IDciRequest>({
     resolver: zodResolver(dciSchema),
     mode: "onChange",
   });
-  const { handleSubmit } = methods;
+  const {
+    handleSubmit,
+    formState: { isLoading },
+  } = methods;
 
   const submitHandler: SubmitHandler<IDciRequest> = async (data) => {
     updateForm({ id, name: data.name })
@@ -55,44 +61,37 @@ export const EditForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
         Edit form
       </DialogTitle>
       <DialogContent>
-        {isLoading ? (
-              <Grid display="flex" justifyContent="center">
-              <CircularProgress color="inherit" />
-            </Grid>
-        ) : (
-          <FormProvider {...methods}>
-            <Box
-              component="form"
-              onSubmit={handleSubmit(submitHandler)}
-              noValidate
-            >
-              <Grid container spacing={1}>
-                <Grid item xs={12}>
-                  <FormInput
-                    id="name"
-                    placeholder="Name"
-                    type="Text"
-                    label="Name"
-                    name="name"
-                    defaultValue={data?.data?.name}
-                  />
-                </Grid>
-                <Grid item xs={12} display="flex" justifyContent="center">
-                  <CancelButton onClick={handleClose}>Cancel</CancelButton>
-                  <ConfirmButtonStyled type="submit">
-                    {isLoading ? (
-                      <CircularProgress color="inherit" size={16} />
-                    ) : (
-                      "edit"
-                    )}
-                  </ConfirmButtonStyled>
-                </Grid>
+        <FormProvider {...methods}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit(submitHandler)}
+            noValidate
+          >
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <FormInput
+                  id="name"
+                  placeholder="Name"
+                  type="Text"
+                  label="Name"
+                  name="name"
+                  defaultValue={itemName}
+                />
               </Grid>
-            </Box>
-          </FormProvider>
-        )}
+              <Grid item xs={12} display="flex" justifyContent="center">
+                <CancelButton onClick={handleClose}>Cancel</CancelButton>
+                <ConfirmButtonStyled type="submit">
+                  {isLoading ? (
+                    <CircularProgress color="inherit" size={16} />
+                  ) : (
+                    "edit"
+                  )}
+                </ConfirmButtonStyled>
+              </Grid>
+            </Grid>
+          </Box>
+        </FormProvider>
       </DialogContent>
     </>
   );
 };
-

@@ -17,7 +17,7 @@ export const TableContent = <T, FormAddValues extends Record<string, any>>(
     <TableBody>
       {Array.isArray(data) &&
         data.map((item: T, index) => (
-          <CustomizedTableRow<T,FormAddValues>
+          <CustomizedTableRow<T, FormAddValues>
             handleActivationMode={handleActivationMode}
             handleUpdateUserStatus={handleUpdateUserStatus}
             actions={actions}

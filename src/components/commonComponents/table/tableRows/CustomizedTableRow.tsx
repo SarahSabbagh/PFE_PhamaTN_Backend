@@ -34,6 +34,7 @@ export const CustomizedTableRow = <T, FormValues extends Record<string, any>>(
             <StatusCell
               key={col.accessor}
               accessor={col.accessor}
+              itemName={item["name"] ?? ""}
               element={item[col.accessor]}
               id={item.id}
               handleUpdateUserStatus={handleUpdateUserStatus}
@@ -43,6 +44,7 @@ export const CustomizedTableRow = <T, FormValues extends Record<string, any>>(
             <ActivationCell
               key={col.accessor}
               accessor={col.accessor}
+              itemName={item["name"] ?? ""}
               element={item[col.accessor]}
               handleActivationMode={handleActivationMode}
               id={item.id}
@@ -51,6 +53,7 @@ export const CustomizedTableRow = <T, FormValues extends Record<string, any>>(
           (col.label === "Action" && (
             <ActionsCell
               accessor={col.accessor}
+              itemName={item["name"] ?? ""}
               key={col.accessor}
               actions={actions}
               id={item.id}

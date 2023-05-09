@@ -65,7 +65,7 @@ export const ActivationCell = <FormValues extends Record<string, any>>(
 export const ActionsCell = <FormValues extends Record<string, any>>(
   props: React.PropsWithChildren<TableCellsProps<FormValues>>
 ) => {
-  const { actions, id } = props;
+  const { actions, id, itemName } = props;
   const [openDelete, setOpenDelete] = React.useState(false);
   const [openEdit, setOpenEdit] = React.useState(false);
 
@@ -88,6 +88,7 @@ export const ActionsCell = <FormValues extends Record<string, any>>(
               <DeleteOutlineOutlinedIcon color="error" />
             </IconButton>
             <ActionDelete
+              itemName={itemName}
               open={openDelete}
               handleDelete={handleDelete}
               handleClose={handleCloseDelete}
@@ -100,6 +101,7 @@ export const ActionsCell = <FormValues extends Record<string, any>>(
               <ModeOutlinedIcon />
             </IconButton>
             <EditModal
+              itemName={itemName ?? ""}
               id={id}
               formType={actions.edit.editFormType ?? ""}
               open={openEdit}
@@ -115,7 +117,7 @@ export const ActionsCell = <FormValues extends Record<string, any>>(
 export const StatusCell = <FormValues extends Record<string, any>>(
   props: React.PropsWithChildren<TableCellsProps<FormValues>>
 ) => {
-  const { element, id, handleUpdateUserStatus } = props;
+  const { element, id, handleUpdateUserStatus, itemName } = props;
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -142,6 +144,7 @@ export const StatusCell = <FormValues extends Record<string, any>>(
         )}
       </IconButton>
       <ActionChangeStatus
+        itemName={itemName}
         open={open}
         handleStatus={handleStatus}
         handleClose={handleClose}

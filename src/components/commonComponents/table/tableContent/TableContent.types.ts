@@ -1,4 +1,4 @@
-import { IActions } from "../tableFactory/TableFactory.types";
+import { IActions, IhandleModal } from "../tableFactory/TableFactory.types";
 import { ITableHead } from "../tableHead/TableHead.types";
 
 export interface TableContentProps<
@@ -6,6 +6,7 @@ export interface TableContentProps<
   FormAddValues extends Record<string, any>
 > {
   data: T;
+  handleModal: IhandleModal;
   columns: ITableHead[];
   actions: IActions<FormAddValues>;
   handleActivationMode?: (id: number) => void;
