@@ -91,22 +91,27 @@ export const UsersPage: FC = () => {
         <TableFactory<IUser[], any>
           columns={userColumns}
           data={data?.data}
-          onRequestSort={onRequestSort}
-          sortOrder={sortOrder}
-          sortBy={sortBy}
+          sort={{
+            onRequestSort: onRequestSort,
+            sortOrder: sortOrder,
+            sortBy: sortBy,
+          }}
           handleQueryChange={handleQueryChange}
           title={"Users"}
           isLoading={isLoading}
           isFetching={isFetching}
           actions={{
-            filter: true,
-            recievedFilterData: (data) => setFilterData(data),
-            delete: true,
-            handleDelete: handleUserDelete,
+            filter: {
+              filter: true,
+              recievedFilterData: (data: IFilterRequest) => setFilterData(data),
+            },
+            delete: { delete: true, handleDelete: handleUserDelete },
           }}
-          handleClose={handleClose}
-          handleClickOpen={handleClickOpen}
-          open={open}
+          handleModal={{
+            handleClickOpen: handleClickOpen,
+            open: open,
+            handleClose: handleClose,
+          }}
           handleActivationMode={handleActivationMode}
           handleUpdateUserStatus={handleUpdateUserStatus}
           page={page}

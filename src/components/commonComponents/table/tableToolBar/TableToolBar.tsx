@@ -5,28 +5,13 @@ import { Filter } from "../../filterComponent/FilterComponent";
 import { TableToolBarProps } from "./TableToolBar.types";
 import { StyledTitle } from "./TableToolBar.style";
 import { AddElement } from "./addElement/AddElement";
-import { FormAddProps } from "../../forms/addForm/AddForm.types";
 
-export const CustomizedTableToolBar = <FormValues extends Record<string, any>>(
-  props: React.PropsWithChildren<TableToolBarProps & FormAddProps<FormValues>>
+export const CustomizedTableToolBar = <
+  FormAddValues extends Record<string, any>
+>(
+  props: React.PropsWithChildren<TableToolBarProps<FormAddValues>>
 ) => {
-  const {
-    filter,
-    add,
-    handleQueryChange,
-    title,
-    recievedFilterData,
-    addFormType,
-    titleAddForm,
-    defaultAddValues,
-    addResolver,
-    onSubmitAdd,
-    isLoadingAddForm,
-    isSuccessAddForm,
-    handleClickOpen,
-    handleClose,
-    open,
-  } = props;
+  const { filter, handleModal, add, title, handleQueryChange } = props;
 
   return (
     <Grid container item sx={{ alignItems: "center", p: "1rem" }}>
@@ -36,23 +21,8 @@ export const CustomizedTableToolBar = <FormValues extends Record<string, any>>(
       <Grid item xs>
         <SearchField onQueryChange={handleQueryChange} />
       </Grid>
-      {add && addFormType && (
-        <AddElement
-          formType={addFormType}
-          titleAddForm={titleAddForm}
-          defaultAddValues={defaultAddValues}
-          addResolver={addResolver}
-          onSubmitAdd={onSubmitAdd}
-          handleClickOpen={handleClickOpen}
-          handleClose={handleClose}
-          isLoadingAddForm={isLoadingAddForm}
-          isSuccessAddForm={isSuccessAddForm}
-          open={open}
-        />
-      )}
-      {filter && recievedFilterData && (
-        <Filter recievedFilterData={recievedFilterData} />
-      )}
+      {add && <AddElement addProps={add} handleModal={handleModal} />}
+      {filter && <Filter recievedFilterData={filter.recievedFilterData} />}
     </Grid>
   );
 };

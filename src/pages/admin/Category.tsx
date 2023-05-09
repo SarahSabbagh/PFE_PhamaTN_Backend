@@ -91,30 +91,34 @@ export const CategoriesPage: FC = () => {
         <TableFactory<ISimpleElement[], any>
           columns={dciColumns}
           data={data?.data}
-          onRequestSort={onRequestSort}
-          sortOrder={sortOrder}
-          sortBy={sortBy}
+          sort={{
+            onRequestSort: onRequestSort,
+            sortOrder: sortOrder,
+            sortBy: sortBy,
+          }}
           handleQueryChange={handleQueryChange}
           title={"Category"}
           isLoading={isLoading}
           isFetching={isFetching}
           actions={{
-            add: true,
-            addFormType: formTypes.ADD_DCI_MODAL,
-            edit: true,
-            editFormType: formTypes.EDIT_CATEGORY_MODAL,
-            delete: true,
-            handleDelete: handleCategoryDelete,
+            add: {
+              add: true,
+              addFormType: formTypes.ADD_DCI_MODAL,
+              titleAddForm: "add Category",
+              defaultAddValues: { name: "" },
+              addResolver: zodResolver(dciSchema),
+              onSubmitAdd: submitHandlerAdd,
+              isLoadingAddForm: addIsLoading,
+              isSuccessAddForm: isSuccessAdd,
+            },
+            edit: { edit: true, editFormType: formTypes.EDIT_CATEGORY_MODAL },
+            delete: { delete: true, handleDelete: handleCategoryDelete },
           }}
-          handleClose={handleClose}
-          handleClickOpen={handleClickOpen}
-          open={open}
-          titleAddForm="add Category"
-          defaultAddValues={{ name: "" }}
-          addResolver={zodResolver(dciSchema)}
-          onSubmitAdd={submitHandlerAdd}
-          isLoadingAddForm={addIsLoading}
-          isSuccessAddForm={isSuccessAdd}
+          handleModal={{
+            handleClickOpen: handleClickOpen,
+            open: open,
+            handleClose: handleClose,
+          }}
           page={page}
           count={data?.total ?? 0}
           rowsPerPageOptions={[10, 25, 50, 100]}

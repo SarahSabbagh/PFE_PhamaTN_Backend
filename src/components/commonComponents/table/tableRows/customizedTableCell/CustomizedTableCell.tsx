@@ -13,7 +13,9 @@ import { ActionActivation } from "../../actions/actionActivation/ActionActivatio
 import { TableCellsProps } from "./CustomizedTableCell.types";
 import { StyledTableCell } from "./CustomizedTableCell.style";
 
-export const StandardCell: React.FC<TableCellsProps> = (props) => {
+export const StandardCell = <FormValues extends Record<string, any>>(
+  props: React.PropsWithChildren<TableCellsProps<FormValues>>
+) => {
   const { element, accessor } = props;
   const capitalizeText = (text: string): string => {
     return text && text[0].toUpperCase() + text.slice(1);
@@ -27,7 +29,10 @@ export const StandardCell: React.FC<TableCellsProps> = (props) => {
     </TableCell>
   );
 };
-export const ActivationCell: React.FC<TableCellsProps> = (props) => {
+
+export const ActivationCell = <FormValues extends Record<string, any>>(
+  props: React.PropsWithChildren<TableCellsProps<FormValues>>
+) => {
   const { element, id, handleActivationMode } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -42,10 +47,7 @@ export const ActivationCell: React.FC<TableCellsProps> = (props) => {
     setOpen(false);
   };
   return (
-    <StyledTableCell
-      //stickyColumn stickyIndex={1}
-      align="center"
-    >
+    <StyledTableCell align="center">
       <Switch
         checked={Boolean(element)}
         color="success"
@@ -60,7 +62,9 @@ export const ActivationCell: React.FC<TableCellsProps> = (props) => {
   );
 };
 
-export const ActionsCell: React.FC<TableCellsProps> = (props) => {
+export const ActionsCell = <FormValues extends Record<string, any>>(
+  props: React.PropsWithChildren<TableCellsProps<FormValues>>
+) => {
   const { actions, id } = props;
   const [openDelete, setOpenDelete] = React.useState(false);
   const [openEdit, setOpenEdit] = React.useState(false);
@@ -69,17 +73,14 @@ export const ActionsCell: React.FC<TableCellsProps> = (props) => {
   const handleCloseDelete = () => setOpenDelete(false);
   const handleDelete = () => {
     setOpenDelete(false);
-    actions?.handleDelete && actions?.handleDelete(id);
+    actions?.delete?.handleDelete && actions.delete.handleDelete(id);
   };
 
   const handleOpenEdit = () => setOpenEdit(true);
   const handleCloseEdit = () => setOpenEdit(false);
 
   return actions ? (
-    <StyledTableCell
-      //stickyColumn
-      align="center"
-    >
+    <StyledTableCell align="center">
       <Grid display="flex" justifyContent="center">
         {actions.delete && (
           <>
@@ -100,7 +101,7 @@ export const ActionsCell: React.FC<TableCellsProps> = (props) => {
             </IconButton>
             <EditModal
               id={id}
-              formType={actions.editFormType ?? ""}
+              formType={actions.edit.editFormType ?? ""}
               open={openEdit}
               handleClose={handleCloseEdit}
             />
@@ -111,7 +112,9 @@ export const ActionsCell: React.FC<TableCellsProps> = (props) => {
   ) : null;
 };
 
-export const StatusCell: React.FC<TableCellsProps> = (props) => {
+export const StatusCell = <FormValues extends Record<string, any>>(
+  props: React.PropsWithChildren<TableCellsProps<FormValues>>
+) => {
   const { element, id, handleUpdateUserStatus } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -128,10 +131,7 @@ export const StatusCell: React.FC<TableCellsProps> = (props) => {
   };
 
   return (
-    <StyledTableCell
-      //stickyColumn stickyIndex={2}
-      align="center"
-    >
+    <StyledTableCell align="center">
       <IconButton onClick={handleClickOpen}>
         {element === 2 ? (
           <TaskAltOutlinedIcon color="success" />

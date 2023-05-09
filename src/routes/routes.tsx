@@ -14,6 +14,8 @@ import { UsersPage } from "../pages/admin/Users";
 import { DcisPage } from "../pages/admin/Dci";
 import { MarquesPage } from "../pages/admin/Marque";
 import { MedicationsPage } from "../pages/admin/Medications";
+import { FormsPage } from "../pages/admin/Form";
+import { CategoriesPage } from "../pages/admin/Category";
 
 export const routes = createBrowserRouter([
   {
@@ -84,6 +86,24 @@ export const routes = createBrowserRouter([
     element: (
       <Layout>
         <PrivateRouteAuth component={MarquesPage} />
+      </Layout>
+    ),
+  },
+  {
+    id: "CATEGORY",
+    path: paths.CATEGORY,
+    element: (
+      <Layout>
+        <PrivateRouteAuth component={CategoriesPage} />
+      </Layout>
+    ),
+  },
+  {
+    id: "FORM",
+    path: paths.FORM,
+    element: (
+      <Layout>
+        <PrivateRouteAuth component={FormsPage} />
       </Layout>
     ),
   },

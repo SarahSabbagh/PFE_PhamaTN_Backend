@@ -92,30 +92,34 @@ export const MedicationsPage: FC = () => {
         <TableFactory<ISimpleElement[], IDciRequest>
           columns={dciColumns}
           data={data?.data}
-          onRequestSort={onRequestSort}
-          sortOrder={sortOrder}
-          sortBy={sortBy}
+          sort={{
+            onRequestSort: onRequestSort,
+            sortOrder: sortOrder,
+            sortBy: sortBy,
+          }}
           handleQueryChange={handleQueryChange}
           title={"DCI"}
           isLoading={isLoading}
           isFetching={isFetching}
           actions={{
-            add: true,
-            addFormType: formTypes.ADD_DCI_MODAL,
-            edit: true,
-            editFormType: formTypes.EDIT_DCI_MODAL,
-            delete: true,
-            handleDelete: handleDciDelete,
+            add: {
+              add: true,
+              addFormType: formTypes.ADD_DCI_MODAL,
+              titleAddForm: "add DCI",
+              defaultAddValues: { name: "" },
+              addResolver: zodResolver(dciSchema),
+              onSubmitAdd: submitHandlerAdd,
+              isLoadingAddForm: addIsLoading,
+              isSuccessAddForm: isSuccessAdd,
+            },
+            edit: { edit: true, editFormType: formTypes.EDIT_DCI_MODAL },
+            delete: { delete: true, handleDelete: handleDciDelete },
           }}
-          handleClose={handleClose}
-          handleClickOpen={handleClickOpen}
-          open={open}
-          titleAddForm="add DCI"
-          defaultAddValues={{ name: "" }}
-          addResolver={zodResolver(dciSchema)}
-          onSubmitAdd={submitHandlerAdd}
-          isLoadingAddForm={addIsLoading}
-          isSuccessAddForm={isSuccessAdd}
+          handleModal={{
+            handleClickOpen: handleClickOpen,
+            open: open,
+            handleClose: handleClose,
+          }}
           page={page}
           count={data?.total ?? 0}
           rowsPerPageOptions={[10, 25, 50, 100]}
