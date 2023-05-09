@@ -63,11 +63,7 @@ export const AddForm = <FormValues extends Record<string, any>>(
                     onClick={isSuccessAddForm ? handleClose : undefined}
                     type="submit"
                   >
-                    {isLoadingAddForm ? (
-                      <CircularProgress color="inherit" size={16} />
-                    ) : (
-                      "Add"
-                    )}
+                    Add
                   </ConfirmButtonStyled>
                 </Grid>
               </Grid>

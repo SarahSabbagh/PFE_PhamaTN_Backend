@@ -13,6 +13,7 @@ import { paths } from "../core/constants/path";
 import { UsersPage } from "../pages/admin/Users";
 import { DcisPage } from "../pages/admin/Dci";
 import { MarquesPage } from "../pages/admin/Marque";
+import { MedicationsPage } from "../pages/admin/Medications";
 
 export const routes = createBrowserRouter([
   {
@@ -56,6 +57,15 @@ export const routes = createBrowserRouter([
     element: (
       <Layout>
         <PrivateRouteAuth component={UsersPage} />
+      </Layout>
+    ),
+  },
+  {
+    id: "MEDICATION",
+    path: paths.MEDICATION,
+    element: (
+      <Layout>
+        <PrivateRouteAuth component={MedicationsPage} />
       </Layout>
     ),
   },

@@ -34,7 +34,7 @@ export const UsersPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading } = useUserFilterQuery({
+  const { data, isLoading, isFetching } = useUserFilterQuery({
     ...(query && { search: query }),
     ...FilterData,
     ...{
@@ -62,7 +62,7 @@ export const UsersPage: FC = () => {
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTimeout(() => {
       setQuery(event.target.value.trim());
-    }, 1000);
+    }, 500);
   };
 
   const onRequestSort = (
@@ -97,6 +97,7 @@ export const UsersPage: FC = () => {
           handleQueryChange={handleQueryChange}
           title={"Users"}
           isLoading={isLoading}
+          isFetching={isFetching}
           actions={{
             filter: true,
             recievedFilterData: (data) => setFilterData(data),

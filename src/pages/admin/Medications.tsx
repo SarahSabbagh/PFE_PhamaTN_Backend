@@ -20,7 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 type IDciRequest = TypeOf<typeof dciSchema>;
 
-export const DcisPage: FC = () => {
+export const MedicationsPage: FC = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");

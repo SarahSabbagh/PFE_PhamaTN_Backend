@@ -43,6 +43,7 @@ export const TableFactory = <T, FormValues extends Record<string, any>>(
     handleClose,
     handleClickOpen,
     open,
+    isFetching,
   } = props;
   return (
     <StyledPaper elevation={3}>
@@ -71,7 +72,7 @@ export const TableFactory = <T, FormValues extends Record<string, any>>(
             sortBy={sortBy}
             columns={columns}
           />
-          {isLoading ? (
+          {isLoading || isFetching ? (
             <LoadingTableContent />
           ) : data && count > 0 ? (
             <TableContent<T>

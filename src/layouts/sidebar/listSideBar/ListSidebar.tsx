@@ -48,16 +48,19 @@ export const ListSidebar: React.FC = () => {
             >
               <List disablePadding>
                 {item.subMenu.map((nestedPage) => (
-                  <ListItem key={nestedPage.id} disablePadding>
-                    <StyledLink to={nestedPage.url}>
-                      <ListItemButton sx={{ pl: 4 }}>
-                        <StyledListItemIcon>
-                          {nestedPage.icon}
-                        </StyledListItemIcon>
-                        <ListItemText primary={nestedPage.title} />
-                      </ListItemButton>
-                    </StyledLink>
-                  </ListItem>
+                  <>
+                    <Divider />
+                    <ListItem key={nestedPage.id} disablePadding>
+                      <StyledLink to={nestedPage.url}>
+                        <ListItemButton sx={{ pl: 4 }}>
+                          <StyledListItemIcon>
+                            {nestedPage.icon}
+                          </StyledListItemIcon>
+                          <ListItemText primary={nestedPage.title} />
+                        </ListItemButton>
+                      </StyledLink>
+                    </ListItem>
+                  </>
                 ))}
               </List>
             </Collapse>

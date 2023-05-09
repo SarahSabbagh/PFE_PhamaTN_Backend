@@ -22,6 +22,7 @@ export interface TableFactoryProps<T> {
   columns: ITableHead[];
   actions: IActions;
   isLoading: boolean;
+  isFetching: boolean;
   open: boolean;
   handleActivationMode?: (id: number) => void;
   handleUpdateUserStatus?: (id: number, status: number) => void;

@@ -63,7 +63,9 @@ export const EditMarqueForm: React.FC<FormEditProps> = ({
       </DialogTitle>
       <DialogContent>
         {isLoading ? (
-          <CircularProgress color="inherit" />
+          <Grid display="flex" justifyContent="center">
+            <CircularProgress color="inherit" />
+          </Grid>
         ) : (
           <FormProvider {...methods}>
             <Box

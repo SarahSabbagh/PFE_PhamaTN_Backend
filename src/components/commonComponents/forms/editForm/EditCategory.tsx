@@ -17,7 +17,10 @@ import { dciSchema } from "../../../../core/utils/validator";
 import { TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormEditProps } from "./EditForm.types";
-import { useShowCategoryQuery, useUpdateCategoryMutation } from "../../../../redux/api/admin/CategoryApi";
+import {
+  useShowCategoryQuery,
+  useUpdateCategoryMutation,
+} from "../../../../redux/api/admin/CategoryApi";
 
 type IDciRequest = TypeOf<typeof dciSchema>;
 
@@ -60,7 +63,9 @@ export const EditCategoryForm: React.FC<FormEditProps> = ({
       </DialogTitle>
       <DialogContent>
         {isLoading ? (
-          <CircularProgress color="inherit" />
+          <Grid display="flex" justifyContent="center">
+            <CircularProgress color="inherit" />
+          </Grid>
         ) : (
           <FormProvider {...methods}>
             <Box
@@ -97,4 +102,3 @@ export const EditCategoryForm: React.FC<FormEditProps> = ({
     </>
   );
 };
-

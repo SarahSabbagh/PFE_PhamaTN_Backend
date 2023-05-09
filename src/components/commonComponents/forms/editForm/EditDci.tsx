@@ -59,7 +59,9 @@ export const EditDciForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
       </DialogTitle>
       <DialogContent>
         {isLoading ? (
-          <CircularProgress color="inherit" />
+          <Grid display="flex" justifyContent="center">
+            <CircularProgress color="inherit" />
+          </Grid>
         ) : (
           <FormProvider {...methods}>
             <Box

@@ -33,7 +33,7 @@ export const FormsPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading } = useFormsFilterQuery({
+  const { data, isLoading, isFetching } = useFormsFilterQuery({
     ...(query && { search: query }),
     ...{
       page_size: rowsPerPage,
@@ -95,6 +95,7 @@ export const FormsPage: FC = () => {
           handleQueryChange={handleQueryChange}
           title={"Forms"}
           isLoading={isLoading}
+          isFetching={isFetching}
           actions={{
             add: true,
             addFormType: formTypes.ADD_DCI_MODAL,

@@ -26,7 +26,7 @@ export const Layout: React.FC<ILayout> = (prop) => {
         handleDrawerClose={handleDrawerClose}
       />
       <Grid container item>
-        <Grid item xs="auto" >
+        <Grid item xs="auto">
           <ResponsiveSideBar
             openDrawer={open}
             handleDrawerClose={handleDrawerClose}
@@ -36,7 +36,6 @@ export const Layout: React.FC<ILayout> = (prop) => {
           {prop.children}
         </Grid>
       </Grid>
-      <Footer />
     </Grid>
   );
 };

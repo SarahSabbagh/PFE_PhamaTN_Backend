@@ -34,7 +34,7 @@ export const CategoriesPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading } = useCategoriesFilterQuery({
+  const { data, isLoading, isFetching } = useCategoriesFilterQuery({
     ...(query && { search: query }),
     ...{
       page_size: rowsPerPage,
@@ -97,6 +97,7 @@ export const CategoriesPage: FC = () => {
           handleQueryChange={handleQueryChange}
           title={"Category"}
           isLoading={isLoading}
+          isFetching={isFetching}
           actions={{
             add: true,
             addFormType: formTypes.ADD_DCI_MODAL,

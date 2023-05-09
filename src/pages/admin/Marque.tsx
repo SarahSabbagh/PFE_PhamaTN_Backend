@@ -34,7 +34,7 @@ export const MarquesPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading } = useMarquesFilterQuery({
+  const { data, isLoading, isFetching } = useMarquesFilterQuery({
     ...(query && { search: query }),
     ...{
       page_size: rowsPerPage,
@@ -96,6 +96,7 @@ export const MarquesPage: FC = () => {
           handleQueryChange={handleQueryChange}
           title={"Marques"}
           isLoading={isLoading}
+          isFetching={isFetching}
           actions={{
             add: true,
             addFormType: formTypes.ADD_DCI_MODAL,
