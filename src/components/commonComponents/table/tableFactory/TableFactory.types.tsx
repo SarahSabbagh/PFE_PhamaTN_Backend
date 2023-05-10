@@ -2,10 +2,13 @@ import { DeepPartial, Resolver, SubmitHandler } from "react-hook-form";
 import { IFilterRequest } from "../../../../redux/api/types/IResponseRequest";
 import { ITableHead } from "../tableHead/TableHead.types";
 
-export interface IActions<FormValues extends Record<string, any>> {
+export interface IActions<
+  FormValues extends Record<string, any>,
+  FormEditValues extends Record<string, any>
+> {
   filter?: IFilter;
   add?: IAddAction<FormValues>;
-  edit?: IEditAction;
+  edit?: IEditAction<FormEditValues>;
   delete?: IDeleteAction;
 }
 
@@ -24,9 +27,13 @@ export interface IAddAction<FormAddValues extends Record<string, any>> {
   isSuccessAddForm?: boolean;
 }
 
-export interface IEditAction {
+export interface IEditAction<FormEditValues extends Record<string, any>> {
   edit: boolean;
   editFormType: string;
+  editResolver?: Resolver<FormEditValues>;
+  onSubmitEdit?: SubmitHandler<FormEditValues>;
+  isLoadingEditForm?: boolean;
+  isSuccessEditForm?: boolean;
 }
 export interface IDeleteAction {
   delete: boolean;
@@ -43,14 +50,18 @@ export interface ISort {
   sortBy?: string;
 }
 
-export interface TableFactoryProps<T, FormAddValues extends Record<string, any>> {
+export interface TableFactoryProps<
+  T,
+  FormAddValues extends Record<string, any>,
+  FormEditValues extends Record<string, any>
+> {
   data: T | undefined;
   handleQueryChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   title: string;
   sort?: ISort;
   handleModal: IhandleModal;
   columns: ITableHead[];
-  actions: IActions<FormAddValues>;
+  actions: IActions<FormAddValues, FormEditValues>;
   isLoading: boolean;
   isFetching: boolean;
   handleActivationMode?: (id: number) => void;

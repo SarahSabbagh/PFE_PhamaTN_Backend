@@ -15,8 +15,14 @@ import {
   ActivationCell,
 } from "./customizedTableCell/CustomizedTableCell";
 
-export const CustomizedTableRow = <T, FormValues extends Record<string, any>>(
-  props: React.PropsWithChildren<CustomizedTableRowProps<T, FormValues>>
+export const CustomizedTableRow = <
+  T,
+  FormAddValues extends Record<string, any>,
+  FormEditValues extends Record<string, any>
+>(
+  props: React.PropsWithChildren<
+    CustomizedTableRowProps<T, FormAddValues, FormEditValues>
+  >
 ) => {
   const {
     item,
@@ -55,8 +61,9 @@ export const CustomizedTableRow = <T, FormValues extends Record<string, any>>(
               accessor={col.accessor}
               itemName={item["name"] ?? ""}
               key={col.accessor}
-              actions={actions}
               id={item.id}
+              editAction={actions?.edit}
+              deleteAction={actions?.delete}
             />
           )) || (
             <StandardCell

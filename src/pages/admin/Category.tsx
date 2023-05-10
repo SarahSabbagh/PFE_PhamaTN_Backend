@@ -11,11 +11,13 @@ import {
   useAddCategoryMutation,
   useCategoriesFilterQuery,
   useDeleteCategoryMutation,
+  useUpdateCategoryMutation,
 } from "../../redux/api/admin/CategoryApi";
 import { TypeOf } from "zod";
 import { dciSchema } from "../../core/utils/validator";
 import { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useToasts } from "react-toast-notifications";
 
 type IDciRequest = TypeOf<typeof dciSchema>;
 
@@ -84,11 +86,26 @@ export const CategoriesPage: FC = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  const { addToast, removeToast } = useToasts();
+  const [
+    updateCategory,
+    { isLoading: editIsLoading, isSuccess: editIsSuccess },
+  ] = useUpdateCategoryMutation();
 
+  const handleEdit: SubmitHandler<ISimpleElement> = async (data) => {
+    updateCategory({ id: data.id, name: data.name })
+      .unwrap()
+      .then(() => {
+        addToast("Saved Successfully", {
+          appearance: "success",
+          key: "edit-category",
+        });
+      });
+  };
   return (
     <PageContainer title={"Category"}>
       <Grid>
-        <TableFactory<ISimpleElement[], any>
+        <TableFactory<ISimpleElement[], IDciRequest, ISimpleElement>
           columns={dciColumns}
           data={data?.data}
           sort={{
@@ -111,7 +128,14 @@ export const CategoriesPage: FC = () => {
               isLoadingAddForm: addIsLoading,
               isSuccessAddForm: isSuccessAdd,
             },
-            edit: { edit: true, editFormType: formTypes.EDIT_CATEGORY_MODAL },
+            edit: {
+              edit: true,
+              editFormType: formTypes.EDIT_SIMPLE_ELEMENT_MODAL,
+              editResolver: zodResolver(dciSchema),
+              onSubmitEdit: handleEdit,
+              isLoadingEditForm: editIsLoading,
+              isSuccessEditForm: editIsSuccess,
+            },
             delete: { delete: true, handleDelete: handleCategoryDelete },
           }}
           handleModal={{

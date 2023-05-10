@@ -47,10 +47,10 @@ export const ListSidebar: React.FC = () => {
               unmountOnExit
             >
               <List disablePadding>
-                {item.subMenu.map((nestedPage) => (
-                  <>
+                {item.subMenu.map((nestedPage, index) => (
+                  <Grid key={nestedPage.id}>
                     <Divider />
-                    <ListItem key={nestedPage.id} disablePadding>
+                    <ListItem disablePadding>
                       <StyledLink to={nestedPage.url}>
                         <ListItemButton sx={{ pl: 4 }}>
                           <StyledListItemIcon>
@@ -60,7 +60,7 @@ export const ListSidebar: React.FC = () => {
                         </ListItemButton>
                       </StyledLink>
                     </ListItem>
-                  </>
+                  </Grid>
                 ))}
               </List>
             </Collapse>

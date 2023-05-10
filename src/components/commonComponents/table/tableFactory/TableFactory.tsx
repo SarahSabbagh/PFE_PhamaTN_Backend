@@ -10,9 +10,13 @@ import { StyledPaper, StyledTableContainer } from "./TableFactory.style";
 import { EmptyTableRow } from "../tableRows/CustomizedTableRow";
 import { TablePaginationProps } from "@mui/material";
 
-export const TableFactory = <T, FormValues extends Record<string, any>>(
+export const TableFactory = <
+  T,
+  FormAddValues extends Record<string, any>,
+  FormEditValues extends Record<string, any>
+>(
   props: React.PropsWithChildren<
-    TableFactoryProps<T, FormValues> & TablePaginationProps
+    TableFactoryProps<T, FormAddValues, FormEditValues> & TablePaginationProps
   >
 ) => {
   const {
@@ -39,7 +43,7 @@ export const TableFactory = <T, FormValues extends Record<string, any>>(
           {isLoading || isFetching ? (
             <LoadingTableContent />
           ) : data && count > 0 ? (
-            <TableContent<T, FormValues>
+            <TableContent<T, FormAddValues, FormEditValues>
               columns={columns}
               data={data}
               actions={actions}

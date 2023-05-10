@@ -19,10 +19,13 @@ export const ActionDelete: React.FC<ActionDeleteProps> = (props) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle align="center" id="alert-dialog-title">
-          <Typography variant="h3" color="error">
-            {"Delete"}
-          </Typography>
+        <DialogTitle
+          color="error"
+          variant="h3"
+          align="center"
+          id="alert-dialog-title"
+        >
+          {"Delete"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText align="center" id="alert-dialog-description">

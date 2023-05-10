@@ -89,7 +89,7 @@ export const MedicationsPage: FC = () => {
   return (
     <PageContainer title={"DCI"}>
       <Grid>
-        <TableFactory<ISimpleElement[], IDciRequest>
+        <TableFactory<ISimpleElement[], IDciRequest, ISimpleElement>
           columns={dciColumns}
           data={data?.data}
           sort={{
@@ -112,7 +112,11 @@ export const MedicationsPage: FC = () => {
               isLoadingAddForm: addIsLoading,
               isSuccessAddForm: isSuccessAdd,
             },
-            edit: { edit: true, editFormType: formTypes.EDIT_DCI_MODAL },
+            edit: {
+              edit: true,
+              editFormType: formTypes.EDIT_MEDICATION_MODAL,
+              editResolver: zodResolver(dciSchema),
+            },
             delete: { delete: true, handleDelete: handleDciDelete },
           }}
           handleModal={{

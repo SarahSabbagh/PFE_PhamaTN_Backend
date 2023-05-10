@@ -1,49 +1,45 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import {
+  CircularProgress,
   DialogContent,
   DialogTitle,
   Grid,
 } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { FormInput } from "../../InputField/formInput/FormInput";
-import { CancelButton } from "../formButton/CancelButton.styles";
 import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
-import { FormAddProps } from "./AddForm.types";
+import { CancelButton } from "../formButton/CancelButton.styles";
+import { FormEditProps } from "./EditForm.types";
 
-export const AddForm = <FormValues extends Record<string, any>>(
-  props: React.PropsWithChildren<FormAddProps<FormValues>>
+export const EditSimpleElementForm = <
+  FormEditValues extends Record<string, any>
+>(
+  props: React.PropsWithChildren<FormEditProps<FormEditValues>>
 ) => {
-  const {
-    titleAddForm,
-    defaultAddValues,
-    addResolver,
-    onSubmitAdd,
-    handleClose,
-    isSuccessAddForm,
-  } = props;
-  const methods = useForm<FormValues>({
-    resolver: addResolver,
-    defaultValues: defaultAddValues,
+  const { id, handleClose, itemName, editAction } = props;
 
+  const methods = useForm<FormEditValues>({
+    resolver: editAction.editResolver,
     mode: "onChange",
   });
-  const { handleSubmit } = methods;
-
+  const {
+    handleSubmit,
+    formState: { isLoading },
+  } = methods;
+  const onSubmit = (data: FormEditValues) => {
+    editAction?.onSubmitEdit && editAction.onSubmitEdit({ id: id, ...data });
+  };
   return (
     <>
       <DialogTitle align="center" variant="h3" color="primary">
-        {titleAddForm}
+        Edit
       </DialogTitle>
       <DialogContent>
         <FormProvider {...methods}>
-          {onSubmitAdd && (
-            <Box
-              component="form"
-              onSubmit={handleSubmit(onSubmitAdd)}
-              noValidate
-            >
+          {editAction.onSubmitEdit && (
+            <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
               <Grid container spacing={1}>
                 <Grid item xs={12}>
                   <FormInput
@@ -52,16 +48,17 @@ export const AddForm = <FormValues extends Record<string, any>>(
                     type="Text"
                     label="Name"
                     name="name"
-                    required
+                    defaultValue={itemName}
                   />
                 </Grid>
                 <Grid item xs={12} display="flex" justifyContent="center">
                   <CancelButton onClick={handleClose}>Cancel</CancelButton>
-                  <ConfirmButtonStyled
-                    onClick={isSuccessAddForm ? handleClose : undefined}
-                    type="submit"
-                  >
-                    Add
+                  <ConfirmButtonStyled type="submit">
+                    {editAction?.isLoadingEditForm ? (
+                      <CircularProgress color="inherit" size={16} />
+                    ) : (
+                      "edit"
+                    )}
                   </ConfirmButtonStyled>
                 </Grid>
               </Grid>

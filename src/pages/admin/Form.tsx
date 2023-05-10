@@ -14,7 +14,9 @@ import {
   useAddFormMutation,
   useDeleteFormMutation,
   useFormsFilterQuery,
+  useUpdateFormMutation,
 } from "../../redux/api/admin/FormApi";
+import { useToasts } from "react-toast-notifications";
 
 type IDciRequest = TypeOf<typeof dciSchema>;
 
@@ -82,11 +84,24 @@ export const FormsPage: FC = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+  const { addToast, removeToast } = useToasts();
+  const [updateForm, { isLoading: editIsLoading, isSuccess: editIsSuccess }] =
+    useUpdateFormMutation();
+  const handleEdit: SubmitHandler<ISimpleElement> = async (data) => {
+    updateForm({ id: data.id, name: data.name })
+      .unwrap()
+      .then(() => {
+        // handleClose();
+        addToast("Saved Successfully", {
+          appearance: "success",
+          key: "edit-form",
+        });
+      });
+  };
   return (
     <PageContainer title={"Forms"}>
       <Grid>
-        <TableFactory<ISimpleElement[], IDciRequest>
+        <TableFactory<ISimpleElement[], IDciRequest, ISimpleElement>
           columns={dciColumns}
           data={data?.data}
           sort={{
@@ -109,7 +124,14 @@ export const FormsPage: FC = () => {
               isLoadingAddForm: addIsLoading,
               isSuccessAddForm: isSuccessAdd,
             },
-            edit: { edit: true, editFormType: formTypes.EDIT_FORM_MODAL },
+            edit: {
+              edit: true,
+              editFormType: formTypes.EDIT_SIMPLE_ELEMENT_MODAL,
+              editResolver: zodResolver(dciSchema),
+              onSubmitEdit: handleEdit,
+              isLoadingEditForm: editIsLoading,
+              isSuccessEditForm: editIsSuccess,
+            },
             delete: { delete: true, handleDelete: handleFormDelete },
           }}
           handleModal={{

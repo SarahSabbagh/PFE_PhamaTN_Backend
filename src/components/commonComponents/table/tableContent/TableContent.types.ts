@@ -3,12 +3,13 @@ import { ITableHead } from "../tableHead/TableHead.types";
 
 export interface TableContentProps<
   T,
-  FormAddValues extends Record<string, any>
+  FormAddValues extends Record<string, any>,
+  FormEditValues extends Record<string, any>
 > {
   data: T;
   handleModal: IhandleModal;
   columns: ITableHead[];
-  actions: IActions<FormAddValues>;
+  actions: IActions<FormAddValues, FormEditValues>;
   handleActivationMode?: (id: number) => void;
   handleUpdateUserStatus?: (id: number, status: number) => void;
 }
