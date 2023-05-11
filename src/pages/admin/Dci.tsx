@@ -17,10 +17,12 @@ import { TypeOf } from "zod";
 import { dciSchema } from "../../core/utils/validator";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useToasts } from "react-toast-notifications";
 
 type IDciRequest = TypeOf<typeof dciSchema>;
 
 export const DcisPage: FC = () => {
+  const { addToast, removeToast } = useToasts();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
@@ -35,7 +37,7 @@ export const DcisPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading } = useFilterDcisQuery({
+  const { data, isLoading, isFetching } = useFilterDcisQuery({
     ...(query && { search: query }),
     ...{
       page_size: rowsPerPage,
@@ -47,7 +49,8 @@ export const DcisPage: FC = () => {
   const [deleteDcis] = useDeleteDcisMutation();
   const [addDci, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
     useAddDciMutation();
-
+  const [updateDci, { isLoading: editIsLoading, isSuccess: editIsSuccess }] =
+    useUpdateDciMutation();
   const handleDciDelete = (id: number) => {
     deleteDcis(id).unwrap();
   };
@@ -57,6 +60,17 @@ export const DcisPage: FC = () => {
       .unwrap()
       .then(() => {
         handleClose();
+      });
+  };
+  const handleEdit: SubmitHandler<ISimpleElement> = async (data) => {
+    updateDci({ id: data.id, name: data.name })
+      .unwrap()
+      .then(() => {
+        // handleClose();
+        addToast("Saved Successfully", {
+          appearance: "success",
+          key: "edit-category",
+        });
       });
   };
 
@@ -89,32 +103,44 @@ export const DcisPage: FC = () => {
   return (
     <PageContainer title={"DCI"}>
       <Grid>
-        <TableFactory<ISimpleElement[], IDciRequest>
+        <TableFactory<ISimpleElement[], IDciRequest, ISimpleElement>
           columns={dciColumns}
           data={data?.data}
-          onRequestSort={onRequestSort}
-          sortOrder={sortOrder}
-          sortBy={sortBy}
+          sort={{
+            onRequestSort: onRequestSort,
+            sortOrder: sortOrder,
+            sortBy: sortBy,
+          }}
           handleQueryChange={handleQueryChange}
           title={"DCI"}
           isLoading={isLoading}
+          isFetching={isFetching}
           actions={{
-            add: true,
-            addFormType: formTypes.ADD_DCI_MODAL,
-            edit: true,
-            editFormType: formTypes.EDIT_DCI_MODAL,
-            delete: true,
-            handleDelete: handleDciDelete,
+            add: {
+              add: true,
+              addFormType: formTypes.ADD_DCI_MODAL,
+              titleAddForm: "add DCI",
+              defaultAddValues: { name: "" },
+              addResolver: zodResolver(dciSchema),
+              onSubmitAdd: submitHandlerAdd,
+              isLoadingAddForm: addIsLoading,
+              isSuccessAddForm: isSuccessAdd,
+            },
+            edit: {
+              edit: true,
+              editFormType: formTypes.EDIT_SIMPLE_ELEMENT_MODAL,
+              editResolver: zodResolver(dciSchema),
+              onSubmitEdit: handleEdit,
+              isLoadingEditForm: editIsLoading,
+              isSuccessEditForm: editIsSuccess,
+            },
+            delete: { delete: true, handleDelete: handleDciDelete },
           }}
-          handleClose={handleClose}
-          handleClickOpen={handleClickOpen}
-          open={open}
-          titleAddForm="add DCI"
-          defaultAddValues={{ name: "" }}
-          addResolver={zodResolver(dciSchema)}
-          onSubmitAdd={submitHandlerAdd}
-          isLoadingAddForm={addIsLoading}
-          isSuccessAddForm={isSuccessAdd}
+          handleModal={{
+            handleClickOpen: handleClickOpen,
+            open: open,
+            handleClose: handleClose,
+          }}
           page={page}
           count={data?.total ?? 0}
           rowsPerPageOptions={[10, 25, 50, 100]}

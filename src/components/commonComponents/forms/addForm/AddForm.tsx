@@ -1,7 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import {
-  CircularProgress,
   DialogContent,
   DialogTitle,
   Grid,
@@ -22,7 +21,6 @@ export const AddForm = <FormValues extends Record<string, any>>(
     addResolver,
     onSubmitAdd,
     handleClose,
-    isLoadingAddForm,
     isSuccessAddForm,
   } = props;
   const methods = useForm<FormValues>({
@@ -63,11 +61,7 @@ export const AddForm = <FormValues extends Record<string, any>>(
                     onClick={isSuccessAddForm ? handleClose : undefined}
                     type="submit"
                   >
-                    {isLoadingAddForm ? (
-                      <CircularProgress color="inherit" size={16} />
-                    ) : (
-                      "Add"
-                    )}
+                    Add
                   </ConfirmButtonStyled>
                 </Grid>
               </Grid>

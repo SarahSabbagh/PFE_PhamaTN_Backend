@@ -34,7 +34,7 @@ export const UsersPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading } = useUserFilterQuery({
+  const { data, isLoading, isFetching } = useUserFilterQuery({
     ...(query && { search: query }),
     ...FilterData,
     ...{
@@ -62,7 +62,7 @@ export const UsersPage: FC = () => {
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTimeout(() => {
       setQuery(event.target.value.trim());
-    }, 1000);
+    }, 500);
   };
 
   const onRequestSort = (
@@ -88,24 +88,30 @@ export const UsersPage: FC = () => {
   return (
     <PageContainer title={"Users"}>
       <Grid>
-        <TableFactory<IUser[], any>
+        <TableFactory<IUser[], any, any>
           columns={userColumns}
           data={data?.data}
-          onRequestSort={onRequestSort}
-          sortOrder={sortOrder}
-          sortBy={sortBy}
+          sort={{
+            onRequestSort: onRequestSort,
+            sortOrder: sortOrder,
+            sortBy: sortBy,
+          }}
           handleQueryChange={handleQueryChange}
           title={"Users"}
           isLoading={isLoading}
+          isFetching={isFetching}
           actions={{
-            filter: true,
-            recievedFilterData: (data) => setFilterData(data),
-            delete: true,
-            handleDelete: handleUserDelete,
+            filter: {
+              filter: true,
+              recievedFilterData: (data: IFilterRequest) => setFilterData(data),
+            },
+            delete: { delete: true, handleDelete: handleUserDelete },
           }}
-          handleClose={handleClose}
-          handleClickOpen={handleClickOpen}
-          open={open}
+          handleModal={{
+            handleClickOpen: handleClickOpen,
+            open: open,
+            handleClose: handleClose,
+          }}
           handleActivationMode={handleActivationMode}
           handleUpdateUserStatus={handleUpdateUserStatus}
           page={page}

@@ -4,51 +4,31 @@ import { formTypes } from "../../../../../core/constants/formType";
 import { AddElementProps } from "./AddElement.types";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { AddForm } from "../../../forms/addForm/AddForm";
-import { FormAddProps } from "../../../forms/addForm/AddForm.types";
 
-export const AddElement = <FormValues extends Record<string, any>>(
-  props: React.PropsWithChildren<AddElementProps & FormAddProps<FormValues>>
+export const AddElement = <FormAddValues extends Record<string, any>>(
+  props: React.PropsWithChildren<AddElementProps<FormAddValues>>
 ) => {
-  const {
-    isSuccessAddForm,
-    formType,
-    titleAddForm,
-    defaultAddValues,
-    addResolver,
-    onSubmitAdd,
-    isLoadingAddForm,
-    handleClickOpen,
-    handleClose,
-    open,
-  } = props;
+  const { addProps, handleModal } = props;
 
   return (
     <>
       <Button
         variant="contained"
         endIcon={<AddOutlinedIcon />}
-        onClick={handleClickOpen}
+        onClick={handleModal.handleClickOpen}
       >
         Add
       </Button>
       <Grid>
         <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby={formType}
+          open={handleModal.open}
+          onClose={handleModal.handleClose}
+          aria-labelledby={addProps.addFormType}
           aria-describedby="modal-modal-description"
         >
-          {formType === formTypes.ADD_MEDICATION_MODAL && <></>}
-          {formType === formTypes.ADD_DCI_MODAL && (
-            <AddForm
-              handleClose={handleClose}
-              titleAddForm={titleAddForm}
-              defaultAddValues={defaultAddValues}
-              addResolver={addResolver}
-              onSubmitAdd={onSubmitAdd}
-              isLoadingAddForm={isLoadingAddForm}
-              isSuccessAddForm={isSuccessAddForm}
-            />
+          {addProps.addFormType === formTypes.ADD_MEDICATION_MODAL && <></>}
+          {addProps.addFormType === formTypes.ADD_DCI_MODAL && (
+            <AddForm {...addProps} />
           )}
         </Dialog>
       </Grid>

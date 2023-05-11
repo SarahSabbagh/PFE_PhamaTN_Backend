@@ -15,7 +15,7 @@ import { StyledDialogActions } from "../StyledDialogActions.style";
 export const ActionChangeStatus: React.FC<ActionChangeStatusProps> = (
   props
 ) => {
-  const { open, handleClose, handleStatus } = props;
+  const { open, handleClose, handleStatus, itemName } = props;
 
   return (
     <Grid>
@@ -30,7 +30,7 @@ export const ActionChangeStatus: React.FC<ActionChangeStatusProps> = (
         </DialogTitle>
         <DialogContent>
           <DialogContentText align="center" id="alert-dialog-description">
-            {"Are you sure  want to change user status ?"}
+            Are you sure want to change <strong>{itemName}</strong> status ?
           </DialogContentText>
         </DialogContent>
         <StyledDialogActions>

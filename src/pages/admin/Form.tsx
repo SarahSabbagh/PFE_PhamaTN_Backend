@@ -14,7 +14,9 @@ import {
   useAddFormMutation,
   useDeleteFormMutation,
   useFormsFilterQuery,
+  useUpdateFormMutation,
 } from "../../redux/api/admin/FormApi";
+import { useToasts } from "react-toast-notifications";
 
 type IDciRequest = TypeOf<typeof dciSchema>;
 
@@ -33,7 +35,7 @@ export const FormsPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading } = useFormsFilterQuery({
+  const { data, isLoading, isFetching } = useFormsFilterQuery({
     ...(query && { search: query }),
     ...{
       page_size: rowsPerPage,
@@ -82,36 +84,61 @@ export const FormsPage: FC = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+  const { addToast, removeToast } = useToasts();
+  const [updateForm, { isLoading: editIsLoading, isSuccess: editIsSuccess }] =
+    useUpdateFormMutation();
+  const handleEdit: SubmitHandler<ISimpleElement> = async (data) => {
+    updateForm({ id: data.id, name: data.name })
+      .unwrap()
+      .then(() => {
+        // handleClose();
+        addToast("Saved Successfully", {
+          appearance: "success",
+          key: "edit-form",
+        });
+      });
+  };
   return (
     <PageContainer title={"Forms"}>
       <Grid>
-        <TableFactory<ISimpleElement[], IDciRequest>
+        <TableFactory<ISimpleElement[], IDciRequest, ISimpleElement>
           columns={dciColumns}
           data={data?.data}
-          onRequestSort={onRequestSort}
-          sortOrder={sortOrder}
-          sortBy={sortBy}
+          sort={{
+            onRequestSort: onRequestSort,
+            sortOrder: sortOrder,
+            sortBy: sortBy,
+          }}
           handleQueryChange={handleQueryChange}
           title={"Forms"}
           isLoading={isLoading}
+          isFetching={isFetching}
           actions={{
-            add: true,
-            addFormType: formTypes.ADD_DCI_MODAL,
-            edit: true,
-            editFormType: formTypes.EDIT_FORM_MODAL,
-            delete: true,
-            handleDelete: handleFormDelete,
+            add: {
+              add: true,
+              addFormType: formTypes.ADD_DCI_MODAL,
+              titleAddForm: "add Form",
+              defaultAddValues: { name: "" },
+              addResolver: zodResolver(dciSchema),
+              onSubmitAdd: submitHandlerAdd,
+              isLoadingAddForm: addIsLoading,
+              isSuccessAddForm: isSuccessAdd,
+            },
+            edit: {
+              edit: true,
+              editFormType: formTypes.EDIT_SIMPLE_ELEMENT_MODAL,
+              editResolver: zodResolver(dciSchema),
+              onSubmitEdit: handleEdit,
+              isLoadingEditForm: editIsLoading,
+              isSuccessEditForm: editIsSuccess,
+            },
+            delete: { delete: true, handleDelete: handleFormDelete },
           }}
-          handleClose={handleClose}
-          handleClickOpen={handleClickOpen}
-          open={open}
-          titleAddForm="add Form"
-          defaultAddValues={{ name: "" }}
-          addResolver={zodResolver(dciSchema)}
-          onSubmitAdd={submitHandlerAdd}
-          isLoadingAddForm={addIsLoading}
-          isSuccessAddForm={isSuccessAdd}
+          handleModal={{
+            handleClickOpen: handleClickOpen,
+            open: open,
+            handleClose: handleClose,
+          }}
           page={page}
           count={data?.total ?? 0}
           rowsPerPageOptions={[10, 25, 50, 100]}

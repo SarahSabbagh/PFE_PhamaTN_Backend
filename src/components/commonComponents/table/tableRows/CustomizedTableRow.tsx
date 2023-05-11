@@ -15,8 +15,14 @@ import {
   ActivationCell,
 } from "./customizedTableCell/CustomizedTableCell";
 
-export const CustomizedTableRow = <T,>(
-  props: React.PropsWithChildren<CustomizedTableRowProps<T>>
+export const CustomizedTableRow = <
+  T,
+  FormAddValues extends Record<string, any>,
+  FormEditValues extends Record<string, any>
+>(
+  props: React.PropsWithChildren<
+    CustomizedTableRowProps<T, FormAddValues, FormEditValues>
+  >
 ) => {
   const {
     item,
@@ -34,7 +40,7 @@ export const CustomizedTableRow = <T,>(
             <StatusCell
               key={col.accessor}
               accessor={col.accessor}
-              stickyIndex={col.stickyIndex}
+              itemName={item["name"] ?? ""}
               element={item[col.accessor]}
               id={item.id}
               handleUpdateUserStatus={handleUpdateUserStatus}
@@ -44,7 +50,7 @@ export const CustomizedTableRow = <T,>(
             <ActivationCell
               key={col.accessor}
               accessor={col.accessor}
-              stickyIndex={col.stickyIndex}
+              itemName={item["name"] ?? ""}
               element={item[col.accessor]}
               handleActivationMode={handleActivationMode}
               id={item.id}
@@ -53,10 +59,11 @@ export const CustomizedTableRow = <T,>(
           (col.label === "Action" && (
             <ActionsCell
               accessor={col.accessor}
-              stickyIndex={col.stickyIndex}
+              itemName={item["name"] ?? ""}
               key={col.accessor}
-              actions={actions}
               id={item.id}
+              editAction={actions?.edit}
+              deleteAction={actions?.delete}
             />
           )) || (
             <StandardCell

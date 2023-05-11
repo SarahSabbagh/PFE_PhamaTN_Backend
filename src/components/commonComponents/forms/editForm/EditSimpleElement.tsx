@@ -8,65 +8,38 @@ import {
 } from "@mui/material";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import {
-  useShowDciQuery,
-  useUpdateDciMutation,
-} from "../../../../redux/api/dci/dciApi";
 import { FormInput } from "../../InputField/formInput/FormInput";
 import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
 import { CancelButton } from "../formButton/CancelButton.styles";
-import { useToasts } from "react-toast-notifications";
-import { dciSchema } from "../../../../core/utils/validator";
-import { TypeOf } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { FormEditProps } from "./EditForm.types";
 
-type IDciRequest = TypeOf<typeof dciSchema>;
+export const EditSimpleElementForm = <
+  FormEditValues extends Record<string, any>
+>(
+  props: React.PropsWithChildren<FormEditProps<FormEditValues>>
+) => {
+  const { id, handleClose, itemName, editAction } = props;
 
-export const EditDciForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
-  const { addToast, removeToast } = useToasts();
-  const { data, isLoading } = useShowDciQuery(id);
-  const [updateDci] = useUpdateDciMutation();
-  const methods = useForm<IDciRequest>({
-    resolver: zodResolver(dciSchema),
+  const methods = useForm<FormEditValues>({
+    resolver: editAction.editResolver,
     mode: "onChange",
   });
-  const { handleSubmit } = methods;
-
-  const submitHandler: SubmitHandler<IDciRequest> = async (data) => {
-    updateDci({ id, name: data.name })
-      .unwrap()
-      .then(() => {
-        handleClose();
-        addToast("Saved Successfully", {
-          appearance: "success",
-          key: "edit-dci",
-        });
-      });
+  const {
+    handleSubmit,
+    formState: { isLoading },
+  } = methods;
+  const onSubmit = (data: FormEditValues) => {
+    editAction?.onSubmitEdit && editAction.onSubmitEdit({ id: id, ...data });
   };
-
-  React.useEffect(() => {
-    return () => {
-      setTimeout(() => {
-        removeToast("edit-dci");
-      }, 1000);
-    };
-  }, []);
   return (
     <>
       <DialogTitle align="center" variant="h3" color="primary">
-        Edit DCI
+        Edit
       </DialogTitle>
       <DialogContent>
-        {isLoading ? (
-          <CircularProgress color="inherit" />
-        ) : (
-          <FormProvider {...methods}>
-            <Box
-              component="form"
-              onSubmit={handleSubmit(submitHandler)}
-              noValidate
-            >
+        <FormProvider {...methods}>
+          {editAction.onSubmitEdit && (
+            <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
               <Grid container spacing={1}>
                 <Grid item xs={12}>
                   <FormInput
@@ -75,13 +48,13 @@ export const EditDciForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
                     type="Text"
                     label="Name"
                     name="name"
-                    defaultValue={data?.data?.name}
+                    defaultValue={itemName}
                   />
                 </Grid>
                 <Grid item xs={12} display="flex" justifyContent="center">
                   <CancelButton onClick={handleClose}>Cancel</CancelButton>
                   <ConfirmButtonStyled type="submit">
-                    {isLoading ? (
+                    {editAction?.isLoadingEditForm ? (
                       <CircularProgress color="inherit" size={16} />
                     ) : (
                       "edit"
@@ -90,8 +63,8 @@ export const EditDciForm: React.FC<FormEditProps> = ({ id, handleClose }) => {
                 </Grid>
               </Grid>
             </Box>
-          </FormProvider>
-        )}
+          )}
+        </FormProvider>
       </DialogContent>
     </>
   );

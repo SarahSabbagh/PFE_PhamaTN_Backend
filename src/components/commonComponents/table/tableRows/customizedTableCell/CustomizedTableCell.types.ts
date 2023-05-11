@@ -1,11 +1,18 @@
-import { IActions } from "../../tableFactory/TableFactory.types";
+import {
+  IDeleteAction,
+  IEditAction,
+} from "../../tableFactory/TableFactory.types";
 
-export interface TableCellsProps {
+export interface TableCellsProps<FormEditValues extends Record<string, any>> {
   element?: string | number | boolean;
   accessor: string;
-  actions?: IActions;
-  stickyIndex?: number;
+  itemName?: string;
+  editAction?: IEditAction<FormEditValues>;
+  deleteAction?: IDeleteAction;
   handleActivationMode?: (id: number) => void;
   handleUpdateUserStatus?: (id: number, status: number) => void;
   id: number;
+}
+export interface StyledCellProps {
+  headColumn?: boolean;
 }

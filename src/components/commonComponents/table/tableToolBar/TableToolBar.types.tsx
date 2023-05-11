@@ -1,12 +1,13 @@
-import { IFilterRequest } from "../../../../redux/api/types/IResponseRequest";
+import {
+  IAddAction,
+  IFilter,
+  IhandleModal,
+} from "../tableFactory/TableFactory.types";
 
-export interface TableToolBarProps {
+export interface TableToolBarProps<FormAddValues extends Record<string, any>> {
   handleQueryChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   title: string;
-  filter?: boolean;
-  add?: boolean;
-  addFormType?: string;
-  handleClickOpen: () => void;
-  open: boolean;
-  recievedFilterData?: (data: IFilterRequest) => void;
+  filter?: IFilter;
+  add?: IAddAction<FormAddValues>;
+  handleModal: IhandleModal;
 }

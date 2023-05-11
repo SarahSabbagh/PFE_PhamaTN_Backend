@@ -16,8 +16,8 @@ export const adminApi = createApi({
     baseUrl: `${BASE_URL}`,
     prepareHeaders: prepareHeaders,
   }),
-  // keepUnusedDataFor: 60000,
-  tagTypes: ["Admin"],
+  keepUnusedDataFor: 0,
+  tagTypes: ["Users"],
   endpoints: (builder) => ({
     userFilter: builder.query<IFilterResponse<IUser[]>, IFilterRequest>({
       query(request) {
@@ -26,7 +26,7 @@ export const adminApi = createApi({
           params: request,
         };
       },
-      providesTags: ["Admin"],
+      providesTags: ["Users"],
     }),
     userActivation: builder.mutation<IResponse, number>({
       query(id) {
@@ -35,7 +35,7 @@ export const adminApi = createApi({
           method: "PUT",
         };
       },
-      invalidatesTags: ["Admin"],
+      invalidatesTags: ["Users"],
     }),
 
     updateUserStatus: builder.mutation<
@@ -49,7 +49,7 @@ export const adminApi = createApi({
           method: "PUT",
         };
       },
-      invalidatesTags: ["Admin"],
+      invalidatesTags: ["Users"],
     }),
     deleteUser: builder.mutation<IResponse, number>({
       query(id) {
@@ -58,10 +58,11 @@ export const adminApi = createApi({
           method: "DELETE",
         };
       },
-      invalidatesTags: ["Admin"],
+      invalidatesTags: ["Users"],
     }),
   }),
 });
+
 export const {
   useUserFilterQuery,
   useUpdateUserStatusMutation,

@@ -1,3 +1,5 @@
+import { ISort } from "../tableFactory/TableFactory.types";
+
 export interface ITableHead {
   label: string;
   accessor: string;
@@ -8,7 +10,5 @@ export interface ITableHead {
 }
 export interface CustomizedTableHeadProps {
   columns: ITableHead[];
-  onRequestSort?: (event: React.MouseEvent<unknown>, newSortBy: string) => void;
-  sortOrder?: "desc" | "asc";
-  sortBy?: string;
+  sort?: ISort;
 }

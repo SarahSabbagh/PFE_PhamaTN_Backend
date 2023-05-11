@@ -3,25 +3,24 @@ import { FC } from "react";
 import { Grid } from "@mui/material";
 import { PageContainer } from "../../components/commonComponents/PageContainer/PageContainer";
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
-
+import {
+  useAddDciMutation,
+  useDeleteDcisMutation,
+  useFilterDcisQuery,
+  useShowDciQuery,
+  useUpdateDciMutation,
+} from "../../redux/api/dci/dciApi";
 import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
-import {
-  useAddCategoryMutation,
-  useCategoriesFilterQuery,
-  useDeleteCategoryMutation,
-  useUpdateCategoryMutation,
-} from "../../redux/api/admin/CategoryApi";
 import { TypeOf } from "zod";
 import { dciSchema } from "../../core/utils/validator";
-import { SubmitHandler } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useToasts } from "react-toast-notifications";
 
 type IDciRequest = TypeOf<typeof dciSchema>;
 
-export const CategoriesPage: FC = () => {
+export const MedicationsPage: FC = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
@@ -36,7 +35,7 @@ export const CategoriesPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading, isFetching } = useCategoriesFilterQuery({
+  const { data, isLoading, isFetching } = useFilterDcisQuery({
     ...(query && { search: query }),
     ...{
       page_size: rowsPerPage,
@@ -45,20 +44,20 @@ export const CategoriesPage: FC = () => {
       sortOrder: sortOrder,
     },
   });
-  const [addCategory, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
-    useAddCategoryMutation();
+  const [deleteDcis] = useDeleteDcisMutation();
+  const [addDci, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
+    useAddDciMutation();
+
+  const handleDciDelete = (id: number) => {
+    deleteDcis(id).unwrap();
+  };
 
   const submitHandlerAdd: SubmitHandler<IDciRequest> = (data) => {
-    addCategory(data.name)
+    addDci(data.name)
       .unwrap()
       .then(() => {
         handleClose();
       });
-  };
-  const [deleteCategory] = useDeleteCategoryMutation();
-
-  const handleCategoryDelete = (id: number) => {
-    deleteCategory(id).unwrap();
   };
 
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,24 +85,9 @@ export const CategoriesPage: FC = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  const { addToast, removeToast } = useToasts();
-  const [
-    updateCategory,
-    { isLoading: editIsLoading, isSuccess: editIsSuccess },
-  ] = useUpdateCategoryMutation();
 
-  const handleEdit: SubmitHandler<ISimpleElement> = async (data) => {
-    updateCategory({ id: data.id, name: data.name })
-      .unwrap()
-      .then(() => {
-        addToast("Saved Successfully", {
-          appearance: "success",
-          key: "edit-category",
-        });
-      });
-  };
   return (
-    <PageContainer title={"Category"}>
+    <PageContainer title={"DCI"}>
       <Grid>
         <TableFactory<ISimpleElement[], IDciRequest, ISimpleElement>
           columns={dciColumns}
@@ -114,14 +98,14 @@ export const CategoriesPage: FC = () => {
             sortBy: sortBy,
           }}
           handleQueryChange={handleQueryChange}
-          title={"Category"}
+          title={"DCI"}
           isLoading={isLoading}
           isFetching={isFetching}
           actions={{
             add: {
               add: true,
               addFormType: formTypes.ADD_DCI_MODAL,
-              titleAddForm: "add Category",
+              titleAddForm: "add DCI",
               defaultAddValues: { name: "" },
               addResolver: zodResolver(dciSchema),
               onSubmitAdd: submitHandlerAdd,
@@ -130,13 +114,10 @@ export const CategoriesPage: FC = () => {
             },
             edit: {
               edit: true,
-              editFormType: formTypes.EDIT_SIMPLE_ELEMENT_MODAL,
+              editFormType: formTypes.EDIT_MEDICATION_MODAL,
               editResolver: zodResolver(dciSchema),
-              onSubmitEdit: handleEdit,
-              isLoadingEditForm: editIsLoading,
-              isSuccessEditForm: editIsSuccess,
             },
-            delete: { delete: true, handleDelete: handleCategoryDelete },
+            delete: { delete: true, handleDelete: handleDciDelete },
           }}
           handleModal={{
             handleClickOpen: handleClickOpen,

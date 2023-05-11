@@ -7,5 +7,6 @@ export interface FormAddProps<FormValues extends Record<string, any>> {
   defaultAddValues?: DeepPartial<FormValues>;
   addResolver?: Resolver<FormValues>;
   onSubmitAdd?: SubmitHandler<FormValues>;
-  isLoadingAddForm?: boolean;  isSuccessAddForm?: boolean;
+  isLoadingAddForm?: boolean;
+  isSuccessAddForm?: boolean;
 }
