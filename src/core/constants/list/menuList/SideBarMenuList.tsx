@@ -3,6 +3,7 @@ import MedicationOutlinedIcon from "@mui/icons-material/MedicationOutlined";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import AutoGraphOutlinedIcon from "@mui/icons-material/AutoGraphOutlined";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
+import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
 import { paths } from "../../path";
 
 export interface ISideBarMenuList {
@@ -33,17 +34,23 @@ export const SideBarMenuList: ISideBarMenuList[] = [
     icon: <PeopleAltOutlinedIcon />,
   },
   {
+    id: " LOT",
+    title: "Lots",
+    url: paths.LOT,
+    icon: <MedicalInformationIcon />,
+  },
+  {
+    id: "MEDICATION",
+    title: "Medications",
+    url: paths.MEDICATION,
+    icon: <MedicationOutlinedIcon />,
+  },
+  {
     id: "MEDICATION_Information",
     title: "Drugs Info",
     url: "",
-    icon: <MedicationOutlinedIcon />,
+    icon: <FeedOutlinedIcon />,
     subMenu: [
-      {
-        id: "MEDICATION",
-        title: "Medications",
-        url: paths.MEDICATION,
-        icon: <FeedOutlinedIcon />,
-      },
       { id: "DCI", title: "DCI", url: paths.DCI, icon: <FeedOutlinedIcon /> },
       {
         id: "MARQUE",

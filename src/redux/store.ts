@@ -9,6 +9,7 @@ import { marqueApi } from "./api/admin/MarqueApi";
 import { formApi } from "./api/admin/FormApi";
 import { categoriesApi } from "./api/admin/CategoryApi";
 import { medicationApi } from "./api/admin/MedicationApi";
+import { lotApi } from "./api/lot/LotApi";
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
     [formApi.reducerPath]: formApi.reducer,
     [categoriesApi.reducerPath]: categoriesApi.reducer,
     [medicationApi.reducerPath]: medicationApi.reducer,
+    [lotApi.reducerPath]: lotApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({}).concat([
@@ -33,6 +35,7 @@ export const store = configureStore({
       formApi.middleware,
       categoriesApi.middleware,
       medicationApi.middleware,
+      lotApi.middleware,
     ]),
 });
 export type RootState = ReturnType<typeof store.getState>;

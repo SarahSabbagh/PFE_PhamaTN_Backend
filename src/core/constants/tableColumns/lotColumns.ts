@@ -1,6 +1,6 @@
 import { ITableHead } from "../../../components/commonComponents/table/tableHead/TableHead.types";
 
-export const medicationColumns: ITableHead[] = [
+export const lotColumns: ITableHead[] = [
   // { label: "ID", accessor: "id", sortable: true },
   { label: "Code Lot", accessor: "codeLot", sortable: true },
   { label: "Medication", accessor: "medication_id", sortable: true },

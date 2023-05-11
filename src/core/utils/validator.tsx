@@ -1,4 +1,4 @@
-import { any, literal, number, object, optional, string } from "zod";
+import { any, date, literal, number, object, optional, string } from "zod";
 import { errorMessage } from "../constants/errorMessages";
 import z from "zod";
 const phoneExp = /^[2|9|5|7][0-9]{7}$/;
@@ -71,4 +71,12 @@ export const medicationSchema = object({
   form_id: number().positive(errorMessage.IS_REQUIRED),
   dosage: string().nonempty(errorMessage.IS_REQUIRED),
   description: string().nonempty(errorMessage.IS_REQUIRED),
+});
+export const lotSchema = object({
+  medication_id: number().positive(errorMessage.IS_REQUIRED),
+  codeLot: string().nonempty(errorMessage.IS_REQUIRED),
+  manufactureDate: date(),
+  expirationDate: date(),
+  unitPrice: number().positive(errorMessage.IS_REQUIRED),
+  publicPrice: number().positive(errorMessage.IS_REQUIRED),
 });

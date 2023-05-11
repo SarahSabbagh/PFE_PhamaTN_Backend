@@ -5,29 +5,33 @@ import { PageContainer } from "../../components/commonComponents/PageContainer/P
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
 import { formTypes } from "../../core/constants/formType";
 import { TypeOf } from "zod";
-import { medicationSchema } from "../../core/utils/validator";
+import { lotSchema, medicationSchema } from "../../core/utils/validator";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { medicationColumns } from "../../core/constants/tableColumns/medicationColumns";
-import {
-  useAddMedicationMutation,
-  useDeleteMedicationMutation,
-  useMedicationsFilterQuery,
-  useUpdateMedicationMutation,
-} from "../../redux/api/admin/MedicationApi";
-import { IMedicationElement } from "../../redux/api/types/IMedication";
 import { useToasts } from "react-toast-notifications";
+import {
+  useAddLotMutation,
+  useDeleteLotMutation,
+  useLotsFilterQuery,
+  useUpdateLotMutation,
+} from "../../redux/api/lot/LotApi";
+import { ILotElement } from "../../redux/api/types/ILot";
+import { lotColumns } from "../../core/constants/tableColumns/lotColumns";
 
-type IMedicationRequest = TypeOf<typeof medicationSchema>;
+type ILotRequest = TypeOf<typeof lotSchema>;
 
-export const MedicationsPage: FC = () => {
-  const { addToast, removeToast } = useToasts();
+export const LotsPage: FC = () => {
+  const { addToast } = useToasts();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
+  const currentDate = new Date();
+  const expirationDateDefault = new Date();
+  expirationDateDefault.setDate(currentDate.getDate() + 30);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -35,7 +39,7 @@ export const MedicationsPage: FC = () => {
     setOpen(false);
   };
 
-  const { data, isLoading, isFetching } = useMedicationsFilterQuery({
+  const { data, isLoading, isFetching } = useLotsFilterQuery({
     ...(query && { search: query }),
     ...{
       page_size: rowsPerPage,
@@ -44,32 +48,29 @@ export const MedicationsPage: FC = () => {
       sortOrder: sortOrder,
     },
   });
-  const [deleteMedication] = useDeleteMedicationMutation();
-  const [addMedication, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
-    useAddMedicationMutation();
+  const [deleteLot] = useDeleteLotMutation();
+  const [addLot, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
+    useAddLotMutation();
 
   const handleDciDelete = (id: number) => {
-    deleteMedication(id).unwrap();
+    deleteLot(id).unwrap();
   };
-  const [
-    updateMedication,
-    { isLoading: editIsLoading, isSuccess: editIsSuccess },
-  ] = useUpdateMedicationMutation();
+  const [updateLot, { isLoading: editIsLoading, isSuccess: editIsSuccess }] =
+    useUpdateLotMutation();
 
-  const handleEdit: SubmitHandler<IMedicationElement> = async (data) => {
+  const handleEdit: SubmitHandler<ILotElement> = async (data) => {
     const { id, ...rest } = data;
-    updateMedication({ id: id, ...rest })
+    updateLot({ id: id, ...rest })
       .unwrap()
       .then(() => {
-        // handleClose();
         addToast("Saved Successfully", {
           appearance: "success",
-          key: "edit-medication",
+          key: "edit-lot",
         });
       });
   };
-  const submitHandlerAdd: SubmitHandler<IMedicationRequest> = (data) => {
-    addMedication(data)
+  const submitHandlerAdd: SubmitHandler<ILotRequest> = (data) => {
+    addLot(data)
       .unwrap()
       .then(() => {
         handleClose();
@@ -102,14 +103,10 @@ export const MedicationsPage: FC = () => {
   };
 
   return (
-    <PageContainer title={"Medication"}>
+    <PageContainer title={"Lot"}>
       <Grid>
-        <TableFactory<
-          IMedicationElement[],
-          IMedicationRequest,
-          IMedicationElement
-        >
-          columns={medicationColumns}
+        <TableFactory<ILotElement[], ILotRequest, ILotElement>
+          columns={lotColumns}
           data={data?.data}
           sort={{
             onRequestSort: onRequestSort,
@@ -117,21 +114,21 @@ export const MedicationsPage: FC = () => {
             sortBy: sortBy,
           }}
           handleQueryChange={handleQueryChange}
-          title={"Medications"}
+          title={"Lots"}
           isLoading={isLoading}
           isFetching={isFetching}
           actions={{
             add: {
               add: true,
-              addFormType: formTypes.ADD_MEDICATION_MODAL,
-              titleAddForm: "add Medication",
+              addFormType: formTypes.ADD_LOT_MODAL,
+              titleAddForm: "add lot",
               defaultAddValues: {
-                dci_id: 0,
-                marque_id: 0,
-                form_id: 0,
-                category_id: 0,
-                dosage: "",
-                description: "",
+                medication_id: 0,
+                codeLot: "",
+                manufactureDate: currentDate,
+                expirationDate: expirationDateDefault,
+                unitPrice: 0,
+                publicPrice: 0,
               },
               addResolver: zodResolver(medicationSchema),
               onSubmitAdd: submitHandlerAdd,
