@@ -12,13 +12,14 @@ import { FormInput } from "../../InputField/formInput/FormInput";
 import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
 import { CancelButton } from "../formButton/CancelButton.styles";
 import { FormEditProps } from "./EditForm.types";
+import { dciColumns } from "../../../../core/constants/tableColumns/dciColumns";
 
 export const EditSimpleElementForm = <
   FormEditValues extends Record<string, any>
 >(
   props: React.PropsWithChildren<FormEditProps<FormEditValues>>
 ) => {
-  const { id, handleClose, itemName, editAction } = props;
+  const { id, handleClose, item, editAction } = props;
 
   const methods = useForm<FormEditValues>({
     resolver: editAction.editResolver,
@@ -48,7 +49,7 @@ export const EditSimpleElementForm = <
                     type="Text"
                     label="Name"
                     name="name"
-                    defaultValue={itemName}
+                    defaultValue={item[dciColumns[0].accessor]}
                   />
                 </Grid>
                 <Grid item xs={12} display="flex" justifyContent="center">

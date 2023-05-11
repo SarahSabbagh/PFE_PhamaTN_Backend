@@ -31,6 +31,19 @@ export const formApi = createApi({
       },
       providesTags: ["Forms"],
     }),
+
+    Forms: builder.query<ISimpleElement[], void>({
+      query() {
+        return {
+          url: endpoints.FORM,
+        };
+      },
+      transformResponse: (response: { data: ISimpleElement[] }) =>
+        response.data,
+
+      providesTags: ["Forms"],
+    }),
+    
     deleteForm: builder.mutation<IResponse, number>({
       query(id) {
         return {
@@ -69,6 +82,7 @@ export const formApi = createApi({
   }),
 });
 export const {
+  useFormsQuery,
   useFormsFilterQuery,
   useAddFormMutation,
   useDeleteFormMutation,

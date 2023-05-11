@@ -11,9 +11,11 @@ import { Controller, useFormContext } from "react-hook-form";
 import { SyledPlaceholder, SelectFieldStyle } from "./SelectField.style";
 import { SelectFieldProps } from "./SelectField.types";
 
-export const SelectField: React.FC<
-  SelectFieldProps & SelectProps & InputProps
-> = (props) => {
+export const SelectField = <TypeOptions,>(
+  props: React.PropsWithChildren<
+    SelectFieldProps<TypeOptions> & SelectProps & InputProps
+  >
+) => {
   const { id, label, name, options } = props;
   const { control } = useFormContext();
 
@@ -24,11 +26,11 @@ export const SelectField: React.FC<
       render={({ field, fieldState: { error } }) => (
         <Stack>
           <InputLabel htmlFor={id}>{label}</InputLabel>
-          <SelectFieldStyle {...field} id={id} displayEmpty error={!!error}>
+          <SelectFieldStyle {...field} id={id} error={!!error}>
             <MenuItem disabled value="0">
               <SyledPlaceholder>{label}</SyledPlaceholder>
             </MenuItem>
-            {options.map((option) => (
+            {options.map((option: any) => (
               <MenuItem key={option.id} value={option.id}>
                 {option.name}
               </MenuItem>

@@ -1,8 +1,7 @@
-import { Governorate } from "./../../../../redux/api/types/IRegion";
-export interface SelectFieldProps {
+export interface SelectFieldProps<T> {
   id: string;
   label: string;
   placeholder: string;
   name: string;
-  options: Governorate[];
+  options: T[];
 }

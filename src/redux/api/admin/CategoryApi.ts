@@ -49,6 +49,18 @@ export const categoriesApi = createApi({
       providesTags: ["Category"],
     }),
 
+    Categories: builder.query<ISimpleElement[], void>({
+      query() {
+        return {
+          url: endpoints.CATEGORY,
+        };
+      },
+      transformResponse: (response: { data: ISimpleElement[] }) =>
+        response.data,
+
+      providesTags: ["Categories"],
+    }),
+
     updateCategory: builder.mutation<IResponse, ISimpleElement>({
       query: ({ id, name }) => ({
         headers: { Accept: "application/json" },
@@ -69,6 +81,7 @@ export const categoriesApi = createApi({
   }),
 });
 export const {
+  useCategoriesQuery,
   useCategoriesFilterQuery,
   useAddCategoryMutation,
   useDeleteCategoryMutation,

@@ -29,6 +29,7 @@ export interface IAddAction<FormAddValues extends Record<string, any>> {
 
 export interface IEditAction<FormEditValues extends Record<string, any>> {
   edit: boolean;
+  defaultValues?: FormEditValues;
   editFormType: string;
   editResolver?: Resolver<FormEditValues>;
   onSubmitEdit?: SubmitHandler<FormEditValues>;

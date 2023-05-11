@@ -31,6 +31,19 @@ export const marqueApi = createApi({
       },
       providesTags: ["Marques"],
     }),
+
+    Marques: builder.query<ISimpleElement[], void>({
+      query() {
+        return {
+          url: endpoints.MARQUE,
+        };
+      },
+      transformResponse: (response: { data: ISimpleElement[] }) =>
+        response.data,
+
+      providesTags: ["Marques"],
+    }),
+
     deleteMarque: builder.mutation<IResponse, number>({
       query(id) {
         return {
@@ -69,6 +82,7 @@ export const marqueApi = createApi({
   }),
 });
 export const {
+  useMarquesQuery,
   useMarquesFilterQuery,
   useAddMarqueMutation,
   useDeleteMarqueMutation,

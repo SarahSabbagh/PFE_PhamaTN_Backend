@@ -8,6 +8,7 @@ import {
   IResponse,
   ISimpleElement,
 } from "../types/IResponseRequest";
+import { IDci } from "../types/IMarque";
 
 const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT as string;
 
@@ -41,6 +42,17 @@ export const dciApi = createApi({
       },
       invalidatesTags: ["Dcis"],
     }),
+    dcis: builder.query<IDci[], void>({
+      query() {
+        return {
+          url: endpoints.DCIS,
+        };
+      },
+      transformResponse: (response: { data: ISimpleElement[] }) =>
+        response.data,
+
+      providesTags: ["Dcis"],
+    }),
     showDci: builder.query<{ data: ISimpleElement }, number>({
       query(id) {
         return {
@@ -70,6 +82,7 @@ export const dciApi = createApi({
   }),
 });
 export const {
+  useDcisQuery,
   useFilterDcisQuery,
   useDeleteDcisMutation,
   useUpdateDciMutation,

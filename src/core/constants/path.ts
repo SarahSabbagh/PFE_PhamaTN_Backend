@@ -5,7 +5,7 @@ export const paths = {
   PROFILE: "/profile",
   DASHBOARD: "/",
   USERS: "/users",
-  MEDICATION: "/",
+  MEDICATION: "/medications",
   MARQUE: "/marques",
   CATEGORY: "/category",
   FORM: "/form",
