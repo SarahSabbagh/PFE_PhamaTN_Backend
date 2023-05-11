@@ -2,12 +2,12 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { prepareHeaders } from "../../../core/utils/rtk.config";
 import { endpoints } from "../../../core/constants/endpoints";
 import {
+  IFilterRequest,
   IFilterResponse,
   IResponse,
 } from "../types/IResponseRequest";
 import {
   IMedicationElement,
-  IMedicationFilterRequest,
   IMedicationRequest,
 } from "../types/IMedication";
 
@@ -23,7 +23,7 @@ export const medicationApi = createApi({
   endpoints: (builder) => ({
     MedicationsFilter: builder.query<
       IFilterResponse<IMedicationElement[]>,
-      IMedicationFilterRequest
+      IFilterRequest
     >({
       query(request) {
         return {

@@ -16,3 +16,13 @@ export interface IUser {
   active: boolean;
 }
 
+export interface IFilterUserRequest {
+  role?: number;
+  status?: number;
+  activationMode?: boolean;
+  search?: string;
+  page?: number;
+  page_size?: number;
+  sortBy?: string;
+  sortOrder?: string;
+}

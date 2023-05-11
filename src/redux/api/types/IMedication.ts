@@ -15,10 +15,3 @@ export interface IMedicationRequest {
   category_id: number;
   description: string;
 }
-export interface IMedicationFilterRequest {
-  search?: string;
-  page?: number;
-  page_size?: number;
-  sortBy?: string;
-  sortOrder?: string;
-}

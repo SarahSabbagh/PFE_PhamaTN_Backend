@@ -20,4 +20,6 @@ export const endpoints = {
   CATEGORY: "/api/categories",
   MEDICATIONS: "/api/medications",
   FILTER_MEDICATIONS: "/api/filter_medications",
+  LOTS: "/api/lots",
+  FILTER_LOTS: "/api/filter_lots",
 };

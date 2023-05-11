@@ -1,5 +1,5 @@
-import { IFilterRequest } from "../../../redux/api/types/IResponseRequest";
+import { IFilterUserRequest } from "../../../redux/api/types/IUser";
 
 export interface FilterProps {
-  recievedFilterData: (data: IFilterRequest) => void;
+  recievedFilterData: (data: IFilterUserRequest) => void;
 }
