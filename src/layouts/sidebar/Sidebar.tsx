@@ -9,6 +9,7 @@ import {
 import { SidebarProps } from "./Sidebar.types";
 import { ListSidebar } from "./listSideBar/ListSidebar";
 import { Logo } from "../../components/commonComponents/logo/Logo";
+import { colors } from "../../core/constants/colors";
 
 export const ResponsiveSideBar: React.FC<SidebarProps> = (props) => {
   const { openDrawer, handleDrawerClose } = props;
@@ -29,7 +30,7 @@ export const ResponsiveSideBar: React.FC<SidebarProps> = (props) => {
           <Logo sidebarLogo />
         </Grid>
         <IconButton onClick={handleDrawerClose}>
-          <ChevronLeftIcon />
+          <ChevronLeftIcon sx={{ color: colors.containerColor }} />
         </IconButton>
         <ListSidebar />
       </StyledDrawer>

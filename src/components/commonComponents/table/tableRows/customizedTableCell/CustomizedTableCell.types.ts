@@ -3,11 +3,12 @@ import {
   IEditAction,
 } from "../../tableFactory/TableFactory.types";
 
-export interface TableCellsProps<FormEditValues extends Record<string, any>> {
+export interface TableCellsProps {
   element?: string | number | boolean;
   accessor: string;
-  item?: FormEditValues;
-  editAction?: IEditAction<FormEditValues>;
+  title: string;
+  item?: any;
+  editAction?: IEditAction;
   deleteAction?: IDeleteAction;
   handleActivationMode?: (id: number) => void;
   handleUpdateUserStatus?: (id: number, status: number) => void;

@@ -41,12 +41,6 @@ export const signUpSchema = loginSchema
     role: string().nonempty(errorMessage.IS_REQUIRED),
     type: string().nullable(),
     image: z.instanceof(FileList).optional().nullable(),
-    /*photo: any()
-      .refine(
-        (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-        `Max image size is 2MB.`
-      )
-      .optional(),*/
     phone: string()
       .nonempty(errorMessage.IS_REQUIRED)
       .regex(phoneExp || faxExp),
@@ -72,6 +66,9 @@ export const medicationSchema = object({
   dosage: string().nonempty(errorMessage.IS_REQUIRED),
   description: string().nonempty(errorMessage.IS_REQUIRED),
 });
+export const medicationEditSchema =  medicationSchema
+  .extend({id:number().positive(errorMessage.IS_REQUIRED)});
+  
 export const lotSchema = object({
   medication_id: number().positive(errorMessage.IS_REQUIRED),
   codeLot: string().nonempty(errorMessage.IS_REQUIRED),

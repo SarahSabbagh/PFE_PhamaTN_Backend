@@ -18,7 +18,6 @@ export const AddMedication = <FormValues extends Record<string, any>>(
   props: React.PropsWithChildren<FormAddProps<FormValues>>
 ) => {
   const {
-    titleAddForm,
     addResolver,
     onSubmitAdd,
     handleClose,
@@ -38,88 +37,79 @@ export const AddMedication = <FormValues extends Record<string, any>>(
   const { handleSubmit } = methods;
 
   return (
-    <>
-      <DialogTitle align="center" variant="h3" color="primary">
-        {titleAddForm}
-      </DialogTitle>
-      <DialogContent>
-        <FormProvider {...methods}>
-          {onSubmitAdd && (
-            <Box
-              component="form"
-              onSubmit={handleSubmit(onSubmitAdd)}
-              noValidate
-            >
-              <Grid container spacing={1} minWidth={300} maxWidth={600}>
-                <Grid item xs={12} sm={6}>
-                  <SelectField<ISimpleElement>
-                    id="dci"
-                    label="DCI"
-                    placeholder="DCI"
-                    name="dci_id"
-                    options={dcis}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <SelectField<ISimpleElement>
-                    id="dci"
-                    label="brand"
-                    placeholder="brand"
-                    name="marque_id"
-                    options={marques}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <SelectField<ISimpleElement>
-                    id="form"
-                    label="form"
-                    placeholder="form"
-                    name="form_id"
-                    options={forms}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <SelectField<ISimpleElement>
-                    id="category"
-                    label="category"
-                    placeholder="category"
-                    name="category_id"
-                    options={categories}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormInput
-                    id="dosage"
-                    placeholder="dosage"
-                    type="Text"
-                    label="dosage"
-                    name="dosage"
-                    required
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormInput
-                    id="description"
-                    placeholder="description"
-                    type="Text"
-                    label="description"
-                    name="description"
-                  />
-                </Grid>
-                <Grid item xs={12} display="flex" justifyContent="center">
-                  <CancelButton onClick={handleClose}>Cancel</CancelButton>
-                  <ConfirmButtonStyled
-                    onClick={isSuccessAddForm ? handleClose : undefined}
-                    type="submit"
-                  >
-                    Add
-                  </ConfirmButtonStyled>
-                </Grid>
+    <DialogContent>
+      <FormProvider {...methods}>
+        {onSubmitAdd && (
+          <Box component="form" onSubmit={handleSubmit(onSubmitAdd)} noValidate>
+            <Grid container spacing={1} minWidth={300} maxWidth={600}>
+              <Grid item xs={12} sm={6}>
+                <SelectField<ISimpleElement>
+                  id="dci"
+                  label="DCI"
+                  placeholder="DCI"
+                  name="dci_id"
+                  options={dcis}
+                />
               </Grid>
-            </Box>
-          )}
-        </FormProvider>
-      </DialogContent>
-    </>
+              <Grid item xs={12} sm={6}>
+                <SelectField<ISimpleElement>
+                  id="dci"
+                  label="brand"
+                  placeholder="brand"
+                  name="marque_id"
+                  options={marques}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <SelectField<ISimpleElement>
+                  id="form"
+                  label="form"
+                  placeholder="form"
+                  name="form_id"
+                  options={forms}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <SelectField<ISimpleElement>
+                  id="category"
+                  label="category"
+                  placeholder="category"
+                  name="category_id"
+                  options={categories}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormInput
+                  id="dosage"
+                  placeholder="dosage"
+                  type="Text"
+                  label="dosage"
+                  name="dosage"
+                  required
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormInput
+                  id="description"
+                  placeholder="description"
+                  type="Text"
+                  label="description"
+                  name="description"
+                />
+              </Grid>
+              <Grid item xs={12} display="flex" justifyContent="center">
+                <CancelButton onClick={handleClose}>Cancel</CancelButton>
+                <ConfirmButtonStyled
+                  onClick={isSuccessAddForm ? handleClose : undefined}
+                  type="submit"
+                >
+                  Add
+                </ConfirmButtonStyled>
+              </Grid>
+            </Grid>
+          </Box>
+        )}
+      </FormProvider>
+    </DialogContent>
   );
 };

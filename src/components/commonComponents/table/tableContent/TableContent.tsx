@@ -3,18 +3,13 @@ import TableBody from "@mui/material/TableBody";
 import { TableContentProps } from "./TableContent.types";
 import { CustomizedTableRow } from "../tableRows/CustomizedTableRow";
 
-export const TableContent = <
-  T,
-  FormAddValues extends Record<string, any>,
-  FormEditValues extends Record<string, any>
->(
-  props: React.PropsWithChildren<
-    TableContentProps<T, FormAddValues, FormEditValues>
-  >
+export const TableContent = <T, FormAddValues extends Record<string, any>>(
+  props: React.PropsWithChildren<TableContentProps<T, FormAddValues>>
 ) => {
   const {
     actions,
     data,
+    title,
     columns,
     handleActivationMode,
     handleUpdateUserStatus,
@@ -23,11 +18,13 @@ export const TableContent = <
     <TableBody>
       {Array.isArray(data) &&
         data.map((item: T, index) => (
-          <CustomizedTableRow<T, FormAddValues, FormEditValues>
+          <CustomizedTableRow
             handleActivationMode={handleActivationMode}
             handleUpdateUserStatus={handleUpdateUserStatus}
-            actions={actions}
+            editAction={actions?.edit}
+            deleteAction={actions?.delete}
             key={index}
+            title={title}
             item={item}
             columns={columns}
           />

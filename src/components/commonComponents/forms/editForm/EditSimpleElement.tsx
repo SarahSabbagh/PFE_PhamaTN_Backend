@@ -1,72 +1,111 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import {
-  CircularProgress,
-  DialogContent,
-  DialogTitle,
-  Grid,
-} from "@mui/material";
+import { CircularProgress, DialogContent, Grid } from "@mui/material";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { FormInput } from "../../InputField/formInput/FormInput";
 import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
 import { CancelButton } from "../formButton/CancelButton.styles";
-import { FormEditProps } from "./EditForm.types";
-import { dciColumns } from "../../../../core/constants/tableColumns/dciColumns";
+import { FormEditSimpleElementProps } from "./EditForm.types";
+import { useUpdateMarqueMutation } from "../../../../redux/api/admin/MarqueApi";
+import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
+import { useToasts } from "react-toast-notifications";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { dciSchema } from "../../../../core/utils/validator";
+import { useUpdateFormMutation } from "../../../../redux/api/admin/FormApi";
+import { useUpdateDciMutation } from "../../../../redux/api/dci/dciApi";
+import { useUpdateCategoryMutation } from "../../../../redux/api/admin/CategoryApi";
 
-export const EditSimpleElementForm = <
-  FormEditValues extends Record<string, any>
->(
-  props: React.PropsWithChildren<FormEditProps<FormEditValues>>
+export const EditSimpleElementForm: React.FC<FormEditSimpleElementProps> = (
+  props
 ) => {
-  const { id, handleClose, item, editAction } = props;
-
-  const methods = useForm<FormEditValues>({
-    resolver: editAction.editResolver,
+  const { id, handleClose, item, title } = props;
+  const methods = useForm<ISimpleElement>({
+    resolver: zodResolver(dciSchema),
+    defaultValues: { name: item.name },
     mode: "onChange",
   });
-  const {
-    handleSubmit,
-    formState: { isLoading },
-  } = methods;
-  const onSubmit = (data: FormEditValues) => {
-    editAction?.onSubmitEdit && editAction.onSubmitEdit({ id: id, ...data });
+  const { handleSubmit } = methods;
+  const { addToast } = useToasts();
+
+  const [
+    updateMarque,
+    { isLoading: marqueEditIsLoading, isSuccess: marqueEditIsSuccess },
+  ] = useUpdateMarqueMutation();
+  const [
+    updateForm,
+    { isLoading: formEditIsLoading, isSuccess: formEditIsSuccess },
+  ] = useUpdateFormMutation();
+  const [
+    updateDci,
+    { isLoading: dciEditIsLoading, isSuccess: dciEditIsSuccess },
+  ] = useUpdateDciMutation();
+  const [
+    updateCategory,
+    { isLoading: categoryEditIsLoading, isSuccess: categoryEditIsSuccess },
+  ] = useUpdateCategoryMutation();
+
+  const onSubmit: SubmitHandler<ISimpleElement> = async (data) => {
+    let updateMutation;
+
+    switch (title) {
+      case "Marques":
+        updateMutation = updateMarque;
+        break;
+      case "Forms":
+        updateMutation = updateForm;
+        break;
+      case "DCI":
+        updateMutation = updateDci;
+        break;
+      case "Category":
+        updateMutation = updateCategory;
+        break;
+      default:
+        return;
+    }
+
+    updateMutation({ id, name: data.name })
+      .unwrap()
+      .then(() => {
+        handleClose();
+        addToast("Saved Successfully", {
+          appearance: "success",
+          key: "edit-marque",
+        });
+      });
   };
+
   return (
-    <>
-      <DialogTitle align="center" variant="h3" color="primary">
-        Edit
-      </DialogTitle>
-      <DialogContent>
-        <FormProvider {...methods}>
-          {editAction.onSubmitEdit && (
-            <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
-              <Grid container spacing={1}>
-                <Grid item xs={12}>
-                  <FormInput
-                    id="name"
-                    placeholder="Name"
-                    type="Text"
-                    label="Name"
-                    name="name"
-                    defaultValue={item[dciColumns[0].accessor]}
-                  />
-                </Grid>
-                <Grid item xs={12} display="flex" justifyContent="center">
-                  <CancelButton onClick={handleClose}>Cancel</CancelButton>
-                  <ConfirmButtonStyled type="submit">
-                    {editAction?.isLoadingEditForm ? (
-                      <CircularProgress color="inherit" size={16} />
-                    ) : (
-                      "edit"
-                    )}
-                  </ConfirmButtonStyled>
-                </Grid>
-              </Grid>
-            </Box>
-          )}
-        </FormProvider>
-      </DialogContent>
-    </>
+    <DialogContent>
+      <FormProvider {...methods}>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
+          <Grid container spacing={1}>
+            <Grid item xs={12}>
+              <FormInput
+                id="name"
+                placeholder="Name"
+                type="Text"
+                label="Name"
+                name="name"
+              />
+            </Grid>
+            <Grid item xs={12} display="flex" justifyContent="center">
+              <CancelButton onClick={handleClose}>Cancel</CancelButton>
+              <ConfirmButtonStyled type="submit">
+                {formEditIsLoading ||
+                categoryEditIsLoading ||
+                dciEditIsLoading ||
+                marqueEditIsLoading ? (
+                  <CircularProgress color="inherit" size={16} />
+                ) : (
+                  "edit"
+                )}
+              </ConfirmButtonStyled>
+            </Grid>
+          </Grid>
+        </Box>
+      </FormProvider>
+    </DialogContent>
   );
 };

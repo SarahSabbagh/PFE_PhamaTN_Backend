@@ -1,9 +1,15 @@
 import * as React from "react";
-import { IEditAction } from "../../table/tableFactory/TableFactory.types";
+import { IMedicationElement } from "../../../../redux/api/types/IMedication";
+import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
 
-export interface FormEditProps<FormEditValues extends Record<string, any>> {
+export interface FormEditSimpleElementProps {
   id: number;
-  item: FormEditValues;
+  item: ISimpleElement;
+  title: string;
   handleClose: () => void;
-  editAction: IEditAction<FormEditValues>;
+}
+export interface FormEditMedicationProps {
+  id: number;
+  item: IMedicationElement;
+  handleClose: () => void;
 }

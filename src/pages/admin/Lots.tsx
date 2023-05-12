@@ -6,7 +6,7 @@ import { TableFactory } from "../../components/commonComponents/table/tableFacto
 import { formTypes } from "../../core/constants/formType";
 import { TypeOf } from "zod";
 import { lotSchema, medicationSchema } from "../../core/utils/validator";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToasts } from "react-toast-notifications";
 import {
@@ -105,7 +105,7 @@ export const LotsPage: FC = () => {
   return (
     <PageContainer title={"Lot"}>
       <Grid>
-        <TableFactory<ILotElement[], ILotRequest, ILotElement>
+        <TableFactory<ILotElement[], ILotRequest>
           columns={lotColumns}
           data={data?.data}
           sort={{
@@ -121,7 +121,6 @@ export const LotsPage: FC = () => {
             add: {
               add: true,
               addFormType: formTypes.ADD_LOT_MODAL,
-              titleAddForm: "add lot",
               defaultAddValues: {
                 medication_id: 0,
                 codeLot: "",
@@ -138,10 +137,7 @@ export const LotsPage: FC = () => {
             edit: {
               edit: true,
               editFormType: formTypes.EDIT_MEDICATION_MODAL,
-              editResolver: zodResolver(medicationSchema),
-              onSubmitEdit: handleEdit,
-              isLoadingEditForm: editIsLoading,
-              isSuccessEditForm: editIsSuccess,
+            
             },
             delete: { delete: true, handleDelete: handleDciDelete },
           }}

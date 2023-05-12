@@ -5,23 +5,24 @@ import { PageContainer } from "../../components/commonComponents/PageContainer/P
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
 import { formTypes } from "../../core/constants/formType";
 import { TypeOf } from "zod";
-import { medicationSchema } from "../../core/utils/validator";
-import { SubmitHandler, useForm } from "react-hook-form";
+import {
+  medicationEditSchema,
+  medicationSchema,
+} from "../../core/utils/validator";
+import { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { medicationColumns } from "../../core/constants/tableColumns/medicationColumns";
 import {
   useAddMedicationMutation,
   useDeleteMedicationMutation,
   useMedicationsFilterQuery,
-  useUpdateMedicationMutation,
 } from "../../redux/api/admin/MedicationApi";
 import { IMedicationElement } from "../../redux/api/types/IMedication";
-import { useToasts } from "react-toast-notifications";
 
 type IMedicationRequest = TypeOf<typeof medicationSchema>;
+export type IMedicationEditRequest = TypeOf<typeof medicationEditSchema>;
 
 export const MedicationsPage: FC = () => {
-  const { addToast, removeToast } = useToasts();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
@@ -51,23 +52,7 @@ export const MedicationsPage: FC = () => {
   const handleDciDelete = (id: number) => {
     deleteMedication(id).unwrap();
   };
-  const [
-    updateMedication,
-    { isLoading: editIsLoading, isSuccess: editIsSuccess },
-  ] = useUpdateMedicationMutation();
 
-  const handleEdit: SubmitHandler<IMedicationElement> = async (data) => {
-    const { id, ...rest } = data;
-    updateMedication({ id: id, ...rest })
-      .unwrap()
-      .then(() => {
-        // handleClose();
-        addToast("Saved Successfully", {
-          appearance: "success",
-          key: "edit-medication",
-        });
-      });
-  };
   const submitHandlerAdd: SubmitHandler<IMedicationRequest> = (data) => {
     addMedication(data)
       .unwrap()
@@ -104,11 +89,7 @@ export const MedicationsPage: FC = () => {
   return (
     <PageContainer title={"Medication"}>
       <Grid>
-        <TableFactory<
-          IMedicationElement[],
-          IMedicationRequest,
-          IMedicationElement
-        >
+        <TableFactory<IMedicationElement[], IMedicationRequest>
           columns={medicationColumns}
           data={data?.data}
           sort={{
@@ -124,7 +105,6 @@ export const MedicationsPage: FC = () => {
             add: {
               add: true,
               addFormType: formTypes.ADD_MEDICATION_MODAL,
-              titleAddForm: "add Medication",
               defaultAddValues: {
                 dci_id: 0,
                 marque_id: 0,
@@ -141,10 +121,6 @@ export const MedicationsPage: FC = () => {
             edit: {
               edit: true,
               editFormType: formTypes.EDIT_MEDICATION_MODAL,
-              editResolver: zodResolver(medicationSchema),
-              onSubmitEdit: handleEdit,
-              isLoadingEditForm: editIsLoading,
-              isSuccessEditForm: editIsSuccess,
             },
             delete: { delete: true, handleDelete: handleDciDelete },
           }}

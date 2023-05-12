@@ -7,22 +7,18 @@ import {
   useAddDciMutation,
   useDeleteDcisMutation,
   useFilterDcisQuery,
-  useShowDciQuery,
-  useUpdateDciMutation,
 } from "../../redux/api/dci/dciApi";
 import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
 import { TypeOf } from "zod";
 import { dciSchema } from "../../core/utils/validator";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useToasts } from "react-toast-notifications";
 
 type IDciRequest = TypeOf<typeof dciSchema>;
 
 export const DcisPage: FC = () => {
-  const { addToast, removeToast } = useToasts();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
@@ -49,8 +45,6 @@ export const DcisPage: FC = () => {
   const [deleteDcis] = useDeleteDcisMutation();
   const [addDci, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
     useAddDciMutation();
-  const [updateDci, { isLoading: editIsLoading, isSuccess: editIsSuccess }] =
-    useUpdateDciMutation();
   const handleDciDelete = (id: number) => {
     deleteDcis(id).unwrap();
   };
@@ -60,17 +54,6 @@ export const DcisPage: FC = () => {
       .unwrap()
       .then(() => {
         handleClose();
-      });
-  };
-  const handleEdit: SubmitHandler<ISimpleElement> = async (data) => {
-    updateDci({ id: data.id, name: data.name })
-      .unwrap()
-      .then(() => {
-        // handleClose();
-        addToast("Saved Successfully", {
-          appearance: "success",
-          key: "edit-category",
-        });
       });
   };
 
@@ -103,7 +86,7 @@ export const DcisPage: FC = () => {
   return (
     <PageContainer title={"DCI"}>
       <Grid>
-        <TableFactory<ISimpleElement[], IDciRequest, ISimpleElement>
+        <TableFactory<ISimpleElement[], IDciRequest>
           columns={dciColumns}
           data={data?.data}
           sort={{
@@ -119,7 +102,6 @@ export const DcisPage: FC = () => {
             add: {
               add: true,
               addFormType: formTypes.ADD_DCI_MODAL,
-              titleAddForm: "add DCI",
               defaultAddValues: { name: "" },
               addResolver: zodResolver(dciSchema),
               onSubmitAdd: submitHandlerAdd,
@@ -129,10 +111,6 @@ export const DcisPage: FC = () => {
             edit: {
               edit: true,
               editFormType: formTypes.EDIT_SIMPLE_ELEMENT_MODAL,
-              editResolver: zodResolver(dciSchema),
-              onSubmitEdit: handleEdit,
-              isLoadingEditForm: editIsLoading,
-              isSuccessEditForm: editIsSuccess,
             },
             delete: { delete: true, handleDelete: handleDciDelete },
           }}

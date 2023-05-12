@@ -3,7 +3,6 @@ import { FC } from "react";
 import { Grid } from "@mui/material";
 import { PageContainer } from "../../components/commonComponents/PageContainer/PageContainer";
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
-
 import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
@@ -11,13 +10,11 @@ import {
   useAddMarqueMutation,
   useDeleteMarqueMutation,
   useMarquesFilterQuery,
-  useUpdateMarqueMutation,
 } from "../../redux/api/admin/MarqueApi";
 import { TypeOf } from "zod";
 import { dciSchema } from "../../core/utils/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler } from "react-hook-form";
-import { useToasts } from "react-toast-notifications";
 
 type IDciRequest = TypeOf<typeof dciSchema>;
 
@@ -85,24 +82,11 @@ export const MarquesPage: FC = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  const { addToast, removeToast } = useToasts();
-  const [updateMarque, { isLoading: editIsLoading, isSuccess: editIsSuccess }] =
-    useUpdateMarqueMutation();
-  const handleEdit: SubmitHandler<ISimpleElement> = async (data) => {
-    updateMarque({ id: data.id, name: data.name })
-      .unwrap()
-      .then(() => {
-        // handleClose();
-        addToast("Saved Successfully", {
-          appearance: "success",
-          key: "edit-marque",
-        });
-      });
-  };
+
   return (
     <PageContainer title={"Marques"}>
       <Grid>
-        <TableFactory<ISimpleElement[], IDciRequest, ISimpleElement>
+        <TableFactory<ISimpleElement[], IDciRequest>
           columns={dciColumns}
           data={data?.data}
           sort={{
@@ -118,7 +102,6 @@ export const MarquesPage: FC = () => {
             add: {
               add: true,
               addFormType: formTypes.ADD_DCI_MODAL,
-              titleAddForm: "add marque",
               defaultAddValues: { name: "" },
               addResolver: zodResolver(dciSchema),
               onSubmitAdd: submitHandlerAdd,
@@ -128,10 +111,6 @@ export const MarquesPage: FC = () => {
             edit: {
               edit: true,
               editFormType: formTypes.EDIT_SIMPLE_ELEMENT_MODAL,
-              editResolver: zodResolver(dciSchema),
-              onSubmitEdit: handleEdit,
-              isLoadingEditForm: editIsLoading,
-              isSuccessEditForm: editIsSuccess,
             },
             delete: { delete: true, handleDelete: handleMarqueDelete },
           }}

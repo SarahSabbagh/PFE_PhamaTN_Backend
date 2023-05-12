@@ -13,9 +13,7 @@ import { ActionActivation } from "../../actions/actionActivation/ActionActivatio
 import { TableCellsProps } from "./CustomizedTableCell.types";
 import { StyledTableCell } from "./CustomizedTableCell.style";
 
-export const StandardCell = <FormEditValues extends Record<string, any>>(
-  props: React.PropsWithChildren<TableCellsProps<FormEditValues>>
-) => {
+export const StandardCell: React.FC<TableCellsProps> = (props) => {
   const { element, accessor } = props;
   const capitalizeText = (text: string): string => {
     return text && text[0].toUpperCase() + text.slice(1);
@@ -30,9 +28,7 @@ export const StandardCell = <FormEditValues extends Record<string, any>>(
   );
 };
 
-export const ActivationCell = <FormEditValues extends Record<string, any>>(
-  props: React.PropsWithChildren<TableCellsProps<FormEditValues>>
-) => {
+export const ActivationCell: React.FC<TableCellsProps> = (props) => {
   const { element, id, handleActivationMode } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -62,10 +58,8 @@ export const ActivationCell = <FormEditValues extends Record<string, any>>(
   );
 };
 
-export const ActionsCell = <FormEditValues extends Record<string, any>>(
-  props: React.PropsWithChildren<TableCellsProps<FormEditValues>>
-) => {
-  const { editAction, deleteAction, id, item } = props;
+export const ActionsCell: React.FC<TableCellsProps> = (props) => {
+  const { editAction, deleteAction, id, item, title } = props;
   const [openDelete, setOpenDelete] = React.useState(false);
   const [openEdit, setOpenEdit] = React.useState(false);
 
@@ -101,9 +95,9 @@ export const ActionsCell = <FormEditValues extends Record<string, any>>(
               <ModeOutlinedIcon />
             </IconButton>
             <EditModal
-              editAction={editAction}
               item={item}
               id={id}
+              title={title}
               formType={editAction.editFormType ?? ""}
               open={openEdit}
               handleClose={handleCloseEdit}
@@ -115,9 +109,7 @@ export const ActionsCell = <FormEditValues extends Record<string, any>>(
   ) : null;
 };
 
-export const StatusCell = <FormEditValues extends Record<string, any>>(
-  props: React.PropsWithChildren<TableCellsProps<FormEditValues>>
-) => {
+export const StatusCell: React.FC<TableCellsProps> = (props) => {
   const { element, id, handleUpdateUserStatus, item } = props;
   const [open, setOpen] = React.useState(false);
 

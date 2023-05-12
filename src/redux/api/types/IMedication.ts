@@ -8,10 +8,11 @@ export interface IMedicationElement {
   description: string;
 }
 export interface IMedicationRequest {
-  dci_id: number;
-  marque_id: number;
-  dosage: string;
-  form_id: number;
-  category_id: number;
-  description: string;
+  id?: number;
+  dci_id?: number;
+  marque_id?: number;
+  dosage?: string;
+  form_id?: number;
+  category_id?: number;
+  description?: string;
 }

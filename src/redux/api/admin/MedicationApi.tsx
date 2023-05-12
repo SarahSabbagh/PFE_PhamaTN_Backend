@@ -6,10 +6,7 @@ import {
   IFilterResponse,
   IResponse,
 } from "../types/IResponseRequest";
-import {
-  IMedicationElement,
-  IMedicationRequest,
-} from "../types/IMedication";
+import { IMedicationElement, IMedicationRequest } from "../types/IMedication";
 
 const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT as string;
 
@@ -51,7 +48,7 @@ export const medicationApi = createApi({
       providesTags: ["Medication"],
     }),
 
-    updateMedication: builder.mutation<IResponse, IMedicationElement>({
+    updateMedication: builder.mutation<IResponse, IMedicationRequest>({
       query: ({ id, ...request }) => ({
         headers: { Accept: "application/json" },
         url: endpoints.MEDICATIONS + "/" + id,

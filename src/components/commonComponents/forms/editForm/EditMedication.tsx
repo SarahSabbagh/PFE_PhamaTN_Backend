@@ -6,7 +6,7 @@ import {
   DialogTitle,
   Grid,
 } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { FormInput } from "../../InputField/formInput/FormInput";
 import { CancelButton } from "../formButton/CancelButton.styles";
@@ -17,47 +17,83 @@ import { useFormsQuery } from "../../../../redux/api/admin/FormApi";
 import { useMarquesQuery } from "../../../../redux/api/admin/MarqueApi";
 import { useCategoriesQuery } from "../../../../redux/api/admin/CategoryApi";
 import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
-import { FormEditProps } from "./EditForm.types";
-import { useShowMedicationQuery } from "../../../../redux/api/admin/MedicationApi";
+import { FormEditMedicationProps } from "./EditForm.types";
+import { TypeOf } from "zod";
+import { medicationEditSchema } from "../../../../core/utils/validator";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useUpdateMedicationMutation } from "../../../../redux/api/admin/MedicationApi";
+import { useToasts } from "react-toast-notifications";
 
-export const EditMedication = <FormValues extends Record<string, any>>(
-  props: React.PropsWithChildren<FormEditProps<FormValues>>
-) => {
-  const { id, handleClose, editAction, item } = props;
-  const { data: dcis = [], isLoading: dcisLoading } = useDcisQuery();
-  const { data: forms = [], isLoading: formsLoading } = useFormsQuery();
-  const { data: marques = [], isLoading: marquesLoading } = useMarquesQuery();
-  const { data: categories = [], isLoading: categoriesLoading } =
-    useCategoriesQuery();
+export type IMedicationEditRequest = TypeOf<typeof medicationEditSchema>;
+
+export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
+  const { id, handleClose, item } = props;
+  const {
+    data: dcis = [],
+    isLoading: dcisLoading,
+    isSuccess: dcisSuccess,
+  } = useDcisQuery();
+  const {
+    data: forms = [],
+    isLoading: formsLoading,
+    isSuccess: formsSuccess,
+  } = useFormsQuery();
+  const {
+    data: marques = [],
+    isLoading: marquesLoading,
+    isSuccess: marquesSuccess,
+  } = useMarquesQuery();
+  const {
+    data: categories = [],
+    isLoading: categoriesLoading,
+    isSuccess: categoriesSuccess,
+  } = useCategoriesQuery();
+
   const findId = (list: ISimpleElement[], item: string) => {
     const result = list.find((val) => val.name === item);
-    return result?.id;
+    return result ? result?.id : 0;
   };
-  const methods = useForm<FormValues>({
-    resolver: editAction.editResolver,
+  const { addToast } = useToasts();
+
+  const methods = useForm<IMedicationEditRequest>({
+    resolver: zodResolver(medicationEditSchema),
+    defaultValues: {
+      id: id,
+      dci_id: findId(marques, item["marque"]),
+      marque_id: findId(marques, item["marque"]),
+      category_id: findId(marques, item["marque"]),
+      form_id: findId(marques, item["marque"]),
+      dosage: item.dosage,
+      description: item.description,
+    },
     mode: "onChange",
   });
-  const {
-    handleSubmit,
-    formState: { isLoading },
-  } = methods;
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
-    editAction?.onSubmitEdit && editAction.onSubmitEdit({ id: id, ...data });
+  const { handleSubmit } = methods;
+
+  const [updateMedication, { isLoading, isSuccess }] =
+    useUpdateMedicationMutation();
+
+  const onSubmit: SubmitHandler<IMedicationEditRequest> = async (data) => {
+    const { id, ...rest } = data;
+    updateMedication({ id: id, ...rest })
+      .unwrap()
+      .then(() => {
+        handleClose();
+        addToast("Saved Successfully", {
+          appearance: "success",
+          key: "edit-medication",
+        });
+      });
   };
   return (
-    <>
-      <DialogTitle align="center" variant="h3" color="primary">
-        Edit
-      </DialogTitle>
-      <DialogContent>
-        <FormProvider {...methods}>
+    <DialogContent>
+      <FormProvider {...methods}>
+        {categoriesSuccess && formsSuccess && dcisSuccess && marquesSuccess && (
           <Box
             component="form"
             onSubmit={handleSubmit(onSubmit)}
             noValidate
             minWidth={500}
-        //    minHeight={500}
           >
             {dcisLoading &&
             marquesLoading &&
@@ -73,7 +109,6 @@ export const EditMedication = <FormValues extends Record<string, any>>(
                     placeholder="DCI"
                     name="dci_id"
                     options={dcis}
-                    defaultValue={findId(marques, item["dci"]) ?? 0}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -83,7 +118,6 @@ export const EditMedication = <FormValues extends Record<string, any>>(
                     placeholder="brand"
                     name="marque_id"
                     options={marques}
-                    defaultValue={findId(marques, item["marque"]) || 0}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -93,7 +127,6 @@ export const EditMedication = <FormValues extends Record<string, any>>(
                     placeholder="form"
                     name="form_id"
                     options={forms}
-                    defaultValue={findId(forms, item["form"]) || 0}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -103,7 +136,6 @@ export const EditMedication = <FormValues extends Record<string, any>>(
                     placeholder="category"
                     name="category_id"
                     options={categories}
-                    defaultValue={findId(categories, item["category"]) || 0}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -113,7 +145,6 @@ export const EditMedication = <FormValues extends Record<string, any>>(
                     type="Text"
                     label="dosage"
                     name="dosage"
-                    defaultValue={item["dosage"]}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -123,25 +154,17 @@ export const EditMedication = <FormValues extends Record<string, any>>(
                     type="Text"
                     label="description"
                     name="description"
-                    defaultValue={item["description"]}
                   />
                 </Grid>
                 <Grid item xs={12} display="flex" justifyContent="center">
                   <CancelButton onClick={handleClose}>Cancel</CancelButton>
-                  <ConfirmButtonStyled
-                    onClick={
-                      editAction.isSuccessEditForm ? handleClose : undefined
-                    }
-                    type="submit"
-                  >
-                    Edit
-                  </ConfirmButtonStyled>
+                  <ConfirmButtonStyled type="submit">Edit</ConfirmButtonStyled>
                 </Grid>
               </Grid>
             )}
           </Box>
-        </FormProvider>
-      </DialogContent>
-    </>
+        )}
+      </FormProvider>
+    </DialogContent>
   );
 };

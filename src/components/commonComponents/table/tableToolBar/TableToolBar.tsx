@@ -21,7 +21,9 @@ export const CustomizedTableToolBar = <
       <Grid item xs>
         <SearchField onQueryChange={handleQueryChange} />
       </Grid>
-      {add && <AddElement addProps={add} handleModal={handleModal} />}
+      {add && (
+        <AddElement title={title} addProps={add} handleModal={handleModal} />
+      )}
       {filter && <Filter recievedFilterData={filter.recievedFilterData} />}
     </Grid>
   );
