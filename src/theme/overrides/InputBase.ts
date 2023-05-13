@@ -7,7 +7,7 @@ export default function InputBase(theme: Theme) {
       styleOverrides: {
         root: {
           width: "100%",
-          height: "3.125rem          ",
+          height: "3.125rem",
           color: "darkslategray",
           backgroundColor: theme.palette.background.default,
           border: "1px solid #F2F2F2",

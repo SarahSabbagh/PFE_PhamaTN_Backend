@@ -10,10 +10,7 @@ import { StyledPaper, StyledTableContainer } from "./TableFactory.style";
 import { EmptyTableRow } from "../tableRows/CustomizedTableRow";
 import { TablePaginationProps } from "@mui/material";
 
-export const TableFactory = <
-  T,
-  FormAddValues extends Record<string, any>,
->(
+export const TableFactory = <T, FormAddValues extends Record<string, any>>(
   props: React.PropsWithChildren<
     TableFactoryProps<T, FormAddValues> & TablePaginationProps
   >

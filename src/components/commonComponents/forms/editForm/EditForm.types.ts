@@ -1,5 +1,8 @@
 import * as React from "react";
-import { IMedicationElement } from "../../../../redux/api/types/IMedication";
+import {
+  IMedicationElement,
+  IMedicationRequest,
+} from "../../../../redux/api/types/IMedication";
 import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
 
 export interface FormEditSimpleElementProps {
@@ -10,6 +13,11 @@ export interface FormEditSimpleElementProps {
 }
 export interface FormEditMedicationProps {
   id: number;
-  item: IMedicationElement;
+  isLoading: boolean;
+  defaultValues: IMedicationRequest;
+  marques: ISimpleElement[];
+  dcis: ISimpleElement[];
+  categories: ISimpleElement[];
+  forms: ISimpleElement[];
   handleClose: () => void;
 }

@@ -1,10 +1,11 @@
 import * as React from "react";
-import { Button, Dialog, DialogTitle, Grid } from "@mui/material";
+import { Button, DialogTitle } from "@mui/material";
 import { formTypes } from "../../../../../core/constants/formType";
 import { AddElementProps } from "./AddElement.types";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { AddForm } from "../../../forms/addForm/AddForm";
 import { AddMedication } from "../../../forms/addForm/AddMedication";
+import { StyledDialog } from "../../../customizedDialog/CustomizedDialog.style";
 
 export const AddElement = <FormAddValues extends Record<string, any>>(
   props: React.PropsWithChildren<AddElementProps<FormAddValues>>
@@ -20,24 +21,17 @@ export const AddElement = <FormAddValues extends Record<string, any>>(
       >
         Add
       </Button>
-      <Grid>
-        <Dialog
-          open={handleModal.open}
-          onClose={handleModal.handleClose}
-          aria-labelledby={addProps.addFormType}
-          aria-describedby="modal-modal-description"
-        >
-          <DialogTitle align="center" variant="h3" color="primary">
-            Add {title}
-          </DialogTitle>
-          {addProps.addFormType === formTypes.ADD_MEDICATION_MODAL && (
-            <AddMedication {...addProps} />
-          )}
-          {addProps.addFormType === formTypes.ADD_DCI_MODAL && (
-            <AddForm {...addProps} />
-          )}
-        </Dialog>
-      </Grid>
+      <StyledDialog open={handleModal.open} onClose={handleModal.handleClose}>
+        <DialogTitle align="center" variant="h3" color="primary">
+          Add {title}
+        </DialogTitle>
+        {addProps.addFormType === formTypes.ADD_MEDICATION_MODAL && (
+          <AddMedication {...addProps} />
+        )}
+        {addProps.addFormType === formTypes.ADD_DCI_MODAL && (
+          <AddForm {...addProps} />
+        )}
+      </StyledDialog>
     </>
   );
 };

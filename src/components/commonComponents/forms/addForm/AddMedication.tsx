@@ -41,7 +41,7 @@ export const AddMedication = <FormValues extends Record<string, any>>(
       <FormProvider {...methods}>
         {onSubmitAdd && (
           <Box component="form" onSubmit={handleSubmit(onSubmitAdd)} noValidate>
-            <Grid container spacing={1} minWidth={300} maxWidth={600}>
+            <Grid container spacing={1}>
               <Grid item xs={12} sm={6}>
                 <SelectField<ISimpleElement>
                   id="dci"

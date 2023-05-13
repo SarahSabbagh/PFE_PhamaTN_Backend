@@ -1,6 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { CircularProgress, DialogContent, Grid } from "@mui/material";
+import { DialogContent, Grid } from "@mui/material";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { FormInput } from "../../InputField/formInput/FormInput";
@@ -15,6 +15,7 @@ import { dciSchema } from "../../../../core/utils/validator";
 import { useUpdateFormMutation } from "../../../../redux/api/admin/FormApi";
 import { useUpdateDciMutation } from "../../../../redux/api/dci/dciApi";
 import { useUpdateCategoryMutation } from "../../../../redux/api/admin/CategoryApi";
+import { Loader } from "../../loader/Loader";
 
 export const EditSimpleElementForm: React.FC<FormEditSimpleElementProps> = (
   props
@@ -97,7 +98,7 @@ export const EditSimpleElementForm: React.FC<FormEditSimpleElementProps> = (
                 categoryEditIsLoading ||
                 dciEditIsLoading ||
                 marqueEditIsLoading ? (
-                  <CircularProgress color="inherit" size={16} />
+                  <Loader />
                 ) : (
                   "edit"
                 )}
