@@ -4,6 +4,7 @@ import {
   IMedicationRequest,
 } from "../../../../redux/api/types/IMedication";
 import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
+import { ItransformedLotData } from "../../../../redux/api/types/ILot";
 
 export interface FormEditSimpleElementProps {
   id: number;
@@ -19,5 +20,10 @@ export interface FormEditMedicationProps {
   dcis: ISimpleElement[];
   categories: ISimpleElement[];
   forms: ISimpleElement[];
+  handleClose: () => void;
+}
+export interface FormEditLotProps {
+  id: number;
+  defaultValues: ItransformedLotData;
   handleClose: () => void;
 }

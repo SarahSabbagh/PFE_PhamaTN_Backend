@@ -6,6 +6,7 @@ import InputLabel from "./overrides/InputLabel";
 import Container from "./overrides/Container";
 import Box from "./overrides/Box";
 import FormHelperText from "./overrides/FormHelperText";
+import TextField from "./overrides/TextField";
 
 export default function ComponentsOverrides(theme: Theme) {
   return Object.assign(
@@ -15,6 +16,7 @@ export default function ComponentsOverrides(theme: Theme) {
     InputLabel,
     Container(theme),
     FormHelperText(theme),
-    Box
+    Box,
+    TextField
   );
 }

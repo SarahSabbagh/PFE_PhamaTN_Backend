@@ -10,6 +10,7 @@ import { useDcisQuery } from "../../../../../redux/api/dci/dciApi";
 import { useFormsQuery } from "../../../../../redux/api/admin/FormApi";
 import { ISimpleElement } from "../../../../../redux/api/types/IResponseRequest";
 import { useMarquesQuery } from "../../../../../redux/api/admin/MarqueApi";
+import { EditLot } from "../../../forms/editForm/EditLot";
 
 export const EditModal: React.FC<ModalEditProps> = (props) => {
   const { open, handleClose, formType, id, item, title } = props;
@@ -24,7 +25,7 @@ export const EditModal: React.FC<ModalEditProps> = (props) => {
     return result ? result?.id : 0;
   };
 
-  const defaultValues = {
+  const defaultMedicationValues = {
     id: id,
     dci_id: findId(marques, item["marque"]),
     marque_id: findId(marques, item["marque"]),
@@ -42,7 +43,7 @@ export const EditModal: React.FC<ModalEditProps> = (props) => {
       {formType === formTypes.EDIT_MEDICATION_MODAL && (
         <EditMedication
           handleClose={handleClose}
-          defaultValues={defaultValues}
+          defaultValues={defaultMedicationValues}
           isLoading={
             formsLoading && marquesLoading && dcisLoading && categoriesLoading
           }
@@ -53,7 +54,9 @@ export const EditModal: React.FC<ModalEditProps> = (props) => {
           forms={forms}
         />
       )}
-
+      {formType === formTypes.EDIT_LOT_MODAL && (
+        <EditLot handleClose={handleClose} defaultValues={item} id={id} />
+      )}
       {formType === formTypes.EDIT_SIMPLE_ELEMENT_MODAL && (
         <EditSimpleElementForm
           handleClose={handleClose}

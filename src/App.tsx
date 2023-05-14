@@ -11,7 +11,6 @@ import i18n from "./locales/i18n";
 import { ToastProvider } from "react-toast-notifications";
 import { routes } from "./routes/Routes";
 
-
 function App() {
   return (
     <I18nextProvider i18n={i18n}>

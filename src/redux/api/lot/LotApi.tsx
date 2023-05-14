@@ -46,7 +46,7 @@ export const lotApi = createApi({
       providesTags: ["Lot"],
     }),
 
-    updateLot: builder.mutation<IResponse, ILotElement>({
+    updateLot: builder.mutation<IResponse, ILotRequest>({
       query: ({ id, ...request }) => ({
         headers: { Accept: "application/json" },
         url: endpoints.LOTS + "/" + id,

@@ -15,8 +15,9 @@ import {
   useLotsFilterQuery,
   useUpdateLotMutation,
 } from "../../redux/api/lot/LotApi";
-import { ILotElement } from "../../redux/api/types/ILot";
+import { ILotElement, ItransformedLotData } from "../../redux/api/types/ILot";
 import { lotColumns } from "../../core/constants/tableColumns/lotColumns";
+import { transformedLotData } from "../../core/utils/lotDataFormat";
 
 type ILotRequest = TypeOf<typeof lotSchema>;
 
@@ -55,20 +56,7 @@ export const LotsPage: FC = () => {
   const handleDciDelete = (id: number) => {
     deleteLot(id).unwrap();
   };
-  const [updateLot, { isLoading: editIsLoading, isSuccess: editIsSuccess }] =
-    useUpdateLotMutation();
 
-  const handleEdit: SubmitHandler<ILotElement> = async (data) => {
-    const { id, ...rest } = data;
-    updateLot({ id: id, ...rest })
-      .unwrap()
-      .then(() => {
-        addToast("Saved Successfully", {
-          appearance: "success",
-          key: "edit-lot",
-        });
-      });
-  };
   const submitHandlerAdd: SubmitHandler<ILotRequest> = (data) => {
     addLot(data)
       .unwrap()
@@ -105,9 +93,9 @@ export const LotsPage: FC = () => {
   return (
     <PageContainer title={"Lot"}>
       <Grid>
-        <TableFactory<ILotElement[], ILotRequest>
+        <TableFactory<ItransformedLotData[], ILotRequest>
           columns={lotColumns}
-          data={data?.data}
+          data={data ? transformedLotData(data.data) : []}
           sort={{
             onRequestSort: onRequestSort,
             sortOrder: sortOrder,
@@ -136,8 +124,7 @@ export const LotsPage: FC = () => {
             },
             edit: {
               edit: true,
-              editFormType: formTypes.EDIT_MEDICATION_MODAL,
-            
+              editFormType: formTypes.EDIT_LOT_MODAL,
             },
             delete: { delete: true, handleDelete: handleDciDelete },
           }}
