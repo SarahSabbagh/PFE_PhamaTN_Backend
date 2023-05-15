@@ -1,11 +1,12 @@
+import { Dayjs } from "dayjs";
 import { IMedicationElement } from "./IMedication";
 
 export interface ILotElement {
   id: number;
   medication: IMedicationElement;
   codeLot: string;
-  manufactureDate: Date;
-  expirationDate: Date;
+  manufactureDate: Dayjs;
+  expirationDate: Dayjs;
   unitPrice: number;
   publicPrice: number;
 }
@@ -13,8 +14,8 @@ export interface ILotRequest {
   id?: number;
   medication_id: number;
   codeLot: string;
-  manufactureDate: Date;
-  expirationDate: Date;
+  manufactureDate: Dayjs;
+  expirationDate: Dayjs;
   unitPrice: number;
   publicPrice: number;
 }
@@ -25,8 +26,8 @@ export interface ItransformedLotData {
   medicationDosage: string;
   medicationForm: string;
   codeLot: string;
-  manufactureDate: Date;
-  expirationDate: Date;
+  manufactureDate: Dayjs;
+  expirationDate: Dayjs;
   unitPrice: number;
   publicPrice: number;
 }

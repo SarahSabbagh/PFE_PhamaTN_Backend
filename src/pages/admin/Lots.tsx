@@ -18,6 +18,7 @@ import {
 import { ILotElement, ItransformedLotData } from "../../redux/api/types/ILot";
 import { lotColumns } from "../../core/constants/tableColumns/lotColumns";
 import { transformedLotData } from "../../core/utils/lotDataFormat";
+import dayjs from "dayjs";
 
 type ILotRequest = TypeOf<typeof lotSchema>;
 
@@ -29,9 +30,9 @@ export const LotsPage: FC = () => {
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
-  const currentDate = new Date();
-  const expirationDateDefault = new Date();
-  expirationDateDefault.setDate(currentDate.getDate() + 30);
+  const currentDate = dayjs().format("YYYY-MM-DD");
+  console.log(dayjs("2019-01-25").unix());
+  //const expirationDateDefault = currentDate.add(30, "day");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -112,8 +113,8 @@ export const LotsPage: FC = () => {
               defaultAddValues: {
                 medication_id: 0,
                 codeLot: "",
-                manufactureDate: currentDate,
-                expirationDate: expirationDateDefault,
+                manufactureDate: new Date(),
+                expirationDate: new Date(),
                 unitPrice: 0,
                 publicPrice: 0,
               },

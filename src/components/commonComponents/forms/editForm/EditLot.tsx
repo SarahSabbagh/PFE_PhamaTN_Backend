@@ -6,25 +6,14 @@ import { useTranslation } from "react-i18next";
 import { FormInput } from "../../InputField/formInput/FormInput";
 import { CancelButton } from "../formButton/CancelButton.styles";
 import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
-import { SelectField } from "../../InputField/selectInput/SelectField";
-import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
-import { FormEditLotProps, FormEditMedicationProps } from "./EditForm.types";
+import { FormEditLotProps } from "./EditForm.types";
 import { TypeOf } from "zod";
 import { medicationEditSchema } from "../../../../core/utils/validator";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useUpdateMedicationMutation } from "../../../../redux/api/admin/MedicationApi";
 import { useToasts } from "react-toast-notifications";
-import { Loader } from "../../loader/Loader";
 import { useUpdateLotMutation } from "../../../../redux/api/lot/LotApi";
-import {
-  ILotElement,
-  ItransformedLotData,
-} from "../../../../redux/api/types/ILot";
-import dayjs, { Dayjs } from "dayjs";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { ItransformedLotData } from "../../../../redux/api/types/ILot";
+import { CustomDatePicker } from "../../customDatePicker/CustomDatePicker";
+import dayjs from "dayjs";
 export type IMedicationEditRequest = TypeOf<typeof medicationEditSchema>;
 
 export const EditLot: React.FC<FormEditLotProps> = (props) => {
@@ -50,7 +39,6 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
       unitPrice,
       codeLot,
       medicationId,
-      ...rest
     } = data;
     updateLot({
       id: id,
@@ -133,10 +121,9 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormInput
+              <CustomDatePicker
                 id="manufactureDate"
-                placeholder="Manufacture Date"
-                type="Text"
+                defaultValue={defaultValues.manufactureDate}
                 label="Manufacture Date"
                 name="manufactureDate"
               />

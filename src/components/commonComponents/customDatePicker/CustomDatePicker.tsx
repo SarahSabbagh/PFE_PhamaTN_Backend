@@ -12,7 +12,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = (props) => {
   const { id, name, label, defaultValue } = props;
 
   const [value, setValue] = React.useState<Dayjs | null>(
-    dayjs(defaultValue ||new Date())
+    dayjs(defaultValue || new Date())
   );
   const handleChange = (newValue: Dayjs | null) => setValue(newValue);
 
@@ -23,25 +23,24 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = (props) => {
       render={({ field, fieldState: { error } }) => (
         <Stack>
           <InputLabel htmlFor={id}>{label}</InputLabel>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              {...field}
-              sx={{
-                "& .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                },
-                "&:hover .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                },
-                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                },
-              }}
-              value={value}
-              format="YYYY-MM-DD"
-              onChange={handleChange}
-            />
-          </LocalizationProvider>
+          <DatePicker
+            {...field}
+            sx={{
+              "& .MuiOutlinedInput-notchedOutline": {
+                border: "none",
+              },
+              "&:hover .MuiOutlinedInput-notchedOutline": {
+                border: "none",
+              },
+              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                border: "none",
+              },
+            }}
+            value={value}
+            format="YYYY-MM-DD"
+            onChange={handleChange}
+          />
+
           <FormHelperText id={id} error={!!error}>
             {error ? error?.message : ""}
           </FormHelperText>
