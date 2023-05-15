@@ -8,6 +8,7 @@ export const transformedLotData = (data: ILotElement[]) =>
     medicationName: item.medication.marque,
     medicationDosage: item.medication.dosage,
     medicationForm: item.medication.form,
+    medicationCategory: item.medication.category,
     expirationDate: item.expirationDate,
     manufactureDate: item.manufactureDate,
     publicPrice: item.publicPrice,

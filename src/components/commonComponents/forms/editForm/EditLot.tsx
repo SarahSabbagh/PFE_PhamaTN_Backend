@@ -8,28 +8,24 @@ import { CancelButton } from "../formButton/CancelButton.styles";
 import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
 import { FormEditLotProps } from "./EditForm.types";
 import { TypeOf } from "zod";
-import { medicationEditSchema } from "../../../../core/utils/validator";
+import { lotSchema } from "../../../../core/utils/validator";
 import { useToasts } from "react-toast-notifications";
 import { useUpdateLotMutation } from "../../../../redux/api/lot/LotApi";
 import { ItransformedLotData } from "../../../../redux/api/types/ILot";
 import { CustomDatePicker } from "../../customDatePicker/CustomDatePicker";
 import dayjs from "dayjs";
-export type IMedicationEditRequest = TypeOf<typeof medicationEditSchema>;
+export type ILotEditRequest = TypeOf<typeof lotSchema>;
 
 export const EditLot: React.FC<FormEditLotProps> = (props) => {
   const { handleClose, defaultValues, id } = props;
-
   const { addToast } = useToasts();
-
   const methods = useForm<ItransformedLotData>({
     //  resolver: zodResolver(medicationEditSchema),
     defaultValues: defaultValues,
     mode: "onChange",
   });
   const { handleSubmit } = methods;
-
   const [updateLot] = useUpdateLotMutation();
-
   const onSubmit: SubmitHandler<ItransformedLotData> = async (data) => {
     const {
       id,
@@ -68,7 +64,7 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
                 id="codeLot"
                 placeholder="CodeLot"
                 type="Text"
-                label="CodeLot"
+                label="Code lot"
                 name="codeLot"
               />
             </Grid>
@@ -107,7 +103,7 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
                 id="unitPrice"
                 placeholder="Init Price"
                 type="Text"
-                label="Unit Price"
+                label="Unit price"
                 name="unitPrice"
               />
             </Grid>
@@ -116,24 +112,21 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
                 id="publicPrice"
                 placeholder="Public Price"
                 type="Text"
-                label="Public Price"
+                label="Public price"
                 name="publicPrice"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <CustomDatePicker
                 id="manufactureDate"
-                defaultValue={defaultValues.manufactureDate}
-                label="Manufacture Date"
+                label="Manufacture date"
                 name="manufactureDate"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormInput
+              <CustomDatePicker
                 id="expirationDate"
-                placeholder="Expiration Date"
-                type="Text"
-                label="Expiration Date"
+                label="Expiration date"
                 name="expirationDate"
               />
             </Grid>

@@ -1,17 +1,13 @@
-import { styled } from "@mui/material";
-import { DatePicker, DatePickerProps } from "@mui/x-date-pickers";
-import { Dayjs } from "dayjs";
+import { TextField, TextFieldProps, styled } from "@mui/material";
 
-export const StyledDatePicker = styled(DatePicker)<DatePickerProps<Dayjs>>(
-  () => ({
-    "& .MuiOutlinedInput-notchedOutline": {
-      border: "none",
-    },
-    "&:hover .MuiOutlinedInput-notchedOutline": {
-      border: "none",
-    },
-    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      border: "none",
-    },
-  })
-);
+export const StyledTextField = styled(TextField)<TextFieldProps>(() => ({
+  "& .MuiOutlinedInput-notchedOutline": {
+    border: "none",
+  },
+  "&:hover .MuiOutlinedInput-notchedOutline": {
+    border: "none",
+  },
+  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    border: "none",
+  },
+}));

@@ -71,7 +71,7 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <SelectField<ISimpleElement>
-                  id="dci"
+                  id="marque"
                   label="brand"
                   placeholder="brand"
                   name="marque_id"

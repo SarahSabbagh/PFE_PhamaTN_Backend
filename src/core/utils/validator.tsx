@@ -72,7 +72,23 @@ export const medicationEditSchema = medicationSchema.extend({
 });
 
 export const lotSchema = object({
-  medication_id: number().positive(errorMessage.IS_REQUIRED),
+  medicationName: string().nonempty(errorMessage.IS_REQUIRED),
+  medicationDosage: string().nonempty(errorMessage.IS_REQUIRED),
+  medicationForm: string().nonempty(errorMessage.IS_REQUIRED),
+  medicationCategory: string().nonempty(errorMessage.IS_REQUIRED),
+  medicationId: number().positive(errorMessage.IS_REQUIRED),
+  codeLot: string().nonempty(errorMessage.IS_REQUIRED),
+  manufactureDate: z.instanceof(dayjs as unknown as typeof Dayjs),
+  expirationDate: z.instanceof(dayjs as unknown as typeof Dayjs),
+  unitPrice: number().positive(errorMessage.IS_REQUIRED),
+  publicPrice: number().positive(errorMessage.IS_REQUIRED),
+});
+export const lotAddSchema = object({
+  medicationName: number().positive(errorMessage.IS_REQUIRED),
+  medicationDosage: string().nonempty(errorMessage.IS_REQUIRED),
+  medicationForm: number().positive(errorMessage.IS_REQUIRED),
+  medicationCategory: number().positive(errorMessage.IS_REQUIRED),
+  medicationId: number().positive(errorMessage.IS_REQUIRED),
   codeLot: string().nonempty(errorMessage.IS_REQUIRED),
   manufactureDate: z.instanceof(dayjs as unknown as typeof Dayjs),
   expirationDate: z.instanceof(dayjs as unknown as typeof Dayjs),

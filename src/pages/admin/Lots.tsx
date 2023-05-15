@@ -5,7 +5,11 @@ import { PageContainer } from "../../components/commonComponents/PageContainer/P
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
 import { formTypes } from "../../core/constants/formType";
 import { TypeOf } from "zod";
-import { lotSchema, medicationSchema } from "../../core/utils/validator";
+import {
+  lotAddSchema,
+  lotSchema,
+  medicationSchema,
+} from "../../core/utils/validator";
 import { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToasts } from "react-toast-notifications";
@@ -19,8 +23,9 @@ import { ILotElement, ItransformedLotData } from "../../redux/api/types/ILot";
 import { lotColumns } from "../../core/constants/tableColumns/lotColumns";
 import { transformedLotData } from "../../core/utils/lotDataFormat";
 import dayjs from "dayjs";
+import { useMedicationsFilterQuery } from "../../redux/api/admin/MedicationApi";
 
-type ILotRequest = TypeOf<typeof lotSchema>;
+type ILotRequest = TypeOf<typeof lotAddSchema>;
 
 export const LotsPage: FC = () => {
   const { addToast } = useToasts();
@@ -31,7 +36,6 @@ export const LotsPage: FC = () => {
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
   const currentDate = dayjs().format("YYYY-MM-DD");
-  console.log(dayjs("2019-01-25").unix());
   //const expirationDateDefault = currentDate.add(30, "day");
 
   const handleClickOpen = () => {
@@ -59,7 +63,23 @@ export const LotsPage: FC = () => {
   };
 
   const submitHandlerAdd: SubmitHandler<ILotRequest> = (data) => {
-    addLot(data)
+    const {
+      publicPrice,
+      manufactureDate,
+      expirationDate,
+      unitPrice,
+      codeLot,
+      medicationId,
+    } = data;
+
+    addLot({
+      publicPrice: publicPrice,
+      unitPrice: unitPrice,
+      manufactureDate: manufactureDate,
+      expirationDate: expirationDate,
+      codeLot: codeLot,
+      medication_id: medicationId,
+    })
       .unwrap()
       .then(() => {
         handleClose();
@@ -111,7 +131,11 @@ export const LotsPage: FC = () => {
               add: true,
               addFormType: formTypes.ADD_LOT_MODAL,
               defaultAddValues: {
-                medication_id: 0,
+                medicationId: 0,
+                medicationName: 0,
+                medicationDosage: "",
+                medicationForm: 0,
+                medicationCategory: 0,
                 codeLot: "",
                 manufactureDate: new Date(),
                 expirationDate: new Date(),

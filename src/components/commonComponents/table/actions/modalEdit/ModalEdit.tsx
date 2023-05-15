@@ -1,10 +1,9 @@
 import * as React from "react";
 import { ModalEditProps } from "./ModalEdit.types";
-import { DialogTitle } from "@mui/material";
+import { Dialog, DialogTitle, Theme, useMediaQuery } from "@mui/material";
 import { formTypes } from "../../../../../core/constants/formType";
 import { EditSimpleElementForm } from "../../../forms/editForm/EditSimpleElement";
 import { EditMedication } from "../../../forms/editForm/EditMedication";
-import { StyledDialog } from "../../../customizedDialog/CustomizedDialog.style";
 import { useCategoriesQuery } from "../../../../../redux/api/admin/CategoryApi";
 import { useDcisQuery } from "../../../../../redux/api/dci/dciApi";
 import { useFormsQuery } from "../../../../../redux/api/admin/FormApi";
@@ -34,9 +33,16 @@ export const EditModal: React.FC<ModalEditProps> = (props) => {
     dosage: item.dosage,
     description: item.description,
   };
+  const isMobile = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("sm")
+  );
 
   return (
-    <StyledDialog open={open} onClose={handleClose}>
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      fullScreen={formType !== formTypes.EDIT_SIMPLE_ELEMENT_MODAL && isMobile}
+    >
       <DialogTitle align="center" variant="h3" color="primary">
         Edit {title}
       </DialogTitle>
@@ -65,6 +71,6 @@ export const EditModal: React.FC<ModalEditProps> = (props) => {
           title={title}
         />
       )}
-    </StyledDialog>
+    </Dialog>
   );
 };

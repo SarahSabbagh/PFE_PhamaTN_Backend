@@ -25,6 +25,7 @@ export interface ItransformedLotData {
   medicationName: string;
   medicationDosage: string;
   medicationForm: string;
+  medicationCategory: string;
   codeLot: string;
   manufactureDate: Dayjs;
   expirationDate: Dayjs;
