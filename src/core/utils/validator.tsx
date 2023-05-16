@@ -1,6 +1,7 @@
-import { any, literal, number, object, optional, string } from "zod";
+import { date, number, object, string } from "zod";
 import { errorMessage } from "../constants/errorMessages";
 import z from "zod";
+import dayjs, { Dayjs } from "dayjs";
 const phoneExp = /^[2|9|5|7][0-9]{7}$/;
 const faxExp = /^7[0-9]{7}$/;
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
@@ -41,12 +42,6 @@ export const signUpSchema = loginSchema
     role: string().nonempty(errorMessage.IS_REQUIRED),
     type: string().nullable(),
     image: z.instanceof(FileList).optional().nullable(),
-    /*photo: any()
-      .refine(
-        (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-        `Max image size is 2MB.`
-      )
-      .optional(),*/
     phone: string()
       .nonempty(errorMessage.IS_REQUIRED)
       .regex(phoneExp || faxExp),
@@ -71,4 +66,44 @@ export const medicationSchema = object({
   form_id: number().positive(errorMessage.IS_REQUIRED),
   dosage: string().nonempty(errorMessage.IS_REQUIRED),
   description: string().nonempty(errorMessage.IS_REQUIRED),
+});
+export const medicationEditSchema = medicationSchema.extend({
+  id: number().positive(errorMessage.IS_REQUIRED),
+});
+
+export const lotSchema = object({
+  id: number(),
+  medicationName: string().nonempty(errorMessage.IS_REQUIRED),
+  medicationDosage: string().nonempty(errorMessage.IS_REQUIRED),
+  medicationForm: string().nonempty(errorMessage.IS_REQUIRED),
+  medicationCategory: string().nonempty(errorMessage.IS_REQUIRED),
+  medicationId: number().positive(errorMessage.IS_REQUIRED),
+  codeLot: string().nonempty(errorMessage.IS_REQUIRED),
+  manufactureDate: string().refine((value) => dayjs(value).isValid()),
+  expirationDate: string().refine((value) => dayjs(value).isValid()),
+  unitPrice: number().positive(errorMessage.IS_REQUIRED),
+  publicPrice: number().positive(errorMessage.IS_REQUIRED),
+}).refine(
+  (data) => {
+    const manufactureDate = dayjs(data.manufactureDate);
+    const expirationDate = dayjs(data.expirationDate);
+    return expirationDate.isAfter(manufactureDate);
+  },
+  {
+    path: ["expirationDate"],
+    message: errorMessage.INVALID_DATES,
+  }
+);
+
+export const lotAddSchema = object({
+  medicationName: number().positive(errorMessage.IS_REQUIRED),
+  medicationDosage: string().nonempty(errorMessage.IS_REQUIRED),
+  medicationForm: number().positive(errorMessage.IS_REQUIRED),
+  medicationCategory: number().positive(errorMessage.IS_REQUIRED),
+  medicationId: number().positive(errorMessage.IS_REQUIRED),
+  codeLot: string().nonempty(errorMessage.IS_REQUIRED),
+  manufactureDate: z.instanceof(dayjs as unknown as typeof Dayjs),
+  expirationDate: z.instanceof(dayjs as unknown as typeof Dayjs),
+  unitPrice: number().positive(errorMessage.IS_REQUIRED),
+  publicPrice: number().positive(errorMessage.IS_REQUIRED),
 });

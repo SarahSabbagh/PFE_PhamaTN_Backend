@@ -3,37 +3,49 @@ import { FC } from "react";
 import { Grid } from "@mui/material";
 import { PageContainer } from "../../components/commonComponents/PageContainer/PageContainer";
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
-import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
-import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
-import {
-  useAddMarqueMutation,
-  useDeleteMarqueMutation,
-  useMarquesFilterQuery,
-} from "../../redux/api/admin/MarqueApi";
 import { TypeOf } from "zod";
-import { dciSchema } from "../../core/utils/validator";
-import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  lotAddSchema,
+  lotSchema,
+  medicationSchema,
+} from "../../core/utils/validator";
 import { SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useToasts } from "react-toast-notifications";
+import {
+  useAddLotMutation,
+  useDeleteLotMutation,
+  useLotsFilterQuery,
+  useUpdateLotMutation,
+} from "../../redux/api/lot/LotApi";
+import { ILotElement, ItransformedLotData } from "../../redux/api/types/ILot";
+import { lotColumns } from "../../core/constants/tableColumns/lotColumns";
+import { transformedLotData } from "../../core/utils/lotDataFormat";
+import dayjs from "dayjs";
+import { useMedicationsFilterQuery } from "../../redux/api/admin/MedicationApi";
 
-type IDciRequest = TypeOf<typeof dciSchema>;
+type ILotRequest = TypeOf<typeof lotAddSchema>;
 
-export const MarquesPage: FC = () => {
+export const LotsPage: FC = () => {
+  const { addToast } = useToasts();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
+  const currentDate = dayjs().format("YYYY-MM-DD");
+  //const expirationDateDefault = currentDate.add(30, "day");
 
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading, isFetching } = useMarquesFilterQuery({
+
+  const { data, isLoading, isFetching } = useLotsFilterQuery({
     ...(query && { search: query }),
     ...{
       page_size: rowsPerPage,
@@ -42,16 +54,32 @@ export const MarquesPage: FC = () => {
       sortOrder: sortOrder,
     },
   });
-  const [addMarque, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
-    useAddMarqueMutation();
+  const [deleteLot] = useDeleteLotMutation();
+  const [addLot, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
+    useAddLotMutation();
 
-  const [deleteMarque] = useDeleteMarqueMutation();
-
-  const handleMarqueDelete = (id: number) => {
-    deleteMarque(id).unwrap();
+  const handleDciDelete = (id: number) => {
+    deleteLot(id).unwrap();
   };
-  const submitHandlerAdd: SubmitHandler<IDciRequest> = (data) => {
-    addMarque(data.name)
+
+  const submitHandlerAdd: SubmitHandler<ILotRequest> = (data) => {
+    const {
+      publicPrice,
+      manufactureDate,
+      expirationDate,
+      unitPrice,
+      codeLot,
+      medicationId,
+    } = data;
+
+    addLot({
+      publicPrice: publicPrice,
+      unitPrice: unitPrice,
+      manufactureDate: manufactureDate,
+      expirationDate: expirationDate,
+      codeLot: codeLot,
+      medication_id: medicationId,
+    })
       .unwrap()
       .then(() => {
         handleClose();
@@ -84,35 +112,46 @@ export const MarquesPage: FC = () => {
   };
 
   return (
-    <PageContainer title={"Marques"}>
+    <PageContainer title={"Lot"}>
       <Grid>
-        <TableFactory<ISimpleElement[], IDciRequest>
-          columns={dciColumns}
-          data={data?.data}
+        <TableFactory<ItransformedLotData[], ILotRequest>
+          columns={lotColumns}
+          data={data ? transformedLotData(data.data) : []}
           sort={{
             onRequestSort: onRequestSort,
             sortOrder: sortOrder,
             sortBy: sortBy,
           }}
           handleQueryChange={handleQueryChange}
-          title={"Marques"}
+          title={"Lots"}
           isLoading={isLoading}
           isFetching={isFetching}
           actions={{
             add: {
               add: true,
-              addFormType: formTypes.ADD_DCI_MODAL,
-              defaultAddValues: { name: "" },
-              addResolver: zodResolver(dciSchema),
+              addFormType: formTypes.ADD_LOT_MODAL,
+              defaultAddValues: {
+                medicationId: 0,
+                medicationName: 0,
+                medicationDosage: "",
+                medicationForm: 0,
+                medicationCategory: 0,
+                codeLot: "",
+                manufactureDate: new Date(),
+                expirationDate: new Date(),
+                unitPrice: 0,
+                publicPrice: 0,
+              },
+              addResolver: zodResolver(medicationSchema),
               onSubmitAdd: submitHandlerAdd,
               isLoadingAddForm: addIsLoading,
               isSuccessAddForm: isSuccessAdd,
             },
             edit: {
               edit: true,
-              editFormType: formTypes.EDIT_SIMPLE_ELEMENT_MODAL,
+              editFormType: formTypes.EDIT_LOT_MODAL,
             },
-            delete: { delete: true, handleDelete: handleMarqueDelete },
+            delete: { delete: true, handleDelete: handleDciDelete },
           }}
           handleModal={{
             handleClickOpen: handleClickOpen,

@@ -1,9 +1,9 @@
 import { Theme } from "@mui/material";
 import { fonts } from "../../core/constants/fonts";
 
-export default function InputBase(theme: Theme) {
+export default function TextField(theme: Theme) {
   return {
-    MuiInputBase: {
+    MuiTextField: {
       styleOverrides: {
         root: {
           width: "100%",

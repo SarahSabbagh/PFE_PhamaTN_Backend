@@ -2,13 +2,10 @@ import { DeepPartial, Resolver, SubmitHandler } from "react-hook-form";
 import { IFilterRequest } from "../../../../redux/api/types/IResponseRequest";
 import { ITableHead } from "../tableHead/TableHead.types";
 
-export interface IActions<
-  FormValues extends Record<string, any>,
-  FormEditValues extends Record<string, any>
-> {
+export interface IActions<FormValues extends Record<string, any>> {
   filter?: IFilter;
   add?: IAddAction<FormValues>;
-  edit?: IEditAction<FormEditValues>;
+  edit?: IEditAction;
   delete?: IDeleteAction;
 }
 
@@ -19,22 +16,16 @@ export interface IFilter {
 export interface IAddAction<FormAddValues extends Record<string, any>> {
   add: boolean;
   addFormType: string;
-  titleAddForm?: string;
   defaultAddValues?: DeepPartial<FormAddValues>;
   addResolver?: Resolver<FormAddValues>;
-  onSubmitAdd?: SubmitHandler<FormAddValues>;
+  onSubmitAdd: SubmitHandler<FormAddValues>;
   isLoadingAddForm?: boolean;
   isSuccessAddForm?: boolean;
 }
 
-export interface IEditAction<FormEditValues extends Record<string, any>> {
+export interface IEditAction {
   edit: boolean;
-  defaultValues?: FormEditValues;
   editFormType: string;
-  editResolver?: Resolver<FormEditValues>;
-  onSubmitEdit?: SubmitHandler<FormEditValues>;
-  isLoadingEditForm?: boolean;
-  isSuccessEditForm?: boolean;
 }
 export interface IDeleteAction {
   delete: boolean;
@@ -53,8 +44,7 @@ export interface ISort {
 
 export interface TableFactoryProps<
   T,
-  FormAddValues extends Record<string, any>,
-  FormEditValues extends Record<string, any>
+  FormAddValues extends Record<string, any>
 > {
   data: T | undefined;
   handleQueryChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -62,7 +52,7 @@ export interface TableFactoryProps<
   sort?: ISort;
   handleModal: IhandleModal;
   columns: ITableHead[];
-  actions: IActions<FormAddValues, FormEditValues>;
+  actions: IActions<FormAddValues>;
   isLoading: boolean;
   isFetching: boolean;
   handleActivationMode?: (id: number) => void;

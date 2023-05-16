@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IUser } from "../types/IUser";
+import { IFilterUserRequest, IUser } from "../types/IUser";
 import { prepareHeaders } from "../../../core/utils/rtk.config";
 import { endpoints } from "../../../core/constants/endpoints";
 import {
-  IFilterRequest,
+  
   IFilterResponse,
   IResponse,
 } from "../types/IResponseRequest";
@@ -19,7 +19,7 @@ export const adminApi = createApi({
   keepUnusedDataFor: 0,
   tagTypes: ["Users"],
   endpoints: (builder) => ({
-    userFilter: builder.query<IFilterResponse<IUser[]>, IFilterRequest>({
+    userFilter: builder.query<IFilterResponse<IUser[]>, IFilterUserRequest>({
       query(request) {
         return {
           url: endpoints.ADMIN + endpoints.USER_FILTER,

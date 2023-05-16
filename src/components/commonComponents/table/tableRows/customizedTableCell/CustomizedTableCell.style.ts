@@ -6,7 +6,6 @@ import { StyledCellProps } from "./CustomizedTableCell.types";
 export const StyledTableCell = styled(TableCell)<
   TableCellProps & StyledCellProps
 >(({ headColumn, theme }) => ({
-  minWidth: "5rem",
   backgroundColor: headColumn
     ? colors.grey.xlight
     : theme.palette.background.default,

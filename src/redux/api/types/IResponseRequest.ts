@@ -15,11 +15,7 @@ export interface ISimpleElement {
   name: string;
 }
 
-
 export interface IFilterRequest {
-  role?: number;
-  status?: number;
-  activationMode?: boolean;
   search?: string;
   page?: number;
   page_size?: number;

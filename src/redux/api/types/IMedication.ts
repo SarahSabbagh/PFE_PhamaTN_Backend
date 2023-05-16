@@ -8,17 +8,22 @@ export interface IMedicationElement {
   description: string;
 }
 export interface IMedicationRequest {
-  dci_id: number;
-  marque_id: number;
-  dosage: string;
-  form_id: number;
-  category_id: number;
-  description: string;
+  id?: number;
+  dci_id?: number;
+  marque_id?: number;
+  dosage?: string;
+  form_id?: number;
+  category_id?: number;
+  description?: string;
 }
-export interface IMedicationFilterRequest {
+export interface IFilterMedicationRequest {
   search?: string;
   page?: number;
   page_size?: number;
   sortBy?: string;
   sortOrder?: string;
+  marque?: string;
+  dosage?: string;
+  form?: string;
+  category?: string;
 }

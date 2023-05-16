@@ -1,10 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import {
-  DialogContent,
-  DialogTitle,
-  Grid,
-} from "@mui/material";
+import { DialogContent,  Grid } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { FormInput } from "../../InputField/formInput/FormInput";
@@ -16,7 +12,6 @@ export const AddForm = <FormValues extends Record<string, any>>(
   props: React.PropsWithChildren<FormAddProps<FormValues>>
 ) => {
   const {
-    titleAddForm,
     defaultAddValues,
     addResolver,
     onSubmitAdd,
@@ -32,43 +27,34 @@ export const AddForm = <FormValues extends Record<string, any>>(
   const { handleSubmit } = methods;
 
   return (
-    <>
-      <DialogTitle align="center" variant="h3" color="primary">
-        {titleAddForm}
-      </DialogTitle>
-      <DialogContent>
-        <FormProvider {...methods}>
-          {onSubmitAdd && (
-            <Box
-              component="form"
-              onSubmit={handleSubmit(onSubmitAdd)}
-              noValidate
-            >
-              <Grid container spacing={1}>
-                <Grid item xs={12}>
-                  <FormInput
-                    id="name"
-                    placeholder="Name"
-                    type="Text"
-                    label="Name"
-                    name="name"
-                    required
-                  />
-                </Grid>
-                <Grid item xs={12} display="flex" justifyContent="center">
-                  <CancelButton onClick={handleClose}>Cancel</CancelButton>
-                  <ConfirmButtonStyled
-                    onClick={isSuccessAddForm ? handleClose : undefined}
-                    type="submit"
-                  >
-                    Add
-                  </ConfirmButtonStyled>
-                </Grid>
+    <DialogContent>
+      <FormProvider {...methods}>
+        {onSubmitAdd && (
+          <Box component="form" onSubmit={handleSubmit(onSubmitAdd)} noValidate>
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <FormInput
+                  id="name"
+                  placeholder="Name"
+                  type="Text"
+                  label="Name"
+                  name="name"
+                  required
+                />
               </Grid>
-            </Box>
-          )}
-        </FormProvider>
-      </DialogContent>
-    </>
+              <Grid item xs={12} display="flex" justifyContent="center">
+                <CancelButton onClick={handleClose}>Cancel</CancelButton>
+                <ConfirmButtonStyled
+                  onClick={isSuccessAddForm ? handleClose : undefined}
+                  type="submit"
+                >
+                  Add
+                </ConfirmButtonStyled>
+              </Grid>
+            </Grid>
+          </Box>
+        )}
+      </FormProvider>
+    </DialogContent>
   );
 };

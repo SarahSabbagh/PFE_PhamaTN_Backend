@@ -16,19 +16,15 @@ import {
 } from "./customizedTableCell/CustomizedTableCell";
 import { ITableHead } from "../tableHead/TableHead.types";
 
-export const CustomizedTableRow = <
-  T,
-  FormAddValues extends Record<string, any>,
-  FormEditValues extends Record<string, any>
->(
-  props: React.PropsWithChildren<
-    CustomizedTableRowProps<T, FormAddValues, FormEditValues>
-  >
+export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
+  props
 ) => {
   const {
     item,
     columns,
-    actions,
+    deleteAction,
+    editAction,
+    title,
     handleActivationMode,
     handleUpdateUserStatus,
   } = props;
@@ -42,6 +38,7 @@ export const CustomizedTableRow = <
               key={col.accessor}
               accessor={col.accessor}
               item={item}
+              title={title}
               element={item[col.accessor]}
               id={item.id}
               handleUpdateUserStatus={handleUpdateUserStatus}
@@ -52,6 +49,7 @@ export const CustomizedTableRow = <
               key={col.accessor}
               accessor={col.accessor}
               item={item}
+              title={title}
               element={item[col.accessor]}
               handleActivationMode={handleActivationMode}
               id={item.id}
@@ -63,12 +61,14 @@ export const CustomizedTableRow = <
               item={item}
               key={col.accessor}
               id={item.id}
-              editAction={actions?.edit}
-              deleteAction={actions?.delete}
+              title={title}
+              editAction={editAction}
+              deleteAction={deleteAction}
             />
           )) || (
             <StandardCell
               id={item.id}
+              title={title}
               accessor={col.accessor}
               key={col.accessor}
               element={item[col.accessor]}

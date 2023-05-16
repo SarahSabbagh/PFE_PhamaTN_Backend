@@ -13,8 +13,9 @@ import { useFormsQuery } from "../../../../redux/api/admin/FormApi";
 import { useMarquesQuery } from "../../../../redux/api/admin/MarqueApi";
 import { useCategoriesQuery } from "../../../../redux/api/admin/CategoryApi";
 import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
+import { useMedicationsFilterQuery } from "../../../../redux/api/admin/MedicationApi";
 
-export const AddMedication = <FormValues extends Record<string, any>>(
+export const AddLot = <FormValues extends Record<string, any>>(
   props: React.PropsWithChildren<FormAddProps<FormValues>>
 ) => {
   const {
@@ -24,7 +25,6 @@ export const AddMedication = <FormValues extends Record<string, any>>(
     defaultAddValues,
     isSuccessAddForm,
   } = props;
-  const { data: dcis = [] } = useDcisQuery();
   const { data: forms = [] } = useFormsQuery();
   const { data: marques = [] } = useMarquesQuery();
   const { data: categories = [] } = useCategoriesQuery();
@@ -43,19 +43,10 @@ export const AddMedication = <FormValues extends Record<string, any>>(
           <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
               <SelectField<ISimpleElement>
-                id="dci"
-                label="DCI"
-                placeholder="DCI"
-                name="dci_id"
-                options={dcis}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <SelectField<ISimpleElement>
-                id="dci"
+                id="marque"
                 label="brand"
                 placeholder="brand"
-                name="marque_id"
+                name="medicationName"
                 options={marques}
               />
             </Grid>
@@ -64,7 +55,7 @@ export const AddMedication = <FormValues extends Record<string, any>>(
                 id="form"
                 label="form"
                 placeholder="form"
-                name="form_id"
+                name="medicationForm"
                 options={forms}
               />
             </Grid>
@@ -73,7 +64,7 @@ export const AddMedication = <FormValues extends Record<string, any>>(
                 id="category"
                 label="category"
                 placeholder="category"
-                name="category_id"
+                name="medicationCategory"
                 options={categories}
               />
             </Grid>
@@ -87,15 +78,7 @@ export const AddMedication = <FormValues extends Record<string, any>>(
                 required
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <FormInput
-                id="description"
-                placeholder="description"
-                type="Text"
-                label="description"
-                name="description"
-              />
-            </Grid>
+
             <Grid item xs={12} display="flex" justifyContent="center">
               <CancelButton onClick={handleClose}>Cancel</CancelButton>
               <ConfirmButtonStyled

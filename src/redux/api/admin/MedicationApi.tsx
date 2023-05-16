@@ -1,13 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { prepareHeaders } from "../../../core/utils/rtk.config";
 import { endpoints } from "../../../core/constants/endpoints";
+import { IFilterResponse, IResponse } from "../types/IResponseRequest";
 import {
-  IFilterResponse,
-  IResponse,
-} from "../types/IResponseRequest";
-import {
+  IFilterMedicationRequest,
   IMedicationElement,
-  IMedicationFilterRequest,
   IMedicationRequest,
 } from "../types/IMedication";
 
@@ -23,7 +20,7 @@ export const medicationApi = createApi({
   endpoints: (builder) => ({
     MedicationsFilter: builder.query<
       IFilterResponse<IMedicationElement[]>,
-      IMedicationFilterRequest
+      IFilterMedicationRequest
     >({
       query(request) {
         return {
@@ -51,7 +48,7 @@ export const medicationApi = createApi({
       providesTags: ["Medication"],
     }),
 
-    updateMedication: builder.mutation<IResponse, IMedicationElement>({
+    updateMedication: builder.mutation<IResponse, IMedicationRequest>({
       query: ({ id, ...request }) => ({
         headers: { Accept: "application/json" },
         url: endpoints.MEDICATIONS + "/" + id,

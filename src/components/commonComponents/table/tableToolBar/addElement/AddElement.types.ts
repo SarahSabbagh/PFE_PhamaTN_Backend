@@ -7,4 +7,5 @@ import {
 export interface AddElementProps<FormAddValues extends Record<string, any>> {
   addProps: IAddAction<FormAddValues>;
   handleModal: IhandleModal;
+  title: string;
 }

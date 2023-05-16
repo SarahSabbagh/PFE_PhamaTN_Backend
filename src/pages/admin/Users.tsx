@@ -88,7 +88,7 @@ export const UsersPage: FC = () => {
   return (
     <PageContainer title={"Users"}>
       <Grid>
-        <TableFactory<IUser[], any, any>
+        <TableFactory<IUser[], any>
           columns={userColumns}
           data={data?.data}
           sort={{

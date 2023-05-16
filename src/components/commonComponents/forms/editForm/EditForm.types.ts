@@ -1,9 +1,29 @@
 import * as React from "react";
-import { IEditAction } from "../../table/tableFactory/TableFactory.types";
+import {
+  IMedicationElement,
+  IMedicationRequest,
+} from "../../../../redux/api/types/IMedication";
+import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
+import { ItransformedLotData } from "../../../../redux/api/types/ILot";
 
-export interface FormEditProps<FormEditValues extends Record<string, any>> {
+export interface FormEditSimpleElementProps {
   id: number;
-  item: FormEditValues;
+  item: ISimpleElement;
+  title: string;
   handleClose: () => void;
-  editAction: IEditAction<FormEditValues>;
+}
+export interface FormEditMedicationProps {
+  id: number;
+  isLoading: boolean;
+  defaultValues: IMedicationRequest;
+  marques: ISimpleElement[];
+  dcis: ISimpleElement[];
+  categories: ISimpleElement[];
+  forms: ISimpleElement[];
+  handleClose: () => void;
+}
+export interface FormEditLotProps {
+  id: number;
+  defaultValues: ItransformedLotData;
+  handleClose: () => void;
 }

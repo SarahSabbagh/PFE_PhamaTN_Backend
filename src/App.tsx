@@ -9,6 +9,8 @@ import { I18nextProvider } from "react-i18next";
 import { RouterProvider } from "react-router-dom";
 import i18n from "./locales/i18n";
 import { ToastProvider } from "react-toast-notifications";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers";
 import { routes } from "./routes/Routes";
 
 function App() {
@@ -16,9 +18,12 @@ function App() {
     <I18nextProvider i18n={i18n}>
       <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <ToastProvider>
-            <RouterProvider router={routes} />
-          </ToastProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <ToastProvider>
+              <RouterProvider router={routes} />
+            </ToastProvider>
+          </LocalizationProvider>
+
           <CssBaseline />
         </ThemeProvider>
       </Provider>

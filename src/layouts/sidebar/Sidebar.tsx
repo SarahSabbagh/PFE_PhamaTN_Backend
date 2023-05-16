@@ -9,6 +9,8 @@ import {
 import { SidebarProps } from "./Sidebar.types";
 import { ListSidebar } from "./listSideBar/ListSidebar";
 import { Logo } from "../../components/commonComponents/logo/Logo";
+import { colors } from "../../core/constants/colors";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 
 export const ResponsiveSideBar: React.FC<SidebarProps> = (props) => {
   const { openDrawer, handleDrawerClose } = props;
@@ -17,19 +19,13 @@ export const ResponsiveSideBar: React.FC<SidebarProps> = (props) => {
       <StyledDrawerPermanent variant="permanent" anchor="left" open>
         <ListSidebar />
       </StyledDrawerPermanent>
-      <StyledDrawer
-        variant="persistent"
-        anchor="left"
-        open={openDrawer}
-        ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
-        }}
-      >
+
+      <StyledDrawer anchor="left" open={openDrawer} onClose={handleDrawerClose}>
         <Grid display="flex" justifyContent="center">
           <Logo sidebarLogo />
         </Grid>
         <IconButton onClick={handleDrawerClose}>
-          <ChevronLeftIcon />
+          <ChevronLeftIcon sx={{ color: colors.containerColor }} />
         </IconButton>
         <ListSidebar />
       </StyledDrawer>

@@ -10,4 +10,5 @@ export const paths = {
   CATEGORY: "/category",
   FORM: "/form",
   DCI: "/DCI",
+  LOT: "/Lot",
 };
