@@ -9,9 +9,9 @@ import { I18nextProvider } from "react-i18next";
 import { RouterProvider } from "react-router-dom";
 import i18n from "./locales/i18n";
 import { ToastProvider } from "react-toast-notifications";
-import { routes } from "./routes/Routes";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
+import { routes } from "./routes/Routes";
 
 function App() {
   return (
