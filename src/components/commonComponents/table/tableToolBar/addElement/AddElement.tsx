@@ -34,20 +34,21 @@ export const AddElement = <FormAddValues extends Record<string, any>>(
         open={handleModal.open}
         onClose={handleModal.handleClose}
         fullScreen={
-          addProps.addFormType !== formTypes.ADD_DCI_MODAL && isMobile
+          addProps.addFormType !== formTypes.ADD_SIMPLE_ELEMENT_MODAL &&
+          isMobile
         }
       >
         <DialogTitle align="center" variant="h3" color="primary">
           Add {title}
         </DialogTitle>
         {addProps.addFormType === formTypes.ADD_MEDICATION_MODAL && (
-          <AddMedication {...addProps} />
+          <AddMedication handleClose={handleModal.handleClose} {...addProps} />
         )}
         {addProps.addFormType === formTypes.ADD_LOT_MODAL && (
-          <AddLot {...addProps} />
+          <AddLot handleClose={handleModal.handleClose} {...addProps} />
         )}
-        {addProps.addFormType === formTypes.ADD_DCI_MODAL && (
-          <AddForm {...addProps} />
+        {addProps.addFormType === formTypes.ADD_SIMPLE_ELEMENT_MODAL && (
+          <AddForm handleClose={handleModal.handleClose} {...addProps} />
         )}
       </Dialog>
     </>

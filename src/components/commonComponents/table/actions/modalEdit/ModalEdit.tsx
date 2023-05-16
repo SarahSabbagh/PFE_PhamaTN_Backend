@@ -19,20 +19,6 @@ export const EditModal: React.FC<ModalEditProps> = (props) => {
   const { data: categories = [], isLoading: categoriesLoading } =
     useCategoriesQuery();
 
-  const findId = (list: ISimpleElement[], item: string) => {
-    const result = list.find((val) => val.name === item);
-    return result ? result?.id : 0;
-  };
-
-  const defaultMedicationValues = {
-    id: id,
-    dci_id: findId(marques, item["marque"]),
-    marque_id: findId(marques, item["marque"]),
-    category_id: findId(marques, item["marque"]),
-    form_id: findId(marques, item["marque"]),
-    dosage: item.dosage,
-    description: item.description,
-  };
   const isMobile = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("sm")
   );
@@ -49,7 +35,7 @@ export const EditModal: React.FC<ModalEditProps> = (props) => {
       {formType === formTypes.EDIT_MEDICATION_MODAL && (
         <EditMedication
           handleClose={handleClose}
-          defaultValues={defaultMedicationValues}
+          item={item}
           isLoading={
             formsLoading && marquesLoading && dcisLoading && categoriesLoading
           }

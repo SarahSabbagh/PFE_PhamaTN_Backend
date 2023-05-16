@@ -19,21 +19,26 @@ import { Loader } from "../../loader/Loader";
 export type IMedicationEditRequest = TypeOf<typeof medicationEditSchema>;
 
 export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
-  const {
-    handleClose,
-    defaultValues,
-    isLoading,
-    dcis,
-    forms,
-    categories,
-    marques,
-  } = props;
+  const { id, handleClose, item, isLoading, dcis, forms, categories, marques } =
+    props;
 
   const { addToast } = useToasts();
+  const findId = (list: ISimpleElement[], item: string) => {
+    const result = list.find((val) => val.name === item);
+    return result ? result?.id : 0;
+  };
 
   const methods = useForm<IMedicationEditRequest>({
     resolver: zodResolver(medicationEditSchema),
-    defaultValues: defaultValues,
+    defaultValues: {
+      id: id,
+      dci_id: findId(dcis, item.dci),
+      marque_id: findId(marques, item.marque),
+      category_id: findId(categories, item.category),
+      form_id: findId(forms, item.form),
+      dosage: item.dosage,
+      description: item.description,
+    },
     mode: "onChange",
   });
   const { handleSubmit } = methods;

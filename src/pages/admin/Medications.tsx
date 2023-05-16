@@ -49,7 +49,7 @@ export const MedicationsPage: FC = () => {
   const [addMedication, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
     useAddMedicationMutation();
 
-  const handleDciDelete = (id: number) => {
+  const handleMedicationDelete = (id: number) => {
     deleteMedication(id).unwrap();
   };
 
@@ -122,7 +122,7 @@ export const MedicationsPage: FC = () => {
               edit: true,
               editFormType: formTypes.EDIT_MEDICATION_MODAL,
             },
-            delete: { delete: true, handleDelete: handleDciDelete },
+            delete: { delete: true, handleDelete: handleMedicationDelete },
           }}
           handleModal={{
             handleClickOpen: handleClickOpen,

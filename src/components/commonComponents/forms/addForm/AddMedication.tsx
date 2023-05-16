@@ -98,12 +98,7 @@ export const AddMedication = <FormValues extends Record<string, any>>(
             </Grid>
             <Grid item xs={12} display="flex" justifyContent="center">
               <CancelButton onClick={handleClose}>Cancel</CancelButton>
-              <ConfirmButtonStyled
-                onClick={isSuccessAddForm ? handleClose : undefined}
-                type="submit"
-              >
-                Add
-              </ConfirmButtonStyled>
+              <ConfirmButtonStyled type="submit">Add</ConfirmButtonStyled>
             </Grid>
           </Grid>
         </Box>

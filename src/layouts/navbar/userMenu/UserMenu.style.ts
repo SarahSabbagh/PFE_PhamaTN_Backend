@@ -1,5 +1,7 @@
 import * as React from "react";
 import {
+  Badge,
+  BadgeProps,
   IconButton,
   IconButtonProps,
   Menu,
@@ -10,7 +12,10 @@ import { Link, LinkProps } from "react-router-dom";
 
 export const StyledIconButton = styled(IconButton)<IconButtonProps>({
   padding: 0,
-  marginLeft: "0.5rem",
+  margin: "0 0.5rem",
+});
+export const StyledBadge = styled(Badge)<BadgeProps>({
+  "& .MuiBadge-badge": { padding: "0.25rem" },
 });
 export const StyledMenu = styled(Menu)<MenuProps>(({ theme }) => ({
   "& .MuiPaper-root": {
