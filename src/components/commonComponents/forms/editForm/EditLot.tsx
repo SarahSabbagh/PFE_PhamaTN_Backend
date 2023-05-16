@@ -13,6 +13,8 @@ import { useToasts } from "react-toast-notifications";
 import { useUpdateLotMutation } from "../../../../redux/api/lot/LotApi";
 import { ItransformedLotData } from "../../../../redux/api/types/ILot";
 import { CustomDatePicker } from "../../customDatePicker/CustomDatePicker";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import dayjs from "dayjs";
 export type ILotEditRequest = TypeOf<typeof lotSchema>;
 
@@ -20,7 +22,7 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
   const { handleClose, defaultValues, id } = props;
   const { addToast } = useToasts();
   const methods = useForm<ItransformedLotData>({
-    //  resolver: zodResolver(medicationEditSchema),
+    resolver: zodResolver(lotSchema),
     defaultValues: defaultValues,
     mode: "onChange",
   });
@@ -63,7 +65,7 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
               <FormInput
                 id="codeLot"
                 placeholder="CodeLot"
-                type="Text"
+                type="text"
                 label="Code lot"
                 name="codeLot"
               />
@@ -72,7 +74,7 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
               <FormInput
                 id="medicationName"
                 placeholder="Medication"
-                type="Text"
+                type="text"
                 label="Medication"
                 name="medicationName"
                 readOnly
@@ -82,7 +84,7 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
               <FormInput
                 id="Form"
                 placeholder="Form"
-                type="Text"
+                type="text"
                 label="Form"
                 name="medicationForm"
                 readOnly
@@ -92,7 +94,7 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
               <FormInput
                 id="Dosage"
                 placeholder="Dosage"
-                type="Text"
+                type="text"
                 label="Dosage"
                 name="medicationDosage"
                 readOnly
@@ -102,7 +104,7 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
               <FormInput
                 id="unitPrice"
                 placeholder="Init Price"
-                type="Text"
+                type="number"
                 label="Unit price"
                 name="unitPrice"
               />
@@ -111,13 +113,14 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
               <FormInput
                 id="publicPrice"
                 placeholder="Public Price"
-                type="Text"
+                type="number"
                 label="Public price"
                 name="publicPrice"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <CustomDatePicker
+                disableFuture
                 id="manufactureDate"
                 label="Manufacture date"
                 name="manufactureDate"

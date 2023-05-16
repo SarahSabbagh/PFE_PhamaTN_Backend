@@ -72,17 +72,29 @@ export const medicationEditSchema = medicationSchema.extend({
 });
 
 export const lotSchema = object({
+  id: number(),
   medicationName: string().nonempty(errorMessage.IS_REQUIRED),
   medicationDosage: string().nonempty(errorMessage.IS_REQUIRED),
   medicationForm: string().nonempty(errorMessage.IS_REQUIRED),
   medicationCategory: string().nonempty(errorMessage.IS_REQUIRED),
   medicationId: number().positive(errorMessage.IS_REQUIRED),
   codeLot: string().nonempty(errorMessage.IS_REQUIRED),
-  manufactureDate: z.instanceof(dayjs as unknown as typeof Dayjs),
-  expirationDate: z.instanceof(dayjs as unknown as typeof Dayjs),
+  manufactureDate: string().refine((value) => dayjs(value).isValid()),
+  expirationDate: string().refine((value) => dayjs(value).isValid()),
   unitPrice: number().positive(errorMessage.IS_REQUIRED),
   publicPrice: number().positive(errorMessage.IS_REQUIRED),
-});
+}).refine(
+  (data) => {
+    const manufactureDate = dayjs(data.manufactureDate);
+    const expirationDate = dayjs(data.expirationDate);
+    return expirationDate.isAfter(manufactureDate);
+  },
+  {
+    path: ["expirationDate"],
+    message: errorMessage.INVALID_DATES,
+  }
+);
+
 export const lotAddSchema = object({
   medicationName: number().positive(errorMessage.IS_REQUIRED),
   medicationDosage: string().nonempty(errorMessage.IS_REQUIRED),
