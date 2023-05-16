@@ -10,6 +10,7 @@ export const StyledAppBar = styled(AppBar)<AppBarProps & styledAppBarProps>(
     maxHeight: "4.6875rem",
     minWidth: "100%",
     marginBottom: "0.1rem",
+    padding: "0.25rem",
     backgroundColor: theme.palette.background.default,
   })
 );

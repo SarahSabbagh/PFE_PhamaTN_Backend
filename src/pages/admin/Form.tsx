@@ -7,7 +7,7 @@ import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
 import { TypeOf } from "zod";
-import { dciSchema } from "../../core/utils/validator";
+import { simpleElementSchema } from "../../core/utils/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler } from "react-hook-form";
 import {
@@ -16,7 +16,7 @@ import {
   useFormsFilterQuery,
 } from "../../redux/api/admin/FormApi";
 
-type IDciRequest = TypeOf<typeof dciSchema>;
+type IDciRequest = TypeOf<typeof simpleElementSchema>;
 
 export const FormsPage: FC = () => {
   const [page, setPage] = React.useState(0);
@@ -101,9 +101,9 @@ export const FormsPage: FC = () => {
           actions={{
             add: {
               add: true,
-              addFormType: formTypes.ADD_DCI_MODAL,
+              addFormType: formTypes.ADD_SIMPLE_ELEMENT_MODAL,
               defaultAddValues: { name: "" },
-              addResolver: zodResolver(dciSchema),
+              addResolver: zodResolver(simpleElementSchema),
               onSubmitAdd: submitHandlerAdd,
               isLoadingAddForm: addIsLoading,
               isSuccessAddForm: isSuccessAdd,

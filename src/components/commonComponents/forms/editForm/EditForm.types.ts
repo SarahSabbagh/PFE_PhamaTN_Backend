@@ -15,7 +15,7 @@ export interface FormEditSimpleElementProps {
 export interface FormEditMedicationProps {
   id: number;
   isLoading: boolean;
-  defaultValues: IMedicationRequest;
+  item: IMedicationElement;
   marques: ISimpleElement[];
   dcis: ISimpleElement[];
   categories: ISimpleElement[];

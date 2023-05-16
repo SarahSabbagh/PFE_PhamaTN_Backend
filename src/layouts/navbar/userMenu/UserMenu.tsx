@@ -1,7 +1,6 @@
 import * as React from "react";
 import {
   Avatar,
-  Badge,
   Box,
   Divider,
   Grid,
@@ -9,7 +8,12 @@ import {
   MenuItem,
   Tooltip,
 } from "@mui/material";
-import { StyledIconButton, StyledLink, StyledMenu } from "./UserMenu.style";
+import {
+  StyledBadge,
+  StyledIconButton,
+  StyledLink,
+  StyledMenu,
+} from "./UserMenu.style";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import PersonIcon from "@mui/icons-material/Person";
 import Settings from "@mui/icons-material/Settings";
@@ -40,7 +44,7 @@ export const UserMenu: React.FC<NavbarProps> = (props) => {
             onClick={handleOpen}
             aria-label={notificationsLabel(100)}
           >
-            <Badge
+            <StyledBadge
               badgeContent={100}
               color="error"
               anchorOrigin={{
@@ -49,7 +53,7 @@ export const UserMenu: React.FC<NavbarProps> = (props) => {
               }}
             >
               <Avatar>A</Avatar>
-            </Badge>
+            </StyledBadge>
           </StyledIconButton>
         </Tooltip>
       </Box>
