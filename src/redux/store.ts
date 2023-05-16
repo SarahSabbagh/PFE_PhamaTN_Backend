@@ -8,6 +8,7 @@ import { dciApi } from "./api/dci/dciApi";
 import { marqueApi } from "./api/admin/MarqueApi";
 import { formApi } from "./api/admin/FormApi";
 import { categoriesApi } from "./api/admin/CategoryApi";
+import { medicationApi } from "./api/admin/MedicationApi";
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
     [marqueApi.reducerPath]: marqueApi.reducer,
     [formApi.reducerPath]: formApi.reducer,
     [categoriesApi.reducerPath]: categoriesApi.reducer,
+    [medicationApi.reducerPath]: medicationApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({}).concat([
@@ -30,6 +32,7 @@ export const store = configureStore({
       marqueApi.middleware,
       formApi.middleware,
       categoriesApi.middleware,
+      medicationApi.middleware,
     ]),
 });
 export type RootState = ReturnType<typeof store.getState>;

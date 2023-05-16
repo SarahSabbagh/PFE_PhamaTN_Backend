@@ -6,7 +6,7 @@ import {
 export interface TableCellsProps<FormEditValues extends Record<string, any>> {
   element?: string | number | boolean;
   accessor: string;
-  itemName?: string;
+  item?: FormEditValues;
   editAction?: IEditAction<FormEditValues>;
   deleteAction?: IDeleteAction;
   handleActivationMode?: (id: number) => void;

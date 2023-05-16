@@ -49,6 +49,7 @@ export const InputImage: React.FC<InputImageProps> = (props) => {
               {...props}
               onClick={handleClick}
               value={imageName}
+              error={!!error}
               readOnly
             />
 

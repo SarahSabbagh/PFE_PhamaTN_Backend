@@ -14,6 +14,7 @@ import {
   ActionsCell,
   ActivationCell,
 } from "./customizedTableCell/CustomizedTableCell";
+import { ITableHead } from "../tableHead/TableHead.types";
 
 export const CustomizedTableRow = <
   T,
@@ -35,12 +36,12 @@ export const CustomizedTableRow = <
   return (
     <TableRow>
       {columns.map(
-        (col: any) =>
+        (col: ITableHead) =>
           (col.accessor === "status" && (
             <StatusCell
               key={col.accessor}
               accessor={col.accessor}
-              itemName={item["name"] ?? ""}
+              item={item}
               element={item[col.accessor]}
               id={item.id}
               handleUpdateUserStatus={handleUpdateUserStatus}
@@ -50,7 +51,7 @@ export const CustomizedTableRow = <
             <ActivationCell
               key={col.accessor}
               accessor={col.accessor}
-              itemName={item["name"] ?? ""}
+              item={item}
               element={item[col.accessor]}
               handleActivationMode={handleActivationMode}
               id={item.id}
@@ -59,7 +60,7 @@ export const CustomizedTableRow = <
           (col.label === "Action" && (
             <ActionsCell
               accessor={col.accessor}
-              itemName={item["name"] ?? ""}
+              item={item}
               key={col.accessor}
               id={item.id}
               editAction={actions?.edit}
