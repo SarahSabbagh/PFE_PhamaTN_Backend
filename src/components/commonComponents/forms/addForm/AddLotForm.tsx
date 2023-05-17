@@ -9,8 +9,8 @@ import {
   Typography,
 } from "@mui/material";
 import { AddLotStepOne } from "./addLot/stepOne/AddLotStepOne";
-import { AddLotStepTwo } from "./addLot/stepTwo/AddLotStepTwo";
 import { useMedicationsFilterQuery } from "../../../../redux/api/admin/MedicationApi";
+import { AddLotStepTwo } from "./addLot/stepTwo/AddLotStepTwo";
 
 export const AddLot = <FormValues extends Record<string, any>>(
   props: React.PropsWithChildren<FormAddLotProps<FormValues>>
