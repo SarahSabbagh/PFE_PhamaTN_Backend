@@ -12,7 +12,7 @@ import {
   useMarquesFilterQuery,
 } from "../../redux/api/admin/MarqueApi";
 import { TypeOf } from "zod";
-import { simpleElementSchema } from "../../core/utils/validator";
+import { simpleElementSchema } from "../../core/utils/validator/AuthValidator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler } from "react-hook-form";
 

@@ -8,7 +8,6 @@ import { CancelButton } from "../formButton/CancelButton.styles";
 import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
 import { FormEditLotProps } from "./EditForm.types";
 import { TypeOf } from "zod";
-import { lotSchema } from "../../../../core/utils/validator";
 import { useToasts } from "react-toast-notifications";
 import { useUpdateLotMutation } from "../../../../redux/api/lot/LotApi";
 import { ItransformedLotData } from "../../../../redux/api/types/ILot";
@@ -16,6 +15,7 @@ import { CustomDatePicker } from "../../customDatePicker/CustomDatePicker";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import dayjs from "dayjs";
+import { lotSchema } from "../../../../core/utils/validator/LotValidator";
 export type ILotEditRequest = TypeOf<typeof lotSchema>;
 
 export const EditLot: React.FC<FormEditLotProps> = (props) => {

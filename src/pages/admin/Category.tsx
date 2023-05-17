@@ -12,7 +12,7 @@ import {
   useDeleteCategoryMutation,
 } from "../../redux/api/admin/CategoryApi";
 import { TypeOf } from "zod";
-import { simpleElementSchema } from "../../core/utils/validator";
+import { simpleElementSchema } from "../../core/utils/validator/AuthValidator";
 import { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 

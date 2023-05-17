@@ -1,5 +1,5 @@
 import { TypeOf } from "zod";
-import { medicationEditSchema } from "../../../core/utils/validator";
+import { medicationEditSchema } from "../../../core/utils/validator/MedicationValidator";
 
 export interface IMedicationElement {
   id: number;

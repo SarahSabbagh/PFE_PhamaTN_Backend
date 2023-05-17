@@ -12,7 +12,7 @@ import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
 import { TypeOf } from "zod";
-import { simpleElementSchema } from "../../core/utils/validator";
+import { simpleElementSchema } from "../../core/utils/validator/AuthValidator";
 import { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 

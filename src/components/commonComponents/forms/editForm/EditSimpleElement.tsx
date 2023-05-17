@@ -11,7 +11,7 @@ import { useUpdateMarqueMutation } from "../../../../redux/api/admin/MarqueApi";
 import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
 import { useToasts } from "react-toast-notifications";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { simpleElementSchema } from "../../../../core/utils/validator";
+import { simpleElementSchema } from "../../../../core/utils/validator/AuthValidator";
 import { useUpdateFormMutation } from "../../../../redux/api/admin/FormApi";
 import { useUpdateDciMutation } from "../../../../redux/api/dci/dciApi";
 import { useUpdateCategoryMutation } from "../../../../redux/api/admin/CategoryApi";

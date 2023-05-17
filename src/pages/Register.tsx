@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import { FC } from "react";
 import Grid from "@mui/material/Grid";
 import { TypeOf } from "zod";
-import { signUpSchema } from "../core/utils/validator";
+import { signUpSchema } from "../core/utils/validator/AuthValidator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { FormInput } from "../components/commonComponents/InputField/formInput/FormInput";
@@ -38,7 +38,6 @@ export const Register: FC = () => {
     delegation: 0,
     address: "",
     role: "2",
-    //image: undefined,
     type: "1",
     fax: "",
     phone: "",

@@ -5,7 +5,6 @@ import { PageContainer } from "../../components/commonComponents/PageContainer/P
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
 import { formTypes } from "../../core/constants/formType";
 import { TypeOf } from "zod";
-import { medicationSchema } from "../../core/utils/validator";
 import { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { medicationColumns } from "../../core/constants/tableColumns/medicationColumns";
@@ -15,6 +14,7 @@ import {
   useMedicationsFilterQuery,
 } from "../../redux/api/admin/MedicationApi";
 import { IMedicationElement } from "../../redux/api/types/IMedication";
+import { medicationSchema } from "../../core/utils/validator/MedicationValidator";
 
 type IMedicationRequest = TypeOf<typeof medicationSchema>;
 
