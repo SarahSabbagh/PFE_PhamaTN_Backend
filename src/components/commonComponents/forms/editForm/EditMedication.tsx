@@ -9,14 +9,12 @@ import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
 import { SelectField } from "../../InputField/selectInput/SelectField";
 import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
 import { FormEditMedicationProps } from "./EditForm.types";
-import { TypeOf } from "zod";
 import { medicationEditSchema } from "../../../../core/utils/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUpdateMedicationMutation } from "../../../../redux/api/admin/MedicationApi";
 import { useToasts } from "react-toast-notifications";
 import { Loader } from "../../loader/Loader";
-
-export type IMedicationEditRequest = TypeOf<typeof medicationEditSchema>;
+import { IMedicationEditRequest } from "../../../../redux/api/types/IMedication";
 
 export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
   const { id, handleClose, item, isLoading, dcis, forms, categories, marques } =

@@ -50,11 +50,12 @@ export interface TableFactoryProps<
   handleQueryChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   title: string;
   sort?: ISort;
-  handleModal: IhandleModal;
+  handleModal?: IhandleModal;
   columns: ITableHead[];
   actions: IActions<FormAddValues>;
   isLoading: boolean;
   isFetching: boolean;
   handleActivationMode?: (id: number) => void;
   handleUpdateUserStatus?: (id: number, status: number) => void;
+  noToolBar?: boolean;
 }

@@ -5,10 +5,7 @@ import { PageContainer } from "../../components/commonComponents/PageContainer/P
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
 import { formTypes } from "../../core/constants/formType";
 import { TypeOf } from "zod";
-import {
-  medicationEditSchema,
-  medicationSchema,
-} from "../../core/utils/validator";
+import { medicationSchema } from "../../core/utils/validator";
 import { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { medicationColumns } from "../../core/constants/tableColumns/medicationColumns";
@@ -20,7 +17,6 @@ import {
 import { IMedicationElement } from "../../redux/api/types/IMedication";
 
 type IMedicationRequest = TypeOf<typeof medicationSchema>;
-export type IMedicationEditRequest = TypeOf<typeof medicationEditSchema>;
 
 export const MedicationsPage: FC = () => {
   const [page, setPage] = React.useState(0);

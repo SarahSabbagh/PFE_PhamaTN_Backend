@@ -7,7 +7,7 @@ export interface TableContentProps<
 > {
   data: T;
   title: string;
-  handleModal: IhandleModal;
+  handleModal?: IhandleModal;
   columns: ITableHead[];
   actions: IActions<FormAddValues>;
   handleActivationMode?: (id: number) => void;

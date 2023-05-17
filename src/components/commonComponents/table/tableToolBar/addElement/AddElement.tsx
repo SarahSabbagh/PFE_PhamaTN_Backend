@@ -11,12 +11,22 @@ import { AddElementProps } from "./AddElement.types";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { AddForm } from "../../../forms/addForm/AddForm";
 import { AddMedication } from "../../../forms/addForm/AddMedication";
-import { AddLot } from "../../../forms/addForm/AddLoT";
+import { AddLot } from "../../../forms/addForm/AddLotForm";
+import { useCategoriesQuery } from "../../../../../redux/api/admin/CategoryApi";
+import { useFormsQuery } from "../../../../../redux/api/admin/FormApi";
+import { useDcisQuery } from "../../../../../redux/api/dci/dciApi";
+import { useMarquesQuery } from "../../../../../redux/api/admin/MarqueApi";
 
 export const AddElement = <FormAddValues extends Record<string, any>>(
   props: React.PropsWithChildren<AddElementProps<FormAddValues>>
 ) => {
   const { addProps, handleModal, title } = props;
+  const { data: dcis = [], isLoading: dcisLoading } = useDcisQuery();
+  const { data: forms = [], isLoading: formsLoading } = useFormsQuery();
+  const { data: marques = [], isLoading: marquesLoading } = useMarquesQuery();
+  const { data: categories = [], isLoading: categoriesLoading } =
+    useCategoriesQuery();
+
   const isMobile = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("sm")
   );
@@ -26,13 +36,13 @@ export const AddElement = <FormAddValues extends Record<string, any>>(
       <Button
         variant="contained"
         endIcon={<AddOutlinedIcon />}
-        onClick={handleModal.handleClickOpen}
+        onClick={handleModal?.handleClickOpen}
       >
         Add
       </Button>
       <Dialog
-        open={handleModal.open}
-        onClose={handleModal.handleClose}
+        open={handleModal?.open ?? false}
+        onClose={handleModal?.handleClose}
         fullScreen={
           addProps.addFormType !== formTypes.ADD_SIMPLE_ELEMENT_MODAL &&
           isMobile
@@ -42,13 +52,23 @@ export const AddElement = <FormAddValues extends Record<string, any>>(
           Add {title}
         </DialogTitle>
         {addProps.addFormType === formTypes.ADD_MEDICATION_MODAL && (
-          <AddMedication handleClose={handleModal.handleClose} {...addProps} />
+          <AddMedication handleClose={handleModal?.handleClose} {...addProps} />
         )}
         {addProps.addFormType === formTypes.ADD_LOT_MODAL && (
-          <AddLot handleClose={handleModal.handleClose} {...addProps} />
+          <AddLot
+            isLoading={
+              formsLoading && marquesLoading && dcisLoading && categoriesLoading
+            }
+            marques={marques}
+            dcis={dcis}
+            categories={categories}
+            forms={forms}
+            handleClose={handleModal?.handleClose}
+            {...addProps}
+          />
         )}
         {addProps.addFormType === formTypes.ADD_SIMPLE_ELEMENT_MODAL && (
-          <AddForm handleClose={handleModal.handleClose} {...addProps} />
+          <AddForm handleClose={handleModal?.handleClose} {...addProps} />
         )}
       </Dialog>
     </>

@@ -9,5 +9,5 @@ export interface TableToolBarProps<FormAddValues extends Record<string, any>> {
   title: string;
   filter?: IFilter;
   add?: IAddAction<FormAddValues>;
-  handleModal: IhandleModal;
+  handleModal?: IhandleModal;
 }

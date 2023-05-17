@@ -26,14 +26,17 @@ export const TableFactory = <T, FormAddValues extends Record<string, any>>(
     handleUpdateUserStatus,
     handleModal,
     isFetching,
+    noToolBar,
   } = props;
   return (
     <StyledPaper elevation={3}>
-      <CustomizedTableToolBar
-        filter={actions?.filter}
-        add={actions?.add}
-        {...props}
-      />
+      {!noToolBar && (
+        <CustomizedTableToolBar
+          filter={actions?.filter}
+          add={actions?.add}
+          {...props}
+        />
+      )}
       <StyledTableContainer>
         <Table stickyHeader size="small" aria-label="simple table">
           <CustomizedTableHead {...props} />
@@ -47,7 +50,7 @@ export const TableFactory = <T, FormAddValues extends Record<string, any>>(
               actions={actions}
               handleActivationMode={handleActivationMode}
               handleUpdateUserStatus={handleUpdateUserStatus}
-              handleModal={handleModal}
+              handleModal={handleModal }
             />
           ) : (
             <EmptyTableRow />
