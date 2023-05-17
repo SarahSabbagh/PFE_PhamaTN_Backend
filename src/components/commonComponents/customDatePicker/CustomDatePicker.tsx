@@ -1,10 +1,11 @@
 import * as React from "react";
 import { InputLabel, FormHelperText, Stack } from "@mui/material";
-import dayjs, { Dayjs } from "dayjs";
+import  { Dayjs } from "dayjs";
 import { DatePicker, DatePickerProps } from "@mui/x-date-pickers/DatePicker";
 import { Controller, useFormContext } from "react-hook-form";
 import { CustomDatePickerProps } from "./CustomDatePicker.types";
 import { StyledTextField } from "./CustomDatePicker.style";
+import { DateFormatISO } from "../../../core/utils/DateFormat";
 
 export const CustomDatePicker: React.FC<
   CustomDatePickerProps & DatePickerProps<Dayjs>
@@ -22,8 +23,7 @@ export const CustomDatePicker: React.FC<
           <DatePicker
             format="YYYY-MM-DD"
             onChange={(date: any) => {
-              const formattedDate = dayjs(date).format("YYYY-MM-DD");
-              onChange(formattedDate);
+              onChange(DateFormatISO(date));
             }}
             slots={{
               textField: (params: any) => (

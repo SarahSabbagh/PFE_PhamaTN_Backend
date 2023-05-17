@@ -60,7 +60,6 @@ export const AddElement = <FormAddValues extends Record<string, any>>(
               formsLoading && marquesLoading && dcisLoading && categoriesLoading
             }
             marques={marques}
-            dcis={dcis}
             categories={categories}
             forms={forms}
             handleClose={handleModal?.handleClose}

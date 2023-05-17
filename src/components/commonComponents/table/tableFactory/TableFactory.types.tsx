@@ -18,7 +18,7 @@ export interface IAddAction<FormAddValues extends Record<string, any>> {
   addFormType: string;
   defaultAddValues?: DeepPartial<FormAddValues>;
   addResolver?: Resolver<FormAddValues>;
-  onSubmitAdd: SubmitHandler<FormAddValues>;
+  onSubmitAdd?: SubmitHandler<FormAddValues>;
   isLoadingAddForm?: boolean;
   isSuccessAddForm?: boolean;
 }

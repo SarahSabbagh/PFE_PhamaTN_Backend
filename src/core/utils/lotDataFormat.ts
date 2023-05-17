@@ -1,4 +1,5 @@
 import { ILotElement } from "../../redux/api/types/ILot";
+import { DateFormatISO } from "./DateFormat";
 
 export const transformedLotData = (data: ILotElement[]) =>
   data.map((item) => ({
@@ -9,8 +10,8 @@ export const transformedLotData = (data: ILotElement[]) =>
     medicationDosage: item.medication.dosage,
     medicationForm: item.medication.form,
     medicationCategory: item.medication.category,
-    expirationDate: item.expirationDate,
-    manufactureDate: item.manufactureDate,
+    expirationDate: DateFormatISO(item.expirationDate),
+    manufactureDate: DateFormatISO(item.manufactureDate),
     publicPrice: item.publicPrice,
     unitPrice: item.unitPrice,
   }));

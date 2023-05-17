@@ -14,8 +14,8 @@ export const lotStepTwoSchema = object({
   codeLot: string().nonempty(errorMessage.IS_REQUIRED),
   manufactureDate: string().refine((value) => dayjs(value).isValid()),
   expirationDate: string().refine((value) => dayjs(value).isValid()),
-  unitPrice: string(), //.min(0, errorMessage.IS_REQUIRED),
-  publicPrice: string(), //.min(0, errorMessage.IS_REQUIRED),
+  unitPrice: string().nonempty(errorMessage.IS_REQUIRED),
+  publicPrice: string().nonempty(errorMessage.IS_REQUIRED),
 }).refine(
   (data) => {
     const manufactureDate = dayjs(data.manufactureDate);
@@ -38,8 +38,8 @@ export const lotSchema = object({
   codeLot: string().nonempty(errorMessage.IS_REQUIRED),
   manufactureDate: string().refine((value) => dayjs(value).isValid()),
   expirationDate: string().refine((value) => dayjs(value).isValid()),
-  unitPrice: number().positive(errorMessage.IS_REQUIRED),
-  publicPrice: number().positive(errorMessage.IS_REQUIRED),
+  unitPrice: string().nonempty(errorMessage.IS_REQUIRED),
+  publicPrice: string().nonempty(errorMessage.IS_REQUIRED),
 }).refine(
   (data) => {
     const manufactureDate = dayjs(data.manufactureDate);

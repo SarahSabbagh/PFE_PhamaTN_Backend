@@ -42,8 +42,8 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
       id: id,
       publicPrice: publicPrice,
       unitPrice: unitPrice,
-      manufactureDate: manufactureDate,
-      expirationDate: expirationDate,
+      manufactureDate: dayjs(manufactureDate),
+      expirationDate: dayjs(expirationDate),
       codeLot: codeLot,
       medication_id: medicationId,
     })
