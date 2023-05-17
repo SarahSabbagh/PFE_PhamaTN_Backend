@@ -15,7 +15,7 @@ import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined
 
 export const FormInput: React.FC<FormInputProps & InputProps> = (props) => {
   const { control } = useFormContext();
-  const { id, name, label, eyeicon } = props;
+  const { id, name, label, eyeicon, type } = props;
 
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -30,7 +30,7 @@ export const FormInput: React.FC<FormInputProps & InputProps> = (props) => {
           <InputBase
             {...field}
             {...props}
-            type={eyeicon ? (showPassword ? "text" : "password") : "text"}
+            type={eyeicon ? (showPassword ? "text" : "password") : type}
             endAdornment={
               props.eyeicon ? (
                 <InputAdornment position="end">
