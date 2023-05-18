@@ -7,17 +7,10 @@ import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
 import {
-  useAddMarqueMutation,
   useDeleteMarqueMutation,
   useMarquesFilterQuery,
 } from "../../redux/api/admin/MarqueApi";
-import { TypeOf } from "zod";
-import { simpleElementSchema } from "../../core/utils/validator/AuthValidator";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler } from "react-hook-form";
 import useDebounce from "../../hooks/useDebounce";
-
-type IDciRequest = TypeOf<typeof simpleElementSchema>;
 
 export const MarquesPage: FC = () => {
   const [page, setPage] = React.useState(0);
@@ -27,7 +20,7 @@ export const MarquesPage: FC = () => {
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
   const debouncedSearchTerm = useDebounce<string>(query, 500);
-  
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -43,19 +36,12 @@ export const MarquesPage: FC = () => {
       sortOrder: sortOrder,
     },
   });
-  const [addMarque, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
-    useAddMarqueMutation();
+
   const [deleteMarque] = useDeleteMarqueMutation();
   const handleMarqueDelete = (id: number) => {
     deleteMarque(id).unwrap();
   };
-  const submitHandlerAdd: SubmitHandler<IDciRequest> = (data) => {
-    addMarque(data.name)
-      .unwrap()
-      .then(() => {
-        handleClose();
-      });
-  };
+
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value.trim());
   };
@@ -80,7 +66,7 @@ export const MarquesPage: FC = () => {
   return (
     <PageContainer title={"Marques"}>
       <Grid>
-        <TableFactory<ISimpleElement[], IDciRequest>
+        <TableFactory<ISimpleElement[]>
           columns={dciColumns}
           data={data?.data}
           sort={{
@@ -96,11 +82,6 @@ export const MarquesPage: FC = () => {
             add: {
               add: true,
               addFormType: formTypes.ADD_SIMPLE_ELEMENT_MODAL,
-              defaultAddValues: { name: "" },
-              addResolver: zodResolver(simpleElementSchema),
-              onSubmitAdd: submitHandlerAdd,
-              isLoadingAddForm: addIsLoading,
-              isSuccessAddForm: isSuccessAdd,
             },
             edit: {
               edit: true,

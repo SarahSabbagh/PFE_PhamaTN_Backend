@@ -9,7 +9,7 @@ import {
 import { formTypes } from "../../../../../core/constants/formType";
 import { AddElementProps } from "./AddElement.types";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { AddForm } from "../../../forms/addForm/AddForm";
+import { AddSimpleElementForm } from "../../../forms/addForm/AddSimpleElementForm";
 import { AddMedication } from "../../../forms/addForm/AddMedication";
 import { AddLot } from "../../../forms/addForm/addLot/AddLotForm";
 import { useCategoriesQuery } from "../../../../../redux/api/admin/CategoryApi";
@@ -21,7 +21,7 @@ export const AddElement = <FormAddValues extends Record<string, any>>(
   props: React.PropsWithChildren<AddElementProps<FormAddValues>>
 ) => {
   const { addProps, handleModal, title } = props;
-  const { data: dcis = [], isLoading: dcisLoading } = useDcisQuery();
+ // const { data: dcis = [], isLoading: dcisLoading } = useDcisQuery();
   const { data: forms = [], isLoading: formsLoading } = useFormsQuery();
   const { data: marques = [], isLoading: marquesLoading } = useMarquesQuery();
   const { data: categories = [], isLoading: categoriesLoading } =
@@ -52,22 +52,24 @@ export const AddElement = <FormAddValues extends Record<string, any>>(
           Add {title}
         </DialogTitle>
         {addProps.addFormType === formTypes.ADD_MEDICATION_MODAL && (
-          <AddMedication handleClose={handleModal?.handleClose} {...addProps} />
+          <AddMedication title={title} handleClose={handleModal?.handleClose} />
         )}
         {addProps.addFormType === formTypes.ADD_LOT_MODAL && (
           <AddLot
             isLoading={
-              formsLoading && marquesLoading && dcisLoading && categoriesLoading
+              formsLoading && marquesLoading && categoriesLoading
             }
             marques={marques}
             categories={categories}
             forms={forms}
             handleClose={handleModal?.handleClose}
-            {...addProps}
           />
         )}
         {addProps.addFormType === formTypes.ADD_SIMPLE_ELEMENT_MODAL && (
-          <AddForm handleClose={handleModal?.handleClose} {...addProps} />
+          <AddSimpleElementForm
+            title={title}
+            handleClose={handleModal?.handleClose}
+          />
         )}
       </Dialog>
     </>

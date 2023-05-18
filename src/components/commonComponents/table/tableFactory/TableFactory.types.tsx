@@ -1,10 +1,9 @@
-import { DeepPartial, Resolver, SubmitHandler } from "react-hook-form";
 import { IFilterRequest } from "../../../../redux/api/types/IResponseRequest";
 import { ITableHead } from "../tableHead/TableHead.types";
 
-export interface IActions<FormValues extends Record<string, any>> {
+export interface IActions {
   filter?: IFilter;
-  add?: IAddAction<FormValues>;
+  add?: IAddAction;
   edit?: IEditAction;
   delete?: IDeleteAction;
 }
@@ -13,14 +12,9 @@ export interface IFilter {
   filter: boolean;
   recievedFilterData: (data: IFilterRequest) => void;
 }
-export interface IAddAction<FormAddValues extends Record<string, any>> {
+export interface IAddAction {
   add: boolean;
   addFormType: string;
-  defaultAddValues?: DeepPartial<FormAddValues>;
-  addResolver?: Resolver<FormAddValues>;
-  onSubmitAdd?: SubmitHandler<FormAddValues>;
-  isLoadingAddForm?: boolean;
-  isSuccessAddForm?: boolean;
 }
 
 export interface IEditAction {
@@ -42,17 +36,14 @@ export interface ISort {
   sortBy?: string;
 }
 
-export interface TableFactoryProps<
-  T,
-  FormAddValues extends Record<string, any>
-> {
+export interface TableFactoryProps<T> {
   data: T | undefined;
   handleQueryChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   title: string;
   sort?: ISort;
   handleModal?: IhandleModal;
   columns: ITableHead[];
-  actions: IActions<FormAddValues>;
+  actions: IActions;
   isLoading: boolean;
   isFetching: boolean;
   handleActivationMode?: (id: number) => void;

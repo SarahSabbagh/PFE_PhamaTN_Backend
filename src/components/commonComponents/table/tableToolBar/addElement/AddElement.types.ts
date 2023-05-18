@@ -5,7 +5,7 @@ import {
 } from "../../tableFactory/TableFactory.types";
 
 export interface AddElementProps<FormAddValues extends Record<string, any>> {
-  addProps: IAddAction<FormAddValues>;
+  addProps: IAddAction;
   handleModal?: IhandleModal;
   title: string;
 }

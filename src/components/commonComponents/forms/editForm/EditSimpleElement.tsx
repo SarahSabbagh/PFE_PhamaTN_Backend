@@ -26,7 +26,7 @@ export const EditSimpleElementForm: React.FC<FormEditSimpleElementProps> = (
     defaultValues: { name: item.name },
     mode: "onChange",
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, setError } = methods;
   const { addToast } = useToasts();
 
   const [
@@ -74,6 +74,16 @@ export const EditSimpleElementForm: React.FC<FormEditSimpleElementProps> = (
           appearance: "success",
           key: "edit-marque",
         });
+      })
+      .catch((error: any) => {
+        for (const key of Object.keys(data)) {
+          if (error.data.errors[key]) {
+            setError(key as keyof typeof data, {
+              type: "server",
+              message: error.data.errors[key][0],
+            });
+          }
+        }
       });
   };
 

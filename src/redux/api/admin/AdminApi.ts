@@ -12,7 +12,6 @@ export const adminApi = createApi({
     baseUrl: `${BASE_URL}`,
     prepareHeaders: prepareHeaders,
   }),
-  keepUnusedDataFor: 0,
   tagTypes: ["User"],
   endpoints: (builder) => ({
     userFilter: builder.query<IFilterResponse<IUser[]>, IFilterUserRequest>({

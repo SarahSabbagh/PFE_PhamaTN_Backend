@@ -4,10 +4,10 @@ import {
   IhandleModal,
 } from "../tableFactory/TableFactory.types";
 
-export interface TableToolBarProps<FormAddValues extends Record<string, any>> {
+export interface TableToolBarProps {
   handleQueryChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   title: string;
   filter?: IFilter;
-  add?: IAddAction<FormAddValues>;
+  add?: IAddAction;
   handleModal?: IhandleModal;
 }

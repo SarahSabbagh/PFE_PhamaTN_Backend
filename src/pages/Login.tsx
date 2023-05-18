@@ -50,7 +50,7 @@ export const SignIn: FC = () => {
   };
 
   return (
-    <PageContainer background title={t("login.TITLE_PAGE_SIGN_IN")}>
+    <PageContainer background={true} title={t("login.TITLE_PAGE_SIGN_IN")}>
       <Grid>
         <FormProvider {...methods}>
           <ToastContainer />

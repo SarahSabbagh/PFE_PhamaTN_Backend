@@ -39,7 +39,7 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
     },
     mode: "onChange",
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, setError } = methods;
 
   const [updateMedication] = useUpdateMedicationMutation();
 
@@ -53,6 +53,16 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
           appearance: "success",
           key: "edit-medication",
         });
+      })
+      .catch((error: any) => {
+        for (const key of Object.keys(data)) {
+          if (error.data.errors[key]) {
+            setError(key as keyof typeof data, {
+              type: "server",
+              message: error.data.errors[key][0],
+            });
+          }
+        }
       });
   };
   return (

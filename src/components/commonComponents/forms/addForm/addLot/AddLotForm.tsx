@@ -12,9 +12,7 @@ import { AddLotStepOne } from "./stepOne/AddLotStepOne";
 import { useMedicationsFilterQuery } from "../../../../../redux/api/admin/MedicationApi";
 import { AddLotStepTwo } from "./stepTwo/AddLotStepTwo";
 
-export const AddLot = <FormValues extends Record<string, any>>(
-  props: React.PropsWithChildren<FormAddLotProps<FormValues>>
-) => {
+export const AddLot: React.FC<FormAddLotProps> = (props) => {
   const { marques, forms, categories, handleClose } = props;
 
   const [medicationId, setMedicationId] = React.useState<number>();

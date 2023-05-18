@@ -4,20 +4,15 @@ import { Grid } from "@mui/material";
 import { PageContainer } from "../../components/commonComponents/PageContainer/PageContainer";
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
 import {
-  useAddDciMutation,
   useDeleteDcisMutation,
   useFilterDcisQuery,
 } from "../../redux/api/dci/dciApi";
 import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
-import { TypeOf } from "zod";
-import { simpleElementSchema } from "../../core/utils/validator/AuthValidator";
-import { SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import useDebounce from "../../hooks/useDebounce";
 
-type IDciRequest = TypeOf<typeof simpleElementSchema>;
+
+import useDebounce from "../../hooks/useDebounce";
 
 export const DcisPage: FC = () => {
   const [page, setPage] = React.useState(0);
@@ -44,18 +39,11 @@ export const DcisPage: FC = () => {
     },
   });
   const [deleteDcis] = useDeleteDcisMutation();
-  const [addDci, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
-    useAddDciMutation();
+
   const handleDciDelete = (id: number) => {
     deleteDcis(id).unwrap();
   };
-  const submitHandlerAdd: SubmitHandler<IDciRequest> = (data) => {
-    addDci(data.name)
-      .unwrap()
-      .then(() => {
-        handleClose();
-      });
-  };
+
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value.trim());
   };
@@ -80,7 +68,7 @@ export const DcisPage: FC = () => {
   return (
     <PageContainer title={"DCI"}>
       <Grid>
-        <TableFactory<ISimpleElement[], IDciRequest>
+        <TableFactory<ISimpleElement[]>
           columns={dciColumns}
           data={data?.data}
           sort={{
@@ -96,11 +84,6 @@ export const DcisPage: FC = () => {
             add: {
               add: true,
               addFormType: formTypes.ADD_SIMPLE_ELEMENT_MODAL,
-              defaultAddValues: { name: "" },
-              addResolver: zodResolver(simpleElementSchema),
-              onSubmitAdd: submitHandlerAdd,
-              isLoadingAddForm: addIsLoading,
-              isSuccessAddForm: isSuccessAdd,
             },
             edit: {
               edit: true,

@@ -7,17 +7,10 @@ import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
 import {
-  useAddCategoryMutation,
   useCategoriesFilterQuery,
   useDeleteCategoryMutation,
 } from "../../redux/api/admin/CategoryApi";
-import { TypeOf } from "zod";
-import { simpleElementSchema } from "../../core/utils/validator/AuthValidator";
-import { SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import useDebounce from "../../hooks/useDebounce";
-
-type IDciRequest = TypeOf<typeof simpleElementSchema>;
 
 export const CategoriesPage: FC = () => {
   const [page, setPage] = React.useState(0);
@@ -43,21 +36,13 @@ export const CategoriesPage: FC = () => {
       sortOrder: sortOrder,
     },
   });
-  const [addCategory, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
-    useAddCategoryMutation();
-  const submitHandlerAdd: SubmitHandler<IDciRequest> = (data) => {
-    addCategory(data.name)
-      .unwrap()
-      .then(() => {
-        handleClose();
-      });
-  };
+
   const [deleteCategory] = useDeleteCategoryMutation();
   const handleCategoryDelete = (id: number) => {
     deleteCategory(id).unwrap();
   };
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setQuery(event.target.value.trim());
+    setQuery(event.target.value.trim());
   };
   const onRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -80,7 +65,7 @@ export const CategoriesPage: FC = () => {
   return (
     <PageContainer title={"Category"}>
       <Grid>
-        <TableFactory<ISimpleElement[], IDciRequest>
+        <TableFactory<ISimpleElement[]>
           columns={dciColumns}
           data={data?.data}
           sort={{
@@ -96,11 +81,6 @@ export const CategoriesPage: FC = () => {
             add: {
               add: true,
               addFormType: formTypes.ADD_SIMPLE_ELEMENT_MODAL,
-              defaultAddValues: { name: "" },
-              addResolver: zodResolver(simpleElementSchema),
-              onSubmitAdd: submitHandlerAdd,
-              isLoadingAddForm: addIsLoading,
-              isSuccessAddForm: isSuccessAdd,
             },
             edit: {
               edit: true,

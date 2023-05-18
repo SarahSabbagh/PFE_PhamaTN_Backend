@@ -1,15 +1,12 @@
 import { IActions, IhandleModal } from "../tableFactory/TableFactory.types";
 import { ITableHead } from "../tableHead/TableHead.types";
 
-export interface TableContentProps<
-  T,
-  FormAddValues extends Record<string, any>
-> {
+export interface TableContentProps<T> {
   data: T;
   title: string;
   handleModal?: IhandleModal;
   columns: ITableHead[];
-  actions: IActions<FormAddValues>;
+  actions: IActions;
   handleActivationMode?: (id: number) => void;
   handleUpdateUserStatus?: (id: number, status: number) => void;
 }

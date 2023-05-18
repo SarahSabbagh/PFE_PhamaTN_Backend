@@ -65,7 +65,7 @@ export const LotsPage: FC = () => {
   return (
     <PageContainer title={"Lot"}>
       <Grid>
-        <TableFactory<ItransformedLotData[], any>
+        <TableFactory<ItransformedLotData[]>
           columns={lotColumns}
           data={data ? transformedLotData(data.data) : []}
           sort={{
