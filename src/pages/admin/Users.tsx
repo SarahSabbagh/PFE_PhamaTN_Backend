@@ -12,6 +12,7 @@ import {
 } from "../../redux/api/admin/AdminApi";
 import { userColumns } from "../../core/constants/tableColumns/userColumns";
 import { IFilterRequest } from "../../redux/api/types/IResponseRequest";
+import useDebounce from "../../hooks/useDebounce";
 
 export interface IFilterData {
   role?: string;
@@ -26,16 +27,16 @@ export const UsersPage: FC = () => {
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
+  const debouncedSearchTerm = useDebounce<string>(query, 500);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
   const { data, isLoading, isFetching } = useUserFilterQuery({
-    ...(query && { search: query }),
+    ...(query && { search: debouncedSearchTerm }),
     ...FilterData,
     ...{
       page_size: rowsPerPage,
@@ -47,24 +48,18 @@ export const UsersPage: FC = () => {
   const [userActivation] = useUserActivationMutation();
   const [deletUser] = useDeleteUserMutation();
   const [updateUserStatus] = useUpdateUserStatusMutation();
-
   const handleActivationMode = (id: number) => {
     userActivation(id).unwrap();
   };
   const handleUpdateUserStatus = (id: number, status: number) => {
     updateUserStatus({ id, status }).unwrap();
   };
-
   const handleUserDelete = (id: number) => {
     deletUser(id).unwrap();
   };
-
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTimeout(() => {
-      setQuery(event.target.value.trim());
-    }, 500);
+    setQuery(event.target.value.trim());
   };
-
   const onRequestSort = (
     event: React.MouseEvent<unknown>,
     newSortBy: string
@@ -73,11 +68,9 @@ export const UsersPage: FC = () => {
     setSortBy(newSortBy);
     setSortOrder(newSortOrder);
   };
-
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {

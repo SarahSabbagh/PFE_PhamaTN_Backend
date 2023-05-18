@@ -15,6 +15,7 @@ import { TypeOf } from "zod";
 import { simpleElementSchema } from "../../core/utils/validator/AuthValidator";
 import { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import useDebounce from "../../hooks/useDebounce";
 
 type IDciRequest = TypeOf<typeof simpleElementSchema>;
 
@@ -25,16 +26,16 @@ export const DcisPage: FC = () => {
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
+  const debouncedSearchTerm = useDebounce<string>(query, 500);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
   const { data, isLoading, isFetching } = useFilterDcisQuery({
-    ...(query && { search: query }),
+    ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
       page: page + 1,
@@ -48,7 +49,6 @@ export const DcisPage: FC = () => {
   const handleDciDelete = (id: number) => {
     deleteDcis(id).unwrap();
   };
-
   const submitHandlerAdd: SubmitHandler<IDciRequest> = (data) => {
     addDci(data.name)
       .unwrap()
@@ -56,13 +56,9 @@ export const DcisPage: FC = () => {
         handleClose();
       });
   };
-
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTimeout(() => {
-      setQuery(event.target.value.trim());
-    }, 1000);
+    setQuery(event.target.value.trim());
   };
-
   const onRequestSort = (
     event: React.MouseEvent<unknown>,
     newSortBy: string
@@ -71,11 +67,9 @@ export const DcisPage: FC = () => {
     setSortBy(newSortBy);
     setSortOrder(newSortOrder);
   };
-
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {

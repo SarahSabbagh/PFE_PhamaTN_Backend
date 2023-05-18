@@ -15,6 +15,7 @@ import { TypeOf } from "zod";
 import { simpleElementSchema } from "../../core/utils/validator/AuthValidator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler } from "react-hook-form";
+import useDebounce from "../../hooks/useDebounce";
 
 type IDciRequest = TypeOf<typeof simpleElementSchema>;
 
@@ -25,16 +26,16 @@ export const MarquesPage: FC = () => {
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
-
+  const debouncedSearchTerm = useDebounce<string>(query, 500);
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
   const { data, isLoading, isFetching } = useMarquesFilterQuery({
-    ...(query && { search: query }),
+    ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
       page: page + 1,
@@ -44,9 +45,7 @@ export const MarquesPage: FC = () => {
   });
   const [addMarque, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
     useAddMarqueMutation();
-
   const [deleteMarque] = useDeleteMarqueMutation();
-
   const handleMarqueDelete = (id: number) => {
     deleteMarque(id).unwrap();
   };
@@ -58,11 +57,8 @@ export const MarquesPage: FC = () => {
       });
   };
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTimeout(() => {
-      setQuery(event.target.value.trim());
-    }, 1000);
+    setQuery(event.target.value.trim());
   };
-
   const onRequestSort = (
     event: React.MouseEvent<unknown>,
     newSortBy: string
@@ -71,11 +67,9 @@ export const MarquesPage: FC = () => {
     setSortBy(newSortBy);
     setSortOrder(newSortOrder);
   };
-
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {

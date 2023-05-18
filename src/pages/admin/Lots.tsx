@@ -11,6 +11,7 @@ import {
 import { ItransformedLotData } from "../../redux/api/types/ILot";
 import { lotColumns } from "../../core/constants/tableColumns/lotColumns";
 import { transformedLotData } from "../../core/utils/lotDataFormat";
+import useDebounce from "../../hooks/useDebounce";
 
 export const LotsPage: FC = () => {
   const [page, setPage] = React.useState(0);
@@ -19,6 +20,7 @@ export const LotsPage: FC = () => {
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
+  const debouncedSearchTerm = useDebounce<string>(query, 500);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -26,9 +28,8 @@ export const LotsPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
   const { data, isLoading, isFetching } = useLotsFilterQuery({
-    ...(query && { search: query }),
+    ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
       page: page + 1,
@@ -36,18 +37,13 @@ export const LotsPage: FC = () => {
       sortOrder: sortOrder,
     },
   });
-
   const [deleteLot] = useDeleteLotMutation();
   const handleDciDelete = (id: number) => {
     deleteLot(id).unwrap();
   };
-
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTimeout(() => {
-      setQuery(event.target.value.trim());
-    }, 1000);
+    setQuery(event.target.value.trim());
   };
-
   const onRequestSort = (
     event: React.MouseEvent<unknown>,
     newSortBy: string
@@ -85,7 +81,6 @@ export const LotsPage: FC = () => {
             add: {
               add: true,
               addFormType: formTypes.ADD_LOT_MODAL,
-            
             },
             edit: {
               edit: true,

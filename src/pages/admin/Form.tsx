@@ -15,6 +15,7 @@ import {
   useDeleteFormMutation,
   useFormsFilterQuery,
 } from "../../redux/api/admin/FormApi";
+import useDebounce from "../../hooks/useDebounce";
 
 type IDciRequest = TypeOf<typeof simpleElementSchema>;
 
@@ -25,6 +26,7 @@ export const FormsPage: FC = () => {
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
+  const debouncedSearchTerm = useDebounce<string>(query, 500);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -34,7 +36,7 @@ export const FormsPage: FC = () => {
     setOpen(false);
   };
   const { data, isLoading, isFetching } = useFormsFilterQuery({
-    ...(query && { search: query }),
+    ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
       page: page + 1,
@@ -44,9 +46,7 @@ export const FormsPage: FC = () => {
   });
   const [addForm, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
     useAddFormMutation();
-
   const [deleteForm] = useDeleteFormMutation();
-
   const handleFormDelete = (id: number) => {
     deleteForm(id).unwrap();
   };
@@ -58,11 +58,8 @@ export const FormsPage: FC = () => {
       });
   };
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTimeout(() => {
       setQuery(event.target.value.trim());
-    }, 1000);
   };
-
   const onRequestSort = (
     event: React.MouseEvent<unknown>,
     newSortBy: string
@@ -71,11 +68,9 @@ export const FormsPage: FC = () => {
     setSortBy(newSortBy);
     setSortOrder(newSortOrder);
   };
-
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {

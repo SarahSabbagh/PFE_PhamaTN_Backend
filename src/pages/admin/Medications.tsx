@@ -15,6 +15,7 @@ import {
 } from "../../redux/api/admin/MedicationApi";
 import { IMedicationElement } from "../../redux/api/types/IMedication";
 import { medicationSchema } from "../../core/utils/validator/MedicationValidator";
+import useDebounce from "../../hooks/useDebounce";
 
 type IMedicationRequest = TypeOf<typeof medicationSchema>;
 
@@ -25,15 +26,16 @@ export const MedicationsPage: FC = () => {
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
+  const debouncedSearchTerm = useDebounce<string>(query, 500);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
-
   const { data, isLoading, isFetching } = useMedicationsFilterQuery({
-    ...(query && { search: query }),
+    ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
       page: page + 1,
@@ -44,11 +46,9 @@ export const MedicationsPage: FC = () => {
   const [deleteMedication] = useDeleteMedicationMutation();
   const [addMedication, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
     useAddMedicationMutation();
-
   const handleMedicationDelete = (id: number) => {
     deleteMedication(id).unwrap();
   };
-
   const submitHandlerAdd: SubmitHandler<IMedicationRequest> = (data) => {
     addMedication(data)
       .unwrap()
@@ -57,11 +57,8 @@ export const MedicationsPage: FC = () => {
       });
   };
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTimeout(() => {
-      setQuery(event.target.value.trim());
-    }, 1000);
+    setQuery(event.target.value.trim());
   };
-
   const onRequestSort = (
     event: React.MouseEvent<unknown>,
     newSortBy: string
@@ -70,11 +67,9 @@ export const MedicationsPage: FC = () => {
     setSortBy(newSortBy);
     setSortOrder(newSortOrder);
   };
-
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
