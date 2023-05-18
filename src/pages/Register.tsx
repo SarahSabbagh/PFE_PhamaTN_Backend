@@ -68,17 +68,13 @@ export const Register: FC = () => {
         });
       })
       .catch((error: any) => {
-        if (error.data.errors.email) {
-          setError("email", {
-            type: "server",
-            message: error.data.errors.email[0],
-          });
-        }
-        if (error.data.errors.image) {
-          setError("image", {
-            type: "server",
-            message: error.data.errors.image[0],
-          });
+        for (const key of Object.keys(data)) {
+          if (error.data.errors[key]) {
+            setError(key as keyof typeof data, {
+              type: "server",
+              message: error.data.errors[key][0],
+            });
+          }
         }
       });
   };
