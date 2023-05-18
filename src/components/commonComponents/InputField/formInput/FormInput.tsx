@@ -30,6 +30,11 @@ export const FormInput: React.FC<FormInputProps & InputProps> = (props) => {
           <InputBase
             {...field}
             {...props}
+            onChange={(e) =>
+              field.onChange(
+                type === "number" ? Number(e.target.value) : e.target.value
+              )
+            }
             type={eyeicon ? (showPassword ? "text" : "password") : type}
             endAdornment={
               props.eyeicon ? (

@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Box, Button, Grid } from "@mui/material";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useMedicationsFilterQuery } from "../../../../../../redux/api/admin/MedicationApi";
 import { SelectField } from "../../../../InputField/selectInput/SelectField";
 import { ISimpleElement } from "../../../../../../redux/api/types/IResponseRequest";
 import { FormInput } from "../../../../InputField/formInput/FormInput";

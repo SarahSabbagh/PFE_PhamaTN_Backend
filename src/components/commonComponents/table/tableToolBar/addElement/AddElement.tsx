@@ -11,7 +11,7 @@ import { AddElementProps } from "./AddElement.types";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { AddForm } from "../../../forms/addForm/AddForm";
 import { AddMedication } from "../../../forms/addForm/AddMedication";
-import { AddLot } from "../../../forms/addForm/AddLotForm";
+import { AddLot } from "../../../forms/addForm/addLot/AddLotForm";
 import { useCategoriesQuery } from "../../../../../redux/api/admin/CategoryApi";
 import { useFormsQuery } from "../../../../../redux/api/admin/FormApi";
 import { useDcisQuery } from "../../../../../redux/api/dci/dciApi";

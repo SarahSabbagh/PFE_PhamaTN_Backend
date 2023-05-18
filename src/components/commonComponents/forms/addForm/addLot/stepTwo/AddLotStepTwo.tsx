@@ -9,20 +9,21 @@ import { AddLotStepTwoProps } from "./AddLotStepTwo.types";
 import { CustomDatePicker } from "../../../../customDatePicker/CustomDatePicker";
 import { useAddLotMutation } from "../../../../../../redux/api/lot/LotApi";
 import dayjs from "dayjs";
-
 type lotStepTwo = TypeOf<typeof lotStepTwoSchema>;
 export const AddLotStepTwo: React.FC<AddLotStepTwoProps> = (props) => {
-  const { handleBack, medicationId, handleClose } = props;
+  const { handleBack, medicationId, handleClose, handleError } = props;
+
   const [addLot] = useAddLotMutation();
   const methods = useForm<lotStepTwo>({
     resolver: zodResolver(lotStepTwoSchema),
     defaultValues: {
       medicationId: medicationId,
+      codeLot: "",
     },
     mode: "onChange",
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, setError } = methods;
 
   const onSubmit: SubmitHandler<lotStepTwo> = (data) => {
     const {
@@ -34,16 +35,29 @@ export const AddLotStepTwo: React.FC<AddLotStepTwoProps> = (props) => {
       medicationId,
     } = data;
     addLot({
-      publicPrice: parseFloat(publicPrice),
-      unitPrice: parseFloat(unitPrice),
+      publicPrice: publicPrice,
+      unitPrice: unitPrice,
       manufactureDate: dayjs(manufactureDate),
       expirationDate: dayjs(expirationDate),
       codeLot: codeLot,
       medication_id: medicationId,
-    }).unwrap();
-    //       .then(() => {
-    //         handleClose();
-    //       });
+    })
+      .unwrap()
+      .then(() => {
+        //handleError(false);
+        handleClose && handleClose();
+      })
+      .catch((error: any) => {
+        handleError(true);
+        for (const key of Object.keys(data)) {
+          if (error.data.errors[key]) {
+            setError(key as keyof typeof data, {
+              type: "server",
+              message: error.data.errors[key][0],
+            });
+          }
+        }
+      });
   };
 
   return (
@@ -99,9 +113,7 @@ export const AddLotStepTwo: React.FC<AddLotStepTwoProps> = (props) => {
             <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
               Back
             </Button>
-            <Button onClick={handleClose} type="submit">
-              Finish
-            </Button>
+            <Button type="submit">Finish</Button>
           </Grid>
         </Grid>
       </Box>

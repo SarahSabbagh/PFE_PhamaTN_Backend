@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FormAddLotProps } from "./AddForm.types";
+import { FormAddLotProps } from "../AddForm.types";
 import {
   Box,
   Stepper,
@@ -8,9 +8,9 @@ import {
   DialogContent,
   Typography,
 } from "@mui/material";
-import { AddLotStepOne } from "./addLot/stepOne/AddLotStepOne";
-import { useMedicationsFilterQuery } from "../../../../redux/api/admin/MedicationApi";
-import { AddLotStepTwo } from "./addLot/stepTwo/AddLotStepTwo";
+import { AddLotStepOne } from "./stepOne/AddLotStepOne";
+import { useMedicationsFilterQuery } from "../../../../../redux/api/admin/MedicationApi";
+import { AddLotStepTwo } from "./stepTwo/AddLotStepTwo";
 
 export const AddLot = <FormValues extends Record<string, any>>(
   props: React.PropsWithChildren<FormAddLotProps<FormValues>>

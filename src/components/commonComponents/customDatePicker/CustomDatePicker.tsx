@@ -1,6 +1,6 @@
 import * as React from "react";
 import { InputLabel, FormHelperText, Stack } from "@mui/material";
-import  { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import { DatePicker, DatePickerProps } from "@mui/x-date-pickers/DatePicker";
 import { Controller, useFormContext } from "react-hook-form";
 import { CustomDatePickerProps } from "./CustomDatePicker.types";
@@ -34,17 +34,7 @@ export const CustomDatePicker: React.FC<
                     ...params.inputProps,
                     placeholder: "YYYY-MM-DD",
                   }}
-                  sx={{
-                    "& .MuiOutlinedInput-notchedOutline": {
-                      border: "none",
-                    },
-                    "&:hover .MuiOutlinedInput-notchedOutline": {
-                      border: "none",
-                    },
-                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      border: "none",
-                    },
-                  }}
+                  error={!!error}
                   value={getValues(name)}
                 />
               ),
