@@ -80,7 +80,7 @@ export const Register: FC = () => {
   };
 
   return (
-    <PageContainer background title={t("register.TITLE_PAGE_SIGN_UP")}>
+    <PageContainer background={true} title={t("register.TITLE_PAGE_SIGN_UP")}>
       <Grid container>
         <ToastContainer />
         <SignUpPaper title={t("register.TITLE_SIGN_UP")}>
@@ -120,7 +120,7 @@ export const Register: FC = () => {
                     label={t("register.PASSWORD_LABEL")}
                     name="password"
                     placeholder={t("register.PASSWORD_LABEL")}
-                    eyeicon
+                    eyeicon={true}
                     autoComplete="off"
                   />
                 </Grid>
@@ -132,7 +132,7 @@ export const Register: FC = () => {
                     label={t("register.CONFIRM_PASSWORD_LABEL")}
                     name="confirmPassword"
                     placeholder={t("register.PASSWORD_LABEL")}
-                    eyeicon
+                    eyeicon={true}
                     autoComplete="off"
                   />
                 </Grid>

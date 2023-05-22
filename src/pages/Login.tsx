@@ -81,7 +81,7 @@ export const SignIn: FC = () => {
                   label={t("login.PASSWORD_LABEL")}
                   name="password"
                   placeholder={t("login.PASSWORD_LABEL")}
-                  eyeicon
+                  eyeicon={true}
                   autoComplete="off"
                 />
               </Grid>
