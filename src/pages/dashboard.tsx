@@ -2,59 +2,31 @@ import React, { useEffect } from "react";
 import { FC } from "react";
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
 import { Divider, Stack, Typography } from "@mui/material";
-import { io } from "socket.io-client";
 import Echo from "laravel-echo";
-import { prepareHeaders } from "../core/utils/rtk.config";
-import Socketio from "socket.io-client";
-import { socket } from "../socket";
-
+import { io } from "socket.io-client";
 export const Dashboard: FC = () => {
   useEffect(() => {
-    // Listen for the 'newUserRegistered' event
-
-    const URL = "http://localhost:6001";
-
     const echo: Echo = new Echo({
       broadcaster: "socket.io",
-      transports: ["websocket"],
-      client: Socketio,
-      authEndpoint: "/broadcasting/auth",
-      host: URL,
-      devMode: true,
+      client: io,
+      host: "http://localhost:6001",
     });
-    echo.options.debug = true;
-
     echo.connector.socket.on("connect", () => {
-      console.log("Socket connected");
+      console.log("Connected to Laravel Echo Server");
+      echo
+        .channel("newUserRegistered-channel")
+        .listen(".NewUserRegisteredEvent", (e: any) => {
+          console.log(e);
+        });
     });
-    echo.connector.socket.on("reconnecting", (attemptNumber: any) => {
-      console.log(
-        `%cSocket reconnecting attempt ${attemptNumber}`,
-        "color:orange; "
-      );
+    echo.connector.socket.on("connect_error", (error: any) => {
+      console.error("Failed to connect to Laravel Echo Server:", error);
     });
-    const channel = echo.channel("pharmatn_database_newUserRegistered-channel");
-    console.log(channel);
-    channel.listen(".NewUserRegisteredEvent", (e: any) => {
-      console.log("Received event:", e);
-      // Handle the event data
-    });
-
+    echo.connect();
     return () => {
-      channel.stopListening(".NewUserRegisteredEvent");
+      echo.disconnect();
     };
-    // useEffect(() => {
-    //   const socket = io("http://localhost/api/broadcasting/auth");
-    //   socket.on("connect", () => {
-    //     console.log("Socket connected");
-    //     console.log(socket);
-    //   });
-
-    //   return () => {
-    //     socket.disconnect();
-    //   };
   }, []);
-
   return (
     <PageContainer title="dashboard">
       <Stack
