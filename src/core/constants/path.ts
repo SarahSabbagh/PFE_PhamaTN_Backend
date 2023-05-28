@@ -11,4 +11,5 @@ export const paths = {
   FORM: "/form",
   DCI: "/DCI",
   LOT: "/Lot",
+  NOTIFICATION:"/notifications",
 };

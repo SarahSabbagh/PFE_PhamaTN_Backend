@@ -10,6 +10,8 @@ import { formApi } from "./api/admin/FormApi";
 import { categoriesApi } from "./api/admin/CategoryApi";
 import { medicationApi } from "./api/admin/MedicationApi";
 import { lotApi } from "./api/lot/LotApi";
+import { notificationApi } from "./api/notification/notificationApi";
+import notificationSlice from "./features/notification";
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +25,8 @@ export const store = configureStore({
     [categoriesApi.reducerPath]: categoriesApi.reducer,
     [medicationApi.reducerPath]: medicationApi.reducer,
     [lotApi.reducerPath]: lotApi.reducer,
+    [notificationApi.reducerPath]: notificationApi.reducer,
+    notification: notificationSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({}).concat([
@@ -36,6 +40,7 @@ export const store = configureStore({
       categoriesApi.middleware,
       medicationApi.middleware,
       lotApi.middleware,
+      notificationApi.middleware,
     ]),
 });
 export type RootState = ReturnType<typeof store.getState>;

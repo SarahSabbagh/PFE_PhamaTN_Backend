@@ -17,6 +17,7 @@ import { MedicationsPage } from "../pages/admin/Medications";
 import { FormsPage } from "../pages/admin/Form";
 import { CategoriesPage } from "../pages/admin/Category";
 import { LotsPage } from "../pages/admin/Lots";
+import { Notifications } from "../pages/Notifications";
 
 export const routes = createBrowserRouter([
   {
@@ -114,6 +115,15 @@ export const routes = createBrowserRouter([
     element: (
       <Layout>
         <PrivateRouteAuth component={FormsPage} />
+      </Layout>
+    ),
+  },
+  {
+    id: " NOTIFICATION",
+    path: paths.NOTIFICATION,
+    element: (
+      <Layout>
+        <PrivateRouteAuth component={Notifications} />
       </Layout>
     ),
   },

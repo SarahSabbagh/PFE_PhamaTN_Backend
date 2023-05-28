@@ -22,4 +22,7 @@ export const endpoints = {
   FILTER_MEDICATIONS: "/api/filter_medications",
   LOTS: "/api/lots",
   FILTER_LOTS: "/api/filter_lots",
+  NOTIFICATION: "/api/notifications",
+  NOTIFICATION_UNREAD_REGISTERED: "/unread",
+  MARK_AS_READ: "/mark-as-read",
 };

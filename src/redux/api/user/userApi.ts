@@ -14,7 +14,7 @@ export const userApi = createApi({
   }),
   tagTypes: ["User"],
   endpoints: (builder) => ({
-    getMe: builder.query<IUser, void>({
+    getUser: builder.query<IUser, void>({
       query() {
         return {
           url: endpoints.USER,
@@ -54,7 +54,7 @@ export const userApi = createApi({
 });
 export const {
   useUsersQuery,
-  useGetMeQuery,
+  useGetUserQuery,
   useShowUserQuery,
   useDeleteUserMutation,
   useUpdateUserMutation,

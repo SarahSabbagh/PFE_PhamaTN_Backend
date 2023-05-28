@@ -1,6 +1,5 @@
 import * as React from "react";
 import Toolbar from "@mui/material/Toolbar";
-import { Grid } from "@mui/material";
 import { LogoNavbar } from "./logoNavbar/LogoNavbar";
 import { StyledAppBar, StyledGrid } from "./Navbar.style";
 import { MenuList } from "./navMenu/NavMenu";
@@ -12,6 +11,7 @@ import { IconMenu } from "./iconMenu/IconMenu";
 import { useLocation } from "react-router-dom";
 import { paths } from "../../core/constants/path";
 import { StyledIconButton } from "./userMenu/UserMenu.style";
+
 const pageLogin = [{ route: paths.LOGIN, name: "Login" }];
 const pageRegister = [{ route: paths.REGISTER, name: "Register" }];
 

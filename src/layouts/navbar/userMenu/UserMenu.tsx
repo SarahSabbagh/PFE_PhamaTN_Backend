@@ -19,19 +19,16 @@ import PersonIcon from "@mui/icons-material/Person";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { NavbarProps } from "../Navbar.types";
-
-function notificationsLabel(count: number) {
-  if (count === 0) {
-    return "no notifications";
-  }
-  if (count > 99) {
-    return "more than 99 notifications";
-  }
-  return `${count} notifications`;
-}
+import { paths } from "../../../core/constants/path";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 export const UserMenu: React.FC<NavbarProps> = (props) => {
   const { anchorEl, handleClose, handleOpen } = props;
+  const notificationCount: number = useSelector(
+    (state: RootState) => state.notification.notificationCount
+  );
+
   const handleLogout = () => {
     localStorage.clear();
   };
@@ -40,12 +37,9 @@ export const UserMenu: React.FC<NavbarProps> = (props) => {
     <Grid item>
       <Box>
         <Tooltip title="Account settings">
-          <StyledIconButton
-            onClick={handleOpen}
-            aria-label={notificationsLabel(100)}
-          >
+          <StyledIconButton onClick={handleOpen}>
             <StyledBadge
-              badgeContent={100}
+              badgeContent={notificationCount}
               color="error"
               anchorOrigin={{
                 vertical: "top",
@@ -77,9 +71,7 @@ export const UserMenu: React.FC<NavbarProps> = (props) => {
           <ListItemIcon>
             <NotificationsIcon fontSize="small" />
           </ListItemIcon>
-          <StyledLink onClick={handleLogout} to="/">
-            Notifications
-          </StyledLink>
+          <StyledLink to={paths.NOTIFICATION}>Notifications</StyledLink>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
