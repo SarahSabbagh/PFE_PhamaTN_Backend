@@ -24,7 +24,6 @@ export const TableFactory = <T,>(
     handleActivationMode,
     handleUpdateUserStatus,
     handleModal,
-    isFetching,
     noToolBar,
   } = props;
   return (

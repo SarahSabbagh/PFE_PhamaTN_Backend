@@ -15,8 +15,9 @@ export const useSocket = (type: string) => {
       data: data?.data,
       created_at: data?.created_at,
     };
-    dispatch(incrementNotificationCount());
+    //   dispatch(incrementNotificationCount());
     dispatch(setNotification(newNotification));
+    console.log(newNotification);
   };
   useEffect(() => {
     const channel = echo.channel("newUserRegistered-channel");
@@ -26,5 +27,5 @@ export const useSocket = (type: string) => {
     return () => {
       echo.leave("newUserRegistered-channel");
     };
-  }, []);
+  });
 };

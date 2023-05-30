@@ -1,4 +1,4 @@
-export const signIn = {
+export const login = {
   //title
   TITLE_APP: "PharmTN",
   TITLE_PAGE_SIGN_IN: "PharmaTN-SignIn",

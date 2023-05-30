@@ -1,32 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { globalVariables } from "../core/constants/globalVariables";
-import { StatusCode } from "../core/constants/httpStatusCode";
-import { useGetUserQuery } from "../redux/api/user/userApi";
-import { SerializedError } from "@reduxjs/toolkit/dist/createAsyncThunk";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query/fetchBaseQuery";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { paths } from "../core/constants/path";
+import { IUser } from "../redux/api/types/IUser";
+import { RootState } from "../redux/store";
+import { useSelector } from "react-redux";
 
 export const useAccessToken = (): boolean => {
-  const [error, setError] = useState<
-    FetchBaseQueryError | SerializedError | null
-  >(null);
-
-  const { isError, error: queryError } = useGetUserQuery();
   const navigate = useNavigate();
-
+  const user: IUser | null = useSelector((state: RootState) => state.user.user);
   useEffect(() => {
-    setError(queryError || null);
-    if (
-      isError &&
-      error &&
-      "status" in error &&
-      error.status === StatusCode.HTTP_UNAUTHORIZED
-    ) {
+    if (!user) {
       localStorage.clear();
-      navigate(paths.LOGIN);
+      navigate(paths.LOGIN, { replace: true });
     }
-  }, [queryError]);
+  }, [user]);
 
   return localStorage.getItem(globalVariables.TOKEN) !== null;
 };

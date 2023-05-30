@@ -11,10 +11,11 @@ import {
 import { AddLotStepOne } from "./stepOne/AddLotStepOne";
 import { useMedicationsFilterQuery } from "../../../../../redux/api/admin/MedicationApi";
 import { AddLotStepTwo } from "./stepTwo/AddLotStepTwo";
+import { useTranslation } from "react-i18next";
 
 export const AddLot: React.FC<FormAddLotProps> = (props) => {
   const { marques, forms, categories, handleClose } = props;
-
+  const { t } = useTranslation();
   const [medicationId, setMedicationId] = React.useState<number>();
   const [errorStepOne, setErrorStepOne] = React.useState<boolean>(false);
   const [errorStepTwo, setErrorStepTwo] = React.useState<boolean>(false);
@@ -47,16 +48,16 @@ export const AddLot: React.FC<FormAddLotProps> = (props) => {
             optional={
               errorStepOne && (
                 <Typography variant="caption" color="error">
-                  Medication is not found
+                  {t("label.MEDICATION_NOT_FOUND")}
                 </Typography>
               )
             }
           >
-            Select medication
+            {t("label.SELECT_MEDICATION")}
           </StepLabel>
         </Step>
         <Step>
-          <StepLabel error={errorStepTwo}>Add lot</StepLabel>
+          <StepLabel error={errorStepTwo}> {t("label.ADD_LOT")}</StepLabel>
         </Step>
       </Stepper>
       {activeStep === 1 && medicationId ? (

@@ -5,9 +5,11 @@ import { ResponsiveSideBar } from "./sidebar/Sidebar";
 import { ResponsiveAppBar } from "./navbar/Navbar";
 import { useSocket } from "../hooks/useSocket";
 import { useGetUserQuery } from "../redux/api/user/userApi";
-import { useNewUserRegisteredQuery } from "../redux/api/notification/notificationApi";
+import { useNotificationsQuery } from "../redux/api/notification/notificationApi";
 import { useDispatch } from "react-redux";
-import { setNotificationCount } from "../redux/features/notification";
+import { setNotifications } from "../redux/features/notification";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
+import { setUser } from "../redux/features/userSlice";
 
 interface ILayout {
   children: JSX.Element;
@@ -16,13 +18,18 @@ interface ILayout {
 export const Layout: React.FC<ILayout> = (prop) => {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  const { data: user } = useGetUserQuery();
-  const { data, isSuccess } = useNewUserRegisteredQuery(user?.id ?? 0);
+  const { data: user, isSuccess: isSuccessUser } = useGetUserQuery();
+  const { data, isSuccess } = useNotificationsQuery(user?.id ?? skipToken);
   React.useEffect(() => {
     if (isSuccess) {
-      dispatch(setNotificationCount(data.length));
+      dispatch(setNotifications(data));
     }
   }, [data]);
+  React.useEffect(() => {
+    if (isSuccessUser) {
+      dispatch(setUser(user));
+    }
+  }, [user]);
 
   useSocket("notification");
   const handleDrawerOpen = () => {

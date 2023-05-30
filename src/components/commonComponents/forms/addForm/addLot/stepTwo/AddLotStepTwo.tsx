@@ -9,10 +9,12 @@ import { AddLotStepTwoProps } from "./AddLotStepTwo.types";
 import { CustomDatePicker } from "../../../../customDatePicker/CustomDatePicker";
 import { useAddLotMutation } from "../../../../../../redux/api/lot/LotApi";
 import dayjs from "dayjs";
+import { useTranslation } from "react-i18next";
+
 type lotStepTwo = TypeOf<typeof lotStepTwoSchema>;
 export const AddLotStepTwo: React.FC<AddLotStepTwoProps> = (props) => {
   const { handleBack, medicationId, handleClose, handleError } = props;
-
+  const { t } = useTranslation();
   const [addLot] = useAddLotMutation();
   const methods = useForm<lotStepTwo>({
     resolver: zodResolver(lotStepTwoSchema),
@@ -67,9 +69,9 @@ export const AddLotStepTwo: React.FC<AddLotStepTwoProps> = (props) => {
           <Grid item xs={12}>
             <FormInput
               id="codeLot"
-              placeholder="Code Lot"
+              placeholder={t('cells.LOT_NUMBER')}
               type="text"
-              label="Code Lot"
+              label={t('cells.LOT_NUMBER')}
               name="codeLot"
               required
             />
@@ -78,23 +80,23 @@ export const AddLotStepTwo: React.FC<AddLotStepTwoProps> = (props) => {
             <CustomDatePicker
               disableFuture
               id="manufactureDate"
-              label="Manufacture date"
+              label={t('cells.MANUFACTURE_DATE')}
               name="manufactureDate"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <CustomDatePicker
               id="expirationDate"
-              label="Expiration date"
+              label={t('cells.EXPIRATION_DATE')}
               name="expirationDate"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormInput
               id="unitPrice"
-              placeholder="dosage"
+              placeholder={t('cells.UNIT_PRICE')}
               type="number"
-              label="Unit Price"
+              label={t('cells.UNIT_PRICE')}
               name="unitPrice"
               required
             />
@@ -102,18 +104,18 @@ export const AddLotStepTwo: React.FC<AddLotStepTwoProps> = (props) => {
           <Grid item xs={12} sm={6}>
             <FormInput
               id="publicPrice"
-              placeholder="Public Price"
+              placeholder={t('cells.PUBLIC_PRICE')}
               type="number"
-              label="Public Price"
+              label= {t('cells.PUBLIC_PRICE')}
               name="publicPrice"
               required
             />
           </Grid>
           <Grid>
             <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-              Back
+            {t('label.BACK')}
             </Button>
-            <Button type="submit">Finish</Button>
+            <Button type="submit">{t('label.FINISH')}</Button>
           </Grid>
         </Grid>
       </Box>

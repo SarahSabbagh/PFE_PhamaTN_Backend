@@ -10,11 +10,11 @@ import {
 import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
-
-
 import useDebounce from "../../hooks/useDebounce";
+import { useTranslation } from "react-i18next";
 
 export const DcisPage: FC = () => {
+  const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
@@ -66,7 +66,7 @@ export const DcisPage: FC = () => {
   };
 
   return (
-    <PageContainer title={"DCI"}>
+    <PageContainer title={t("dci.TITLE_PAGE_DCI")}>
       <Grid>
         <TableFactory<ISimpleElement[]>
           columns={dciColumns}
@@ -77,7 +77,7 @@ export const DcisPage: FC = () => {
             sortBy: sortBy,
           }}
           handleQueryChange={handleQueryChange}
-          title={"DCI"}
+          title={t("dci.TITLE_DCI")}
           isLoading={isLoading}
           isFetching={isFetching}
           actions={{

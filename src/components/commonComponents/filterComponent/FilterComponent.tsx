@@ -12,10 +12,11 @@ import {
   RadioGroup,
 } from "@mui/material";
 import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined";
-import { status } from "../../../core/constants/status";
+import { IFilterItem, status } from "../../../core/constants/status";
 import { activation } from "../../../core/constants/activation";
 import { FilterProps } from "./FilterComponent.types";
 import { roles } from "../../../core/constants/roles";
+import { useTranslation } from "react-i18next";
 
 interface IFilterData {
   role?: number;
@@ -29,6 +30,7 @@ interface Ilabel {
 }
 
 export const Filter: React.FC<FilterProps> = ({ recievedFilterData }) => {
+  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -82,93 +84,70 @@ export const Filter: React.FC<FilterProps> = ({ recievedFilterData }) => {
           endIcon={<FilterListOutlinedIcon />}
           onClick={handleClick}
         >
-          Add filter
+          {t("label.ADD_FILTER")}
         </Button>
         <Menu
           id="fade-menu"
-          MenuListProps={{
-            "aria-labelledby": "fade-button",
-          }}
           anchorEl={anchorEl}
           open={open}
           onClose={handleClose}
         >
           <MenuItem>
             <FormControl>
-              <FormLabel id="demo-radio-buttons-group-label">Status</FormLabel>
+              <FormLabel id="status">{t("label.STATUS")}</FormLabel>
               <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
                 name="radio-buttons-group"
                 value={chipData.status}
                 onChange={handleChange("status")}
               >
-                <FormControlLabel
-                  title="Pending"
-                  value={status.PENDING}
-                  control={<Radio />}
-                  label="Pending"
-                />
-                <FormControlLabel
-                  value={status.ACCEPTED}
-                  control={<Radio />}
-                  label="Accepted"
-                />
-                <FormControlLabel
-                  value={status.REFUSED}
-                  control={<Radio />}
-                  label="Refused"
-                />
+                {status.map((item: IFilterItem) => (
+                  <FormControlLabel
+                    key={item.id}
+                    value={item.value}
+                    control={<Radio />}
+                    label={item.label}
+                  />
+                ))}
               </RadioGroup>
             </FormControl>
           </MenuItem>
           <MenuItem>
             <FormControl>
-              <FormLabel id="demo-radio-buttons-group-label">
-                Activation Mode
+              <FormLabel id="activation">
+                {t("label.ACTIVATION_MODE")}
               </FormLabel>
               <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
                 name="radio-buttons-group"
                 value={chipData.activationMode}
                 onChange={handleChange("activationMode")}
               >
-                <FormControlLabel
-                  value={activation.ACTIVATED}
-                  control={<Radio />}
-                  label="Active"
-                />
-                <FormControlLabel
-                  value={activation.DISABLED}
-                  control={<Radio />}
-                  label="Desactive"
-                />
+                {activation.map((item: IFilterItem) => (
+                  <FormControlLabel
+                    key={item.id}
+                    value={item.value}
+                    control={<Radio />}
+                    label={item.label}
+                  />
+                ))}
               </RadioGroup>
             </FormControl>
           </MenuItem>
           <MenuItem>
             <FormControl>
-              <FormLabel id="demo-radio-buttons-group-label">Role</FormLabel>
+              <FormLabel id="role">{t("label.ROLE")}</FormLabel>
               <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
                 name="radio-buttons-group"
                 onChange={handleChange("role")}
                 value={chipData.role}
               >
-                <FormControlLabel
-                  value={roles.ADMINISTRATOR}
-                  control={<Radio />}
-                  label="Admin"
-                />
-                <FormControlLabel
-                  value={roles.PHARMACY}
-                  control={<Radio />}
-                  label="Pharmacy"
-                />
-                <FormControlLabel
-                  value={roles.WHOLESALER}
-                  control={<Radio />}
-                  label="wholesale"
-                />
+                {roles.map((item: IFilterItem) => (
+                  <FormControlLabel
+                    key={item.id}
+                    value={item.value}
+                    control={<Radio />}
+                    label={item.label}
+                  />
+                ))}
               </RadioGroup>
             </FormControl>
           </MenuItem>

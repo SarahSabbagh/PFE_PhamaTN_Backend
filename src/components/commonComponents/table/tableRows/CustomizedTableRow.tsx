@@ -15,6 +15,7 @@ import {
   ActivationCell,
 } from "./customizedTableCell/CustomizedTableCell";
 import { ITableHead } from "../tableHead/TableHead.types";
+import { useTranslation } from "react-i18next";
 
 export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
   props
@@ -55,7 +56,7 @@ export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
               id={item.id}
             />
           )) ||
-          (col.label === "Action" && (
+          (col.label === "ACTIONS" && (
             <ActionsCell
               accessor={col.accessor}
               item={item}
@@ -80,13 +81,14 @@ export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
 };
 
 export const EmptyTableRow: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <TableBody>
       <TableRow>
         <TableCell align="center" colSpan={12}>
           <Stack direction="column" justifyContent="center" alignItems="center">
             <InboxIcon color="disabled" fontSize="large" />
-            <Typography>No data </Typography>
+            <Typography>{t("label.No_DATA_AVAILABLE")} </Typography>
           </Stack>
         </TableCell>
       </TableRow>

@@ -21,27 +21,14 @@ import {
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { defaultValues } from "../models/register/RegisterInitialValues";
 
 export type ISignUpRequest = TypeOf<typeof signUpSchema>;
 
 export const Register: FC = () => {
   const { t } = useTranslation();
   const VerificationLinkMessage = t("register.SENT_VERIFICATION_LINK");
-  const defaultValues: ISignUpRequest = {
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    pharmacyFirstName: "",
-    pharmacyLastName: "",
-    governorate: 0,
-    delegation: 0,
-    address: "",
-    role: "2",
-    type: "1",
-    fax: "",
-    phone: "",
-  };
+
   const [register, { isLoading }] = useRegisterMutation();
   const { data: governorates = [] } = useGovernoratesQuery();
   const methods = useForm<ISignUpRequest>({

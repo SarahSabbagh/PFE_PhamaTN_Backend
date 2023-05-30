@@ -19,7 +19,7 @@ import { medicationEditSchema } from "../../../../core/utils/validator/Medicatio
 export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
   const { id, handleClose, item, isLoading, dcis, forms, categories, marques } =
     props;
-
+  const { t } = useTranslation();
   const { addToast } = useToasts();
   const findId = (list: ISimpleElement[], item: string) => {
     const result = list.find((val) => val.name === item);
@@ -49,7 +49,7 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
       .unwrap()
       .then(() => {
         handleClose();
-        addToast("Saved Successfully", {
+        addToast(t("label.SAVED_SUCCESSFULLY"), {
           appearance: "success",
           key: "edit-medication",
         });
@@ -76,8 +76,8 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
               <Grid item xs={12} sm={6}>
                 <SelectField<ISimpleElement>
                   id="dci"
-                  label="DCI"
-                  placeholder="DCI"
+                  label={t("cells.DCI")}
+                  placeholder={t("cells.DCI")}
                   name="dci_id"
                   options={dcis}
                 />
@@ -85,8 +85,8 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
               <Grid item xs={12} sm={6}>
                 <SelectField<ISimpleElement>
                   id="marque"
-                  label="brand"
-                  placeholder="brand"
+                  label={t("cells.BRAND")}
+                  placeholder={t("cells.BRAND")}
                   name="marque_id"
                   options={marques}
                 />
@@ -94,8 +94,8 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
               <Grid item xs={12} sm={6}>
                 <SelectField<ISimpleElement>
                   id="form"
-                  label="form"
-                  placeholder="form"
+                  label={t("cells.FORM")}
+                  placeholder={t("cells.FORM")}
                   name="form_id"
                   options={forms}
                 />
@@ -103,8 +103,8 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
               <Grid item xs={12} sm={6}>
                 <SelectField<ISimpleElement>
                   id="category"
-                  label="category"
-                  placeholder="category"
+                  label={t("cells.CATEGORY")}
+                  placeholder={t("cells.CATEGORY")}
                   name="category_id"
                   options={categories}
                 />
@@ -112,24 +112,28 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
               <Grid item xs={12} sm={6}>
                 <FormInput
                   id="dosage"
-                  placeholder="dosage"
+                  placeholder={t("cells.DOSAGE")}
                   type="Text"
-                  label="dosage"
+                  label={t("cells.DOSAGE")}
                   name="dosage"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormInput
                   id="description"
-                  placeholder="description"
+                  placeholder={t("cells.DESCRIPTION")}
                   type="Text"
-                  label="description"
+                  label={t("cells.DESCRIPTION")}
                   name="description"
                 />
               </Grid>
               <Grid item xs={12} display="flex" justifyContent="center">
-                <CancelButton onClick={handleClose}>Cancel</CancelButton>
-                <ConfirmButtonStyled type="submit">Edit</ConfirmButtonStyled>
+                <CancelButton onClick={handleClose}>
+                  {t("label.CANCEL")}
+                </CancelButton>
+                <ConfirmButtonStyled type="submit">
+                  {t("label.EDIT")}
+                </ConfirmButtonStyled>
               </Grid>
             </Grid>
           )}

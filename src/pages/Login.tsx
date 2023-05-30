@@ -12,21 +12,23 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ButtonSignIn } from "../components/signInComponents/buttonSignIn/ButtonSignIn";
 import { useTranslation } from "react-i18next";
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { globalVariables } from "../core/constants/globalVariables";
-import { IErrorResponseLogin } from "../redux/api/types/ILoginRegister";
+import { paths } from "../core/constants/path";
+import { defaultValues } from "../models/login/LoginInitialValue";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/features/userSlice";
+import { ILoginResponse } from "../redux/api/types/ILoginRegister";
 
 export type ILoginRequest = TypeOf<typeof loginSchema>;
 
 export const SignIn: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const defaultValues: ILoginRequest = {
-    email: "",
-    password: "",
-  };
+  const dispatch = useDispatch();
+
   const methods = useForm<ILoginRequest>({
     resolver: zodResolver(loginSchema),
     defaultValues,
@@ -38,12 +40,13 @@ export const SignIn: FC = () => {
   const submitHandler: SubmitHandler<ILoginRequest> = (data) => {
     login(data)
       .unwrap()
-      .then((response) => {
+      .then((response:ILoginResponse) => {
+        dispatch(setUser(response.user));
         localStorage.setItem(globalVariables.TOKEN, response.access_token);
-        navigate("/", { replace: true });
+        navigate(paths.DASHBOARD, { replace: true });
       })
       .catch(() => {
-        toast.error(t("login.UNAUTHORIZED"), {
+        toast.error(t("errorMessages.UNAUTHORIZED"), {
           position: toast.POSITION.TOP_CENTER,
         });
       });

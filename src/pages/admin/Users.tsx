@@ -13,6 +13,7 @@ import {
 import { userColumns } from "../../core/constants/tableColumns/userColumns";
 import { IFilterRequest } from "../../redux/api/types/IResponseRequest";
 import useDebounce from "../../hooks/useDebounce";
+import { useTranslation } from "react-i18next";
 
 export interface IFilterData {
   role?: string;
@@ -20,6 +21,7 @@ export interface IFilterData {
   activationMode?: string;
 }
 export const UsersPage: FC = () => {
+  const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
@@ -79,7 +81,7 @@ export const UsersPage: FC = () => {
   };
 
   return (
-    <PageContainer title={"Users"}>
+    <PageContainer title={t("user.TITLE_PAGE_USER")}>
       <Grid>
         <TableFactory<IUser[]>
           columns={userColumns}
@@ -90,7 +92,7 @@ export const UsersPage: FC = () => {
             sortBy: sortBy,
           }}
           handleQueryChange={handleQueryChange}
-          title={"Users"}
+          title={t("user.TITLE_USER")}
           isLoading={isLoading}
           isFetching={isFetching}
           actions={{

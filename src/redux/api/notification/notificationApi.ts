@@ -19,7 +19,7 @@ export const notificationApi = createApi({
   tagTypes: ["Notification"],
 
   endpoints: (builder) => ({
-    newUserRegistered: builder.query<INotificationResponse[], number>({
+    Notifications: builder.query<INotificationResponse[], number>({
       query(id) {
         return {
           url: endpoints.NOTIFICATION_UNREAD_REGISTERED + "/" + id,
@@ -32,13 +32,13 @@ export const notificationApi = createApi({
     markAsRead: builder.mutation<IResponse, { userId: number; id?: string }>({
       query({ userId, id }) {
         return {
-          url: endpoints.MARK_AS_READ + "/" + userId,
+          url: `${endpoints.MARK_AS_READ}/${userId}`,
           method: "PUT",
+          params: { id },
         };
       },
       invalidatesTags: ["Notification"],
     }),
   }),
 });
-export const { useNewUserRegisteredQuery, useMarkAsReadMutation } =
-  notificationApi;
+export const { useNotificationsQuery, useMarkAsReadMutation } = notificationApi;

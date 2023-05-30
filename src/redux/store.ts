@@ -12,6 +12,7 @@ import { medicationApi } from "./api/admin/MedicationApi";
 import { lotApi } from "./api/lot/LotApi";
 import { notificationApi } from "./api/notification/notificationApi";
 import notificationSlice from "./features/notification";
+import userSlice from "./features/userSlice";
 
 export const store = configureStore({
   reducer: {
@@ -27,6 +28,7 @@ export const store = configureStore({
     [lotApi.reducerPath]: lotApi.reducer,
     [notificationApi.reducerPath]: notificationApi.reducer,
     notification: notificationSlice,
+    user: userSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({}).concat([

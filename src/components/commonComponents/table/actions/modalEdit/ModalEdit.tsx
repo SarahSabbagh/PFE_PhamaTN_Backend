@@ -7,11 +7,12 @@ import { EditMedication } from "../../../forms/editForm/EditMedication";
 import { useCategoriesQuery } from "../../../../../redux/api/admin/CategoryApi";
 import { useDcisQuery } from "../../../../../redux/api/dci/dciApi";
 import { useFormsQuery } from "../../../../../redux/api/admin/FormApi";
-import { ISimpleElement } from "../../../../../redux/api/types/IResponseRequest";
 import { useMarquesQuery } from "../../../../../redux/api/admin/MarqueApi";
 import { EditLot } from "../../../forms/editForm/EditLot";
+import { useTranslation } from "react-i18next";
 
 export const EditModal: React.FC<ModalEditProps> = (props) => {
+  const { t } = useTranslation();
   const { open, handleClose, formType, id, item, title } = props;
   const { data: dcis = [], isLoading: dcisLoading } = useDcisQuery();
   const { data: forms = [], isLoading: formsLoading } = useFormsQuery();
@@ -30,7 +31,7 @@ export const EditModal: React.FC<ModalEditProps> = (props) => {
       fullScreen={formType !== formTypes.EDIT_SIMPLE_ELEMENT_MODAL && isMobile}
     >
       <DialogTitle align="center" variant="h3" color="primary">
-        Edit {title}
+        {t("label.EDIT")} {title.toLowerCase()}
       </DialogTitle>
       {formType === formTypes.EDIT_MEDICATION_MODAL && (
         <EditMedication

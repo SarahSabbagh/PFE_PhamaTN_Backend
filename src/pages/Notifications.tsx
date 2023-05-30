@@ -19,49 +19,56 @@ import InboxIcon from "@mui/icons-material/Inbox";
 import {
   INotificationResponse,
   useMarkAsReadMutation,
-  useNewUserRegisteredQuery,
 } from "../redux/api/notification/notificationApi";
 import { StyledPaper } from "../components/commonComponents/customPaper/StyledPaper.style";
 import { StyledTitle } from "../components/commonComponents/table/tableToolBar/TableToolBar.style";
 import { Loader } from "../components/commonComponents/loader/Loader";
 import { DateFormatISO } from "../core/utils/DateFormat";
 import dayjs from "dayjs";
-import { useGetUserQuery } from "../redux/api/user/userApi";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { resetNotification } from "../redux/features/notification";
+import {
+  decrementNotificationCount,
+  resetNotificationCount,
+} from "../redux/features/notification";
+import { IUser } from "../redux/api/types/IUser";
 
 export const Notifications: FC = () => {
   const dispatch = useDispatch();
-  const { data: user } = useGetUserQuery();
-  const { data, isSuccess, isLoading } = useNewUserRegisteredQuery(
-    user?.id ?? 0
+  const notifications: INotificationResponse[] = useSelector(
+    (state: RootState) => state.notification.notifications!
   );
-  const [markAsRead] = useMarkAsReadMutation();
+  const user: IUser = useSelector((state: RootState) => state.user.user!);
+  const [markAsRead, { isSuccess: isSuccessMarkAsRead }] =
+    useMarkAsReadMutation();
 
-  const handleunreadNotification = (id: string | undefined) => {
+  // const [notifications, setNotifications] =
+  //   useState<INotificationResponse[]>(unreadNotification);
+  //  console.log("notifications", notifications);
+
+  //const { data: user } = useGetUserQuery();
+
+  const handleMarkAsReadNotification = (id: string | undefined) => {
     user && markAsRead({ userId: user.id, id }).unwrap();
+    if (isSuccessMarkAsRead) {
+      id
+        ? dispatch(decrementNotificationCount)
+        : dispatch(resetNotificationCount);
+    }
   };
 
-  const [notifications, setNotifications] = useState<INotificationResponse[]>(
-    []
-  );
-  const newNotification: INotificationResponse | null = useSelector(
-    (state: RootState) => state.notification.notification
-  );
-  useEffect(() => {
-    if (isSuccess) {
-      setNotifications(data);
-    }
-  }, [isSuccess]);
-  useEffect(() => {
-    newNotification &&
-      setNotifications((prevNotifications) => [
-        ...prevNotifications,
-        newNotification,
-      ]);
-    dispatch(resetNotification());
-  }, [newNotification]);
+  // const newNotification: INotificationResponse | null = useSelector(
+  //   (state: RootState) => state.notification.newNotification
+  // );
+
+  // useEffect(() => {
+  //   newNotification &&
+  //     setNotifications((prevNotifications) => [
+  //       ...prevNotifications,
+  //       newNotification,
+  //     ]);
+  //   dispatch(resetNotification());
+  // }, [newNotification]);
 
   return (
     <PageContainer title="Notifications">
@@ -75,18 +82,16 @@ export const Notifications: FC = () => {
           <StyledTitle>Notification</StyledTitle>
           <Button
             variant="text"
-            onClick={() => handleunreadNotification(undefined)}
+            onClick={() => handleMarkAsReadNotification(undefined)}
             startIcon={<DoneAllIcon />}
           >
             Mark all as read
           </Button>
         </Grid>
         <Divider />
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <List>
-            {notifications ? (
+        <List>
+          {notifications ? (
+            notifications.length > 0 ? (
               notifications.map((item: INotificationResponse) => (
                 <>
                   <ListItem key={item.id} alignItems="flex-start">
@@ -116,7 +121,7 @@ export const Notifications: FC = () => {
                     />
                     <Button
                       variant="text"
-                      onClick={() => handleunreadNotification(item.id)}
+                      onClick={() => handleMarkAsReadNotification(item.id)}
                       startIcon={<DoneIcon />}
                     >
                       Mark as read
@@ -134,9 +139,11 @@ export const Notifications: FC = () => {
                 <InboxIcon color="disabled" fontSize="large" />
                 <Typography>No notification </Typography>
               </Stack>
-            )}
-          </List>
-        )}
+            )
+          ) : (
+            <Loader />
+          )}
+        </List>
       </StyledPaper>
     </PageContainer>
   );

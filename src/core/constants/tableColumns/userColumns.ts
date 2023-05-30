@@ -1,16 +1,19 @@
 import { ITableHead } from "../../../components/commonComponents/table/tableHead/TableHead.types";
 
 export const userColumns: ITableHead[] = [
-  // { label: "ID", accessor: "id", sortable: true },
-  { label: "Name", accessor: "name", sortable: true },
-  { label: "Email", accessor: "email", sortable: true },
-  { label: "Role", accessor: "role" },
+  { label: "NAME", accessor: "name", sortable: true },
+  { label: "EMAIL", accessor: "email", sortable: true },
+  { label: "ROLE", accessor: "role" },
   //  { label: "Governorate", accessor: "governorate" },
   // { label: "Delegation", accessor: "delegation" },
-  { label: "First Name", accessor: "pharmacyFirstName", sortable: true },
-  { label: "Last Name", accessor: "pharmacyLastName", sortable: true },
-  { label: "Address", accessor: "address", sortable: true },
-  { label: "Status", accessor: "status", isSticky: true, stickyIndex: 2 },
-  { label: "Mode", accessor: "active", isSticky: true, stickyIndex: 1 },
-  { label: "Action", accessor: "", isSticky: true, stickyIndex: 0 },
+  {
+    label: "PHARMACY_FIRST_NAME",
+    accessor: "pharmacyFirstName",
+    sortable: true,
+  },
+  { label: "PHARMACY_LAST_NAME", accessor: "pharmacyLastName", sortable: true },
+  { label: "ADDRESS", accessor: "address", sortable: true },
+  { label: "STATUS", accessor: "status", isSticky: true, stickyIndex: 2 },
+  { label: "MODE", accessor: "active", isSticky: true, stickyIndex: 1 },
+  { label: "ACTIONS", accessor: "", isSticky: true, stickyIndex: 0 },
 ];

@@ -1,14 +1,13 @@
 import { ITableHead } from "../../../components/commonComponents/table/tableHead/TableHead.types";
 
 export const lotColumns: ITableHead[] = [
-  // { label: "ID", accessor: "id", sortable: true },
-  { label: "Code Lot", accessor: "codeLot", sortable: true },
-  { label: "Medication", accessor: "medicationName", sortable: true },
-  { label: "Dosage", accessor: "medicationDosage", sortable: true },
-  { label: "Form", accessor: "medicationForm", sortable: true },
-  { label: "Manufacture Date", accessor: "manufactureDate", sortable: true },
-  { label: "Expiration Date", accessor: "expirationDate", sortable: true },
-  { label: "Unit Price", accessor: "unitPrice", sortable: true },
-  { label: "Public Price", accessor: "publicPrice", sortable: true },
-  { label: "Action", accessor: "" },
+  { label: "LOT_NUMBER", accessor: "codeLot", sortable: true },
+  { label: "MEDICATION", accessor: "medicationName", sortable: true },
+  { label: "DOSAGE", accessor: "medicationDosage", sortable: true },
+  { label: "FORM", accessor: "medicationForm", sortable: true },
+  { label: "MANUFACTURE_DATE", accessor: "manufactureDate", sortable: true },
+  { label: "EXPIRATION_DATE", accessor: "expirationDate", sortable: true },
+  { label: "UNIT_PRICE", accessor: "unitPrice", sortable: true },
+  { label: "PUBLIC_PRICE", accessor: "publicPrice", sortable: true },
+  { label: "ACTIONS", accessor: "" },
 ];

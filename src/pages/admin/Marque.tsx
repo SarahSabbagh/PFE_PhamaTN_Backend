@@ -11,8 +11,10 @@ import {
   useMarquesFilterQuery,
 } from "../../redux/api/admin/MarqueApi";
 import useDebounce from "../../hooks/useDebounce";
+import { useTranslation } from "react-i18next";
 
 export const MarquesPage: FC = () => {
+  const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
@@ -64,7 +66,7 @@ export const MarquesPage: FC = () => {
   };
 
   return (
-    <PageContainer title={"Marques"}>
+    <PageContainer title={t("brand.TITLE_PAGE_BRAND")}>
       <Grid>
         <TableFactory<ISimpleElement[]>
           columns={dciColumns}
@@ -75,7 +77,7 @@ export const MarquesPage: FC = () => {
             sortBy: sortBy,
           }}
           handleQueryChange={handleQueryChange}
-          title={"Marques"}
+          title={t("brand.TITLE_BRAND")}
           isLoading={isLoading}
           isFetching={isFetching}
           actions={{

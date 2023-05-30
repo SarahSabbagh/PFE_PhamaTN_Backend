@@ -18,6 +18,7 @@ import { lotSchema } from "../../../../core/utils/validator/LotValidator";
 export type ILotEditRequest = TypeOf<typeof lotSchema>;
 
 export const EditLot: React.FC<FormEditLotProps> = (props) => {
+  const { t } = useTranslation();
   const { handleClose, defaultValues, id } = props;
   const { addToast } = useToasts();
   const methods = useForm<ItransformedLotData>({
@@ -73,18 +74,18 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
             <Grid item xs={12} sm={6}>
               <FormInput
                 id="codeLot"
-                placeholder="CodeLot"
+                placeholder={t("cells.LOT_NUMBER")}
                 type="text"
-                label="Code lot"
+                label={t("cells.LOT_NUMBER")}
                 name="codeLot"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormInput
                 id="medicationName"
-                placeholder="Medication"
+                placeholder={t("cells.MEDICATION")}
                 type="text"
-                label="Medication"
+                label={t("cells.MEDICATION")}
                 name="medicationName"
                 readOnly
               />
@@ -92,9 +93,9 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
             <Grid item xs={12} sm={6}>
               <FormInput
                 id="Form"
-                placeholder="Form"
+                placeholder={t("cells.FORM")}
                 type="text"
-                label="Form"
+                label={t("cells.FORM")}
                 name="medicationForm"
                 readOnly
               />
@@ -102,9 +103,9 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
             <Grid item xs={12} sm={6}>
               <FormInput
                 id="Dosage"
-                placeholder="Dosage"
+                placeholder={t("cells.DOSAGE")}
                 type="text"
-                label="Dosage"
+                label={t("cells.DOSAGE")}
                 name="medicationDosage"
                 readOnly
               />
@@ -112,18 +113,18 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
             <Grid item xs={12} sm={6}>
               <FormInput
                 id="unitPrice"
-                placeholder="Init Price"
+                placeholder={t("cells.UNIT_PRICE")}
                 type="number"
-                label="Unit price"
+                label={t("cells.UNIT_PRICE")}
                 name="unitPrice"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormInput
                 id="publicPrice"
-                placeholder="Public Price"
+                placeholder={t("cells.PUBLIC_PRICE")}
                 type="number"
-                label="Public price"
+                label={t("cells.PUBLIC_PRICE")}
                 name="publicPrice"
               />
             </Grid>
@@ -131,20 +132,24 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
               <CustomDatePicker
                 disableFuture
                 id="manufactureDate"
-                label="Manufacture date"
+                label={t("cells.MANUFACTURE_DATE")}
                 name="manufactureDate"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <CustomDatePicker
                 id="expirationDate"
-                label="Expiration date"
+                label={t("cells.EXPIRATION_DATE")}
                 name="expirationDate"
               />
             </Grid>
             <Grid item xs={12} display="flex" justifyContent="center">
-              <CancelButton onClick={handleClose}>Cancel</CancelButton>
-              <ConfirmButtonStyled type="submit">Edit</ConfirmButtonStyled>
+              <CancelButton onClick={handleClose}>
+                {t("label.CANCEL")}
+              </CancelButton>
+              <ConfirmButtonStyled type="submit">
+                {t("label.EDIT")}
+              </ConfirmButtonStyled>
             </Grid>
           </Grid>
         </Box>
