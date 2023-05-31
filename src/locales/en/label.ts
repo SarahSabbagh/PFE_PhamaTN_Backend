@@ -31,4 +31,6 @@ export const label = {
   BACK: "Back",
   ADD_LOT:"Add lot",
   SAVED_SUCCESSFULLY: "Saved Successfully",
+  FRENCH:"French",
+  ENGLISH:"English"
 };

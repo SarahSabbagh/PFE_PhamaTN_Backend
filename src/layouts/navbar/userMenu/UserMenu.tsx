@@ -55,7 +55,6 @@ export const UserMenu: React.FC<NavbarProps> = (props) => {
         id="account-menu"
         open={Boolean(anchorEl)}
         onClose={handleClose}
-        keepMounted
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >

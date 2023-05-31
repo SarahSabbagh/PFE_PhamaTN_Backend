@@ -92,7 +92,7 @@ export const Notifications: FC = () => {
         <List>
           {notifications ? (
             notifications.length > 0 ? (
-              notifications.map((item: INotificationResponse) => (
+              notifications.map((item: INotificationResponse, index) => (
                 <>
                   <ListItem key={item.id} alignItems="flex-start">
                     <ListItemAvatar>
@@ -127,7 +127,7 @@ export const Notifications: FC = () => {
                       Mark as read
                     </Button>
                   </ListItem>
-                  <Divider />
+                  <Divider key={index} />
                 </>
               ))
             ) : (

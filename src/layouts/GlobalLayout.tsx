@@ -10,12 +10,9 @@ import { useDispatch } from "react-redux";
 import { setNotifications } from "../redux/features/notification";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 import { setUser } from "../redux/features/userSlice";
+import { Outlet } from "react-router-dom";
 
-interface ILayout {
-  children: JSX.Element;
-}
-
-export const Layout: React.FC<ILayout> = (prop) => {
+export const Layout: React.FC = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const { data: user, isSuccess: isSuccessUser } = useGetUserQuery();
@@ -30,8 +27,8 @@ export const Layout: React.FC<ILayout> = (prop) => {
       dispatch(setUser(user));
     }
   }, [user]);
+  useSocket(user?.id);
 
-  useSocket("notification");
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -55,17 +52,17 @@ export const Layout: React.FC<ILayout> = (prop) => {
           />
         </Grid>
         <Grid item xs>
-          {prop.children}
+          <Outlet />
         </Grid>
       </Grid>
     </Grid>
   );
 };
-export const LayoutLogin: React.FC<ILayout> = (prop) => {
+export const LayoutLogin: React.FC = () => {
   return (
     <Grid>
       <ResponsiveAppBar />
-      {prop.children}
+      <Outlet />
       <Footer />
     </Grid>
   );

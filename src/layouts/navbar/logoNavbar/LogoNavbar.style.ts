@@ -13,13 +13,13 @@ export const StyledGrid = styled(Grid)<GridProps>(() => ({
   alignItems: "center",
 }));
 export const StyledTypography = styled(Link)<LinkProps & StyledLogoNavbarProps>(
-  ({ isNotAuthenticated, theme }) => ({
+  ({ isnotauthenticated, theme }) => ({
     [theme.breakpoints.up("md")]: {
-      display: isNotAuthenticated ? "flex" : "none",
+      display: isnotauthenticated ? "flex" : "none",
     },
 
     [theme.breakpoints.down("md")]: {
-      display: isNotAuthenticated ? "none" : "flex",
+      display: isnotauthenticated ? "none" : "flex",
     },
     marginRight: "0.125rem",
     fontWeight: "bold",
@@ -30,9 +30,9 @@ export const StyledTypography = styled(Link)<LinkProps & StyledLogoNavbarProps>(
   })
 );
 export const StyledGridLogo = styled(Grid)<GridProps & StyledLogoNavbarProps>(
-  ({ isNotAuthenticated, theme }) => ({
+  ({ isnotauthenticated, theme }) => ({
     [theme.breakpoints.down("md")]: {
-      display: isNotAuthenticated ? "none" : "flex",
+      display: isnotauthenticated ? "none" : "flex",
     },
   })
 );

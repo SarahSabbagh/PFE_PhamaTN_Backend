@@ -3,15 +3,13 @@ import { Link, LinkProps } from "react-router-dom";
 import { NavbarMenuProps } from "./NavbarMenu.types";
 
 export const StyledBox = styled(Box)<BoxProps & NavbarMenuProps>(
-  ({ isAuthenticated, theme }) => ({
+  ({ isauthenticated, theme }) => ({
     [theme.breakpoints.up("md")]: {
       display: "flex",
     },
     [theme.breakpoints.down("md")]: {
-      display: isAuthenticated ? "flex" : "none",
+      display: isauthenticated ? "flex" : "none",
     },
-    flexGrow: 1,
-    flexDirection: "row-reverse",
   })
 );
 export const StyledButton = styled(Button)<ButtonProps>(() => ({

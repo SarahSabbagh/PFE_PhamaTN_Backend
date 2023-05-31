@@ -40,7 +40,7 @@ export const SignIn: FC = () => {
   const submitHandler: SubmitHandler<ILoginRequest> = (data) => {
     login(data)
       .unwrap()
-      .then((response:ILoginResponse) => {
+      .then((response: ILoginResponse) => {
         dispatch(setUser(response.user));
         localStorage.setItem(globalVariables.TOKEN, response.access_token);
         navigate(paths.DASHBOARD, { replace: true });

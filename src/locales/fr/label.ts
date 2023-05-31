@@ -32,4 +32,6 @@ export const label = {
   BACK: "Retour",
   ADD_LOT: "Ajouter un lot",
   SAVED_SUCCESSFULLY: "Enregistré avec succès",
+  FRENCH: "Français",
+  ENGLISH: "Anglais",
 };

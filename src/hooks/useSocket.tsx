@@ -2,12 +2,9 @@ import { useEffect } from "react";
 import { echo } from "../core/utils/socketService";
 import { INotificationResponse } from "../redux/api/notification/notificationApi";
 import { useDispatch } from "react-redux";
-import {
-  incrementNotificationCount,
-  setNotification,
-} from "../redux/features/notification";
+import { setNotification } from "../redux/features/notification";
 
-export const useSocket = (type: string) => {
+export const useSocket = (id?: number) => {
   const dispatch = useDispatch();
   const addNotification = (data: any) => {
     const newNotification: INotificationResponse = {
@@ -15,17 +12,18 @@ export const useSocket = (type: string) => {
       data: data?.data,
       created_at: data?.created_at,
     };
-    //   dispatch(incrementNotificationCount());
     dispatch(setNotification(newNotification));
     console.log(newNotification);
   };
   useEffect(() => {
-    const channel = echo.channel("newUserRegistered-channel");
-    if (type === "notification") {
+    if (id) {
+      const channel = echo.private(`user${id}-channel`);
       channel.notification(addNotification);
+      //channel.listen(".user1Event", addNotification);
+
+      return () => {
+        echo.leave(`user${id}-channel`);
+      };
     }
-    return () => {
-      echo.leave("newUserRegistered-channel");
-    };
   });
 };

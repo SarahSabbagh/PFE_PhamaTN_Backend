@@ -10,14 +10,14 @@ import { StyledLogoNavbarProps } from "./LogoNavbar.types";
 import { Grid } from "@mui/material";
 
 export const LogoNavbar: React.FC<StyledLogoNavbarProps> = (props) => {
-  const { isNotAuthenticated } = props;
+  const { isnotauthenticated } = props;
   return (
     <StyledGrid item container xs="auto">
-      <StyledGridLogo isNotAuthenticated={!isNotAuthenticated} item>
+      <StyledGridLogo isnotauthenticated={!isnotauthenticated} item>
         <StyledLogo src={logoPharmaTn} alt="logo PharmaTN" />
       </StyledGridLogo>
       <Grid item>
-        <StyledTypography isNotAuthenticated to="/">
+        <StyledTypography isnotauthenticated={true} to="/">
           PHARMATN
         </StyledTypography>
       </Grid>

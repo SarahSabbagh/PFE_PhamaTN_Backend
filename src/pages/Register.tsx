@@ -22,6 +22,7 @@ import { PageContainer } from "../components/commonComponents/PageContainer/Page
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { defaultValues } from "../models/register/RegisterInitialValues";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
 
 export type ISignUpRequest = TypeOf<typeof signUpSchema>;
 
@@ -42,7 +43,9 @@ export const Register: FC = () => {
     resetField("delegation");
   }, [watch("governorate")]);
 
-  const { data: delagations = [] } = useDelegationsQuery(watch("governorate"));
+  const { data: delagations = [] } = useDelegationsQuery(
+    watch("governorate") === 0 ? skipToken : watch("governorate")
+  );
 
   const submitHandler: SubmitHandler<ISignUpRequest> = async (data) => {
     const { confirmPassword, ...rest } = data;
