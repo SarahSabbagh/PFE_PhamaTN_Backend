@@ -9,5 +9,10 @@ export const errorMessage = {
   max_60_CHARACTERS: "Max 60 caractères",
   min_3_CHARACTERS: "Min 3 caractères",
   INVALID: "Champ invalid",
-  INVALID_DATES: "The manufacture date must be before the expiration date",
+  PUBLIC_PRICE_less_THAN_UNIT_PRICE:
+    "The public price  must be greater than unit price",
+  MANUFACTURE_DATE_AFTER_EXPIRATION:
+    "The manufacture date must be before the expiration date",
+  EXPIRATION_DATE_BEFORE_MANUFACTURE:
+    "The expiration  date must be after the manufacture date",
 };

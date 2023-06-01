@@ -1,11 +1,14 @@
 import * as React from "react";
-import { DeepPartial, Resolver, SubmitHandler } from "react-hook-form";
+import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
 
-export interface FormAddProps<FormValues extends Record<string, any>> {
+export interface FormAddProps {
   handleClose?: () => void;
-  defaultAddValues?: DeepPartial<FormValues>;
-  addResolver?: Resolver<FormValues>;
-  onSubmitAdd: SubmitHandler<FormValues>;
-  isLoadingAddForm?: boolean;
-  isSuccessAddForm?: boolean;
+  title: string;
+}
+export interface FormAddLotProps {
+  handleClose?: () => void;
+  marques: ISimpleElement[];
+  categories: ISimpleElement[];
+  forms: ISimpleElement[];
+  isLoading: boolean;
 }

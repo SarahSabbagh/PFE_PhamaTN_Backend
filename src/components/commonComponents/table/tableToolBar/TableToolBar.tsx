@@ -6,11 +6,7 @@ import { TableToolBarProps } from "./TableToolBar.types";
 import { StyledTitle } from "./TableToolBar.style";
 import { AddElement } from "./addElement/AddElement";
 
-export const CustomizedTableToolBar = <
-  FormAddValues extends Record<string, any>
->(
-  props: React.PropsWithChildren<TableToolBarProps<FormAddValues>>
-) => {
+export const CustomizedTableToolBar: React.FC<TableToolBarProps> = (props) => {
   const { filter, handleModal, add, title, handleQueryChange } = props;
 
   return (

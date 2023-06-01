@@ -10,5 +10,7 @@ export const prepareHeaders = (headers: Headers) => {
   if (token !== null) {
     headers.set(globalVariables.AUTHORIZATION_KEY, `Bearer ${token}`);
   }
+  headers.set("Accept", "application/json");
+
   return headers;
 };

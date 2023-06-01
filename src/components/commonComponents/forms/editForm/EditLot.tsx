@@ -8,14 +8,13 @@ import { CancelButton } from "../formButton/CancelButton.styles";
 import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
 import { FormEditLotProps } from "./EditForm.types";
 import { TypeOf } from "zod";
-import { lotSchema } from "../../../../core/utils/validator";
 import { useToasts } from "react-toast-notifications";
 import { useUpdateLotMutation } from "../../../../redux/api/lot/LotApi";
 import { ItransformedLotData } from "../../../../redux/api/types/ILot";
 import { CustomDatePicker } from "../../customDatePicker/CustomDatePicker";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import dayjs from "dayjs";
+import { lotSchema } from "../../../../core/utils/validator/LotValidator";
 export type ILotEditRequest = TypeOf<typeof lotSchema>;
 
 export const EditLot: React.FC<FormEditLotProps> = (props) => {
@@ -26,7 +25,7 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
     defaultValues: defaultValues,
     mode: "onChange",
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, setError } = methods;
   const [updateLot] = useUpdateLotMutation();
   const onSubmit: SubmitHandler<ItransformedLotData> = async (data) => {
     const {
@@ -42,8 +41,8 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
       id: id,
       publicPrice: publicPrice,
       unitPrice: unitPrice,
-      manufactureDate: manufactureDate,
-      expirationDate: expirationDate,
+      manufactureDate: dayjs(manufactureDate),
+      expirationDate: dayjs(expirationDate),
       codeLot: codeLot,
       medication_id: medicationId,
     })
@@ -54,6 +53,16 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
           appearance: "success",
           key: "edit-lot",
         });
+      })
+      .catch((error: any) => {
+        for (const key of Object.keys(data)) {
+          if (error.data.errors[key]) {
+            setError(key as keyof typeof data, {
+              type: "server",
+              message: error.data.errors[key][0],
+            });
+          }
+        }
       });
   };
   return (

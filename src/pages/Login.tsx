@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 import { useLoginMutation } from "../redux/api/auth/authApi";
 import { FormInput } from "../components/commonComponents/InputField/formInput/FormInput";
 import { TypeOf } from "zod";
-import { loginSchema } from "../core/utils/validator";
+import { loginSchema } from "../core/utils/validator/AuthValidator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ButtonSignIn } from "../components/signInComponents/buttonSignIn/ButtonSignIn";
 import { useTranslation } from "react-i18next";
@@ -50,7 +50,7 @@ export const SignIn: FC = () => {
   };
 
   return (
-    <PageContainer background title={t("login.TITLE_PAGE_SIGN_IN")}>
+    <PageContainer background={true} title={t("login.TITLE_PAGE_SIGN_IN")}>
       <Grid>
         <FormProvider {...methods}>
           <ToastContainer />

@@ -7,16 +7,10 @@ import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
 import {
-  useAddCategoryMutation,
   useCategoriesFilterQuery,
   useDeleteCategoryMutation,
 } from "../../redux/api/admin/CategoryApi";
-import { TypeOf } from "zod";
-import { simpleElementSchema } from "../../core/utils/validator";
-import { SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-type IDciRequest = TypeOf<typeof simpleElementSchema>;
+import useDebounce from "../../hooks/useDebounce";
 
 export const CategoriesPage: FC = () => {
   const [page, setPage] = React.useState(0);
@@ -25,16 +19,16 @@ export const CategoriesPage: FC = () => {
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
+  const debouncedSearchTerm = useDebounce<string>(query, 500);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
   const { data, isLoading, isFetching } = useCategoriesFilterQuery({
-    ...(query && { search: query }),
+    ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
       page: page + 1,
@@ -42,28 +36,14 @@ export const CategoriesPage: FC = () => {
       sortOrder: sortOrder,
     },
   });
-  const [addCategory, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
-    useAddCategoryMutation();
 
-  const submitHandlerAdd: SubmitHandler<IDciRequest> = (data) => {
-    addCategory(data.name)
-      .unwrap()
-      .then(() => {
-        handleClose();
-      });
-  };
   const [deleteCategory] = useDeleteCategoryMutation();
-
   const handleCategoryDelete = (id: number) => {
     deleteCategory(id).unwrap();
   };
-
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTimeout(() => {
-      setQuery(event.target.value.trim());
-    }, 1000);
+    setQuery(event.target.value.trim());
   };
-
   const onRequestSort = (
     event: React.MouseEvent<unknown>,
     newSortBy: string
@@ -72,11 +52,9 @@ export const CategoriesPage: FC = () => {
     setSortBy(newSortBy);
     setSortOrder(newSortOrder);
   };
-
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -87,7 +65,7 @@ export const CategoriesPage: FC = () => {
   return (
     <PageContainer title={"Category"}>
       <Grid>
-        <TableFactory<ISimpleElement[], IDciRequest>
+        <TableFactory<ISimpleElement[]>
           columns={dciColumns}
           data={data?.data}
           sort={{
@@ -103,11 +81,6 @@ export const CategoriesPage: FC = () => {
             add: {
               add: true,
               addFormType: formTypes.ADD_SIMPLE_ELEMENT_MODAL,
-              defaultAddValues: { name: "" },
-              addResolver: zodResolver(simpleElementSchema),
-              onSubmitAdd: submitHandlerAdd,
-              isLoadingAddForm: addIsLoading,
-              isSuccessAddForm: isSuccessAdd,
             },
             edit: {
               edit: true,

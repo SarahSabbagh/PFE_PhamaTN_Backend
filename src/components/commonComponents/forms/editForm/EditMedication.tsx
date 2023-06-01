@@ -9,14 +9,12 @@ import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
 import { SelectField } from "../../InputField/selectInput/SelectField";
 import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
 import { FormEditMedicationProps } from "./EditForm.types";
-import { TypeOf } from "zod";
-import { medicationEditSchema } from "../../../../core/utils/validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUpdateMedicationMutation } from "../../../../redux/api/admin/MedicationApi";
 import { useToasts } from "react-toast-notifications";
 import { Loader } from "../../loader/Loader";
-
-export type IMedicationEditRequest = TypeOf<typeof medicationEditSchema>;
+import { IMedicationEditRequest } from "../../../../redux/api/types/IMedication";
+import { medicationEditSchema } from "../../../../core/utils/validator/MedicationValidator";
 
 export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
   const { id, handleClose, item, isLoading, dcis, forms, categories, marques } =
@@ -41,7 +39,7 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
     },
     mode: "onChange",
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, setError } = methods;
 
   const [updateMedication] = useUpdateMedicationMutation();
 
@@ -55,6 +53,16 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
           appearance: "success",
           key: "edit-medication",
         });
+      })
+      .catch((error: any) => {
+        for (const key of Object.keys(data)) {
+          if (error.data.errors[key]) {
+            setError(key as keyof typeof data, {
+              type: "server",
+              message: error.data.errors[key][0],
+            });
+          }
+        }
       });
   };
   return (

@@ -7,16 +7,10 @@ import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
 import {
-  useAddMarqueMutation,
   useDeleteMarqueMutation,
   useMarquesFilterQuery,
 } from "../../redux/api/admin/MarqueApi";
-import { TypeOf } from "zod";
-import { simpleElementSchema } from "../../core/utils/validator";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler } from "react-hook-form";
-
-type IDciRequest = TypeOf<typeof simpleElementSchema>;
+import useDebounce from "../../hooks/useDebounce";
 
 export const MarquesPage: FC = () => {
   const [page, setPage] = React.useState(0);
@@ -25,16 +19,16 @@ export const MarquesPage: FC = () => {
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
+  const debouncedSearchTerm = useDebounce<string>(query, 500);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
   const { data, isLoading, isFetching } = useMarquesFilterQuery({
-    ...(query && { search: query }),
+    ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
       page: page + 1,
@@ -42,27 +36,15 @@ export const MarquesPage: FC = () => {
       sortOrder: sortOrder,
     },
   });
-  const [addMarque, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
-    useAddMarqueMutation();
 
   const [deleteMarque] = useDeleteMarqueMutation();
-
   const handleMarqueDelete = (id: number) => {
     deleteMarque(id).unwrap();
   };
-  const submitHandlerAdd: SubmitHandler<IDciRequest> = (data) => {
-    addMarque(data.name)
-      .unwrap()
-      .then(() => {
-        handleClose();
-      });
-  };
-  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTimeout(() => {
-      setQuery(event.target.value.trim());
-    }, 1000);
-  };
 
+  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value.trim());
+  };
   const onRequestSort = (
     event: React.MouseEvent<unknown>,
     newSortBy: string
@@ -71,11 +53,9 @@ export const MarquesPage: FC = () => {
     setSortBy(newSortBy);
     setSortOrder(newSortOrder);
   };
-
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -86,7 +66,7 @@ export const MarquesPage: FC = () => {
   return (
     <PageContainer title={"Marques"}>
       <Grid>
-        <TableFactory<ISimpleElement[], IDciRequest>
+        <TableFactory<ISimpleElement[]>
           columns={dciColumns}
           data={data?.data}
           sort={{
@@ -102,11 +82,6 @@ export const MarquesPage: FC = () => {
             add: {
               add: true,
               addFormType: formTypes.ADD_SIMPLE_ELEMENT_MODAL,
-              defaultAddValues: { name: "" },
-              addResolver: zodResolver(simpleElementSchema),
-              onSubmitAdd: submitHandlerAdd,
-              isLoadingAddForm: addIsLoading,
-              isSuccessAddForm: isSuccessAdd,
             },
             edit: {
               edit: true,

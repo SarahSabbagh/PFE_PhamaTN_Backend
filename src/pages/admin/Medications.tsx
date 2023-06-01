@@ -4,23 +4,13 @@ import { Grid } from "@mui/material";
 import { PageContainer } from "../../components/commonComponents/PageContainer/PageContainer";
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
 import { formTypes } from "../../core/constants/formType";
-import { TypeOf } from "zod";
-import {
-  medicationEditSchema,
-  medicationSchema,
-} from "../../core/utils/validator";
-import { SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { medicationColumns } from "../../core/constants/tableColumns/medicationColumns";
 import {
-  useAddMedicationMutation,
   useDeleteMedicationMutation,
   useMedicationsFilterQuery,
 } from "../../redux/api/admin/MedicationApi";
 import { IMedicationElement } from "../../redux/api/types/IMedication";
-
-type IMedicationRequest = TypeOf<typeof medicationSchema>;
-export type IMedicationEditRequest = TypeOf<typeof medicationEditSchema>;
+import useDebounce from "../../hooks/useDebounce";
 
 export const MedicationsPage: FC = () => {
   const [page, setPage] = React.useState(0);
@@ -29,15 +19,16 @@ export const MedicationsPage: FC = () => {
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
+  const debouncedSearchTerm = useDebounce<string>(query, 500);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
-
   const { data, isLoading, isFetching } = useMedicationsFilterQuery({
-    ...(query && { search: query }),
+    ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
       page: page + 1,
@@ -46,26 +37,14 @@ export const MedicationsPage: FC = () => {
     },
   });
   const [deleteMedication] = useDeleteMedicationMutation();
-  const [addMedication, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
-    useAddMedicationMutation();
 
   const handleMedicationDelete = (id: number) => {
     deleteMedication(id).unwrap();
   };
 
-  const submitHandlerAdd: SubmitHandler<IMedicationRequest> = (data) => {
-    addMedication(data)
-      .unwrap()
-      .then(() => {
-        handleClose();
-      });
-  };
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTimeout(() => {
-      setQuery(event.target.value.trim());
-    }, 1000);
+    setQuery(event.target.value.trim());
   };
-
   const onRequestSort = (
     event: React.MouseEvent<unknown>,
     newSortBy: string
@@ -74,11 +53,9 @@ export const MedicationsPage: FC = () => {
     setSortBy(newSortBy);
     setSortOrder(newSortOrder);
   };
-
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -89,7 +66,7 @@ export const MedicationsPage: FC = () => {
   return (
     <PageContainer title={"Medication"}>
       <Grid>
-        <TableFactory<IMedicationElement[], IMedicationRequest>
+        <TableFactory<IMedicationElement[]>
           columns={medicationColumns}
           data={data?.data}
           sort={{
@@ -105,18 +82,6 @@ export const MedicationsPage: FC = () => {
             add: {
               add: true,
               addFormType: formTypes.ADD_MEDICATION_MODAL,
-              defaultAddValues: {
-                dci_id: 0,
-                marque_id: 0,
-                form_id: 0,
-                category_id: 0,
-                dosage: "",
-                description: "",
-              },
-              addResolver: zodResolver(medicationSchema),
-              onSubmitAdd: submitHandlerAdd,
-              isLoadingAddForm: addIsLoading,
-              isSuccessAddForm: isSuccessAdd,
             },
             edit: {
               edit: true,

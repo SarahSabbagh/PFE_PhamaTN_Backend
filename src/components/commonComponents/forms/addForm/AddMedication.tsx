@@ -1,7 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { DialogContent, DialogTitle, Grid } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
+import { DialogContent, Grid } from "@mui/material";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { FormInput } from "../../InputField/formInput/FormInput";
 import { CancelButton } from "../formButton/CancelButton.styles";
@@ -13,33 +13,45 @@ import { useFormsQuery } from "../../../../redux/api/admin/FormApi";
 import { useMarquesQuery } from "../../../../redux/api/admin/MarqueApi";
 import { useCategoriesQuery } from "../../../../redux/api/admin/CategoryApi";
 import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { medicationSchema } from "../../../../core/utils/validator/MedicationValidator";
+import { TypeOf } from "zod";
+import { useAddMedicationMutation } from "../../../../redux/api/admin/MedicationApi";
 
-export const AddMedication = <FormValues extends Record<string, any>>(
-  props: React.PropsWithChildren<FormAddProps<FormValues>>
-) => {
-  const {
-    addResolver,
-    onSubmitAdd,
-    handleClose,
-    defaultAddValues,
-    isSuccessAddForm,
-  } = props;
+type IMedicationRequest = TypeOf<typeof medicationSchema>;
+
+export const AddMedication: React.FC<FormAddProps> = (props) => {
+  const { handleClose } = props;
   const { data: dcis = [] } = useDcisQuery();
   const { data: forms = [] } = useFormsQuery();
   const { data: marques = [] } = useMarquesQuery();
   const { data: categories = [] } = useCategoriesQuery();
 
-  const methods = useForm<FormValues>({
-    resolver: addResolver,
-    defaultValues: defaultAddValues,
+  const [addMedication] = useAddMedicationMutation();
+  const methods = useForm<IMedicationRequest>({
+    resolver: zodResolver(medicationSchema),
+    defaultValues: {
+      dci_id: 0,
+      marque_id: 0,
+      form_id: 0,
+      category_id: 0,
+      dosage: "",
+      description: "",
+    },
     mode: "onChange",
   });
   const { handleSubmit } = methods;
-
+  const onSubmit: SubmitHandler<IMedicationRequest> = (data) => {
+    addMedication(data)
+      .unwrap()
+      .then(() => {
+        handleClose && handleClose();
+      });
+  };
   return (
     <DialogContent>
       <FormProvider {...methods}>
-        <Box component="form" onSubmit={handleSubmit(onSubmitAdd)} noValidate>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
               <SelectField<ISimpleElement>

@@ -6,17 +6,11 @@ import { TableFactory } from "../../components/commonComponents/table/tableFacto
 import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
 import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
-import { TypeOf } from "zod";
-import { simpleElementSchema } from "../../core/utils/validator";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler } from "react-hook-form";
 import {
-  useAddFormMutation,
   useDeleteFormMutation,
   useFormsFilterQuery,
 } from "../../redux/api/admin/FormApi";
-
-type IDciRequest = TypeOf<typeof simpleElementSchema>;
+import useDebounce from "../../hooks/useDebounce";
 
 export const FormsPage: FC = () => {
   const [page, setPage] = React.useState(0);
@@ -25,6 +19,7 @@ export const FormsPage: FC = () => {
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
+  const debouncedSearchTerm = useDebounce<string>(query, 500);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -34,7 +29,7 @@ export const FormsPage: FC = () => {
     setOpen(false);
   };
   const { data, isLoading, isFetching } = useFormsFilterQuery({
-    ...(query && { search: query }),
+    ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
       page: page + 1,
@@ -42,27 +37,15 @@ export const FormsPage: FC = () => {
       sortOrder: sortOrder,
     },
   });
-  const [addForm, { isLoading: addIsLoading, isSuccess: isSuccessAdd }] =
-    useAddFormMutation();
 
   const [deleteForm] = useDeleteFormMutation();
-
   const handleFormDelete = (id: number) => {
     deleteForm(id).unwrap();
   };
-  const submitHandlerAdd: SubmitHandler<IDciRequest> = (data) => {
-    addForm(data.name)
-      .unwrap()
-      .then(() => {
-        handleClose();
-      });
-  };
-  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTimeout(() => {
-      setQuery(event.target.value.trim());
-    }, 1000);
-  };
 
+  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value.trim());
+  };
   const onRequestSort = (
     event: React.MouseEvent<unknown>,
     newSortBy: string
@@ -71,11 +54,9 @@ export const FormsPage: FC = () => {
     setSortBy(newSortBy);
     setSortOrder(newSortOrder);
   };
-
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -86,7 +67,7 @@ export const FormsPage: FC = () => {
   return (
     <PageContainer title={"Forms"}>
       <Grid>
-        <TableFactory<ISimpleElement[], IDciRequest>
+        <TableFactory<ISimpleElement[]>
           columns={dciColumns}
           data={data?.data}
           sort={{
@@ -102,11 +83,6 @@ export const FormsPage: FC = () => {
             add: {
               add: true,
               addFormType: formTypes.ADD_SIMPLE_ELEMENT_MODAL,
-              defaultAddValues: { name: "" },
-              addResolver: zodResolver(simpleElementSchema),
-              onSubmitAdd: submitHandlerAdd,
-              isLoadingAddForm: addIsLoading,
-              isSuccessAddForm: isSuccessAdd,
             },
             edit: {
               edit: true,

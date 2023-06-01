@@ -3,8 +3,8 @@ import TableBody from "@mui/material/TableBody";
 import { TableContentProps } from "./TableContent.types";
 import { CustomizedTableRow } from "../tableRows/CustomizedTableRow";
 
-export const TableContent = <T, FormAddValues extends Record<string, any>>(
-  props: React.PropsWithChildren<TableContentProps<T, FormAddValues>>
+export const TableContent = <T, >(
+  props: React.PropsWithChildren<TableContentProps<T>>
 ) => {
   const {
     actions,

@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import { FC } from "react";
 import Grid from "@mui/material/Grid";
 import { TypeOf } from "zod";
-import { signUpSchema } from "../core/utils/validator";
+import { signUpSchema } from "../core/utils/validator/AuthValidator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { FormInput } from "../components/commonComponents/InputField/formInput/FormInput";
@@ -38,7 +38,6 @@ export const Register: FC = () => {
     delegation: 0,
     address: "",
     role: "2",
-    //image: undefined,
     type: "1",
     fax: "",
     phone: "",
@@ -69,17 +68,13 @@ export const Register: FC = () => {
         });
       })
       .catch((error: any) => {
-        if (error.data.errors.email) {
-          setError("email", {
-            type: "server",
-            message: error.data.errors.email[0],
-          });
-        }
-        if (error.data.errors.image) {
-          setError("image", {
-            type: "server",
-            message: error.data.errors.image[0],
-          });
+        for (const key of Object.keys(data)) {
+          if (error.data.errors[key]) {
+            setError(key as keyof typeof data, {
+              type: "server",
+              message: error.data.errors[key][0],
+            });
+          }
         }
       });
   };

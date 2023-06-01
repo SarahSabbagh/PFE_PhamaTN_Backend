@@ -2,11 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IFilterUserRequest, IUser } from "../types/IUser";
 import { prepareHeaders } from "../../../core/utils/rtk.config";
 import { endpoints } from "../../../core/constants/endpoints";
-import {
-  
-  IFilterResponse,
-  IResponse,
-} from "../types/IResponseRequest";
+import { IFilterResponse, IResponse } from "../types/IResponseRequest";
 
 const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT as string;
 
@@ -16,8 +12,7 @@ export const adminApi = createApi({
     baseUrl: `${BASE_URL}`,
     prepareHeaders: prepareHeaders,
   }),
-  keepUnusedDataFor: 0,
-  tagTypes: ["Users"],
+  tagTypes: ["User"],
   endpoints: (builder) => ({
     userFilter: builder.query<IFilterResponse<IUser[]>, IFilterUserRequest>({
       query(request) {
@@ -26,7 +21,13 @@ export const adminApi = createApi({
           params: request,
         };
       },
-      providesTags: ["Users"],
+      providesTags: ["User"], //(result) =>
+      //   result
+      //     ? [
+      //         ...result.data.map(({ id }) => ({ type: "User" as const, id })),
+      //         "User",
+      //       ]
+      //     : ["User"],
     }),
     userActivation: builder.mutation<IResponse, number>({
       query(id) {
@@ -35,7 +36,7 @@ export const adminApi = createApi({
           method: "PUT",
         };
       },
-      invalidatesTags: ["Users"],
+      invalidatesTags: ["User"],
     }),
 
     updateUserStatus: builder.mutation<
@@ -49,7 +50,7 @@ export const adminApi = createApi({
           method: "PUT",
         };
       },
-      invalidatesTags: ["Users"],
+      invalidatesTags: ["User"],
     }),
     deleteUser: builder.mutation<IResponse, number>({
       query(id) {
@@ -58,7 +59,7 @@ export const adminApi = createApi({
           method: "DELETE",
         };
       },
-      invalidatesTags: ["Users"],
+      invalidatesTags: ["User"],
     }),
   }),
 });
