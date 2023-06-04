@@ -15,6 +15,7 @@ export const useAccessToken = (): boolean => {
     ) {
       localStorage.clear();
     }
-  }, []);
+  }, [error]);
+
   return token !== null;
 };
