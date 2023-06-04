@@ -8,3 +8,8 @@ export const roles: IFilterItem[] = [
   { id: "WHOLESALER", value: 2, label: translate("label.WHOLESALER") },
   { id: "PHARMACY", value: 3, label: translate("label.PHARMACY") },
 ];
+export const rolesValue = {
+  ADMINISTRATOR: "administrator",
+  WHOLESALER: "wholesaler",
+  PHARMACY: "pharmacy",
+};

@@ -18,6 +18,8 @@ import { FormsPage } from "../pages/admin/Form";
 import { CategoriesPage } from "../pages/admin/Category";
 import { LotsPage } from "../pages/admin/Lots";
 import { Notifications } from "../pages/Notifications";
+import { rolesValue } from "../core/constants/roles";
+import { PrivateRouteRole } from "./privateRoutes/PrivateRouteRole";
 
 export const routes = createBrowserRouter([
   {
@@ -47,7 +49,13 @@ export const routes = createBrowserRouter([
       {
         id: "USERS",
         path: paths.USERS,
-        element: <UsersPage />,
+
+        element: (
+          <PrivateRouteRole
+            component={UsersPage}
+            accessibleRoles={[rolesValue.ADMINISTRATOR]}
+          />
+        ),
       },
       {
         id: "LOT",
@@ -103,4 +111,5 @@ export const routes = createBrowserRouter([
     ],
   },
   { path: "*", element: <ErrorPage /> },
+  { path: paths.PAGE_NOT_FOUND, element: <ErrorPage /> },
 ]);

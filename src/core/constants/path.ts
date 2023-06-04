@@ -11,5 +11,6 @@ export const paths = {
   FORM: "/form",
   DCI: "/DCI",
   LOT: "/Lot",
-  NOTIFICATION:"/notifications",
+  NOTIFICATION: "/notifications",
+  PAGE_NOT_FOUND: "/404",
 };
