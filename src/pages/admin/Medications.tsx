@@ -11,8 +11,10 @@ import {
 } from "../../redux/api/admin/MedicationApi";
 import { IMedicationElement } from "../../redux/api/types/IMedication";
 import useDebounce from "../../hooks/useDebounce";
+import { useTranslation } from "react-i18next";
 
 export const MedicationsPage: FC = () => {
+  const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
@@ -64,7 +66,7 @@ export const MedicationsPage: FC = () => {
   };
 
   return (
-    <PageContainer title={"Medication"}>
+    <PageContainer title={t("medication.TITLE_PAGE_MEDICATION")}>
       <Grid>
         <TableFactory<IMedicationElement[]>
           columns={medicationColumns}
@@ -75,7 +77,7 @@ export const MedicationsPage: FC = () => {
             sortBy: sortBy,
           }}
           handleQueryChange={handleQueryChange}
-          title={"Medications"}
+          title={t("medication.TITLE_MEDICATION")}
           isLoading={isLoading}
           isFetching={isFetching}
           actions={{

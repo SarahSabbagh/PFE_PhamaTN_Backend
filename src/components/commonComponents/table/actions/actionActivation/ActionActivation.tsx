@@ -7,29 +7,28 @@ import { Grid, Typography } from "@mui/material";
 import { ActionActivationProps } from "./ActionActivation.types";
 import { CancelButton, ConfirmButton } from "./ActionActivation.style";
 import { StyledDialogActions } from "../StyledDialogActions.style";
+import { useTranslation } from "react-i18next";
 
 export const ActionActivation: React.FC<ActionActivationProps> = (props) => {
   const { open, handleClose, handleActivation } = props;
+  const { t } = useTranslation();
 
   return (
     <Grid>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
+      <Dialog open={open} onClose={handleClose}>
         <DialogTitle align="center" id="alert-dialog-title">
-          <Typography variant="h3">User activation </Typography>
+          <Typography variant="h3">{t("label.USER_ACTIVATION")}</Typography>
         </DialogTitle>
         <DialogContent>
           <DialogContentText align="center" id="alert-dialog-description">
-            Are you sure want to change user activation ?
+            {t("label.MESSAGE_USER_ACTIVATION")}
           </DialogContentText>
         </DialogContent>
         <StyledDialogActions>
-          <CancelButton onClick={handleClose}>Cancel</CancelButton>
-          <ConfirmButton onClick={handleActivation}>Confirm</ConfirmButton>
+          <CancelButton onClick={handleClose}>{t("label.CANCEL")}</CancelButton>
+          <ConfirmButton onClick={handleActivation}>
+            {t("label.CONFIRM")}
+          </ConfirmButton>
         </StyledDialogActions>
       </Dialog>
     </Grid>

@@ -12,8 +12,10 @@ import { ItransformedLotData } from "../../redux/api/types/ILot";
 import { lotColumns } from "../../core/constants/tableColumns/lotColumns";
 import { transformedLotData } from "../../core/utils/lotDataFormat";
 import useDebounce from "../../hooks/useDebounce";
+import { useTranslation } from "react-i18next";
 
 export const LotsPage: FC = () => {
+  const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
@@ -63,7 +65,7 @@ export const LotsPage: FC = () => {
   };
 
   return (
-    <PageContainer title={"Lot"}>
+    <PageContainer title={t("lot.TITLE_PAGE_LOT")}>
       <Grid>
         <TableFactory<ItransformedLotData[]>
           columns={lotColumns}
@@ -74,7 +76,7 @@ export const LotsPage: FC = () => {
             sortBy: sortBy,
           }}
           handleQueryChange={handleQueryChange}
-          title={"Lots"}
+          title={t("lot.TITLE_LOT")}
           isLoading={isLoading}
           isFetching={isFetching}
           actions={{

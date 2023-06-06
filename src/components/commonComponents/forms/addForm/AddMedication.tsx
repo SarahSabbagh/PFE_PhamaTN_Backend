@@ -17,10 +17,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { medicationSchema } from "../../../../core/utils/validator/MedicationValidator";
 import { TypeOf } from "zod";
 import { useAddMedicationMutation } from "../../../../redux/api/admin/MedicationApi";
+import { defaultValues } from "../../../../models/medication/MedicationInitialValues";
 
-type IMedicationRequest = TypeOf<typeof medicationSchema>;
+export type IMedicationRequest = TypeOf<typeof medicationSchema>;
 
 export const AddMedication: React.FC<FormAddProps> = (props) => {
+  const { t } = useTranslation();
   const { handleClose } = props;
   const { data: dcis = [] } = useDcisQuery();
   const { data: forms = [] } = useFormsQuery();
@@ -30,14 +32,7 @@ export const AddMedication: React.FC<FormAddProps> = (props) => {
   const [addMedication] = useAddMedicationMutation();
   const methods = useForm<IMedicationRequest>({
     resolver: zodResolver(medicationSchema),
-    defaultValues: {
-      dci_id: 0,
-      marque_id: 0,
-      form_id: 0,
-      category_id: 0,
-      dosage: "",
-      description: "",
-    },
+    defaultValues: defaultValues,
     mode: "onChange",
   });
   const { handleSubmit } = methods;
@@ -56,8 +51,8 @@ export const AddMedication: React.FC<FormAddProps> = (props) => {
             <Grid item xs={12} sm={6}>
               <SelectField<ISimpleElement>
                 id="dci"
-                label="DCI"
-                placeholder="DCI"
+                label={t("cells.DCI")}
+                placeholder={t("cells.DCI")}
                 name="dci_id"
                 options={dcis}
               />
@@ -65,8 +60,8 @@ export const AddMedication: React.FC<FormAddProps> = (props) => {
             <Grid item xs={12} sm={6}>
               <SelectField<ISimpleElement>
                 id="dci"
-                label="brand"
-                placeholder="brand"
+                label={t("cells.BRAND")}
+                placeholder={t("cells.BRAND")}
                 name="marque_id"
                 options={marques}
               />
@@ -74,8 +69,8 @@ export const AddMedication: React.FC<FormAddProps> = (props) => {
             <Grid item xs={12} sm={6}>
               <SelectField<ISimpleElement>
                 id="form"
-                label="form"
-                placeholder="form"
+                label={t("cells.FORM")}
+                placeholder={t("cells.FORM")}
                 name="form_id"
                 options={forms}
               />
@@ -83,8 +78,8 @@ export const AddMedication: React.FC<FormAddProps> = (props) => {
             <Grid item xs={12} sm={6}>
               <SelectField<ISimpleElement>
                 id="category"
-                label="category"
-                placeholder="category"
+                label={t("cells.CATEGORY")}
+                placeholder={t("cells.CATEGORY")}
                 name="category_id"
                 options={categories}
               />
@@ -92,9 +87,9 @@ export const AddMedication: React.FC<FormAddProps> = (props) => {
             <Grid item xs={12} sm={6}>
               <FormInput
                 id="dosage"
-                placeholder="dosage"
+                placeholder={t("cells.DOSAGE")}
                 type="Text"
-                label="dosage"
+                label={t("cells.DOSAGE")}
                 name="dosage"
                 required
               />
@@ -102,15 +97,19 @@ export const AddMedication: React.FC<FormAddProps> = (props) => {
             <Grid item xs={12} sm={6}>
               <FormInput
                 id="description"
-                placeholder="description"
+                placeholder={t("cells.DESCRIPTION")}
                 type="Text"
-                label="description"
+                label={t("cells.DESCRIPTION")}
                 name="description"
               />
             </Grid>
             <Grid item xs={12} display="flex" justifyContent="center">
-              <CancelButton onClick={handleClose}>Cancel</CancelButton>
-              <ConfirmButtonStyled type="submit">Add</ConfirmButtonStyled>
+              <CancelButton onClick={handleClose}>
+                {t("label.CANCEL")}
+              </CancelButton>
+              <ConfirmButtonStyled type="submit">
+                {t("label.ADD")}
+              </ConfirmButtonStyled>
             </Grid>
           </Grid>
         </Box>

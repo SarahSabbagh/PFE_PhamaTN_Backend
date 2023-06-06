@@ -11,16 +11,17 @@ import { useUpdateMarqueMutation } from "../../../../redux/api/admin/MarqueApi";
 import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
 import { useToasts } from "react-toast-notifications";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { simpleElementSchema } from "../../../../core/utils/validator/AuthValidator";
 import { useUpdateFormMutation } from "../../../../redux/api/admin/FormApi";
 import { useUpdateDciMutation } from "../../../../redux/api/dci/dciApi";
 import { useUpdateCategoryMutation } from "../../../../redux/api/admin/CategoryApi";
 import { Loader } from "../../loader/Loader";
+import { simpleElementSchema } from "../../../../core/utils/validator/SimpleElementValidator";
 
 export const EditSimpleElementForm: React.FC<FormEditSimpleElementProps> = (
   props
 ) => {
   const { id, handleClose, item, title } = props;
+  const { t } = useTranslation();
   const methods = useForm<ISimpleElement>({
     resolver: zodResolver(simpleElementSchema),
     defaultValues: { name: item.name },
@@ -95,14 +96,16 @@ export const EditSimpleElementForm: React.FC<FormEditSimpleElementProps> = (
             <Grid item xs={12}>
               <FormInput
                 id="name"
-                placeholder="Name"
+                placeholder={t("label.NAME")}
                 type="Text"
-                label="Name"
+                label={t("label.NAME")}
                 name="name"
               />
             </Grid>
             <Grid item xs={12} display="flex" justifyContent="center">
-              <CancelButton onClick={handleClose}>Cancel</CancelButton>
+              <CancelButton onClick={handleClose}>
+                {t("label.CANCEL")}
+              </CancelButton>
               <ConfirmButtonStyled type="submit">
                 {formEditIsLoading ||
                 categoryEditIsLoading ||
@@ -110,7 +113,7 @@ export const EditSimpleElementForm: React.FC<FormEditSimpleElementProps> = (
                 marqueEditIsLoading ? (
                   <Loader />
                 ) : (
-                  "edit"
+                  t("label.EDIT")
                 )}
               </ConfirmButtonStyled>
             </Grid>

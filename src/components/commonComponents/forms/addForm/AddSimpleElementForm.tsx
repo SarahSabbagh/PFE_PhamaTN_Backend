@@ -10,13 +10,14 @@ import { FormAddProps } from "./AddForm.types";
 import { useAddCategoryMutation } from "../../../../redux/api/admin/CategoryApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TypeOf } from "zod";
-import { simpleElementSchema } from "../../../../core/utils/validator/AuthValidator";
 import { useAddMarqueMutation } from "../../../../redux/api/admin/MarqueApi";
 import { useAddFormMutation } from "../../../../redux/api/admin/FormApi";
 import { useAddDciMutation } from "../../../../redux/api/dci/dciApi";
+import { simpleElementSchema } from "../../../../core/utils/validator/SimpleElementValidator";
 type IDciRequest = TypeOf<typeof simpleElementSchema>;
 
 export const AddSimpleElementForm: React.FC<FormAddProps> = (props) => {
+  const { t } = useTranslation();
   const { handleClose, title } = props;
   const methods = useForm<IDciRequest>({
     resolver: zodResolver(simpleElementSchema),
@@ -76,16 +77,20 @@ export const AddSimpleElementForm: React.FC<FormAddProps> = (props) => {
             <Grid item xs={12}>
               <FormInput
                 id="name"
-                placeholder="Name"
+                placeholder={t("cells.NAME")}
                 type="Text"
-                label="Name"
+                label={t("cells.NAME")}
                 name="name"
                 required
               />
             </Grid>
             <Grid item xs={12} display="flex" justifyContent="center">
-              <CancelButton onClick={handleClose}>Cancel</CancelButton>
-              <ConfirmButtonStyled type="submit">Add</ConfirmButtonStyled>
+              <CancelButton onClick={handleClose}>
+                {t("label.CANCEL")}
+              </CancelButton>
+              <ConfirmButtonStyled type="submit">
+                {t("label.ADD")}
+              </ConfirmButtonStyled>
             </Grid>
           </Grid>
         </Box>

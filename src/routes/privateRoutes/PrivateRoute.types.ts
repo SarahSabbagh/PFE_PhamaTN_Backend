@@ -1,4 +1,7 @@
 export interface Props {
   component: React.ComponentType;
-  path?: string;
+}
+export interface RoleProps {
+  component: React.ComponentType;
+  accessibleRoles: string[];
 }

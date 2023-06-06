@@ -1,3 +1,3 @@
 export interface StyledLogoNavbarProps {
-  isNotAuthenticated?: boolean;
+  isnotauthenticated?: boolean;
 }

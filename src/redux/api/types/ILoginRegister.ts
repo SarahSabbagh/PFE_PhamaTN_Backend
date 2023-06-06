@@ -40,5 +40,3 @@ export interface IError {
   image?: string[];
   email?: string[];
 }
-
-

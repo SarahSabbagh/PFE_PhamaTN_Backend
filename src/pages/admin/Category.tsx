@@ -11,8 +11,10 @@ import {
   useDeleteCategoryMutation,
 } from "../../redux/api/admin/CategoryApi";
 import useDebounce from "../../hooks/useDebounce";
+import { useTranslation } from "react-i18next";
 
 export const CategoriesPage: FC = () => {
+  const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
@@ -63,7 +65,7 @@ export const CategoriesPage: FC = () => {
   };
 
   return (
-    <PageContainer title={"Category"}>
+    <PageContainer title={t("category.TITLE_PAGE_CATEGORY")}>
       <Grid>
         <TableFactory<ISimpleElement[]>
           columns={dciColumns}
@@ -74,7 +76,7 @@ export const CategoriesPage: FC = () => {
             sortBy: sortBy,
           }}
           handleQueryChange={handleQueryChange}
-          title={"Category"}
+          title={t("category.TITLE_GATEGORY")}
           isLoading={isLoading}
           isFetching={isFetching}
           actions={{

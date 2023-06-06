@@ -12,7 +12,7 @@ import {
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { StyledLink } from "../Sidebar.style";
-import { SideBarMenuList } from "../../../core/constants/list/menuList/SideBarMenuList";
+import { SideBarMenuList } from "../../../core/constants/list/sideBarMenuList";
 import { StyledList, StyledListItemIcon } from "./ListSidebar.style";
 
 export const ListSidebar: React.FC = () => {

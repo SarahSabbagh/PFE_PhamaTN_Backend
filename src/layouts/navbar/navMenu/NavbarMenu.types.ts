@@ -1,3 +1,3 @@
 export interface NavbarMenuProps {
-  isAuthenticated?: boolean;
+  isauthenticated?: boolean;
 }

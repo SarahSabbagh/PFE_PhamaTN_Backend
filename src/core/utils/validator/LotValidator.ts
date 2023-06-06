@@ -1,21 +1,22 @@
 import { number, object, string } from "zod";
 import dayjs from "dayjs";
-import { errorMessage } from "../../constants/errorMessages";
+import i18next from "i18next";
+const translate = (key: string): string => i18next.t(key) || "";
 
 export const lotStepOneSchema = object({
-  marque: number().positive(errorMessage.IS_REQUIRED),
-  category: number().positive(errorMessage.IS_REQUIRED),
-  form: number().positive(errorMessage.IS_REQUIRED),
-  dosage: string().nonempty(errorMessage.IS_REQUIRED),
+  marque: number().positive(translate("errorMessages.IS_REQUIRED")),
+  category: number().positive(translate("errorMessages.IS_REQUIRED")),
+  form: number().positive(translate("errorMessages.IS_REQUIRED")),
+  dosage: string().nonempty(translate("errorMessages.IS_REQUIRED")),
 });
 
 export const lotStepTwoSchema = object({
-  medicationId: number().positive(errorMessage.IS_REQUIRED),
-  codeLot: string().nonempty(errorMessage.IS_REQUIRED),
+  medicationId: number().positive(translate("errorMessages.IS_REQUIRED")),
+  codeLot: string().nonempty(translate("errorMessages.IS_REQUIRED")),
   manufactureDate: string().refine((value) => dayjs(value).isValid()),
   expirationDate: string().refine((value) => dayjs(value).isValid()),
-  unitPrice: number().positive(errorMessage.IS_REQUIRED),
-  publicPrice: number().positive(errorMessage.IS_REQUIRED),
+  unitPrice: number().positive(translate("errorMessages.IS_REQUIRED")),
+  publicPrice: number().positive(translate("errorMessages.IS_REQUIRED")),
 })
   .refine(
     (data) => {
@@ -25,26 +26,26 @@ export const lotStepTwoSchema = object({
     },
     {
       path: ["expirationDate"],
-      message: errorMessage.EXPIRATION_DATE_BEFORE_MANUFACTURE,
+      message: translate("errorMessages.EXPIRATION_DATE_BEFORE_MANUFACTURE"),
     }
   )
   .refine((data) => data.unitPrice < data.publicPrice, {
     path: ["publicPrice"],
-    message: errorMessage.PUBLIC_PRICE_less_THAN_UNIT_PRICE,
+    message: translate("errorMessages.PUBLIC_PRICE_less_THAN_UNIT_PRICE"),
   });
 
 export const lotSchema = object({
   id: number(),
-  medicationName: string().nonempty(errorMessage.IS_REQUIRED),
-  medicationDosage: string().nonempty(errorMessage.IS_REQUIRED),
-  medicationForm: string().nonempty(errorMessage.IS_REQUIRED),
-  medicationCategory: string().nonempty(errorMessage.IS_REQUIRED),
-  medicationId: number().positive(errorMessage.IS_REQUIRED),
-  codeLot: string().nonempty(errorMessage.IS_REQUIRED),
+  medicationName: string().nonempty(translate("errorMessages.IS_REQUIRED")),
+  medicationDosage: string().nonempty(translate("errorMessages.IS_REQUIRED")),
+  medicationForm: string().nonempty(translate("errorMessages.IS_REQUIRED")),
+  medicationCategory: string().nonempty(translate("errorMessages.IS_REQUIRED")),
+  medicationId: number().positive(translate("errorMessages.IS_REQUIRED")),
+  codeLot: string().nonempty(translate("errorMessages.IS_REQUIRED")),
   manufactureDate: string().refine((value) => dayjs(value).isValid()),
   expirationDate: string().refine((value) => dayjs(value).isValid()),
-  unitPrice: number().positive(errorMessage.IS_REQUIRED),
-  publicPrice: number().positive(errorMessage.IS_REQUIRED),
+  unitPrice: number().positive(translate("errorMessages.IS_REQUIRED")),
+  publicPrice: number().positive(translate("errorMessages.IS_REQUIRED")),
 })
   .refine(
     (data) => {
@@ -54,10 +55,10 @@ export const lotSchema = object({
     },
     {
       path: ["expirationDate"],
-      message: errorMessage.EXPIRATION_DATE_BEFORE_MANUFACTURE,
+      message: translate("errorMessages.EXPIRATION_DATE_BEFORE_MANUFACTURE"),
     }
   )
   .refine((data) => data.unitPrice < data.publicPrice, {
     path: ["publicPrice"],
-    message: errorMessage.PUBLIC_PRICE_less_THAN_UNIT_PRICE,
+    message: translate("errorMessages.PUBLIC_PRICE_less_THAN_UNIT_PRICE"),
   });

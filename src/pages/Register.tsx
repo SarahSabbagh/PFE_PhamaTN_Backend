@@ -21,27 +21,15 @@ import {
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { defaultValues } from "../models/register/RegisterInitialValues";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
 
 export type ISignUpRequest = TypeOf<typeof signUpSchema>;
 
 export const Register: FC = () => {
   const { t } = useTranslation();
   const VerificationLinkMessage = t("register.SENT_VERIFICATION_LINK");
-  const defaultValues: ISignUpRequest = {
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    pharmacyFirstName: "",
-    pharmacyLastName: "",
-    governorate: 0,
-    delegation: 0,
-    address: "",
-    role: "2",
-    type: "1",
-    fax: "",
-    phone: "",
-  };
+
   const [register, { isLoading }] = useRegisterMutation();
   const { data: governorates = [] } = useGovernoratesQuery();
   const methods = useForm<ISignUpRequest>({
@@ -55,7 +43,9 @@ export const Register: FC = () => {
     resetField("delegation");
   }, [watch("governorate")]);
 
-  const { data: delagations = [] } = useDelegationsQuery(watch("governorate"));
+  const { data: delagations = [] } = useDelegationsQuery(
+    watch("governorate") === 0 ? skipToken : watch("governorate")
+  );
 
   const submitHandler: SubmitHandler<ISignUpRequest> = async (data) => {
     const { confirmPassword, ...rest } = data;
@@ -80,7 +70,7 @@ export const Register: FC = () => {
   };
 
   return (
-    <PageContainer background title={t("register.TITLE_PAGE_SIGN_UP")}>
+    <PageContainer background={true} title={t("register.TITLE_PAGE_SIGN_UP")}>
       <Grid container>
         <ToastContainer />
         <SignUpPaper title={t("register.TITLE_SIGN_UP")}>
@@ -120,7 +110,7 @@ export const Register: FC = () => {
                     label={t("register.PASSWORD_LABEL")}
                     name="password"
                     placeholder={t("register.PASSWORD_LABEL")}
-                    eyeicon
+                    eyeicon={true}
                     autoComplete="off"
                   />
                 </Grid>
@@ -132,7 +122,7 @@ export const Register: FC = () => {
                     label={t("register.CONFIRM_PASSWORD_LABEL")}
                     name="confirmPassword"
                     placeholder={t("register.PASSWORD_LABEL")}
-                    eyeicon
+                    eyeicon={true}
                     autoComplete="off"
                   />
                 </Grid>

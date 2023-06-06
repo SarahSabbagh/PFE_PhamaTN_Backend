@@ -11,8 +11,10 @@ import {
   useFormsFilterQuery,
 } from "../../redux/api/admin/FormApi";
 import useDebounce from "../../hooks/useDebounce";
+import { useTranslation } from "react-i18next";
 
 export const FormsPage: FC = () => {
+  const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [query, setQuery] = React.useState<string>("");
@@ -65,7 +67,7 @@ export const FormsPage: FC = () => {
   };
 
   return (
-    <PageContainer title={"Forms"}>
+    <PageContainer title={t("form.TITLE_PAGE_FORM")}>
       <Grid>
         <TableFactory<ISimpleElement[]>
           columns={dciColumns}
@@ -76,7 +78,7 @@ export const FormsPage: FC = () => {
             sortBy: sortBy,
           }}
           handleQueryChange={handleQueryChange}
-          title={"Forms"}
+          title={t("form.TITLE_FORM")}
           isLoading={isLoading}
           isFetching={isFetching}
           actions={{

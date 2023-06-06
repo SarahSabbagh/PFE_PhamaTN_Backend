@@ -16,12 +16,13 @@ import { useCategoriesQuery } from "../../../../../redux/api/admin/CategoryApi";
 import { useFormsQuery } from "../../../../../redux/api/admin/FormApi";
 import { useDcisQuery } from "../../../../../redux/api/dci/dciApi";
 import { useMarquesQuery } from "../../../../../redux/api/admin/MarqueApi";
+import { useTranslation } from "react-i18next";
 
 export const AddElement = <FormAddValues extends Record<string, any>>(
   props: React.PropsWithChildren<AddElementProps<FormAddValues>>
 ) => {
   const { addProps, handleModal, title } = props;
- // const { data: dcis = [], isLoading: dcisLoading } = useDcisQuery();
+  const { t } = useTranslation();
   const { data: forms = [], isLoading: formsLoading } = useFormsQuery();
   const { data: marques = [], isLoading: marquesLoading } = useMarquesQuery();
   const { data: categories = [], isLoading: categoriesLoading } =
@@ -38,7 +39,7 @@ export const AddElement = <FormAddValues extends Record<string, any>>(
         endIcon={<AddOutlinedIcon />}
         onClick={handleModal?.handleClickOpen}
       >
-        Add
+        {t("label.ADD")}
       </Button>
       <Dialog
         open={handleModal?.open ?? false}
@@ -49,16 +50,14 @@ export const AddElement = <FormAddValues extends Record<string, any>>(
         }
       >
         <DialogTitle align="center" variant="h3" color="primary">
-          Add {title}
+          {t("label.ADD") + " "} {title.toLocaleLowerCase()}
         </DialogTitle>
         {addProps.addFormType === formTypes.ADD_MEDICATION_MODAL && (
           <AddMedication title={title} handleClose={handleModal?.handleClose} />
         )}
         {addProps.addFormType === formTypes.ADD_LOT_MODAL && (
           <AddLot
-            isLoading={
-              formsLoading && marquesLoading && categoriesLoading
-            }
+            isLoading={formsLoading && marquesLoading && categoriesLoading}
             marques={marques}
             categories={categories}
             forms={forms}

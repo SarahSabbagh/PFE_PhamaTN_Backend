@@ -3,13 +3,31 @@ import { Footer } from "./footer/Footer";
 import { Grid } from "@mui/material";
 import { ResponsiveSideBar } from "./sidebar/Sidebar";
 import { ResponsiveAppBar } from "./navbar/Navbar";
-interface ILayout {
-  children: JSX.Element;
-}
-const drawerWidth = 110;
+import { useSocket } from "../hooks/useSocket";
+import { useGetUserQuery } from "../redux/api/user/userApi";
+import { useNotificationsQuery } from "../redux/api/notification/notificationApi";
+import { useDispatch } from "react-redux";
+import { setNotifications } from "../redux/features/notification";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
+import { setUser } from "../redux/features/userSlice";
+import { Outlet } from "react-router-dom";
 
-export const Layout: React.FC<ILayout> = (prop) => {
+export const Layout: React.FC = () => {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
+  const { data: user, isSuccess: isSuccessUser } = useGetUserQuery();
+  const { data, isSuccess } = useNotificationsQuery(user?.id ?? skipToken);
+  React.useEffect(() => {
+    if (isSuccess) {
+      dispatch(setNotifications(data));
+    }
+  }, [data]);
+  React.useEffect(() => {
+    if (isSuccessUser) {
+      dispatch(setUser(user));
+    }
+  }, [user]);
+  useSocket(user?.id);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -18,6 +36,7 @@ export const Layout: React.FC<ILayout> = (prop) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
   return (
     <Grid container>
       <ResponsiveAppBar
@@ -33,17 +52,17 @@ export const Layout: React.FC<ILayout> = (prop) => {
           />
         </Grid>
         <Grid item xs>
-          {prop.children}
+          <Outlet />
         </Grid>
       </Grid>
     </Grid>
   );
 };
-export const LayoutLogin: React.FC<ILayout> = (prop) => {
+export const LayoutLogin: React.FC = () => {
   return (
     <Grid>
       <ResponsiveAppBar />
-      {prop.children}
+      <Outlet />
       <Footer />
     </Grid>
   );

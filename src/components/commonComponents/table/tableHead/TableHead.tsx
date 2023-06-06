@@ -4,10 +4,12 @@ import { CustomizedTableHeadProps } from "./TableHead.types";
 import { StyledSortLabel } from "./tableSortHead/TableSortHead.style";
 import { StyledTableCell } from "../tableRows/customizedTableCell/CustomizedTableCell.style";
 import { TableHead } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export const CustomizedTableHead: React.FC<CustomizedTableHeadProps> = (
   props
 ) => {
+  const { t } = useTranslation();
   const { columns, sort } = props;
   const createSortHandler =
     (newSortBy: string) => (event: React.MouseEvent<unknown>) => {
@@ -28,10 +30,10 @@ export const CustomizedTableHead: React.FC<CustomizedTableHeadProps> = (
                 sortBy={sort?.sortBy === element.accessor}
                 onClick={createSortHandler(element.accessor)}
               >
-                {element.label}
+                {t(`cells.${element.label}`)}
               </StyledSortLabel>
             ) : (
-              element.label
+              t(`cells.${element.label}`)
             )}
           </StyledTableCell>
         ))}

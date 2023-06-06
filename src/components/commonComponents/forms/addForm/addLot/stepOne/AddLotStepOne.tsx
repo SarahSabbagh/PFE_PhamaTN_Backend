@@ -9,6 +9,7 @@ import { TypeOf } from "zod";
 import { lotStepOneSchema } from "../../../../../../core/utils/validator/LotValidator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IMedicationElement } from "../../../../../../redux/api/types/IMedication";
+import { useTranslation } from "react-i18next";
 
 type lotStepOne = TypeOf<typeof lotStepOneSchema>;
 
@@ -48,6 +49,8 @@ export const AddLotStepOne: React.FC<AddLotStepOneProps> = (props) => {
     handleMedicationId,
     handleError,
   } = props;
+  const { t } = useTranslation();
+
   const methods = useForm<lotStepOne>({
     resolver: zodResolver(lotStepOneSchema),
     defaultValues: { marque: 0, category: 0, form: 0, dosage: "" },
@@ -80,8 +83,8 @@ export const AddLotStepOne: React.FC<AddLotStepOneProps> = (props) => {
           <Grid item xs={12} sm={6}>
             <SelectField<ISimpleElement>
               id="marque"
-              label="brand"
-              placeholder="brand"
+              label={t("cells.BRAND")}
+              placeholder={t("cells.BRAND")}
               name="marque"
               options={marques}
             />
@@ -89,8 +92,8 @@ export const AddLotStepOne: React.FC<AddLotStepOneProps> = (props) => {
           <Grid item xs={12} sm={6}>
             <SelectField<ISimpleElement>
               id="form"
-              label="form"
-              placeholder="form"
+              label={t("cells.FORM")}
+              placeholder={t("cells.FORM")}
               name="form"
               options={forms}
             />
@@ -98,8 +101,8 @@ export const AddLotStepOne: React.FC<AddLotStepOneProps> = (props) => {
           <Grid item xs={12} sm={6}>
             <SelectField<ISimpleElement>
               id="category"
-              label="category"
-              placeholder="category"
+              label={t("cells.CATEGORY")}
+              placeholder={t("cells.CATEGORY")}
               name="category"
               options={categories}
             />
@@ -107,15 +110,15 @@ export const AddLotStepOne: React.FC<AddLotStepOneProps> = (props) => {
           <Grid item xs={12} sm={6}>
             <FormInput
               id="dosage"
-              placeholder="dosage"
+              placeholder={t("cells.DOSAGE")}
               type="text"
-              label="dosage"
+              label={t("cells.DOSAGE")}
               name="dosage"
               required
             />
           </Grid>
           <Grid>
-            <Button type="submit">Next</Button>
+            <Button type="submit">{t("label.NEXT")}</Button>
           </Grid>
         </Grid>
       </Box>

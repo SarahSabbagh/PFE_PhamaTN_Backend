@@ -2,7 +2,6 @@ import React from "react";
 import { FC } from "react";
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
 import { Divider, Stack, Typography } from "@mui/material";
-
 export const Dashboard: FC = () => {
   return (
     <PageContainer title="dashboard">
