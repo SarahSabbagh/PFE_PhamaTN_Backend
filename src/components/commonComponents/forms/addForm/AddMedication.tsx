@@ -15,11 +15,9 @@ import { useCategoriesQuery } from "../../../../redux/api/admin/CategoryApi";
 import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { medicationSchema } from "../../../../core/utils/validator/MedicationValidator";
-import { TypeOf } from "zod";
 import { useAddMedicationMutation } from "../../../../redux/api/admin/MedicationApi";
 import { defaultValues } from "../../../../models/medication/MedicationInitialValues";
-
-export type IMedicationRequest = TypeOf<typeof medicationSchema>;
+import { IMedicationRequest } from "../../../../redux/api/types/IMedication";
 
 export const AddMedication: React.FC<FormAddProps> = (props) => {
   const { t } = useTranslation();
@@ -95,6 +93,16 @@ export const AddMedication: React.FC<FormAddProps> = (props) => {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
+              <FormInput
+                id="minQuantity"
+                placeholder={t("cells.MIN_QUANTITY")}
+                type="number"
+                label={t("cells.MIN_QUANTITY")}
+                name="min_quantity"
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
               <FormInput
                 id="description"
                 placeholder={t("cells.DESCRIPTION")}

@@ -19,7 +19,9 @@ export const cells = {
   CATEGORY: "Categorie",
   DCI: "DCI",
   LOT_NUMBER: "Numéro de lot",
-  DESCRIPTION:"Description",
+  DESCRIPTION: "Description",
   PHARMACY_FIRST_NAME: "Nom de pharmacien(ne)",
   PHARMACY_LAST_NAME: "Prénom de pharmacien(ne)",
+  QUANTITY: "Quantité",
+  MIN_QUANTITY: "Quantité min",
 };

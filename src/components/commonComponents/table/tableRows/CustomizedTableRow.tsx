@@ -25,6 +25,7 @@ export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
     columns,
     deleteAction,
     editAction,
+    detailsAction,
     title,
     handleActivationMode,
     handleUpdateUserStatus,
@@ -65,6 +66,7 @@ export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
               title={title}
               editAction={editAction}
               deleteAction={deleteAction}
+              detailsAction={detailsAction}
             />
           )) || (
             <StandardCell

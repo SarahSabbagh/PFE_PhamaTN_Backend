@@ -13,4 +13,5 @@ export const paths = {
   LOT: "/Lot",
   NOTIFICATION: "/notifications",
   PAGE_NOT_FOUND: "/404",
+  STOCK: "/stock",
 };

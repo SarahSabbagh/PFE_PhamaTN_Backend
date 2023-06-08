@@ -9,6 +9,7 @@ export const medicationSchema = object({
   form_id: number().positive(translate("errorMessages.IS_REQUIRED")),
   dosage: string().nonempty(translate("errorMessages.IS_REQUIRED")),
   description: string().nonempty(translate("errorMessages.IS_REQUIRED")),
+  min_quantity: number().positive(translate("errorMessages.IS_REQUIRED")),
 });
 export const medicationEditSchema = medicationSchema.extend({
   id: number().positive(translate("errorMessages.IS_REQUIRED")),

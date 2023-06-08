@@ -16,6 +16,12 @@ export const useAccessToken = (): boolean => {
       localStorage.clear();
     }
   }, [error]);
-
+  if (
+    error &&
+    "status" in error &&
+    error?.status === StatusCode.HTTP_UNAUTHORIZED
+  ) {
+    localStorage.clear();
+  }
   return token !== null;
 };

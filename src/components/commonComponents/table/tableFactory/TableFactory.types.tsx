@@ -6,6 +6,7 @@ export interface IActions {
   add?: IAddAction;
   edit?: IEditAction;
   delete?: IDeleteAction;
+  details?: IDetailsAction;
 }
 
 export interface IFilter {
@@ -16,7 +17,10 @@ export interface IAddAction {
   add: boolean;
   addFormType: string;
 }
-
+export interface IDetailsAction {
+  details: boolean;
+  detailsFormType: string;
+}
 export interface IEditAction {
   edit: boolean;
   editFormType: string;

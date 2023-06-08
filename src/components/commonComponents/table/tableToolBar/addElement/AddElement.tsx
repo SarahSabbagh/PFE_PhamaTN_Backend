@@ -14,9 +14,9 @@ import { AddMedication } from "../../../forms/addForm/AddMedication";
 import { AddLot } from "../../../forms/addForm/addLot/AddLotForm";
 import { useCategoriesQuery } from "../../../../../redux/api/admin/CategoryApi";
 import { useFormsQuery } from "../../../../../redux/api/admin/FormApi";
-import { useDcisQuery } from "../../../../../redux/api/dci/dciApi";
 import { useMarquesQuery } from "../../../../../redux/api/admin/MarqueApi";
 import { useTranslation } from "react-i18next";
+import { AddLotToStock } from "../../../forms/addForm/addLotToStock/AddLotToStock";
 
 export const AddElement = <FormAddValues extends Record<string, any>>(
   props: React.PropsWithChildren<AddElementProps<FormAddValues>>
@@ -63,6 +63,9 @@ export const AddElement = <FormAddValues extends Record<string, any>>(
             forms={forms}
             handleClose={handleModal?.handleClose}
           />
+        )}
+        {addProps.addFormType === formTypes.ADD_LOT_TO_STOCK && (
+          <AddLotToStock handleClose={handleModal?.handleClose} />
         )}
         {addProps.addFormType === formTypes.ADD_SIMPLE_ELEMENT_MODAL && (
           <AddSimpleElementForm

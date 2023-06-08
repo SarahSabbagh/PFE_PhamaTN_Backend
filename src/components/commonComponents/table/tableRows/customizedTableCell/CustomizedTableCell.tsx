@@ -6,12 +6,14 @@ import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import { Grid, IconButton, Switch } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
+import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { ActionDelete } from "../../actions/actionDelete/ActionDelete";
 import { EditModal } from "../../actions/modalEdit/ModalEdit";
 import { ActionChangeStatus } from "../../actions/actionChangeStatus/ActionChangeStatus";
 import { ActionActivation } from "../../actions/actionActivation/ActionActivation";
 import { TableCellsProps } from "./CustomizedTableCell.types";
 import { StyledTableCell } from "./CustomizedTableCell.style";
+import { DetailsModal } from "../../actions/detailsModal/DetailsModal";
 
 export const StandardCell: React.FC<TableCellsProps> = (props) => {
   const { element, accessor } = props;
@@ -59,12 +61,15 @@ export const ActivationCell: React.FC<TableCellsProps> = (props) => {
 };
 
 export const ActionsCell: React.FC<TableCellsProps> = (props) => {
-  const { editAction, deleteAction, id, item, title } = props;
+  const { detailsAction, editAction, deleteAction, id, item, title } = props;
   const [openDelete, setOpenDelete] = React.useState(false);
   const [openEdit, setOpenEdit] = React.useState(false);
+  const [openDetails, setOpenDetails] = React.useState(false);
 
   const handleClickOpenDelete = () => setOpenDelete(true);
   const handleCloseDelete = () => setOpenDelete(false);
+  const handleClickOpenDetails = () => setOpenDetails(true);
+
   const handleDelete = () => {
     setOpenDelete(false);
     deleteAction?.handleDelete && deleteAction.handleDelete(id);
@@ -72,10 +77,25 @@ export const ActionsCell: React.FC<TableCellsProps> = (props) => {
 
   const handleOpenEdit = () => setOpenEdit(true);
   const handleCloseEdit = () => setOpenEdit(false);
-
-  return editAction || deleteAction ? (
+  const handleCloseDetails = () => setOpenDetails(false);
+  return (
     <StyledTableCell align="center">
       <Grid display="flex" justifyContent="center">
+        {detailsAction && (
+          <>
+            <IconButton onClick={handleClickOpenDetails}>
+              <DoubleArrowIcon color="primary" />
+            </IconButton>
+            <DetailsModal
+              item={item}
+              id={id}
+              title={title}
+              formType={detailsAction?.detailsFormType ?? ""}
+              open={openDetails}
+              handleClose={handleCloseDetails}
+            />
+          </>
+        )}
         {deleteAction && (
           <>
             <IconButton onClick={handleClickOpenDelete}>
@@ -98,7 +118,7 @@ export const ActionsCell: React.FC<TableCellsProps> = (props) => {
               item={item}
               id={id}
               title={title}
-              formType={editAction.editFormType ?? ""}
+              formType={editAction?.editFormType ?? ""}
               open={openEdit}
               handleClose={handleCloseEdit}
             />
@@ -106,7 +126,7 @@ export const ActionsCell: React.FC<TableCellsProps> = (props) => {
         )}
       </Grid>
     </StyledTableCell>
-  ) : null;
+  );
 };
 
 export const StatusCell: React.FC<TableCellsProps> = (props) => {

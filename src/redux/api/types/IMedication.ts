@@ -1,6 +1,3 @@
-import { TypeOf } from "zod";
-import { medicationEditSchema } from "../../../core/utils/validator/MedicationValidator";
-
 export interface IMedicationElement {
   id: number;
   dci: string;
@@ -9,6 +6,7 @@ export interface IMedicationElement {
   form: string;
   category: string;
   description: string;
+  min_quantity: number;
 }
 export interface IMedicationRequest {
   id?: number;
@@ -18,6 +16,7 @@ export interface IMedicationRequest {
   form_id?: number;
   category_id?: number;
   description?: string;
+  min_quantity?: number;
 }
 export interface IFilterMedicationRequest {
   search?: string;
@@ -30,4 +29,3 @@ export interface IFilterMedicationRequest {
   form?: string | number;
   category?: string | number;
 }
-export type IMedicationEditRequest = TypeOf<typeof medicationEditSchema>;

@@ -27,6 +27,8 @@ export const label = {
   NAME: "Nom",
   MEDICATION_NOT_FOUND: "Le médicament est introuvable",
   SELECT_MEDICATION: "Sélectionner un médicament",
+  LOT_NOT_FOUND: "Le lot est introuvable",
+  COMFIRM_BATCH_ADDITION: "Confirmer l'ajout du lot",
   NEXT: "Suivant",
   FINISH: "Finir",
   BACK: "Retour",

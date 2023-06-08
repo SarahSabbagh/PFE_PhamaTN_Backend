@@ -1,5 +1,6 @@
 import {
   IDeleteAction,
+  IDetailsAction,
   IEditAction,
 } from "../../tableFactory/TableFactory.types";
 
@@ -9,6 +10,7 @@ export interface TableCellsProps {
   title: string;
   item?: any;
   editAction?: IEditAction;
+  detailsAction?: IDetailsAction;
   deleteAction?: IDeleteAction;
   handleActivationMode?: (id: number) => void;
   handleUpdateUserStatus?: (id: number, status: number) => void;

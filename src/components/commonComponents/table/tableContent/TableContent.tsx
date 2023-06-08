@@ -3,7 +3,7 @@ import TableBody from "@mui/material/TableBody";
 import { TableContentProps } from "./TableContent.types";
 import { CustomizedTableRow } from "../tableRows/CustomizedTableRow";
 
-export const TableContent = <T, >(
+export const TableContent = <T,>(
   props: React.PropsWithChildren<TableContentProps<T>>
 ) => {
   const {
@@ -23,6 +23,7 @@ export const TableContent = <T, >(
             handleUpdateUserStatus={handleUpdateUserStatus}
             editAction={actions?.edit}
             deleteAction={actions?.delete}
+            detailsAction={actions?.details}
             key={index}
             title={title}
             item={item}

@@ -20,6 +20,7 @@ import { LotsPage } from "../pages/admin/Lots";
 import { Notifications } from "../pages/Notifications";
 import { rolesValue } from "../core/constants/roles";
 import { PrivateRouteRole } from "./privateRoutes/PrivateRouteRole";
+import { StockPage } from "../pages/stock";
 
 export const routes = createBrowserRouter([
   {
@@ -31,7 +32,6 @@ export const routes = createBrowserRouter([
         index: true,
         element: <Dashboard />,
       },
-
       {
         id: "PROFILES",
         path: paths.PROFILE,
@@ -43,17 +43,22 @@ export const routes = createBrowserRouter([
         element: <Settings />,
       },
       {
-        path: "dashboard",
-        element: <Dashboard />,
-      },
-      {
         id: "USERS",
         path: paths.USERS,
-
         element: (
           <PrivateRouteRole
             component={UsersPage}
             accessibleRoles={[rolesValue.ADMINISTRATOR]}
+          />
+        ),
+      },
+      {
+        id: "Stock",
+        path: paths.STOCK,
+        element: (
+          <PrivateRouteRole
+            component={StockPage}
+            accessibleRoles={[rolesValue.PHARMACY, rolesValue.WHOLESALER]}
           />
         ),
       },
@@ -70,22 +75,42 @@ export const routes = createBrowserRouter([
       {
         id: "DCI",
         path: paths.DCI,
-        element: <DcisPage />,
+        element: (
+          <PrivateRouteRole
+            component={DcisPage}
+            accessibleRoles={[rolesValue.ADMINISTRATOR]}
+          />
+        ),
       },
       {
         id: "MARQUE",
         path: paths.MARQUE,
-        element: <MarquesPage />,
+        element: (
+          <PrivateRouteRole
+            component={MarquesPage}
+            accessibleRoles={[rolesValue.ADMINISTRATOR]}
+          />
+        ),
       },
       {
         id: "CATEGORY",
         path: paths.CATEGORY,
-        element: <CategoriesPage />,
+        element: (
+          <PrivateRouteRole
+            component={CategoriesPage}
+            accessibleRoles={[rolesValue.ADMINISTRATOR]}
+          />
+        ),
       },
       {
         id: "FORM",
         path: paths.FORM,
-        element: <FormsPage />,
+        element: (
+          <PrivateRouteRole
+            component={FormsPage}
+            accessibleRoles={[rolesValue.ADMINISTRATOR]}
+          />
+        ),
       },
       {
         id: " NOTIFICATION",

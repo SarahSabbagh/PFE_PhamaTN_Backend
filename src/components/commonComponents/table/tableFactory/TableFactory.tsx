@@ -6,7 +6,7 @@ import { TableContent } from "../tableContent/TableContent";
 import { TableFactoryProps } from "./TableFactory.types";
 import { CustomizedTablePagination } from "../tablePagination/TablePagination";
 import { LoadingTableContent } from "../tableContent/loadingTableContent/LoadingTableContent";
-import {  StyledTableContainer } from "./TableFactory.style";
+import { StyledTableContainer } from "./TableFactory.style";
 import { EmptyTableRow } from "../tableRows/CustomizedTableRow";
 import { TablePaginationProps } from "@mui/material";
 import { StyledPaper } from "../../customPaper/StyledPaper.style";

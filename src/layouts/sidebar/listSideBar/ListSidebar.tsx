@@ -14,6 +14,8 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import { StyledLink } from "../Sidebar.style";
 import { SideBarMenuList } from "../../../core/constants/list/sideBarMenuList";
 import { StyledList, StyledListItemIcon } from "./ListSidebar.style";
+import { rolesValue } from "../../../core/constants/roles";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
 
 export const ListSidebar: React.FC = () => {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -23,10 +25,16 @@ export const ListSidebar: React.FC = () => {
     setOpen(!open);
     setCollapse(id);
   };
-
+  const { currentRole } = useCurrentUser();
+  const filteredMenuList = SideBarMenuList.filter((item) => {
+    if (currentRole && item.roles.includes(currentRole)) {
+      return true;
+    }
+    return false;
+  });
   return (
     <StyledList>
-      {SideBarMenuList.map((item) => (
+      {filteredMenuList.map((item) => (
         <Grid key={item.id}>
           <ListItem disablePadding>
             <StyledLink to={item.url}>

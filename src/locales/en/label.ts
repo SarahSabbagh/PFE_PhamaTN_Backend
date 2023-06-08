@@ -26,11 +26,13 @@ export const label = {
   NAME: "Name",
   MEDICATION_NOT_FOUND: "Medication is not found",
   SELECT_MEDICATION: "Select medication",
+  COMFIRM_BATCH_ADDITION: "Confirm batch addition",
+  LOT_NOT_FOUND: "The batch is not found",
   NEXT: "Next",
   FINISH: "Finish",
   BACK: "Back",
-  ADD_LOT:"Add lot",
+  ADD_LOT: "Add Drug batch",
   SAVED_SUCCESSFULLY: "Saved Successfully",
-  FRENCH:"French",
-  ENGLISH:"English"
+  FRENCH: "French",
+  ENGLISH: "English",
 };

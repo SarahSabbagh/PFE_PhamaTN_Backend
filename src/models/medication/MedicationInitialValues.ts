@@ -1,4 +1,4 @@
-import { IMedicationRequest } from "../../components/commonComponents/forms/addForm/AddMedication";
+import { IMedicationRequest } from "../../redux/api/types/IMedication";
 
 export const defaultValues: IMedicationRequest = {
   dci_id: 0,
@@ -7,4 +7,5 @@ export const defaultValues: IMedicationRequest = {
   category_id: 0,
   dosage: "",
   description: "",
+  min_quantity: 0,
 };
