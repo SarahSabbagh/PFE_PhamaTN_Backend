@@ -6,7 +6,7 @@ export interface IActions {
   add?: IAddAction;
   edit?: IEditAction;
   delete?: IDeleteAction;
-  expand?: boolean;
+  details?: IDetailsAction;
 }
 
 export interface IFilter {
@@ -17,7 +17,10 @@ export interface IAddAction {
   add: boolean;
   addFormType: string;
 }
-
+export interface IDetailsAction {
+  details: boolean;
+  detailsFormType: string;
+}
 export interface IEditAction {
   edit: boolean;
   editFormType: string;
@@ -37,17 +40,16 @@ export interface ISort {
   sortBy?: string;
 }
 
-export interface TableFactoryProps<T> {
+export interface TableContainerProps<T> {
   data: T | undefined;
-  handleQueryChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   title: string;
   sort?: ISort;
+  count: number;
   handleModal?: IhandleModal;
   columns: ITableHead[];
-  actions: IActions;
+  actions?: IActions;
   nestedAction?: IActions;
   isError: boolean;
   handleActivationMode?: (id: number) => void;
   handleUpdateUserStatus?: (id: number, status: number) => void;
-  noToolBar?: boolean;
 }

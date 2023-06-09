@@ -10,7 +10,7 @@ export const CustomizedTableToolBar: React.FC<TableToolBarProps> = (props) => {
   const { filter, handleModal, add, title, handleQueryChange } = props;
 
   return (
-    <Grid container item sx={{ alignItems: "center", p: "1rem" }}>
+    <Grid container item alignItems="center" sx={{ p: "1rem" }}>
       <Grid item xs={12}>
         <StyledTitle>{title}</StyledTitle>
       </Grid>

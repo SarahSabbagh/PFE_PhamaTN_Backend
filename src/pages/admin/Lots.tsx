@@ -69,7 +69,7 @@ export const LotsPage: FC = () => {
       <Grid>
         <TableFactory<ItransformedLotData[]>
           columns={lotColumns}
-          data={data ? transformedLotData(data.data) : []}
+          data={data && transformedLotData(data.data)}
           sort={{
             onRequestSort: onRequestSort,
             sortOrder: sortOrder,

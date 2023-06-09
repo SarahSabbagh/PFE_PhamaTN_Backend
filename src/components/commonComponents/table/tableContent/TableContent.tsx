@@ -8,12 +8,14 @@ export const TableContent = <T,>(
 ) => {
   const {
     actions,
+    nestedAction,
     data,
     title,
     columns,
     handleActivationMode,
     handleUpdateUserStatus,
   } = props;
+
   return (
     <TableBody>
       {Array.isArray(data) &&
@@ -21,10 +23,10 @@ export const TableContent = <T,>(
           <CustomizedTableRow
             handleActivationMode={handleActivationMode}
             handleUpdateUserStatus={handleUpdateUserStatus}
-            editAction={actions?.edit}
             deleteAction={actions?.delete}
-            detailsAction={actions?.details}
+            editAction={actions?.edit}
             key={index}
+            nestedAction={nestedAction}
             title={title}
             item={item}
             columns={columns}

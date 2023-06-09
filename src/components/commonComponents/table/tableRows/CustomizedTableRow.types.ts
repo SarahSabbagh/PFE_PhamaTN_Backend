@@ -1,4 +1,8 @@
-import { IDeleteAction, IDetailsAction, IEditAction } from "../tableFactory/TableFactory.types";
+import {
+  IActions,
+  IDeleteAction,
+  IEditAction,
+} from "../tableFactory/TableFactory.types";
 import { ITableHead } from "../tableHead/TableHead.types";
 
 export interface CustomizedTableRowProps {
@@ -7,7 +11,7 @@ export interface CustomizedTableRowProps {
   columns: ITableHead[];
   editAction?: IEditAction;
   deleteAction?: IDeleteAction;
-  detailsAction?: IDetailsAction;
+  nestedAction?: IActions;
   handleActivationMode?: (id: number) => void;
   handleUpdateUserStatus?: (id: number, status: number) => void;
 }

@@ -3,7 +3,7 @@ import { TableContainer, TableContainerProps, styled } from "@mui/material";
 
 export const StyledTableContainer = styled(TableContainer)<TableContainerProps>(
   () => ({
-    maxHeight: "30rem",
+    maxHeight: "40rem",
     width: "100%",
   })
 );

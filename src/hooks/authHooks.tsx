@@ -6,7 +6,7 @@ import { skipToken } from "@reduxjs/toolkit/dist/query";
 
 export const useAccessToken = (): boolean => {
   const token = localStorage.getItem(globalVariables.TOKEN);
-  const { error } = useGetUserQuery(token == null ? skipToken : undefined);
+  const { error } = useGetUserQuery(token === null ? skipToken : undefined);
   useEffect(() => {
     if (
       error &&
@@ -16,12 +16,5 @@ export const useAccessToken = (): boolean => {
       localStorage.clear();
     }
   }, [error]);
-  if (
-    error &&
-    "status" in error &&
-    error?.status === StatusCode.HTTP_UNAUTHORIZED
-  ) {
-    localStorage.clear();
-  }
-  return token !== null;
+  return localStorage.getItem(globalVariables.TOKEN) !== null;
 };

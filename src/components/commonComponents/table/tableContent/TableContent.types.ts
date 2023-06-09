@@ -6,7 +6,8 @@ export interface TableContentProps<T> {
   title: string;
   handleModal?: IhandleModal;
   columns: ITableHead[];
-  actions: IActions;
+  actions?: IActions;
+  nestedAction?: IActions;
   handleActivationMode?: (id: number) => void;
   handleUpdateUserStatus?: (id: number, status: number) => void;
 }

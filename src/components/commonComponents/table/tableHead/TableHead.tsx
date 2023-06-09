@@ -20,7 +20,7 @@ export const CustomizedTableHead: React.FC<CustomizedTableHeadProps> = (
     <TableHead>
       <TableRow>
         {columns.map((element, index) => (
-          <StyledTableCell headColumn key={index} align="center">
+          <StyledTableCell key={index} align="center">
             {element.sortable ? (
               <StyledSortLabel
                 active

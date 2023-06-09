@@ -24,6 +24,7 @@ export const StockPage: FC = () => {
   const [sortBy, setSortBy] = React.useState<string>("");
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
+
   const debouncedSearchTerm = useDebounce<string>(query, 500);
   const { userId, user } = useCurrentUser();
   const handleClickOpen = () => {
@@ -77,9 +78,16 @@ export const StockPage: FC = () => {
               add: true,
               addFormType: formTypes.ADD_LOT_TO_STOCK,
             },
-            details: {
-              details: true,
-              detailsFormType: formTypes.STOCK_DETAILS,
+            expand: true,
+          }}
+          nestedAction={{
+            delete: {
+              delete: true,
+              handleDelete: deleteLotInStock,
+            },
+            edit: {
+              edit: true,
+              editFormType: formTypes.EDIT_LOT_IN_STOCK_MODAL,
             },
           }}
           handleModal={{
