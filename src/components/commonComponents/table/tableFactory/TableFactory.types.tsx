@@ -48,8 +48,7 @@ export interface TableFactoryProps<T> {
   handleModal?: IhandleModal;
   columns: ITableHead[];
   actions: IActions;
-  isLoading: boolean;
-  isFetching: boolean;
+  isError: boolean;
   handleActivationMode?: (id: number) => void;
   handleUpdateUserStatus?: (id: number, status: number) => void;
   noToolBar?: boolean;

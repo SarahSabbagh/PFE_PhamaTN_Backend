@@ -29,7 +29,7 @@ export const MedicationsPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading, isFetching } = useMedicationsFilterQuery({
+  const { data, isError} = useMedicationsFilterQuery({
     ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
@@ -78,8 +78,7 @@ export const MedicationsPage: FC = () => {
           }}
           handleQueryChange={handleQueryChange}
           title={t("medication.TITLE_MEDICATION")}
-          isLoading={isLoading}
-          isFetching={isFetching}
+          isError={isError}
           actions={{
             add: {
               add: true,

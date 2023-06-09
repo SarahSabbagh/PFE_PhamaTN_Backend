@@ -14,20 +14,9 @@ import {
 import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined";
 import { IFilterItem, status } from "../../../core/constants/status";
 import { activation } from "../../../core/constants/activation";
-import { FilterProps } from "./FilterComponent.types";
+import { FilterProps, IFilterData, Ilabel } from "./FilterComponent.types";
 import { roles } from "../../../core/constants/roles";
 import { useTranslation } from "react-i18next";
-
-interface IFilterData {
-  role?: number;
-  status?: number;
-  activationMode?: boolean;
-}
-interface Ilabel {
-  role?: string;
-  status?: string;
-  activationMode?: string;
-}
 
 export const Filter: React.FC<FilterProps> = ({ recievedFilterData }) => {
   const { t } = useTranslation();

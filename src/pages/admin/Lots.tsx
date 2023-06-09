@@ -30,7 +30,7 @@ export const LotsPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading, isFetching } = useLotsFilterQuery({
+  const { data, isError } = useLotsFilterQuery({
     ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
@@ -77,8 +77,7 @@ export const LotsPage: FC = () => {
           }}
           handleQueryChange={handleQueryChange}
           title={t("lot.TITLE_LOT")}
-          isLoading={isLoading}
-          isFetching={isFetching}
+          isError={isError}
           actions={{
             add: {
               add: true,

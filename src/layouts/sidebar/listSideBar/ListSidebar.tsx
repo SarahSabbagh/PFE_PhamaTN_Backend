@@ -6,7 +6,6 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
@@ -14,7 +13,6 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import { StyledLink } from "../Sidebar.style";
 import { SideBarMenuList } from "../../../core/constants/list/sideBarMenuList";
 import { StyledList, StyledListItemIcon } from "./ListSidebar.style";
-import { rolesValue } from "../../../core/constants/roles";
 import { useCurrentUser } from "../../../hooks/useCurrentUser";
 
 export const ListSidebar: React.FC = () => {
@@ -32,7 +30,7 @@ export const ListSidebar: React.FC = () => {
     }
     return false;
   });
-  return (
+  return filteredMenuList.length > 0 ? (
     <StyledList>
       {filteredMenuList.map((item) => (
         <Grid key={item.id}>
@@ -77,5 +75,5 @@ export const ListSidebar: React.FC = () => {
         </Grid>
       ))}
     </StyledList>
-  );
+  ) : null;
 };

@@ -30,7 +30,7 @@ export const FormsPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading, isFetching } = useFormsFilterQuery({
+  const { data,isError} = useFormsFilterQuery({
     ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
@@ -79,8 +79,7 @@ export const FormsPage: FC = () => {
           }}
           handleQueryChange={handleQueryChange}
           title={t("form.TITLE_FORM")}
-          isLoading={isLoading}
-          isFetching={isFetching}
+          isError={isError}
           actions={{
             add: {
               add: true,

@@ -42,12 +42,6 @@ export const Notifications: FC = () => {
   const [markAsRead, { isSuccess: isSuccessMarkAsRead }] =
     useMarkAsReadMutation();
 
-  // const [notifications, setNotifications] =
-  //   useState<INotificationResponse[]>(unreadNotification);
-  //  console.log("notifications", notifications);
-
-  //const { data: user } = useGetUserQuery();
-
   const handleMarkAsReadNotification = (id: string | undefined) => {
     user && markAsRead({ userId: user.id, id }).unwrap();
     if (isSuccessMarkAsRead) {
@@ -56,19 +50,6 @@ export const Notifications: FC = () => {
         : dispatch(resetNotificationCount);
     }
   };
-
-  // const newNotification: INotificationResponse | null = useSelector(
-  //   (state: RootState) => state.notification.newNotification
-  // );
-
-  // useEffect(() => {
-  //   newNotification &&
-  //     setNotifications((prevNotifications) => [
-  //       ...prevNotifications,
-  //       newNotification,
-  //     ]);
-  //   dispatch(resetNotification());
-  // }, [newNotification]);
 
   return (
     <PageContainer title="Notifications">

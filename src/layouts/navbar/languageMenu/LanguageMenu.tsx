@@ -2,7 +2,7 @@ import * as React from "react";
 import { Grid, ListItemText, MenuItem } from "@mui/material";
 import { StyledIconButton, StyledMenu } from "./LanguageMenu.style";
 import { NavbarProps } from "../Navbar.types";
-import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
+import TranslateIcon from "@mui/icons-material/Translate";
 import { useTranslation } from "react-i18next";
 
 const languageMenu = [
@@ -14,13 +14,13 @@ export const LanguageMenu: React.FC<NavbarProps> = (props) => {
   const { t, i18n } = useTranslation();
   const { anchorEl, handleClose, handleOpen } = props;
   const handleLanguage = (language: string) => {
-    handleClose;
     i18n.changeLanguage(language);
+    handleClose && handleClose();
   };
   return (
     <Grid item>
       <StyledIconButton onClick={handleOpen}>
-        <LanguageOutlinedIcon color="primary" fontSize="large" />
+        <TranslateIcon color="primary" fontSize="medium" />
       </StyledIconButton>
       <StyledMenu
         anchorEl={anchorEl}

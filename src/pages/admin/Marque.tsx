@@ -29,7 +29,7 @@ export const MarquesPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading, isFetching } = useMarquesFilterQuery({
+  const { data, isError} = useMarquesFilterQuery({
     ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
@@ -78,8 +78,7 @@ export const MarquesPage: FC = () => {
           }}
           handleQueryChange={handleQueryChange}
           title={t("brand.TITLE_BRAND")}
-          isLoading={isLoading}
-          isFetching={isFetching}
+          isError={isError}
           actions={{
             add: {
               add: true,

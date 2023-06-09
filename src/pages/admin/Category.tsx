@@ -29,7 +29,7 @@ export const CategoriesPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading, isFetching } = useCategoriesFilterQuery({
+  const { data, isError } = useCategoriesFilterQuery({
     ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
@@ -77,8 +77,7 @@ export const CategoriesPage: FC = () => {
           }}
           handleQueryChange={handleQueryChange}
           title={t("category.TITLE_GATEGORY")}
-          isLoading={isLoading}
-          isFetching={isFetching}
+          isError={isError}
           actions={{
             add: {
               add: true,

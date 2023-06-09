@@ -10,6 +10,7 @@ import { StyledTableContainer } from "./TableFactory.style";
 import { EmptyTableRow } from "../tableRows/CustomizedTableRow";
 import { TablePaginationProps } from "@mui/material";
 import { StyledPaper } from "../../customPaper/StyledPaper.style";
+import { ErrorTableRow } from "../tableRows/ErrorTableRow";
 
 export const TableFactory = <T,>(
   props: React.PropsWithChildren<TableFactoryProps<T> & TablePaginationProps>
@@ -20,7 +21,7 @@ export const TableFactory = <T,>(
     data,
     title,
     actions,
-    isLoading,
+    isError,
     handleActivationMode,
     handleUpdateUserStatus,
     handleModal,
@@ -38,20 +39,24 @@ export const TableFactory = <T,>(
       <StyledTableContainer>
         <Table stickyHeader size="small" aria-label="simple table">
           <CustomizedTableHead {...props} />
-          {isLoading ? (
-            <LoadingTableContent />
-          ) : data && count > 0 ? (
-            <TableContent<T>
-              columns={columns}
-              data={data}
-              title={title}
-              actions={actions}
-              handleActivationMode={handleActivationMode}
-              handleUpdateUserStatus={handleUpdateUserStatus}
-              handleModal={handleModal}
-            />
+          {data ? (
+            count > 0 ? (
+              <TableContent<T>
+                columns={columns}
+                data={data}
+                title={title}
+                actions={actions}
+                handleActivationMode={handleActivationMode}
+                handleUpdateUserStatus={handleUpdateUserStatus}
+                handleModal={handleModal}
+              />
+            ) : (
+              <EmptyTableRow />
+            )
+          ) : isError ? (
+            <ErrorTableRow />
           ) : (
-            <EmptyTableRow />
+            <LoadingTableContent />
           )}
         </Table>
       </StyledTableContainer>

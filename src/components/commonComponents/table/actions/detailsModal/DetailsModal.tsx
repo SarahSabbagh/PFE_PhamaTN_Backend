@@ -95,8 +95,7 @@ export const DetailsModal: FC<ModalEditProps> = (props) => {
               }}
               handleQueryChange={handleQueryChange}
               title={"stock"}
-              isLoading={false}
-              isFetching={true}
+              isError={false}
               actions={{
                 details: {
                   details: true,

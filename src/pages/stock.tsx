@@ -33,7 +33,7 @@ export const StockPage: FC = () => {
     setOpen(false);
   };
 
-  const { data, isLoading, isFetching } = useStockQuery(user?.id ?? skipToken);
+  const { data, isError } = useStockQuery(user?.id ?? skipToken);
   const [deleteLotInStock] = useDeleteLotInStockMutation();
   const handleLotDelete = (id: number) => {
     deleteLotInStock({ user_id: userId, lot_id: id }).unwrap();
@@ -71,8 +71,7 @@ export const StockPage: FC = () => {
           }}
           handleQueryChange={handleQueryChange}
           title={"stock"}
-          isLoading={isLoading}
-          isFetching={isFetching}
+          isError={isError}
           actions={{
             add: {
               add: true,

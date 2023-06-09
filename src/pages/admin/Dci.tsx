@@ -29,7 +29,7 @@ export const DcisPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading, isFetching } = useFilterDcisQuery({
+  const { data, isError } = useFilterDcisQuery({
     ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
@@ -78,8 +78,7 @@ export const DcisPage: FC = () => {
           }}
           handleQueryChange={handleQueryChange}
           title={t("dci.TITLE_DCI")}
-          isLoading={isLoading}
-          isFetching={isFetching}
+          isError={isError}
           actions={{
             add: {
               add: true,

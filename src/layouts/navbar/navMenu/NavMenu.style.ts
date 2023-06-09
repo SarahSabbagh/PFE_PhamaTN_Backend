@@ -4,6 +4,7 @@ import { NavbarMenuProps } from "./NavbarMenu.types";
 
 export const StyledBox = styled(Box)<BoxProps & NavbarMenuProps>(
   ({ isauthenticated, theme }) => ({
+    alignItems: "center",
     [theme.breakpoints.up("md")]: {
       display: "flex",
     },
