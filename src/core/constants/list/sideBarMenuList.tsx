@@ -6,17 +6,14 @@ import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
 import { paths } from "../path";
 import { colors } from "../colors";
-import i18next from "i18next";
 import { rolesValue } from "../roles";
-
-const translate = (key: string): string => i18next.t(key) || "";
 
 export interface ISideBarMenuList {
   id: string;
   title: string;
   url: string;
-  icon: JSX.Element;
-  roles: string[];
+  icon?: JSX.Element;
+  roles?: string[];
   subMenu?: ISubMenu[];
 }
 export interface ISubMenu {
@@ -30,7 +27,7 @@ export interface ISubMenu {
 export const SideBarMenuList: ISideBarMenuList[] = [
   {
     id: "DASHBOARD",
-    title: translate("SideBarMenuList.DASHBORAD"),
+    title: "SideBarMenuList.DASHBORAD",
     url: paths.DASHBOARD,
     roles: [
       rolesValue.ADMINISTRATOR,
@@ -41,24 +38,21 @@ export const SideBarMenuList: ISideBarMenuList[] = [
   },
   {
     id: "USERS",
-    title: translate("SideBarMenuList.USERS"),
+    title: "SideBarMenuList.USERS",
     url: paths.USERS,
     roles: [rolesValue.ADMINISTRATOR],
     icon: <PeopleAltOutlinedIcon sx={{ color: colors.containerColor }} />,
   },
   {
     id: "STOCK",
-    title: translate("SideBarMenuList.STOCK"),
+    title: "SideBarMenuList.STOCK",
     url: paths.STOCK,
-    roles: [
-      rolesValue.WHOLESALER,
-      rolesValue.PHARMACY,
-    ],
+    roles: [rolesValue.WHOLESALER, rolesValue.PHARMACY],
     icon: <MedicationOutlinedIcon sx={{ color: colors.containerColor }} />,
   },
   {
-    id: " LOT",
-    title: translate("SideBarMenuList.LOT"),
+    id: "LOT",
+    title: "SideBarMenuList.LOT",
     url: paths.LOT,
     roles: [
       rolesValue.ADMINISTRATOR,
@@ -69,7 +63,7 @@ export const SideBarMenuList: ISideBarMenuList[] = [
   },
   {
     id: "MEDICATION",
-    title: translate("SideBarMenuList.MEDICATION"),
+    title: "SideBarMenuList.MEDICATION",
     url: paths.MEDICATION,
     roles: [
       rolesValue.ADMINISTRATOR,
@@ -78,38 +72,38 @@ export const SideBarMenuList: ISideBarMenuList[] = [
     ],
     icon: <MedicationOutlinedIcon sx={{ color: colors.containerColor }} />,
   },
-  
+
   {
     id: "DRUGS_INFO",
-    title: translate("SideBarMenuList.DRUGS_INFO"),
+    title: "SideBarMenuList.DRUGS_INFO",
     url: "",
     roles: [rolesValue.ADMINISTRATOR],
     icon: <FeedOutlinedIcon sx={{ color: colors.containerColor }} />,
     subMenu: [
       {
         id: "DCI",
-        title: translate("SideBarMenuList.DCI"),
+        title: "SideBarMenuList.DCI",
         url: paths.DCI,
         roles: [rolesValue.ADMINISTRATOR],
         icon: <FeedOutlinedIcon sx={{ color: colors.containerColor }} />,
       },
       {
         id: "MARQUE",
-        title: translate("SideBarMenuList.MARQUE"),
+        title: "SideBarMenuList.MARQUE",
         url: paths.MARQUE,
         roles: [rolesValue.ADMINISTRATOR],
         icon: <FeedOutlinedIcon sx={{ color: colors.containerColor }} />,
       },
       {
         id: "CATEGORY",
-        title: translate("SideBarMenuList.CATEGORY"),
+        title: "SideBarMenuList.CATEGORY",
         url: paths.CATEGORY,
         roles: [rolesValue.ADMINISTRATOR],
         icon: <FeedOutlinedIcon sx={{ color: colors.containerColor }} />,
       },
       {
         id: "FORM",
-        title: translate("SideBarMenuList.FORM"),
+        title: "SideBarMenuList.FORM",
         url: paths.FORM,
         roles: [rolesValue.ADMINISTRATOR],
         icon: <FeedOutlinedIcon sx={{ color: colors.containerColor }} />,

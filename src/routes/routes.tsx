@@ -5,7 +5,6 @@ import { Register } from "../pages/Register";
 import { ErrorPage } from "../pages/Error";
 import { Layout, LayoutLogin } from "../layouts/GlobalLayout";
 import { Profile } from "../pages/Profile";
-import { Settings } from "../pages/Settings";
 import { Dashboard } from "../pages/dashboard";
 import { PrivateRouteNoAuth } from "./privateRoutes/PrivateRouteNoAuth";
 import { PrivateRouteAuth } from "./privateRoutes/PrivateRouteAuth";
@@ -36,11 +35,6 @@ export const routes = createBrowserRouter([
         id: "PROFILES",
         path: paths.PROFILE,
         element: <Profile />,
-      },
-      {
-        id: "SETTINGS",
-        path: paths.SETTINGS,
-        element: <Settings />,
       },
       {
         id: "USERS",

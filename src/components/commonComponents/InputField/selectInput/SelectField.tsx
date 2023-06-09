@@ -10,6 +10,7 @@ import * as React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { SyledPlaceholder, SelectFieldStyle } from "./SelectField.style";
 import { SelectFieldProps } from "./SelectField.types";
+import { useTranslation } from "react-i18next";
 
 export const SelectField = <TypeOptions,>(
   props: React.PropsWithChildren<
@@ -18,7 +19,7 @@ export const SelectField = <TypeOptions,>(
 ) => {
   const { id, label, name, options } = props;
   const { control } = useFormContext();
-
+  const { t } = useTranslation();
   return (
     <Controller
       control={control}
@@ -37,7 +38,7 @@ export const SelectField = <TypeOptions,>(
             ))}
           </SelectFieldStyle>
           <FormHelperText id={id} error={!!error}>
-            {error ? error?.message : ""}
+            {error ? t(`${error?.message}`) : ""}
           </FormHelperText>
         </Stack>
       )}

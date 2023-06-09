@@ -10,7 +10,6 @@ import { SidebarProps } from "./Sidebar.types";
 import { ListSidebar } from "./listSideBar/ListSidebar";
 import { Logo } from "../../components/commonComponents/logo/Logo";
 import { colors } from "../../core/constants/colors";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
 
 export const ResponsiveSideBar: React.FC<SidebarProps> = (props) => {
   const { openDrawer, handleDrawerClose } = props;

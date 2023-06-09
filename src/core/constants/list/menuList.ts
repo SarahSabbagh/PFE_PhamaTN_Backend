@@ -1,25 +1,18 @@
-import i18next from "i18next";
 import { paths } from "../path";
+import { ISideBarMenuList } from "./sideBarMenuList";
 
-const translate = (key: string): string => i18next.t(key) || "";
-
-export interface ISideBarMenuList {
-  id: string;
-  title: string;
-  url: string;
-}
-export const pageLogin = [
+export const pageLogin: ISideBarMenuList[] = [
   {
     id: "LOGIN",
-    title: translate("login.SIGN_IN"),
+    title: "login.SIGN_IN",
     url: paths.LOGIN,
   },
 ];
 
-export const pageRegister = [
+export const pageRegister: ISideBarMenuList[] = [
   {
     id: "REGISTER",
-    title: translate("register.SIGN_UP"),
+    title: "register.SIGN_UP",
     url: paths.REGISTER,
   },
 ];
