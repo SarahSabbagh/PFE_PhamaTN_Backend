@@ -24,4 +24,5 @@ export const cells = {
   PHARMACY_LAST_NAME: "Prénom de pharmacien(ne)",
   QUANTITY: "Quantité",
   MIN_QUANTITY: "Quantité min",
+  EXPAND: "Lots",
 };

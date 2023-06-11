@@ -27,7 +27,7 @@ export const CustomizedTableHead: React.FC<CustomizedTableHeadProps> = (
                 direction={
                   sort?.sortBy === element.accessor ? sort?.sortOrder : "asc"
                 }
-                sortBy={sort?.sortBy === element.accessor}
+                sortby={sort?.sortBy === element.accessor}
                 onClick={createSortHandler(element.accessor)}
               >
                 {t(`cells.${element.label}`)}

@@ -61,48 +61,46 @@ export const StockPage: FC = () => {
   };
   return (
     <PageContainer title={t("lot.TITLE_PAGE_LOT")}>
-      <Grid>
-        <TableFactory<ItransformedStockElementData[]>
-          columns={stockColumns}
-          data={data && transformedStockData(data.data)}
-          sort={{
-            onRequestSort: onRequestSort,
-            sortOrder: sortOrder,
-            sortBy: sortBy,
-          }}
-          handleQueryChange={handleQueryChange}
-          title={"stock"}
-          isError={isError}
-          actions={{
-            add: {
-              add: true,
-              addFormType: formTypes.ADD_LOT_TO_STOCK,
-            },
-            expand: true,
-          }}
-          nestedAction={{
-            delete: {
-              delete: true,
-              handleDelete: deleteLotInStock,
-            },
-            edit: {
-              edit: true,
-              editFormType: formTypes.EDIT_LOT_IN_STOCK_MODAL,
-            },
-          }}
-          handleModal={{
-            handleClickOpen: handleClickOpen,
-            open: open,
-            handleClose: handleClose,
-          }}
-          page={page}
-          count={data?.total ?? 0}
-          rowsPerPageOptions={[10, 25, 50, 100]}
-          rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Grid>
+      <TableFactory<ItransformedStockElementData[]>
+        columns={stockColumns}
+        data={data && transformedStockData(data.data)}
+        sort={{
+          onRequestSort: onRequestSort,
+          sortOrder: sortOrder,
+          sortBy: sortBy,
+        }}
+        handleQueryChange={handleQueryChange}
+        title={"stock"}
+        isError={isError}
+        actions={{
+          add: {
+            add: true,
+            addFormType: formTypes.ADD_LOT_TO_STOCK,
+          },
+          expand: true,
+        }}
+        nestedAction={{
+          delete: {
+            delete: true,
+            handleDelete: handleLotDelete,
+          },
+          edit: {
+            edit: true,
+            editFormType: formTypes.EDIT_LOT_IN_STOCK_MODAL,
+          },
+        }}
+        handleModal={{
+          handleClickOpen: handleClickOpen,
+          open: open,
+          handleClose: handleClose,
+        }}
+        page={page}
+        count={data?.total ?? 0}
+        rowsPerPageOptions={[10, 25, 50, 100]}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </PageContainer>
   );
 };

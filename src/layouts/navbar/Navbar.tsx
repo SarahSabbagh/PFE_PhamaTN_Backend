@@ -1,7 +1,7 @@
 import * as React from "react";
 import Toolbar from "@mui/material/Toolbar";
 import { LogoNavbar } from "./logoNavbar/LogoNavbar";
-import { StyledAppBar } from "./Navbar.style";
+import { StyledAppBar, StyledToolbar } from "./Navbar.style";
 import { MenuList } from "./navMenu/NavMenu";
 import { UserMenu } from "./userMenu/UserMenu";
 import { useAccessToken } from "../../hooks/authHooks";
@@ -34,7 +34,7 @@ export const ResponsiveAppBar: React.FC<SidebarProps> = (props) => {
     <StyledAppBar isauthenticated={isAuthenticated}>
       <Grid>
         {!isAuthenticated && (
-          <Toolbar sx={{ justifyContent: "space-between" }}>
+          <StyledToolbar>
             <LogoNavbar isnotauthenticated={true} />
             <MenuList
               anchorEl={anchorElLanguage}
@@ -42,11 +42,11 @@ export const ResponsiveAppBar: React.FC<SidebarProps> = (props) => {
               handleOpen={handleOpenLanguageMenu}
               isauthenticated={true}
             />
-          </Toolbar>
+          </StyledToolbar>
         )}
 
         {isAuthenticated && (
-          <Toolbar>
+          <StyledToolbar>
             <LogoNavbar />
             <IconMenu
               openDrawer={openDrawer}
@@ -63,7 +63,7 @@ export const ResponsiveAppBar: React.FC<SidebarProps> = (props) => {
               handleClose={handleCloseUserMenu}
               handleOpen={handleOpenUserMenu}
             />
-          </Toolbar>
+          </StyledToolbar>
         )}
       </Grid>
     </StyledAppBar>

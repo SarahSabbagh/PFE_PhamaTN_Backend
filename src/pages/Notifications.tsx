@@ -53,7 +53,7 @@ export const Notifications: FC = () => {
 
   return (
     <PageContainer title="Notifications">
-      <StyledPaper sx={{ width: "100%" }}>
+      <StyledPaper>
         <Grid
           direction="row"
           container
@@ -89,15 +89,13 @@ export const Notifications: FC = () => {
                         item.data.email
                       }
                       secondary={
-                        <React.Fragment>
-                          <Typography
-                            sx={{ display: "inline" }}
-                            variant="body2"
-                            color="grey"
-                          >
-                            {DateFormatISO(dayjs(item.created_at))}
-                          </Typography>
-                        </React.Fragment>
+                        <Typography
+                          sx={{ display: "inline" }}
+                          variant="body2"
+                          color="grey"
+                        >
+                          {DateFormatISO(dayjs(item.created_at))}
+                        </Typography>
                       }
                     />
                     <Button

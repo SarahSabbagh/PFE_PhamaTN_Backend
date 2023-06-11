@@ -24,4 +24,5 @@ export const cells = {
   DCI: "INN",
   QUANTITY: "Quantity",
   MIN_QUANTITY: "Min quantity",
+  EXPAND: "Batchs",
 };

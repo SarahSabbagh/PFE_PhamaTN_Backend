@@ -1,6 +1,6 @@
 import * as React from "react";
 import { FC } from "react";
-import { Grid } from "@mui/material";
+
 import { PageContainer } from "../../components/commonComponents/PageContainer/PageContainer";
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
 import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
@@ -68,7 +68,7 @@ export const FormsPage: FC = () => {
 
   return (
     <PageContainer title={t("form.TITLE_PAGE_FORM")}>
-      <Grid>
+  
         <TableFactory<ISimpleElement[]>
           columns={dciColumns}
           data={data?.data}
@@ -103,7 +103,7 @@ export const FormsPage: FC = () => {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-      </Grid>
+   
     </PageContainer>
   );
 };

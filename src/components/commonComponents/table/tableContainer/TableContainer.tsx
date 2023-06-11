@@ -3,10 +3,10 @@ import Table from "@mui/material/Table";
 import { CustomizedTableHead } from "../tableHead/TableHead";
 import { TableContent } from "../tableContent/TableContent";
 import { LoadingTableContent } from "../tableContent/loadingTableContent/LoadingTableContent";
-import { EmptyTableRow } from "../tableRows/CustomizedTableRow";
-import { ErrorTableRow } from "../tableRows/ErrorTableRow";
 import { TableContainerProps } from "./TableContainer.types";
 import { StyledTableContainer } from "./TableContainer.style";
+import { ErrorTableContent } from "../tableContent/errorTableContent/ErrorTableContent";
+import { EmptyTableContent } from "../tableContent/emptyTableContent/EmptyTableContent";
 
 export const CustomTableContainer = <T,>(
   props: React.PropsWithChildren<TableContainerProps<T>>
@@ -40,10 +40,10 @@ export const CustomTableContainer = <T,>(
               handleModal={handleModal}
             />
           ) : (
-            <EmptyTableRow />
+            <EmptyTableContent />
           )
         ) : isError ? (
-          <ErrorTableRow />
+          <ErrorTableContent />
         ) : (
           <LoadingTableContent />
         )}

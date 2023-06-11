@@ -25,3 +25,7 @@ export const CollapseTablePaper = styled(Paper)<PaperProps>(({ theme }) => ({
   border: "1px solid" && theme.palette.background.paper,
   backgroundColor: theme.palette.background.default,
 }));
+export const CollapseTableCell = styled(TableCell)<TableCellProps>(() => ({
+  paddingTop: 0,
+  paddingBottom: 0,
+}));

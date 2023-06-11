@@ -1,14 +1,15 @@
 import * as React from "react";
-import { TableBody, TableCell, TableRow } from "@mui/material";
+import { TableBody, TableRow } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import { StyledTableCell } from "../TableContent.style";
 
 export const LoadingTableContent: React.FC = () => {
   return (
     <TableBody>
       <TableRow>
-        <TableCell align="center" colSpan={12}>
+        <StyledTableCell  align="center" colSpan={12}>
           <CircularProgress color="inherit" />
-        </TableCell>
+        </StyledTableCell>
       </TableRow>
     </TableBody>
   );

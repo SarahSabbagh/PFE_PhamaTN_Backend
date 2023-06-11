@@ -1,15 +1,5 @@
 import * as React from "react";
-import {
-  Box,
-  Collapse,
-  Paper,
-  Stack,
-  TableBody,
-  TableCell,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import InboxIcon from "@mui/icons-material/Inbox";
+import { Collapse, TableRow, Typography } from "@mui/material";
 import { CustomizedTableRowProps } from "./CustomizedTableRow.types";
 import {
   StandardCell,
@@ -19,7 +9,6 @@ import {
   ExpandCell,
 } from "./customizedTableCell/CustomizedTableCell";
 import { ITableHead } from "../tableHead/TableHead.types";
-import { useTranslation } from "react-i18next";
 import { stockItemColumns } from "../../../../core/constants/tableColumns/stockColumn";
 import { transformedStockItemData } from "../../../../core/utils/stockDataFormat";
 import {
@@ -27,7 +16,10 @@ import {
   ItransformedStockElementData,
 } from "../../../../redux/api/types/IStock";
 import { CustomTableContainer } from "../tableContainer/TableContainer";
-import { CollapseTablePaper } from "./customizedTableCell/CustomizedTableCell.style";
+import {
+  CollapseTableCell,
+  CollapseTablePaper,
+} from "./customizedTableCell/CustomizedTableCell.style";
 
 export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
   props
@@ -44,7 +36,7 @@ export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
   } = props;
   const [expand, setExpand] = React.useState(false);
   const handleExpand = () => setExpand(!expand);
-  
+
   function instanceOfStock(
     object: any
   ): object is ItransformedStockElementData {
@@ -111,10 +103,7 @@ export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
       </TableRow>
       {instanceOfStock(item) && (
         <TableRow>
-          <TableCell
-            style={{ paddingBottom: 0, paddingTop: 0 }}
-            colSpan={stockItemColumns.length}
-          >
+          <CollapseTableCell colSpan={stockItemColumns.length}>
             <Collapse in={expand} timeout="auto" unmountOnExit>
               <CollapseTablePaper elevation={1}>
                 <Typography variant="h3" gutterBottom>
@@ -130,25 +119,9 @@ export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
                 />
               </CollapseTablePaper>
             </Collapse>
-          </TableCell>
+          </CollapseTableCell>
         </TableRow>
       )}
     </>
-  );
-};
-
-export const EmptyTableRow: React.FC = () => {
-  const { t } = useTranslation();
-  return (
-    <TableBody>
-      <TableRow>
-        <TableCell align="center" colSpan={12}>
-          <Stack direction="column" justifyContent="center" alignItems="center">
-            <InboxIcon color="disabled" fontSize="large" />
-            <Typography>{t("label.No_DATA_AVAILABLE")} </Typography>
-          </Stack>
-        </TableCell>
-      </TableRow>
-    </TableBody>
   );
 };

@@ -12,7 +12,6 @@ export const PrivateRouteRole: React.FC<RoleProps> = ({
   const navigate = useNavigate();
   const { currentRole } = useCurrentUser();
   const isAuthenticated = useAccessToken();
-  console.log(currentRole);
   React.useEffect(() => {
     if (currentRole && !accessibleRoles.includes(currentRole)) {
       return navigate(paths.PAGE_NOT_FOUND, { replace: true });

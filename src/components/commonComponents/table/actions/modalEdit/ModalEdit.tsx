@@ -30,7 +30,6 @@ export const EditModal: React.FC<ModalEditProps> = (props) => {
       open={open}
       onClose={handleClose}
       fullScreen={formType !== formTypes.EDIT_SIMPLE_ELEMENT_MODAL && isMobile}
-      sx={{ height: "100%" }}
     >
       <DialogTitle align="center" variant="h3" color="primary">
         {t("label.EDIT")} {title.toLowerCase()}
