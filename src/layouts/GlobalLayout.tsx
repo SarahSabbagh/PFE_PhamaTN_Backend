@@ -11,6 +11,9 @@ import { skipToken } from "@reduxjs/toolkit/dist/query";
 import { Outlet } from "react-router-dom";
 import { useCurrentUser } from "../hooks/useCurrentUser";
 
+interface ILayout {
+  children: JSX.Element;
+}
 export const Layout: React.FC = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
@@ -52,11 +55,12 @@ export const Layout: React.FC = () => {
     </Grid>
   );
 };
-export const LayoutLogin: React.FC = () => {
+export const LayoutLogin: React.FC<ILayout> = (props) => {
+  const { children } = props;
   return (
     <Grid>
       <ResponsiveAppBar />
-      <Outlet />
+      {children}
       <Footer />
     </Grid>
   );

@@ -29,12 +29,30 @@ export const routes = createBrowserRouter([
       {
         id: "DASHBOARD",
         index: true,
-        element: <Dashboard />,
+        element: (
+          <PrivateRouteRole
+            component={Dashboard}
+            accessibleRoles={[
+              rolesValue.ADMINISTRATOR,
+              rolesValue.PHARMACY,
+              rolesValue.WHOLESALER,
+            ]}
+          />
+        ),
       },
       {
         id: "PROFILES",
         path: paths.PROFILE,
-        element: <Profile />,
+        element: (
+          <PrivateRouteRole
+            component={Profile}
+            accessibleRoles={[
+              rolesValue.ADMINISTRATOR,
+              rolesValue.PHARMACY,
+              rolesValue.WHOLESALER,
+            ]}
+          />
+        ),
       },
       {
         id: "USERS",
@@ -59,12 +77,30 @@ export const routes = createBrowserRouter([
       {
         id: "LOT",
         path: paths.LOT,
-        element: <LotsPage />,
+        element: (
+          <PrivateRouteRole
+            component={LotsPage}
+            accessibleRoles={[
+              rolesValue.PHARMACY,
+              rolesValue.WHOLESALER,
+              rolesValue.ADMINISTRATOR,
+            ]}
+          />
+        ),
       },
       {
         id: "MEDICATION",
         path: paths.MEDICATION,
-        element: <MedicationsPage />,
+        element: (
+          <PrivateRouteRole
+            component={MedicationsPage}
+            accessibleRoles={[
+              rolesValue.PHARMACY,
+              rolesValue.WHOLESALER,
+              rolesValue.ADMINISTRATOR,
+            ]}
+          />
+        ),
       },
       {
         id: "DCI",
@@ -109,25 +145,36 @@ export const routes = createBrowserRouter([
       {
         id: " NOTIFICATION",
         path: paths.NOTIFICATION,
-        element: <Notifications />,
+        element: (
+          <PrivateRouteRole
+            component={Notifications}
+            accessibleRoles={[
+              rolesValue.PHARMACY,
+              rolesValue.WHOLESALER,
+              rolesValue.ADMINISTRATOR,
+            ]}
+          />
+        ),
       },
     ],
   },
   {
-    path: paths.DASHBOARD,
-    element: <PrivateRouteNoAuth component={LayoutLogin} />,
-    children: [
-      {
-        id: "LOGIN",
-        path: paths.LOGIN,
-        element: <SignIn />,
-      },
-      {
-        id: "REGISTER",
-        path: paths.REGISTER,
-        element: <Register />,
-      },
-    ],
+    path: paths.LOGIN,
+    id: "LOGIN",
+    element: (
+      <LayoutLogin>
+        <PrivateRouteNoAuth component={SignIn} />
+      </LayoutLogin>
+    ),
+  },
+  {
+    path: paths.REGISTER,
+    id: "REGISTER",
+    element: (
+      <LayoutLogin>
+        <PrivateRouteNoAuth component={Register} />
+      </LayoutLogin>
+    ),
   },
   { path: "*", element: <ErrorPage /> },
   { path: paths.PAGE_NOT_FOUND, element: <ErrorPage /> },
