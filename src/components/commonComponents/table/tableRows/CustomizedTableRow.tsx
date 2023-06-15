@@ -20,6 +20,7 @@ import {
   CollapseTableCell,
   CollapseTablePaper,
 } from "./customizedTableCell/CustomizedTableCell.style";
+import { useTranslation } from "react-i18next";
 
 export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
   props
@@ -34,6 +35,7 @@ export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
     handleActivationMode,
     handleUpdateUserStatus,
   } = props;
+  const { t } = useTranslation();
   const [expand, setExpand] = React.useState(false);
   const handleExpand = () => setExpand(!expand);
 
@@ -56,7 +58,6 @@ export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
                 element={item[col.accessor]}
                 id={item.id}
                 handleUpdateUserStatus={handleUpdateUserStatus}
-                expand={expand}
               />
             )) ||
             (col.accessor === "active" && (
@@ -68,7 +69,6 @@ export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
                 element={item[col.accessor]}
                 handleActivationMode={handleActivationMode}
                 id={item.id}
-                expand={expand}
               />
             )) ||
             (col.label === "ACTIONS" && (
@@ -80,7 +80,6 @@ export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
                 title={title}
                 editAction={editAction}
                 deleteAction={deleteAction}
-                expand={expand}
               />
             )) ||
             (col.label === "EXPAND" && (
@@ -96,7 +95,6 @@ export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
                 accessor={col.accessor}
                 key={col.accessor}
                 element={item[col.accessor]}
-                expand={expand}
               />
             )
         )}
@@ -107,7 +105,7 @@ export const CustomizedTableRow: React.FC<CustomizedTableRowProps> = (
             <Collapse in={expand} timeout="auto" unmountOnExit>
               <CollapseTablePaper elevation={1}>
                 <Typography variant="h3" gutterBottom>
-                  Lots
+                  {t("label.BATCHS")}
                 </Typography>
                 <CustomTableContainer<ItransformedElementData[]>
                   data={item.lots && transformedStockItemData(item.lots)}

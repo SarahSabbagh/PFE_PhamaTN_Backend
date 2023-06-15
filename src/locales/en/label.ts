@@ -24,6 +24,7 @@ export const label = {
   EDIT: "Edit",
   ADD: "Add",
   NAME: "Name",
+  BATCHS:"Batchs",
   MEDICATION_NOT_FOUND: "Medication is not found",
   SELECT_MEDICATION: "Select medication",
   COMFIRM_BATCH_ADDITION: "Confirm batch addition",

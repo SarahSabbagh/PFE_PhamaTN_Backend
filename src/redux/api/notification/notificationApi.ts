@@ -2,14 +2,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { prepareHeaders } from "../../../core/utils/rtk.config";
 import { endpoints } from "../../../core/constants/endpoints";
 import { IResponse } from "../types/IResponseRequest";
+import { INotificationResponse } from "../types/INotification";
 
 const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT as string;
 
-export interface INotificationResponse {
-  id: string;
-  created_at: string;
-  data: { user_id: number; email: string; name: string };
-}
 export const notificationApi = createApi({
   reducerPath: "notificatioApi",
   baseQuery: fetchBaseQuery({

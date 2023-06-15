@@ -1,5 +1,4 @@
 import {
-  IActions,
   IDeleteAction,
   IEditAction,
 } from "../../tableFactory/TableFactory.types";
@@ -14,7 +13,6 @@ export interface TableCellsProps {
   handleActivationMode?: (id: number) => void;
   handleUpdateUserStatus?: (id: number, status: number) => void;
   id: number;
-  expand: boolean;
 }
 export interface ExpandCellsProps {
   handleExpand: () => void;

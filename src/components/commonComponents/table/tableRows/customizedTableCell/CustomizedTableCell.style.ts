@@ -13,6 +13,7 @@ export const StyledTableCell = styled(TableCell)<TableCellProps>(
   ({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: colors.grey.xlight,
+      fontWeight: "bold",
     },
     [`&.${tableCellClasses.body}`]: {
       backgroundColor: theme.palette.background.default,

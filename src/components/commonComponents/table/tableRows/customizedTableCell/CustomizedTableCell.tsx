@@ -125,7 +125,7 @@ export const ExpandCell: React.FC<ExpandCellsProps> = (props) => {
   );
 };
 export const StatusCell: React.FC<TableCellsProps> = (props) => {
-  const { element, id, handleUpdateUserStatus, item ,expand } = props;
+  const { element, id, handleUpdateUserStatus, item } = props;
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -141,7 +141,7 @@ export const StatusCell: React.FC<TableCellsProps> = (props) => {
   };
 
   return (
-    <StyledTableCell  align="center">
+    <StyledTableCell align="center">
       <IconButton onClick={handleClickOpen}>
         {element === 2 ? (
           <TaskAltOutlinedIcon color="success" />

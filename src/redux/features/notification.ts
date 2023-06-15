@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { INotificationResponse } from "../api/notification/notificationApi";
+import { INotificationResponse } from "../api/types/INotification";
 
 export interface notificationState {
   notificationCount: number;

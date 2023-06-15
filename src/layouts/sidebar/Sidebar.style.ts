@@ -5,9 +5,7 @@ import { colors } from "../../core/constants/colors";
 
 export const StyledBoxSideBar = styled(Box)<BoxProps>(({ theme }) => ({
   minHeight: "100%",
-  [theme.breakpoints.up("md")]: {
-    minWidth: "15.625rem",
-  },
+  minWidth: "15.625rem",
   justifyContent: "flex-start",
 }));
 
@@ -25,10 +23,10 @@ export const StyledDrawer = styled(Drawer)<DrawerProps>(({ theme }) => ({
     justifyContent: "flex-start",
     backgroundColor: theme.palette.primary.dark,
   },
-  [theme.breakpoints.up("md")]: {
+  [theme.breakpoints.up("lg")]: {
     display: "none",
   },
-  [theme.breakpoints.down("md")]: {
+  [theme.breakpoints.down("lg")]: {
     display: "block",
   },
 }));
@@ -42,10 +40,10 @@ export const StyledDrawerPermanent = styled(Drawer)<DrawerProps>(
       border: "1px solid" && theme.palette.background.paper,
       backgroundColor: theme.palette.primary.dark,
     },
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("lg")]: {
       display: "none",
     },
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("lg")]: {
       display: "block",
     },
   })

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FC } from "react";
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
 import {
@@ -16,10 +16,7 @@ import {
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import DoneIcon from "@mui/icons-material/Done";
 import InboxIcon from "@mui/icons-material/Inbox";
-import {
-  INotificationResponse,
-  useMarkAsReadMutation,
-} from "../redux/api/notification/notificationApi";
+import { useMarkAsReadMutation } from "../redux/api/notification/notificationApi";
 import { StyledPaper } from "../components/commonComponents/customPaper/StyledPaper.style";
 import { StyledTitle } from "../components/commonComponents/table/tableToolBar/TableToolBar.style";
 import { Loader } from "../components/commonComponents/loader/Loader";
@@ -30,10 +27,17 @@ import { RootState } from "../redux/store";
 import {
   decrementNotificationCount,
   resetNotificationCount,
+  setNotifications,
 } from "../redux/features/notification";
 import { IUser } from "../redux/api/types/IUser";
+import { INotificationResponse } from "../redux/api/types/INotification";
+import { useTranslation } from "react-i18next";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import { StyledTypography } from "../components/commonComponents/customTypography/customTypography.style";
 
 export const Notifications: FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const notifications: INotificationResponse[] = useSelector(
     (state: RootState) => state.notification.notifications!
@@ -45,14 +49,21 @@ export const Notifications: FC = () => {
   const handleMarkAsReadNotification = (id: string | undefined) => {
     user && markAsRead({ userId: user.id, id }).unwrap();
     if (isSuccessMarkAsRead) {
-      id
-        ? dispatch(decrementNotificationCount)
-        : dispatch(resetNotificationCount);
+      if (id) {
+        dispatch(decrementNotificationCount);
+        dispatch(decrementNotificationCount);
+        dispatch(
+          setNotifications(notifications.filter((item) => item.id !== id))
+        );
+      } else {
+        dispatch(resetNotificationCount);
+        dispatch(setNotifications([]));
+      }
     }
   };
 
   return (
-    <PageContainer title="Notifications">
+    <PageContainer title={t("notification.TITLE_PAGE_NOTIFICATION")}>
       <StyledPaper>
         <Grid
           direction="row"
@@ -60,13 +71,13 @@ export const Notifications: FC = () => {
           justifyContent={"space-between"}
           sx={{ pb: 2 }}
         >
-          <StyledTitle>Notification</StyledTitle>
+          <StyledTitle>{t("notification.TITLE_NOTIFICATION")}</StyledTitle>
           <Button
             variant="text"
             onClick={() => handleMarkAsReadNotification(undefined)}
             startIcon={<DoneAllIcon />}
           >
-            Mark all as read
+            {t("notification.MARK_ALL_AS_READ")}
           </Button>
         </Grid>
         <Divider />
@@ -76,18 +87,25 @@ export const Notifications: FC = () => {
               notifications.map((item: INotificationResponse, index) => (
                 <>
                   <ListItem key={item.id} alignItems="flex-start">
-                    <ListItemAvatar>
-                      <Avatar
-                        alt="Remy Sharp"
-                        src="/static/images/avatar/1.jpg"
-                      />
-                    </ListItemAvatar>
+                    {item.data.notification ===
+                      "new registration notification" && (
+                      <ListItemAvatar>
+                        <Avatar alt="Avatar" src="" />
+                      </ListItemAvatar>
+                    )}
+                    {item.data.notification === "expiration notification" && (
+                      <ListItemAvatar>
+                        <ErrorOutlineIcon color="error" />
+                      </ListItemAvatar>
+                    )}
+                    {item.data.notification ===
+                      "expiration soon notification" && (
+                      <ListItemAvatar>
+                        <WarningAmberIcon color="warning" />
+                      </ListItemAvatar>
+                    )}
                     <ListItemText
-                      primary={
-                        item.data.name +
-                        " has registered with " +
-                        item.data.email
-                      }
+                      primary={item.data.message}
                       secondary={
                         <Typography
                           sx={{ display: "inline" }}
@@ -103,7 +121,9 @@ export const Notifications: FC = () => {
                       onClick={() => handleMarkAsReadNotification(item.id)}
                       startIcon={<DoneIcon />}
                     >
-                      Mark as read
+                      <StyledTypography variant="button">
+                        {t("notification.MARK_AS_READ")}
+                      </StyledTypography>
                     </Button>
                   </ListItem>
                   <Divider key={index} />
@@ -116,7 +136,7 @@ export const Notifications: FC = () => {
                 alignItems="center"
               >
                 <InboxIcon color="disabled" fontSize="large" />
-                <Typography>No notification </Typography>
+                <Typography> {t("notification.NO_NOTIFICATION")} </Typography>
               </Stack>
             )
           ) : (

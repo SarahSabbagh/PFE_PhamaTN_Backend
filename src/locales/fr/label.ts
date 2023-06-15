@@ -25,6 +25,7 @@ export const label = {
   EDIT: "Modifier",
   ADD: "Ajouter",
   NAME: "Nom",
+  BATCHS: "Lots",
   MEDICATION_NOT_FOUND: "Le médicament est introuvable",
   SELECT_MEDICATION: "Sélectionner un médicament",
   LOT_NOT_FOUND: "Le lot est introuvable",

@@ -2,8 +2,6 @@ import * as React from "react";
 import {
   AppBar,
   AppBarProps,
-  Grid,
-  GridProps,
   Toolbar,
   ToolbarProps,
   styled,
