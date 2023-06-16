@@ -4,6 +4,7 @@ import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import AutoGraphOutlinedIcon from "@mui/icons-material/AutoGraphOutlined";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
+import SearchIcon from "@mui/icons-material/Search";
 import { paths } from "../path";
 import { colors } from "../colors";
 import { rolesValue } from "../roles";
@@ -42,6 +43,13 @@ export const SideBarMenuList: ISideBarMenuList[] = [
     url: paths.USERS,
     roles: [rolesValue.ADMINISTRATOR],
     icon: <PeopleAltOutlinedIcon sx={{ color: colors.containerColor }} />,
+  },
+  {
+    id: "SEARCH",
+    title: "SideBarMenuList.SEARCH",
+    url: paths.SEARCH,
+    roles: [rolesValue.WHOLESALER, rolesValue.PHARMACY],
+    icon: <SearchIcon sx={{ color: colors.containerColor }} />,
   },
   {
     id: "STOCK",
