@@ -55,6 +55,8 @@ export const colors = {
     main: blue[500],
     dark: blue[700],
   },
+  inputColor:"darkslategray",
+  borderColor: "#F2F2F2",
   containerColor: "#f4f5f7",
   PlaceholderColor: "#B5B5B5",
 };

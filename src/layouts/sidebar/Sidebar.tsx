@@ -14,11 +14,12 @@ import { colors } from "../../core/constants/colors";
 export const ResponsiveSideBar: React.FC<SidebarProps> = (props) => {
   const { openDrawer, handleDrawerClose } = props;
   return (
-    <StyledBoxSideBar>
-      <StyledDrawerPermanent variant="permanent" anchor="left" open>
-        <ListSidebar />
-      </StyledDrawerPermanent>
-
+    <>
+      <StyledBoxSideBar>
+        <StyledDrawerPermanent variant="permanent" anchor="left" open>
+          <ListSidebar />
+        </StyledDrawerPermanent>
+      </StyledBoxSideBar>
       <StyledDrawer anchor="left" open={openDrawer} onClose={handleDrawerClose}>
         <Grid display="flex" justifyContent="center">
           <Logo sidebarLogo />
@@ -28,6 +29,6 @@ export const ResponsiveSideBar: React.FC<SidebarProps> = (props) => {
         </IconButton>
         <ListSidebar />
       </StyledDrawer>
-    </StyledBoxSideBar>
+    </>
   );
 };

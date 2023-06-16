@@ -7,6 +7,13 @@ export const StyledBoxSideBar = styled(Box)<BoxProps>(({ theme }) => ({
   minHeight: "100%",
   minWidth: "15.625rem",
   justifyContent: "flex-start",
+  marginRight: "1rem",
+  [theme.breakpoints.up("lg")]: {
+    display: "block",
+  },
+  [theme.breakpoints.down("lg")]: {
+    display: "none",
+  },
 }));
 
 export const StyledLink = styled(Link)<LinkProps>(({ theme }) => ({
@@ -20,6 +27,7 @@ export const StyledDrawer = styled(Drawer)<DrawerProps>(({ theme }) => ({
   "& .MuiDrawer-paper": {
     padding: "8rem 0",
     minWidth: "15.625rem",
+    minHeight: "100%",
     justifyContent: "flex-start",
     backgroundColor: theme.palette.primary.dark,
   },

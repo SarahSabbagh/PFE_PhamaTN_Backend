@@ -1,5 +1,6 @@
 import { Theme } from "@mui/material";
 import { fonts } from "../../core/constants/fonts";
+import { colors } from "../../core/constants/colors";
 
 export default function InputBase(theme: Theme) {
   return {
@@ -8,9 +9,9 @@ export default function InputBase(theme: Theme) {
         root: {
           width: "100%",
           height: "3.125rem",
-          color: "darkslategray",
+          color: colors.inputColor,
           backgroundColor: theme.palette.background.default,
-          border: "1px solid #F2F2F2",
+          border: `1px solid  ${colors.borderColor} `,
           borderRadius: "0.3125rem",
           padding: "0.5rem",
           margin: "0.5rem 0",

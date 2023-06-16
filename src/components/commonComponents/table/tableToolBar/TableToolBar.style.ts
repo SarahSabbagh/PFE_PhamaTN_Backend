@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 
 export const StyledTitle = styled(Typography)<TypographyProps>(({ theme }) => ({
-  fontSize: "2.5rem",
+  fontSize: "2rem",
   color: theme.palette.primary.main,
 }));
 
