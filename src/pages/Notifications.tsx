@@ -35,6 +35,9 @@ import { useTranslation } from "react-i18next";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { StyledTypography } from "../components/commonComponents/customTypography/customTypography.style";
+import TimerOutlinedIcon from "@mui/icons-material/TimerOutlined";
+import TimerOffOutlinedIcon from "@mui/icons-material/TimerOffOutlined";
+import { notificationTypes } from "../core/notificationTypes";
 
 export const Notifications: FC = () => {
   const { t } = useTranslation();
@@ -88,22 +91,36 @@ export const Notifications: FC = () => {
                 <>
                   <ListItem key={item.id} alignItems="flex-start">
                     {item.data.notification ===
-                      "new registration notification" && (
+                      notificationTypes.NEW_REGISTRATION_NOTIFICATION && (
                       <ListItemAvatar>
                         <Avatar alt="Avatar" src="" />
                       </ListItemAvatar>
                     )}
-                    {item.data.notification === "expiration notification" && (
+                    {item.data.notification ===
+                      notificationTypes.EXPIRATION_SOON_NOTIFICATION && (
                       <ListItemAvatar>
-                        <ErrorOutlineIcon color="error" />
+                        <TimerOutlinedIcon color="warning" />
                       </ListItemAvatar>
                     )}
                     {item.data.notification ===
-                      "expiration soon notification" && (
+                      notificationTypes.EXPIRATION_NOTIFICATION && (
+                      <ListItemAvatar>
+                        <TimerOffOutlinedIcon color="error" />
+                      </ListItemAvatar>
+                    )}
+                    {item.data.notification ===
+                      notificationTypes.BE_OUT_OF_STOCK_SOON_NOTIFICATION && (
                       <ListItemAvatar>
                         <WarningAmberIcon color="warning" />
                       </ListItemAvatar>
                     )}
+                    {item.data.notification ===
+                      notificationTypes.STOCK_OUT_NOTIFICATION && (
+                      <ListItemAvatar>
+                        <ErrorOutlineIcon color="error" />
+                      </ListItemAvatar>
+                    )}
+
                     <ListItemText
                       primary={item.data.message}
                       secondary={
