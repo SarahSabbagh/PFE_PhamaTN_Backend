@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useUpdateMedicationMutation } from "../../../../redux/api/admin/MedicationApi";
 import { useToasts } from "react-toast-notifications";
 import { Loader } from "../../loader/Loader";
-import { IMedicationEditRequest } from "../../../../redux/api/types/IMedication";
+import { IMedicationRequest } from "../../../../redux/api/types/IMedication";
 import { medicationEditSchema } from "../../../../core/utils/validator/MedicationValidator";
 
 export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
@@ -26,7 +26,7 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
     return result ? result?.id : 0;
   };
 
-  const methods = useForm<IMedicationEditRequest>({
+  const methods = useForm<IMedicationRequest>({
     resolver: zodResolver(medicationEditSchema),
     defaultValues: {
       id: id,
@@ -36,6 +36,7 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
       form_id: findId(forms, item.form),
       dosage: item.dosage,
       description: item.description,
+      min_quantity: item.min_quantity,
     },
     mode: "onChange",
   });
@@ -43,7 +44,7 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
 
   const [updateMedication] = useUpdateMedicationMutation();
 
-  const onSubmit: SubmitHandler<IMedicationEditRequest> = async (data) => {
+  const onSubmit: SubmitHandler<IMedicationRequest> = async (data) => {
     const { id, ...rest } = data;
     updateMedication({ id: id, ...rest })
       .unwrap()
@@ -119,6 +120,15 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
+                <FormInput
+                  id="minQuantity"
+                  placeholder={t("cells.MIN_QUANTITY")}
+                  type="number"
+                  label={t("cells.MIN_QUANTITY")}
+                  name="min_quantity"
+                />
+              </Grid>
+              <Grid item xs={12}>
                 <FormInput
                   id="description"
                   placeholder={t("cells.DESCRIPTION")}

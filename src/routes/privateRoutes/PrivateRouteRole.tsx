@@ -11,13 +11,13 @@ export const PrivateRouteRole: React.FC<RoleProps> = ({
   const navigate = useNavigate();
   const { currentRole } = useCurrentUser();
   React.useEffect(() => {
-    if (!accessibleRoles.includes(currentRole)) {
-      return navigate(paths.PAGE_NOT_FOUND);
+    if (currentRole && !accessibleRoles.includes(currentRole)) {
+      return navigate(paths.PAGE_NOT_FOUND, { replace: true });
     }
-  }, []);
-  if (accessibleRoles.includes(currentRole)) {
-    return <RouteComponent />;
-  }
+  }, [currentRole]);
 
-  return <Navigate to={paths.PAGE_NOT_FOUND} />;
+  if (currentRole && accessibleRoles.includes(currentRole)) {
+    <Navigate to={paths.PAGE_NOT_FOUND} />;
+  }
+  return <RouteComponent />;
 };

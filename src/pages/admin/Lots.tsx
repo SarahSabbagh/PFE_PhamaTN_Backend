@@ -1,6 +1,5 @@
 import * as React from "react";
 import { FC } from "react";
-import { Grid } from "@mui/material";
 import { PageContainer } from "../../components/commonComponents/PageContainer/PageContainer";
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
 import { formTypes } from "../../core/constants/formType";
@@ -30,7 +29,7 @@ export const LotsPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading, isFetching } = useLotsFilterQuery({
+  const { data, isError } = useLotsFilterQuery({
     ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
@@ -66,43 +65,40 @@ export const LotsPage: FC = () => {
 
   return (
     <PageContainer title={t("lot.TITLE_PAGE_LOT")}>
-      <Grid>
-        <TableFactory<ItransformedLotData[]>
-          columns={lotColumns}
-          data={data ? transformedLotData(data.data) : []}
-          sort={{
-            onRequestSort: onRequestSort,
-            sortOrder: sortOrder,
-            sortBy: sortBy,
-          }}
-          handleQueryChange={handleQueryChange}
-          title={t("lot.TITLE_LOT")}
-          isLoading={isLoading}
-          isFetching={isFetching}
-          actions={{
-            add: {
-              add: true,
-              addFormType: formTypes.ADD_LOT_MODAL,
-            },
-            edit: {
-              edit: true,
-              editFormType: formTypes.EDIT_LOT_MODAL,
-            },
-            delete: { delete: true, handleDelete: handleDciDelete },
-          }}
-          handleModal={{
-            handleClickOpen: handleClickOpen,
-            open: open,
-            handleClose: handleClose,
-          }}
-          page={page}
-          count={data?.total ?? 0}
-          rowsPerPageOptions={[10, 25, 50, 100]}
-          rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Grid>
+      <TableFactory<ItransformedLotData[]>
+        columns={lotColumns}
+        data={data && transformedLotData(data.data)}
+        sort={{
+          onRequestSort: onRequestSort,
+          sortOrder: sortOrder,
+          sortBy: sortBy,
+        }}
+        handleQueryChange={handleQueryChange}
+        title={t("lot.TITLE_LOT")}
+        isError={isError}
+        actions={{
+          add: {
+            add: true,
+            addFormType: formTypes.ADD_LOT_MODAL,
+          },
+          edit: {
+            edit: true,
+            editFormType: formTypes.EDIT_LOT_MODAL,
+          },
+          delete: { delete: true, handleDelete: handleDciDelete },
+        }}
+        handleModal={{
+          handleClickOpen: handleClickOpen,
+          open: open,
+          handleClose: handleClose,
+        }}
+        page={page}
+        count={data?.total ?? 0}
+        rowsPerPageOptions={[10, 25, 50, 100]}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </PageContainer>
   );
 };

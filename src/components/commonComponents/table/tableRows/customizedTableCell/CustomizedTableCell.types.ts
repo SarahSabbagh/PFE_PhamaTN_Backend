@@ -14,6 +14,7 @@ export interface TableCellsProps {
   handleUpdateUserStatus?: (id: number, status: number) => void;
   id: number;
 }
-export interface StyledCellProps {
-  headColumn?: boolean;
+export interface ExpandCellsProps {
+  handleExpand: () => void;
+  expand: boolean;
 }

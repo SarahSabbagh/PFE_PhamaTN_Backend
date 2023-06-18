@@ -6,27 +6,40 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { StyledLink } from "../Sidebar.style";
-import { SideBarMenuList } from "../../../core/constants/list/sideBarMenuList";
+import {
+  ISideBarMenuList,
+  SideBarMenuList,
+} from "../../../core/constants/list/sideBarMenuList";
 import { StyledList, StyledListItemIcon } from "./ListSidebar.style";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
+import { useTranslation } from "react-i18next";
+import { useAppropriateMenu } from "../../../hooks/translatedMenuHook";
 
 export const ListSidebar: React.FC = () => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [collapse, setCollapse] = React.useState<string>("");
+  const { currentRole } = useCurrentUser();
 
   const handleClick = (id: string) => {
     setOpen(!open);
     setCollapse(id);
   };
 
-  return (
+  const translatedMenuList = useAppropriateMenu(SideBarMenuList);
+  const menuList = translatedMenuList.filter((item) => {
+    if (currentRole && item.roles?.includes(currentRole)) {
+      return true;
+    }
+    return false;
+  });
+  return menuList.length > 0 ? (
     <StyledList>
-      {SideBarMenuList.map((item) => (
+      {menuList.map((item: ISideBarMenuList) => (
         <Grid key={item.id}>
           <ListItem disablePadding>
             <StyledLink to={item.url}>
@@ -69,5 +82,5 @@ export const ListSidebar: React.FC = () => {
         </Grid>
       ))}
     </StyledList>
-  );
+  ) : null;
 };

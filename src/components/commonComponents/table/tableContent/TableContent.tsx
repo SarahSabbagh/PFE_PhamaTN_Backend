@@ -3,17 +3,19 @@ import TableBody from "@mui/material/TableBody";
 import { TableContentProps } from "./TableContent.types";
 import { CustomizedTableRow } from "../tableRows/CustomizedTableRow";
 
-export const TableContent = <T, >(
+export const TableContent = <T,>(
   props: React.PropsWithChildren<TableContentProps<T>>
 ) => {
   const {
     actions,
+    nestedAction,
     data,
     title,
     columns,
     handleActivationMode,
     handleUpdateUserStatus,
   } = props;
+
   return (
     <TableBody>
       {Array.isArray(data) &&
@@ -21,9 +23,10 @@ export const TableContent = <T, >(
           <CustomizedTableRow
             handleActivationMode={handleActivationMode}
             handleUpdateUserStatus={handleUpdateUserStatus}
-            editAction={actions?.edit}
             deleteAction={actions?.delete}
+            editAction={actions?.edit}
             key={index}
+            nestedAction={nestedAction}
             title={title}
             item={item}
             columns={columns}

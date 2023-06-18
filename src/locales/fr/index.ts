@@ -1,3 +1,4 @@
+import { notification } from "./notification";
 import { form } from "./form";
 import { brand } from "./brand";
 import { category } from "./category";
@@ -25,6 +26,7 @@ export const fr = {
   userMenu: userMenu,
   medication: medication,
   lot: lot,
-  user:user,
-  label:label,
+  user: user,
+  label: label,
+  notification: notification,
 };

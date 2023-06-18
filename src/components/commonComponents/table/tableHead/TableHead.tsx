@@ -20,14 +20,14 @@ export const CustomizedTableHead: React.FC<CustomizedTableHeadProps> = (
     <TableHead>
       <TableRow>
         {columns.map((element, index) => (
-          <StyledTableCell headColumn key={index} align="center">
+          <StyledTableCell key={index} align="center">
             {element.sortable ? (
               <StyledSortLabel
                 active
                 direction={
                   sort?.sortBy === element.accessor ? sort?.sortOrder : "asc"
                 }
-                sortBy={sort?.sortBy === element.accessor}
+                sortby={sort?.sortBy === element.accessor}
                 onClick={createSortHandler(element.accessor)}
               >
                 {t(`cells.${element.label}`)}

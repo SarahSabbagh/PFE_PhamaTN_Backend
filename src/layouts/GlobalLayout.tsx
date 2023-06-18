@@ -4,29 +4,32 @@ import { Grid } from "@mui/material";
 import { ResponsiveSideBar } from "./sidebar/Sidebar";
 import { ResponsiveAppBar } from "./navbar/Navbar";
 import { useSocket } from "../hooks/useSocket";
-import { useGetUserQuery } from "../redux/api/user/userApi";
 import { useNotificationsQuery } from "../redux/api/notification/notificationApi";
 import { useDispatch } from "react-redux";
 import { setNotifications } from "../redux/features/notification";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
-import { setUser } from "../redux/features/userSlice";
 import { Outlet } from "react-router-dom";
+import { useCurrentUser } from "../hooks/useCurrentUser";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useAccessToken } from "../hooks/authHooks";
+import { paths } from "../core/constants/path";
+
+interface ILayout {
+  children: JSX.Element;
+}
 
 export const Layout: React.FC = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  const { data: user, isSuccess: isSuccessUser } = useGetUserQuery();
+  const { user } = useCurrentUser();
+  const isAuthenticated = useAccessToken();
+  const navigate = useNavigate();
   const { data, isSuccess } = useNotificationsQuery(user?.id ?? skipToken);
   React.useEffect(() => {
     if (isSuccess) {
       dispatch(setNotifications(data));
     }
   }, [data]);
-  React.useEffect(() => {
-    if (isSuccessUser) {
-      dispatch(setUser(user));
-    }
-  }, [user]);
   useSocket(user?.id);
 
   const handleDrawerOpen = () => {
@@ -36,7 +39,11 @@ export const Layout: React.FC = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  React.useEffect(() => {
+    if (!isAuthenticated) {
+      return navigate(paths.LOGIN);
+    }
+  }, [isAuthenticated]);
   return (
     <Grid container>
       <ResponsiveAppBar
@@ -45,7 +52,7 @@ export const Layout: React.FC = () => {
         handleDrawerClose={handleDrawerClose}
       />
       <Grid container item>
-        <Grid item xs="auto">
+        <Grid item>
           <ResponsiveSideBar
             openDrawer={open}
             handleDrawerClose={handleDrawerClose}
@@ -58,11 +65,12 @@ export const Layout: React.FC = () => {
     </Grid>
   );
 };
-export const LayoutLogin: React.FC = () => {
+export const LayoutLogin: React.FC<ILayout> = (props) => {
+  const { children } = props;
   return (
     <Grid>
       <ResponsiveAppBar />
-      <Outlet />
+      {children}
       <Footer />
     </Grid>
   );

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { echo } from "../core/utils/socketService";
-import { INotificationResponse } from "../redux/api/notification/notificationApi";
 import { useDispatch } from "react-redux";
 import { setNotification } from "../redux/features/notification";
+import { INotificationResponse } from "../redux/api/types/INotification";
 
 export const useSocket = (id?: number) => {
   const dispatch = useDispatch();

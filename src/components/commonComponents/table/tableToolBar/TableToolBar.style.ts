@@ -1,6 +1,17 @@
 import * as React from "react";
-import { Typography, TypographyProps, styled } from "@mui/material";
+import {
+  Grid,
+  GridProps,
+  Typography,
+  TypographyProps,
+  styled,
+} from "@mui/material";
+
 export const StyledTitle = styled(Typography)<TypographyProps>(({ theme }) => ({
   fontSize: "2.5rem",
   color: theme.palette.primary.main,
+}));
+
+export const StyledGridToolbar = styled(Grid)<GridProps>(() => ({
+  paddinf: "1rem",
 }));

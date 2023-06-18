@@ -1,5 +1,11 @@
 import * as React from "react";
-import { AppBar, AppBarProps, Grid, GridProps, styled } from "@mui/material";
+import {
+  AppBar,
+  AppBarProps,
+  Toolbar,
+  ToolbarProps,
+  styled,
+} from "@mui/material";
 interface styledAppBarProps {
   isauthenticated: boolean;
 }
@@ -15,3 +21,6 @@ export const StyledAppBar = styled(AppBar)<AppBarProps & styledAppBarProps>(
   })
 );
 
+export const StyledToolbar = styled(Toolbar)<ToolbarProps>(() => ({
+  justifyContent: "space-between",
+}));

@@ -2,7 +2,6 @@ import * as React from "react";
 import {
   Avatar,
   Box,
-  Divider,
   Grid,
   ListItemIcon,
   MenuItem,
@@ -19,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { logout } from "../../../redux/features/userSlice";
 import { userMenu } from "../../../core/constants/list/userMenu";
+import { useAppropriateMenu } from "../../../hooks/translatedMenuHook";
 
 export const UserMenu: React.FC<NavbarProps> = (props) => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export const UserMenu: React.FC<NavbarProps> = (props) => {
   const notificationCount: number = useSelector(
     (state: RootState) => state.notification.notificationCount
   );
-
+  const translatedMenuList = useAppropriateMenu(userMenu);
   const handleLogout = () => {
     localStorage.clear();
     dispatch(logout());
@@ -58,7 +58,7 @@ export const UserMenu: React.FC<NavbarProps> = (props) => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        {userMenu.map((item) => (
+        {translatedMenuList.map((item) => (
           <MenuItem
             key={item.id}
             onClick={item.id === "LOGOUT" ? handleLogout : handleClose}

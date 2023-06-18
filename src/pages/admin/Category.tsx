@@ -1,6 +1,5 @@
 import * as React from "react";
 import { FC } from "react";
-import { Grid } from "@mui/material";
 import { PageContainer } from "../../components/commonComponents/PageContainer/PageContainer";
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
 import { dciColumns } from "../../core/constants/tableColumns/dciColumns";
@@ -29,7 +28,7 @@ export const CategoriesPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading, isFetching } = useCategoriesFilterQuery({
+  const { data, isError } = useCategoriesFilterQuery({
     ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
@@ -66,43 +65,40 @@ export const CategoriesPage: FC = () => {
 
   return (
     <PageContainer title={t("category.TITLE_PAGE_CATEGORY")}>
-      <Grid>
-        <TableFactory<ISimpleElement[]>
-          columns={dciColumns}
-          data={data?.data}
-          sort={{
-            onRequestSort: onRequestSort,
-            sortOrder: sortOrder,
-            sortBy: sortBy,
-          }}
-          handleQueryChange={handleQueryChange}
-          title={t("category.TITLE_GATEGORY")}
-          isLoading={isLoading}
-          isFetching={isFetching}
-          actions={{
-            add: {
-              add: true,
-              addFormType: formTypes.ADD_SIMPLE_ELEMENT_MODAL,
-            },
-            edit: {
-              edit: true,
-              editFormType: formTypes.EDIT_SIMPLE_ELEMENT_MODAL,
-            },
-            delete: { delete: true, handleDelete: handleCategoryDelete },
-          }}
-          handleModal={{
-            handleClickOpen: handleClickOpen,
-            open: open,
-            handleClose: handleClose,
-          }}
-          page={page}
-          count={data?.total ?? 0}
-          rowsPerPageOptions={[10, 25, 50, 100]}
-          rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Grid>
+      <TableFactory<ISimpleElement[]>
+        columns={dciColumns}
+        data={data?.data}
+        sort={{
+          onRequestSort: onRequestSort,
+          sortOrder: sortOrder,
+          sortBy: sortBy,
+        }}
+        handleQueryChange={handleQueryChange}
+        title={t("category.TITLE_GATEGORY")}
+        isError={isError}
+        actions={{
+          add: {
+            add: true,
+            addFormType: formTypes.ADD_SIMPLE_ELEMENT_MODAL,
+          },
+          edit: {
+            edit: true,
+            editFormType: formTypes.EDIT_SIMPLE_ELEMENT_MODAL,
+          },
+          delete: { delete: true, handleDelete: handleCategoryDelete },
+        }}
+        handleModal={{
+          handleClickOpen: handleClickOpen,
+          open: open,
+          handleClose: handleClose,
+        }}
+        page={page}
+        count={data?.total ?? 0}
+        rowsPerPageOptions={[10, 25, 50, 100]}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </PageContainer>
   );
 };

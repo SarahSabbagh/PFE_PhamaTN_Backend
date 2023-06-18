@@ -10,6 +10,7 @@ import { useFormsQuery } from "../../../../../redux/api/admin/FormApi";
 import { useMarquesQuery } from "../../../../../redux/api/admin/MarqueApi";
 import { EditLot } from "../../../forms/editForm/EditLot";
 import { useTranslation } from "react-i18next";
+import { EditLotInStock } from "../../../forms/editForm/EditLotInStock";
 
 export const EditModal: React.FC<ModalEditProps> = (props) => {
   const { t } = useTranslation();
@@ -49,6 +50,13 @@ export const EditModal: React.FC<ModalEditProps> = (props) => {
       )}
       {formType === formTypes.EDIT_LOT_MODAL && (
         <EditLot handleClose={handleClose} defaultValues={item} id={id} />
+      )}
+      {formType === formTypes.EDIT_LOT_IN_STOCK_MODAL && (
+        <EditLotInStock
+          handleClose={handleClose}
+          defaultValues={item}
+          id={id}
+        />
       )}
       {formType === formTypes.EDIT_SIMPLE_ELEMENT_MODAL && (
         <EditSimpleElementForm

@@ -8,4 +8,5 @@ export const SideBarMenuList = {
   MARQUE: "Trade names",
   CATEGORY: "Categories",
   FORM: "Forms",
+  STOCK: "Stock",
 };

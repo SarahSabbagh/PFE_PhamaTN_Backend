@@ -3,10 +3,10 @@ import { Props } from "./TableSortTable.type";
 
 export const StyledSortLabel = styled(TableSortLabel)<
   TableSortLabelProps & Props
->(({ theme, sortBy }) => ({
-  color: sortBy ? `${theme.palette.primary.main} !important` : "inherit",
+>(({ theme, sortby }) => ({
+  color: sortby ? `${theme.palette.primary.main} !important` : "inherit",
   "& .MuiTableSortLabel-icon": {
-    opacity: sortBy ? "1 !important" : "0.3 !important",
-    color: sortBy ? `${theme.palette.primary.main} !important` : "inherit",
+    opacity: sortby ? "1 !important" : "0.3 !important",
+    color: sortby ? `${theme.palette.primary.main} !important` : "inherit",
   },
 }));

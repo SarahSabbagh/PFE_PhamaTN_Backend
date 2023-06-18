@@ -43,6 +43,7 @@ export const SignIn: FC = () => {
       .then((response: ILoginResponse) => {
         dispatch(setUser(response.user));
         localStorage.setItem(globalVariables.TOKEN, response.access_token);
+        localStorage.setItem(globalVariables.USER_ROLE, response.user.role);
         navigate(paths.DASHBOARD, { replace: true });
       })
       .catch(() => {

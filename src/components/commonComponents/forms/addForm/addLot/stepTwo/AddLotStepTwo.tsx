@@ -69,9 +69,9 @@ export const AddLotStepTwo: React.FC<AddLotStepTwoProps> = (props) => {
           <Grid item xs={12}>
             <FormInput
               id="codeLot"
-              placeholder={t('cells.LOT_NUMBER')}
+              placeholder={t("cells.LOT_NUMBER")}
               type="text"
-              label={t('cells.LOT_NUMBER')}
+              label={t("cells.LOT_NUMBER")}
               name="codeLot"
               required
             />
@@ -80,23 +80,23 @@ export const AddLotStepTwo: React.FC<AddLotStepTwoProps> = (props) => {
             <CustomDatePicker
               disableFuture
               id="manufactureDate"
-              label={t('cells.MANUFACTURE_DATE')}
+              label={t("cells.MANUFACTURE_DATE")}
               name="manufactureDate"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <CustomDatePicker
               id="expirationDate"
-              label={t('cells.EXPIRATION_DATE')}
+              label={t("cells.EXPIRATION_DATE")}
               name="expirationDate"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormInput
               id="unitPrice"
-              placeholder={t('cells.UNIT_PRICE')}
+              placeholder={t("cells.UNIT_PRICE")}
               type="number"
-              label={t('cells.UNIT_PRICE')}
+              label={t("cells.UNIT_PRICE")}
               name="unitPrice"
               required
             />
@@ -104,18 +104,18 @@ export const AddLotStepTwo: React.FC<AddLotStepTwoProps> = (props) => {
           <Grid item xs={12} sm={6}>
             <FormInput
               id="publicPrice"
-              placeholder={t('cells.PUBLIC_PRICE')}
+              placeholder={t("cells.PUBLIC_PRICE")}
               type="number"
-              label= {t('cells.PUBLIC_PRICE')}
+              label={t("cells.PUBLIC_PRICE")}
               name="publicPrice"
               required
             />
           </Grid>
           <Grid>
             <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-            {t('label.BACK')}
+              {t("label.BACK")}
             </Button>
-            <Button type="submit">{t('label.FINISH')}</Button>
+            <Button type="submit">{t("label.FINISH")}</Button>
           </Grid>
         </Grid>
       </Box>

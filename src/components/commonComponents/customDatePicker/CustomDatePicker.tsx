@@ -6,13 +6,14 @@ import { Controller, useFormContext } from "react-hook-form";
 import { CustomDatePickerProps } from "./CustomDatePicker.types";
 import { StyledTextField } from "./CustomDatePicker.style";
 import { DateFormatISO } from "../../../core/utils/DateFormat";
+import { useTranslation } from "react-i18next";
 
 export const CustomDatePicker: React.FC<
   CustomDatePickerProps & DatePickerProps<Dayjs>
 > = (props) => {
   const { control, getValues } = useFormContext();
   const { id, name, label } = props;
-
+  const { t } = useTranslation();
   return (
     <Controller
       control={control}
@@ -42,7 +43,7 @@ export const CustomDatePicker: React.FC<
           />
 
           <FormHelperText id={id} error={!!error}>
-            {error ? error?.message : ""}
+            {error ? t(`${error?.message}`) : ""}
           </FormHelperText>
         </Stack>
       )}

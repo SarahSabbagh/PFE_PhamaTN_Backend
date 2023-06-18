@@ -1,6 +1,5 @@
 import * as React from "react";
 import { FC } from "react";
-import { Grid } from "@mui/material";
 import { PageContainer } from "../../components/commonComponents/PageContainer/PageContainer";
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
 import { formTypes } from "../../core/constants/formType";
@@ -29,7 +28,7 @@ export const MedicationsPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading, isFetching } = useMedicationsFilterQuery({
+  const { data, isError } = useMedicationsFilterQuery({
     ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
@@ -67,43 +66,40 @@ export const MedicationsPage: FC = () => {
 
   return (
     <PageContainer title={t("medication.TITLE_PAGE_MEDICATION")}>
-      <Grid>
-        <TableFactory<IMedicationElement[]>
-          columns={medicationColumns}
-          data={data?.data}
-          sort={{
-            onRequestSort: onRequestSort,
-            sortOrder: sortOrder,
-            sortBy: sortBy,
-          }}
-          handleQueryChange={handleQueryChange}
-          title={t("medication.TITLE_MEDICATION")}
-          isLoading={isLoading}
-          isFetching={isFetching}
-          actions={{
-            add: {
-              add: true,
-              addFormType: formTypes.ADD_MEDICATION_MODAL,
-            },
-            edit: {
-              edit: true,
-              editFormType: formTypes.EDIT_MEDICATION_MODAL,
-            },
-            delete: { delete: true, handleDelete: handleMedicationDelete },
-          }}
-          handleModal={{
-            handleClickOpen: handleClickOpen,
-            open: open,
-            handleClose: handleClose,
-          }}
-          page={page}
-          count={data?.total ?? 0}
-          rowsPerPageOptions={[10, 25, 50, 100]}
-          rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Grid>
+      <TableFactory<IMedicationElement[]>
+        columns={medicationColumns}
+        data={data?.data}
+        sort={{
+          onRequestSort: onRequestSort,
+          sortOrder: sortOrder,
+          sortBy: sortBy,
+        }}
+        handleQueryChange={handleQueryChange}
+        title={t("medication.TITLE_MEDICATION")}
+        isError={isError}
+        actions={{
+          add: {
+            add: true,
+            addFormType: formTypes.ADD_MEDICATION_MODAL,
+          },
+          edit: {
+            edit: true,
+            editFormType: formTypes.EDIT_MEDICATION_MODAL,
+          },
+          delete: { delete: true, handleDelete: handleMedicationDelete },
+        }}
+        handleModal={{
+          handleClickOpen: handleClickOpen,
+          open: open,
+          handleClose: handleClose,
+        }}
+        page={page}
+        count={data?.total ?? 0}
+        rowsPerPageOptions={[10, 25, 50, 100]}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </PageContainer>
   );
 };

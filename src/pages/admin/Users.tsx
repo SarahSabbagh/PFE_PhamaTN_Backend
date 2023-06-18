@@ -15,11 +15,6 @@ import { IFilterRequest } from "../../redux/api/types/IResponseRequest";
 import useDebounce from "../../hooks/useDebounce";
 import { useTranslation } from "react-i18next";
 
-export interface IFilterData {
-  role?: string;
-  status?: string;
-  activationMode?: string;
-}
 export const UsersPage: FC = () => {
   const { t } = useTranslation();
   const [page, setPage] = React.useState(0);
@@ -37,7 +32,7 @@ export const UsersPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading, isFetching } = useUserFilterQuery({
+  const { data, isError } = useUserFilterQuery({
     ...(query && { search: debouncedSearchTerm }),
     ...FilterData,
     ...{
@@ -93,8 +88,7 @@ export const UsersPage: FC = () => {
           }}
           handleQueryChange={handleQueryChange}
           title={t("user.TITLE_USER")}
-          isLoading={isLoading}
-          isFetching={isFetching}
+          isError={isError}
           actions={{
             filter: {
               filter: true,

@@ -12,11 +12,12 @@ import { FormInputProps } from "./FormInput.types";
 import { Controller, useFormContext } from "react-hook-form";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import { useTranslation } from "react-i18next";
 
 export const FormInput: React.FC<FormInputProps & InputProps> = (props) => {
   const { control } = useFormContext();
   const { id, name, label, eyeicon, type } = props;
-
+  const { t } = useTranslation();
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -55,7 +56,7 @@ export const FormInput: React.FC<FormInputProps & InputProps> = (props) => {
             error={!!error}
           />
           <FormHelperText id={id} error={!!error}>
-            {error ? error?.message : ""}
+            {error ? t(`${error?.message}`) : ""}
           </FormHelperText>
         </Stack>
       )}

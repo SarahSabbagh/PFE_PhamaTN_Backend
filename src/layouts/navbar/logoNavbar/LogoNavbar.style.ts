@@ -14,11 +14,11 @@ export const StyledGrid = styled(Grid)<GridProps>(() => ({
 }));
 export const StyledTypography = styled(Link)<LinkProps & StyledLogoNavbarProps>(
   ({ isnotauthenticated, theme }) => ({
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("lg")]: {
       display: isnotauthenticated ? "flex" : "none",
     },
 
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("lg")]: {
       display: isnotauthenticated ? "none" : "flex",
     },
     marginRight: "0.125rem",
@@ -31,7 +31,7 @@ export const StyledTypography = styled(Link)<LinkProps & StyledLogoNavbarProps>(
 );
 export const StyledGridLogo = styled(Grid)<GridProps & StyledLogoNavbarProps>(
   ({ isnotauthenticated, theme }) => ({
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("lg")]: {
       display: isnotauthenticated ? "none" : "flex",
     },
   })

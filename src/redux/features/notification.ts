@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { INotificationResponse } from "../api/notification/notificationApi";
+import { INotificationResponse } from "../api/types/INotification";
 
 export interface notificationState {
   notificationCount: number;
@@ -17,7 +17,7 @@ const notificationSlice = createSlice({
   reducers: {
     setNotification: (state, action: PayloadAction<INotificationResponse>) => {
       state.newNotification = action.payload;
-      state.notifications = [...state.notifications!, state.newNotification];
+      state.notifications = [state.newNotification, ...state.notifications!];
       state.notificationCount = state.notifications.length;
       state.newNotification = null;
     },

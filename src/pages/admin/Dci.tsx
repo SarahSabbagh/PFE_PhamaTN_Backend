@@ -1,6 +1,5 @@
 import * as React from "react";
 import { FC } from "react";
-import { Grid } from "@mui/material";
 import { PageContainer } from "../../components/commonComponents/PageContainer/PageContainer";
 import { TableFactory } from "../../components/commonComponents/table/tableFactory/TableFactory";
 import {
@@ -29,7 +28,7 @@ export const DcisPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isLoading, isFetching } = useFilterDcisQuery({
+  const { data, isError } = useFilterDcisQuery({
     ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
@@ -67,43 +66,40 @@ export const DcisPage: FC = () => {
 
   return (
     <PageContainer title={t("dci.TITLE_PAGE_DCI")}>
-      <Grid>
-        <TableFactory<ISimpleElement[]>
-          columns={dciColumns}
-          data={data?.data}
-          sort={{
-            onRequestSort: onRequestSort,
-            sortOrder: sortOrder,
-            sortBy: sortBy,
-          }}
-          handleQueryChange={handleQueryChange}
-          title={t("dci.TITLE_DCI")}
-          isLoading={isLoading}
-          isFetching={isFetching}
-          actions={{
-            add: {
-              add: true,
-              addFormType: formTypes.ADD_SIMPLE_ELEMENT_MODAL,
-            },
-            edit: {
-              edit: true,
-              editFormType: formTypes.EDIT_SIMPLE_ELEMENT_MODAL,
-            },
-            delete: { delete: true, handleDelete: handleDciDelete },
-          }}
-          handleModal={{
-            handleClickOpen: handleClickOpen,
-            open: open,
-            handleClose: handleClose,
-          }}
-          page={page}
-          count={data?.total ?? 0}
-          rowsPerPageOptions={[10, 25, 50, 100]}
-          rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Grid>
+      <TableFactory<ISimpleElement[]>
+        columns={dciColumns}
+        data={data?.data}
+        sort={{
+          onRequestSort: onRequestSort,
+          sortOrder: sortOrder,
+          sortBy: sortBy,
+        }}
+        handleQueryChange={handleQueryChange}
+        title={t("dci.TITLE_DCI")}
+        isError={isError}
+        actions={{
+          add: {
+            add: true,
+            addFormType: formTypes.ADD_SIMPLE_ELEMENT_MODAL,
+          },
+          edit: {
+            edit: true,
+            editFormType: formTypes.EDIT_SIMPLE_ELEMENT_MODAL,
+          },
+          delete: { delete: true, handleDelete: handleDciDelete },
+        }}
+        handleModal={{
+          handleClickOpen: handleClickOpen,
+          open: open,
+          handleClose: handleClose,
+        }}
+        page={page}
+        count={data?.total ?? 0}
+        rowsPerPageOptions={[10, 25, 50, 100]}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </PageContainer>
   );
 };

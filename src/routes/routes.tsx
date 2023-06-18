@@ -5,7 +5,6 @@ import { Register } from "../pages/Register";
 import { ErrorPage } from "../pages/Error";
 import { Layout, LayoutLogin } from "../layouts/GlobalLayout";
 import { Profile } from "../pages/Profile";
-import { Settings } from "../pages/Settings";
 import { Dashboard } from "../pages/dashboard";
 import { PrivateRouteNoAuth } from "./privateRoutes/PrivateRouteNoAuth";
 import { PrivateRouteAuth } from "./privateRoutes/PrivateRouteAuth";
@@ -20,6 +19,7 @@ import { LotsPage } from "../pages/admin/Lots";
 import { Notifications } from "../pages/Notifications";
 import { rolesValue } from "../core/constants/roles";
 import { PrivateRouteRole } from "./privateRoutes/PrivateRouteRole";
+import { StockPage } from "../pages/stock";
 
 export const routes = createBrowserRouter([
   {
@@ -29,27 +29,34 @@ export const routes = createBrowserRouter([
       {
         id: "DASHBOARD",
         index: true,
-        element: <Dashboard />,
+        element: (
+          <PrivateRouteRole
+            component={Dashboard}
+            accessibleRoles={[
+              rolesValue.ADMINISTRATOR,
+              rolesValue.PHARMACY,
+              rolesValue.WHOLESALER,
+            ]}
+          />
+        ),
       },
-
       {
         id: "PROFILES",
         path: paths.PROFILE,
-        element: <Profile />,
-      },
-      {
-        id: "SETTINGS",
-        path: paths.SETTINGS,
-        element: <Settings />,
-      },
-      {
-        path: "dashboard",
-        element: <Dashboard />,
+        element: (
+          <PrivateRouteRole
+            component={Profile}
+            accessibleRoles={[
+              rolesValue.ADMINISTRATOR,
+              rolesValue.PHARMACY,
+              rolesValue.WHOLESALER,
+            ]}
+          />
+        ),
       },
       {
         id: "USERS",
         path: paths.USERS,
-
         element: (
           <PrivateRouteRole
             component={UsersPage}
@@ -58,57 +65,116 @@ export const routes = createBrowserRouter([
         ),
       },
       {
+        id: "Stock",
+        path: paths.STOCK,
+        element: (
+          <PrivateRouteRole
+            component={StockPage}
+            accessibleRoles={[rolesValue.PHARMACY, rolesValue.WHOLESALER]}
+          />
+        ),
+      },
+      {
         id: "LOT",
         path: paths.LOT,
-        element: <LotsPage />,
+        element: (
+          <PrivateRouteRole
+            component={LotsPage}
+            accessibleRoles={[
+              rolesValue.PHARMACY,
+              rolesValue.WHOLESALER,
+              rolesValue.ADMINISTRATOR,
+            ]}
+          />
+        ),
       },
       {
         id: "MEDICATION",
         path: paths.MEDICATION,
-        element: <MedicationsPage />,
+        element: (
+          <PrivateRouteRole
+            component={MedicationsPage}
+            accessibleRoles={[
+              rolesValue.PHARMACY,
+              rolesValue.WHOLESALER,
+              rolesValue.ADMINISTRATOR,
+            ]}
+          />
+        ),
       },
       {
         id: "DCI",
         path: paths.DCI,
-        element: <DcisPage />,
+        element: (
+          <PrivateRouteRole
+            component={DcisPage}
+            accessibleRoles={[rolesValue.ADMINISTRATOR]}
+          />
+        ),
       },
       {
         id: "MARQUE",
         path: paths.MARQUE,
-        element: <MarquesPage />,
+        element: (
+          <PrivateRouteRole
+            component={MarquesPage}
+            accessibleRoles={[rolesValue.ADMINISTRATOR]}
+          />
+        ),
       },
       {
         id: "CATEGORY",
         path: paths.CATEGORY,
-        element: <CategoriesPage />,
+        element: (
+          <PrivateRouteRole
+            component={CategoriesPage}
+            accessibleRoles={[rolesValue.ADMINISTRATOR]}
+          />
+        ),
       },
       {
         id: "FORM",
         path: paths.FORM,
-        element: <FormsPage />,
+        element: (
+          <PrivateRouteRole
+            component={FormsPage}
+            accessibleRoles={[rolesValue.ADMINISTRATOR]}
+          />
+        ),
       },
       {
         id: " NOTIFICATION",
         path: paths.NOTIFICATION,
-        element: <Notifications />,
+        element: (
+          <PrivateRouteRole
+            component={Notifications}
+            accessibleRoles={[
+              rolesValue.PHARMACY,
+              rolesValue.WHOLESALER,
+              rolesValue.ADMINISTRATOR,
+            ]}
+          />
+        ),
       },
     ],
   },
   {
-    path: paths.DASHBOARD,
-    element: <PrivateRouteNoAuth component={LayoutLogin} />,
-    children: [
-      {
-        id: "LOGIN",
-        path: paths.LOGIN,
-        element: <SignIn />,
-      },
-      {
-        id: "REGISTER",
-        path: paths.REGISTER,
-        element: <Register />,
-      },
-    ],
+    path: paths.LOGIN,
+    id: "LOGIN",
+    element: (
+      <LayoutLogin>
+        <PrivateRouteNoAuth component={SignIn} />
+      </LayoutLogin>
+    ),
+  },
+  {
+    path: paths.REGISTER,
+    id: "REGISTER",
+    element: (
+      <LayoutLogin>
+        <PrivateRouteNoAuth component={Register} />
+      </LayoutLogin>
+    ),
   },
   { path: "*", element: <ErrorPage /> },
   { path: paths.PAGE_NOT_FOUND, element: <ErrorPage /> },

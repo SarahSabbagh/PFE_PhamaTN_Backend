@@ -12,6 +12,7 @@ import { medication } from "./medication";
 import { lot } from "./lot";
 import { user } from "./users";
 import { label } from "./label";
+import { notification } from "./notification";
 
 export const en = {
   login: login,
@@ -28,4 +29,5 @@ export const en = {
   lot: lot,
   user: user,
   label: label,
+  notification: notification,
 };

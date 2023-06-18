@@ -19,20 +19,20 @@ export const StyledMenu = styled(Menu)<MenuProps>(({ theme }) => ({
       transform: "translateY(-50%) rotate(45deg)",
       zIndex: 0,
     },
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("lg")]: {
       display: "none",
     },
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("lg")]: {
       display: "block",
     },
   },
 }));
 
 export const StyledBox = styled(Box)<BoxProps>(({ theme }) => ({
-  [theme.breakpoints.up("md")]: {
+  [theme.breakpoints.up("lg")]: {
     display: "none",
   },
-  [theme.breakpoints.down("md")]: {
+  [theme.breakpoints.down("lg")]: {
     display: "block",
   },
 }));

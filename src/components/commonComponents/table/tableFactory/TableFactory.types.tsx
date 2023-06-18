@@ -6,6 +6,7 @@ export interface IActions {
   add?: IAddAction;
   edit?: IEditAction;
   delete?: IDeleteAction;
+  expand?: boolean;
 }
 
 export interface IFilter {
@@ -44,8 +45,8 @@ export interface TableFactoryProps<T> {
   handleModal?: IhandleModal;
   columns: ITableHead[];
   actions: IActions;
-  isLoading: boolean;
-  isFetching: boolean;
+  nestedAction?: IActions;
+  isError: boolean;
   handleActivationMode?: (id: number) => void;
   handleUpdateUserStatus?: (id: number, status: number) => void;
   noToolBar?: boolean;

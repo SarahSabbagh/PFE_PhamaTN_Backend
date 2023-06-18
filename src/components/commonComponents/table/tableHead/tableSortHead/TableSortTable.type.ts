@@ -1,3 +1,3 @@
 export interface Props {
-  sortBy: boolean;
+  sortby: boolean;
 }

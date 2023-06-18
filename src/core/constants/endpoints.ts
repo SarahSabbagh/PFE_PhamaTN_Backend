@@ -25,4 +25,9 @@ export const endpoints = {
   NOTIFICATION: "/api/notifications",
   NOTIFICATION_UNREAD_REGISTERED: "/unread",
   MARK_AS_READ: "/mark-as-read",
+  STOCK: "/api/stock",
+  lOT_BELONG_TO_USER: "/lotsBelongToUse",
+  ADD_LOT_TO_STOCK: "/addLotQuantity",
+  DELETE_LOT_IN_STOCK: "/removeLotInStock",
+  ADD_LOT_QUANTITY: "/updateLotQuantity",
 };

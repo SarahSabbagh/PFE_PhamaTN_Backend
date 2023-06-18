@@ -13,6 +13,7 @@ import { lotApi } from "./api/lot/LotApi";
 import { notificationApi } from "./api/notification/notificationApi";
 import notificationSlice from "./features/notification";
 import userSlice from "./features/userSlice";
+import { stockApi } from "./api/stock/stockApi";
 
 export const store = configureStore({
   reducer: {
@@ -27,6 +28,7 @@ export const store = configureStore({
     [medicationApi.reducerPath]: medicationApi.reducer,
     [lotApi.reducerPath]: lotApi.reducer,
     [notificationApi.reducerPath]: notificationApi.reducer,
+    [stockApi.reducerPath]: stockApi.reducer,
     notification: notificationSlice,
     user: userSlice,
   },
@@ -43,6 +45,7 @@ export const store = configureStore({
       medicationApi.middleware,
       lotApi.middleware,
       notificationApi.middleware,
+      stockApi.middleware,
     ]),
 });
 export type RootState = ReturnType<typeof store.getState>;

@@ -14,21 +14,21 @@ import {
 import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined";
 import { IFilterItem, status } from "../../../core/constants/status";
 import { activation } from "../../../core/constants/activation";
-import { FilterProps } from "./FilterComponent.types";
+import { FilterProps, IFilterData, Ilabel } from "./FilterComponent.types";
 import { roles } from "../../../core/constants/roles";
 import { useTranslation } from "react-i18next";
-
-interface IFilterData {
-  role?: number;
-  status?: number;
-  activationMode?: boolean;
+function findLabelByValue(arrayName: string, value: number | boolean) {
+  let array = [];
+  if (arrayName === "role") {
+    array = roles;
+  } else if (arrayName === "activationMode") {
+    array = activation;
+  } else {
+    array = status;
+  }
+  const item = array?.find((item) => item.value === value);
+  return item ? item.label : null;
 }
-interface Ilabel {
-  role?: string;
-  status?: string;
-  activationMode?: string;
-}
-
 export const Filter: React.FC<FilterProps> = ({ recievedFilterData }) => {
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -49,8 +49,10 @@ export const Filter: React.FC<FilterProps> = ({ recievedFilterData }) => {
       setChipData({ ...chipData, [propertyToUpdate]: event.target.value });
       setLabels({
         ...labels,
-        [propertyToUpdate]:
-          event.target.labels && event.target.labels[0].innerText,
+        [propertyToUpdate]: findLabelByValue(
+          `${propertyToUpdate}`,
+          parseInt(event.target.value)
+        ),
       });
     };
   const handleDelete = (propertyToUpdate: keyof IFilterData) => () => {
@@ -65,14 +67,14 @@ export const Filter: React.FC<FilterProps> = ({ recievedFilterData }) => {
   }, [chipData, recievedFilterData]);
   const properties = Object.keys(chipData) as Array<keyof IFilterData>;
   return (
-    <Grid container item xs="auto" sx={{ alignItems: "center" }}>
+    <Grid container item xs="auto" alignItems="center">
       <Grid item mr={2}>
         {properties.map(
           (property) =>
             chipData[property] && (
               <Chip
                 key={property}
-                label={labels[property]}
+                label={t(`label.${labels[property]}`)}
                 onDelete={handleDelete(property)}
               />
             )
@@ -105,7 +107,7 @@ export const Filter: React.FC<FilterProps> = ({ recievedFilterData }) => {
                     key={item.id}
                     value={item.value}
                     control={<Radio />}
-                    label={item.label}
+                    label={t(`label.${item.label}`)}
                   />
                 ))}
               </RadioGroup>
@@ -126,7 +128,7 @@ export const Filter: React.FC<FilterProps> = ({ recievedFilterData }) => {
                     key={item.id}
                     value={item.value}
                     control={<Radio />}
-                    label={item.label}
+                    label={t(`label.${item.label}`)}
                   />
                 ))}
               </RadioGroup>
@@ -145,7 +147,7 @@ export const Filter: React.FC<FilterProps> = ({ recievedFilterData }) => {
                     key={item.id}
                     value={item.value}
                     control={<Radio />}
-                    label={item.label}
+                    label={t(`label.${item.label}`)}
                   />
                 ))}
               </RadioGroup>

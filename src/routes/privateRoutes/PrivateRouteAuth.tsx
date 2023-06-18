@@ -15,8 +15,8 @@ export const PrivateRouteAuth: React.FC<Props> = ({
     }
   }, [isAuthenticated]);
 
-  if (isAuthenticated) {
-    return <RouteComponent />;
+  if (!isAuthenticated) {
+    return <Navigate to={paths.LOGIN} />;
   }
-  return <Navigate to={paths.LOGIN} />;
+  return <RouteComponent />;
 };
