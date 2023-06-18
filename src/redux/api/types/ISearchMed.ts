@@ -16,3 +16,14 @@ export interface ISearchMedResponse {
   lat: number;
   distance: number;
 }
+export interface ItransformedSearchMedResponse {
+  name: string;
+  address: string;
+  lng: number;
+  lat: number;
+  distance: number;
+}
+export interface forwardGeocoder {
+  lng: number;
+  lat: number;
+}

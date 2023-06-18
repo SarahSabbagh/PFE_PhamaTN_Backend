@@ -31,4 +31,5 @@ export const endpoints = {
   DELETE_LOT_IN_STOCK: "/removeLotInStock",
   ADD_LOT_QUANTITY: "/updateLotQuantity",
   SEARCH_MEDICATION: "/api/searchMedication",
+  FORWARDGEOCODING: "/api/geocodeAddress",
 };

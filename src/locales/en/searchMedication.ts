@@ -7,6 +7,5 @@ export const searchMedication = {
   BRAND: "Marque",
   CATEGORY: "Categorie",
   DCI: "DCI",
-
-  };
-  
+  SEARCH: "Search",
+};

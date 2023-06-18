@@ -1,7 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { prepareHeaders } from "../../../core/utils/rtk.config";
 import { endpoints } from "../../../core/constants/endpoints";
-import { ISearchMedRequest, ISearchMedResponse } from "../types/ISearchMed";
+import {
+  ISearchMedRequest,
+  ISearchMedResponse,
+  forwardGeocoder,
+} from "../types/ISearchMed";
 
 const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT as string;
 
@@ -23,6 +27,15 @@ export const searchMedicationApi = createApi({
       },
       providesTags: ["results"],
     }),
+    ForwardGeocoding: builder.query<forwardGeocoder, string>({
+      query: (address) => {
+        return {
+          url: endpoints.FORWARDGEOCODING,
+          params: { address },
+        };
+      },
+    }),
   }),
 });
-export const { useSearchMedicationQuery } = searchMedicationApi;
+export const { useSearchMedicationQuery, useForwardGeocodingQuery } =
+  searchMedicationApi;
