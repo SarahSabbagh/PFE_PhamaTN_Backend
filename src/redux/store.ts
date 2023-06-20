@@ -15,11 +15,19 @@ import notificationSlice from "./features/notification";
 import userSlice from "./features/userSlice";
 import { stockApi } from "./api/stock/stockApi";
 import { searchMedicationApi } from "./api/searchMed/searchMedApi";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["userApi"],
+};
+export const persistedReducer = persistReducer(persistConfig, userApi.reducer);
 export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
-    [userApi.reducerPath]: userApi.reducer,
+    [userApi.reducerPath]: persistedReducer,
     [regionApi.reducerPath]: regionApi.reducer,
     [adminApi.reducerPath]: adminApi.reducer,
     [dciApi.reducerPath]: dciApi.reducer,
@@ -51,6 +59,7 @@ export const store = configureStore({
       searchMedicationApi.middleware,
     ]),
 });
+export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 

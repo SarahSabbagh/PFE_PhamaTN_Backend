@@ -1,6 +1,6 @@
 import { endpoints } from "./../../../core/constants/endpoints";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IUser } from "../types/IUser";
+import { IUpdateUser, IUser } from "../types/IUser";
 import { prepareHeaders } from "../../../core/utils/rtk.config";
 import { IResponse } from "../types/IResponseRequest";
 
@@ -42,11 +42,12 @@ export const userApi = createApi({
         url: endpoints.USERS + "/" + id,
       }),
     }),
-    updateUser: builder.mutation<IUser, number>({
-      query(id) {
+    updateUser: builder.mutation<IUser, IUpdateUser>({
+      query({ id, ...rest }) {
         return {
           url: endpoints.USERS + "/" + id,
           method: "PUT",
+          params: rest,
         };
       },
     }),
