@@ -38,6 +38,7 @@ import { StyledTypography } from "../components/commonComponents/customTypograph
 import TimerOutlinedIcon from "@mui/icons-material/TimerOutlined";
 import TimerOffOutlinedIcon from "@mui/icons-material/TimerOffOutlined";
 import { notificationTypes } from "../core/notificationTypes";
+import { NotificationItem } from "../components/notificationComponent/NotificationItem";
 
 export const Notifications: FC = () => {
   const { t } = useTranslation();
@@ -89,60 +90,11 @@ export const Notifications: FC = () => {
             notifications.length > 0 ? (
               notifications.map((item: INotificationResponse, index) => (
                 <>
-                  <ListItem key={item.id} alignItems="flex-start">
-                    {item.data.notification ===
-                      notificationTypes.NEW_REGISTRATION_NOTIFICATION && (
-                      <ListItemAvatar>
-                        <Avatar alt="Avatar" src="" />
-                      </ListItemAvatar>
-                    )}
-                    {item.data.notification ===
-                      notificationTypes.EXPIRATION_SOON_NOTIFICATION && (
-                      <ListItemAvatar>
-                        <TimerOutlinedIcon color="warning" />
-                      </ListItemAvatar>
-                    )}
-                    {item.data.notification ===
-                      notificationTypes.EXPIRATION_NOTIFICATION && (
-                      <ListItemAvatar>
-                        <TimerOffOutlinedIcon color="error" />
-                      </ListItemAvatar>
-                    )}
-                    {item.data.notification ===
-                      notificationTypes.BE_OUT_OF_STOCK_SOON_NOTIFICATION && (
-                      <ListItemAvatar>
-                        <WarningAmberIcon color="warning" />
-                      </ListItemAvatar>
-                    )}
-                    {item.data.notification ===
-                      notificationTypes.STOCK_OUT_NOTIFICATION && (
-                      <ListItemAvatar>
-                        <ErrorOutlineIcon color="error" />
-                      </ListItemAvatar>
-                    )}
-
-                    <ListItemText
-                      primary={item.data.message}
-                      secondary={
-                        <Typography
-                          sx={{ display: "inline" }}
-                          variant="body2"
-                          color="grey"
-                        >
-                          {DateFormatISO(dayjs(item.created_at))}
-                        </Typography>
-                      }
-                    />
-                    <Button
-                      variant="text"
-                      onClick={() => handleMarkAsReadNotification(item.id)}
-                      startIcon={<DoneIcon />}
-                    >
-                      <StyledTypography variant="button">
-                        {t("notification.MARK_AS_READ")}
-                      </StyledTypography>
-                    </Button>
-                  </ListItem>
+                  <NotificationItem
+                    key={item.id}
+                    item={item}
+                    handleMarkAsReadNotification={handleMarkAsReadNotification}
+                  />
                   <Divider key={index} />
                 </>
               ))

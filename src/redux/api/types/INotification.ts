@@ -3,7 +3,11 @@ export interface INotificationResponse {
   created_at: string;
   data: {
     notification: string;
-    message?: string;
+    marque?: string;
+    dosage?: string;
     codeLot?: string;
+    name?: string;
+    email?: string;
+    message?: string;
   };
 }
