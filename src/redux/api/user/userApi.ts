@@ -12,7 +12,7 @@ export const userApi = createApi({
     baseUrl: `${BASE_URL}`,
     prepareHeaders: prepareHeaders,
   }),
-  tagTypes: ["User"],
+  tagTypes: ["user", "users"],
   endpoints: (builder) => ({
     getUser: builder.query<IUser, void>({
       query() {
@@ -20,6 +20,7 @@ export const userApi = createApi({
           url: endpoints.USER,
         };
       },
+      providesTags: ["user"],
     }),
     users: builder.query<IUser[], void>({
       query() {
@@ -27,6 +28,7 @@ export const userApi = createApi({
           url: endpoints.USERS,
         };
       },
+      providesTags: ["users"],
       transformResponse: (response: { data: IUser[] }) => response.data,
     }),
     deleteUser: builder.mutation<IResponse, number>({
@@ -36,6 +38,7 @@ export const userApi = createApi({
           method: "DELETE",
         };
       },
+      invalidatesTags: ["users"],
     }),
     showUser: builder.query<IUser, number>({
       query: (id) => ({
@@ -50,6 +53,7 @@ export const userApi = createApi({
           params: rest,
         };
       },
+      invalidatesTags: ["user", "users"],
     }),
   }),
 });

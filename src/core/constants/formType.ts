@@ -7,5 +7,10 @@ export const formTypes = {
   ADD_MEDICATION_MODAL: "addMedicationModal",
   ADD_LOT_MODAL: "addLotModal",
   ADD_LOT_TO_STOCK: "addLotToStockModal",
-  
+  MARQUE_MODAL:"addMarque",
+ FORM_MODAL:"addForm",
+  DCI_MODAL:"addDCI",
+ CATEGORY_MODAL:"addCATEGORY",
+
+
 };

@@ -21,7 +21,7 @@ export interface IUpdateUser {
   pharmacyFirstName?: string;
   pharmacyLastName?: string;
   confirmPassword?: string;
-  password?: string;
+  password?: string ;
   image?: string;
   phone?: string;
   fax?: string;

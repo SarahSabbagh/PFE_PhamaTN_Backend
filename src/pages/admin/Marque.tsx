@@ -28,7 +28,7 @@ export const MarquesPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data, isError} = useMarquesFilterQuery({
+  const { data, isError } = useMarquesFilterQuery({
     ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
@@ -66,42 +66,40 @@ export const MarquesPage: FC = () => {
 
   return (
     <PageContainer title={t("brand.TITLE_PAGE_BRAND")}>
-     
-        <TableFactory<ISimpleElement[]>
-          columns={dciColumns}
-          data={data?.data}
-          sort={{
-            onRequestSort: onRequestSort,
-            sortOrder: sortOrder,
-            sortBy: sortBy,
-          }}
-          handleQueryChange={handleQueryChange}
-          title={t("brand.TITLE_BRAND")}
-          isError={isError}
-          actions={{
-            add: {
-              add: true,
-              addFormType: formTypes.ADD_SIMPLE_ELEMENT_MODAL,
-            },
-            edit: {
-              edit: true,
-              editFormType: formTypes.EDIT_SIMPLE_ELEMENT_MODAL,
-            },
-            delete: { delete: true, handleDelete: handleMarqueDelete },
-          }}
-          handleModal={{
-            handleClickOpen: handleClickOpen,
-            open: open,
-            handleClose: handleClose,
-          }}
-          page={page}
-          count={data?.total ?? 0}
-          rowsPerPageOptions={[10, 25, 50, 100]}
-          rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-  
+      <TableFactory<ISimpleElement[]>
+        columns={dciColumns}
+        data={data?.data}
+        sort={{
+          onRequestSort: onRequestSort,
+          sortOrder: sortOrder,
+          sortBy: sortBy,
+        }}
+        handleQueryChange={handleQueryChange}
+        title={t("brand.TITLE_BRAND")}
+        isError={isError}
+        actions={{
+          add: {
+            add: true,
+            addFormType: formTypes.MARQUE_MODAL,
+          },
+          edit: {
+            edit: true,
+            editFormType: formTypes.MARQUE_MODAL,
+          },
+          delete: { delete: true, handleDelete: handleMarqueDelete },
+        }}
+        handleModal={{
+          handleClickOpen: handleClickOpen,
+          open: open,
+          handleClose: handleClose,
+        }}
+        page={page}
+        count={data?.total ?? 0}
+        rowsPerPageOptions={[10, 25, 50, 100]}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </PageContainer>
   );
 };

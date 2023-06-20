@@ -29,7 +29,14 @@ export const EditModal: React.FC<ModalEditProps> = (props) => {
     <Dialog
       open={open}
       onClose={handleClose}
-      fullScreen={formType !== formTypes.EDIT_SIMPLE_ELEMENT_MODAL && isMobile}
+      fullScreen={
+        ![
+          formTypes.CATEGORY_MODAL,
+          formTypes.DCI_MODAL,
+          formTypes.MARQUE_MODAL,
+          formTypes.FORM_MODAL,
+        ].includes(formType) && isMobile
+      }
     >
       <DialogTitle align="center" variant="h3" color="primary">
         {t("label.EDIT")} {title.toLowerCase()}
@@ -58,9 +65,15 @@ export const EditModal: React.FC<ModalEditProps> = (props) => {
           id={id}
         />
       )}
-      {formType === formTypes.EDIT_SIMPLE_ELEMENT_MODAL && (
+      {[
+        formTypes.CATEGORY_MODAL,
+        formTypes.DCI_MODAL,
+        formTypes.MARQUE_MODAL,
+        formTypes.FORM_MODAL,
+      ].includes(formType) && (
         <EditSimpleElementForm
           handleClose={handleClose}
+          type={formType}
           id={id}
           item={item}
           title={title}

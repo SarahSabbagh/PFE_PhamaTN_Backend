@@ -21,13 +21,12 @@ import storage from "redux-persist/lib/storage";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["userApi"],
 };
-export const persistedReducer = persistReducer(persistConfig, userApi.reducer);
+export const persistedReducer = persistReducer(persistConfig, userSlice);
 export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
-    [userApi.reducerPath]: persistedReducer,
+    [userApi.reducerPath]: userApi.reducer,
     [regionApi.reducerPath]: regionApi.reducer,
     [adminApi.reducerPath]: adminApi.reducer,
     [dciApi.reducerPath]: dciApi.reducer,
@@ -40,7 +39,7 @@ export const store = configureStore({
     [stockApi.reducerPath]: stockApi.reducer,
     [searchMedicationApi.reducerPath]: searchMedicationApi.reducer,
     notification: notificationSlice,
-    user: userSlice,
+    user: persistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({}).concat([

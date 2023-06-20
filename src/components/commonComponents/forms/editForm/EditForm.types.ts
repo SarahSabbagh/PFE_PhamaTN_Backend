@@ -8,6 +8,7 @@ export interface FormEditSimpleElementProps {
   id: number;
   item: ISimpleElement;
   title: string;
+  type: string;
   handleClose: () => void;
 }
 export interface FormEditMedicationProps {

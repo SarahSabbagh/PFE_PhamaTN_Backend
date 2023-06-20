@@ -80,11 +80,11 @@ export const DcisPage: FC = () => {
         actions={{
           add: {
             add: true,
-            addFormType: formTypes.ADD_SIMPLE_ELEMENT_MODAL,
+            addFormType: formTypes.DCI_MODAL,
           },
           edit: {
             edit: true,
-            editFormType: formTypes.EDIT_SIMPLE_ELEMENT_MODAL,
+            editFormType: formTypes.DCI_MODAL,
           },
           delete: { delete: true, handleDelete: handleDciDelete },
         }}

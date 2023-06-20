@@ -83,11 +83,11 @@ export const FormsPage: FC = () => {
           actions={{
             add: {
               add: true,
-              addFormType: formTypes.ADD_SIMPLE_ELEMENT_MODAL,
+              addFormType: formTypes.FORM_MODAL,
             },
             edit: {
               edit: true,
-              editFormType: formTypes.EDIT_SIMPLE_ELEMENT_MODAL,
+              editFormType: formTypes.FORM_MODAL,
             },
             delete: { delete: true, handleDelete: handleFormDelete },
           }}

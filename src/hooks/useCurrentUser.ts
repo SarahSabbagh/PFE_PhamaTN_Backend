@@ -5,7 +5,6 @@ import { useGetUserQuery } from "../redux/api/user/userApi";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 import React from "react";
 import { setUser } from "../redux/features/userSlice";
-import { globalVariables } from "../core/constants/globalVariables";
 
 export const useCurrentUser = () => {
   const dispatch = useDispatch();
@@ -17,7 +16,6 @@ export const useCurrentUser = () => {
     }
   }, [data]);
   const userId = user?.id;
-  const currentRole =
-    localStorage.getItem(globalVariables.USER_ROLE) ?? user?.role;
+  const currentRole = user?.role;
   return { currentRole, user, userId };
 };

@@ -14,11 +14,12 @@ import { useAddMarqueMutation } from "../../../../redux/api/admin/MarqueApi";
 import { useAddFormMutation } from "../../../../redux/api/admin/FormApi";
 import { useAddDciMutation } from "../../../../redux/api/dci/dciApi";
 import { simpleElementSchema } from "../../../../core/utils/validator/SimpleElementValidator";
+import { formTypes } from "../../../../core/constants/formType";
 type IDciRequest = TypeOf<typeof simpleElementSchema>;
 
 export const AddSimpleElementForm: React.FC<FormAddProps> = (props) => {
   const { t } = useTranslation();
-  const { handleClose, title } = props;
+  const { handleClose, type } = props;
   const methods = useForm<IDciRequest>({
     resolver: zodResolver(simpleElementSchema),
     defaultValues: { name: "" },
@@ -32,18 +33,17 @@ export const AddSimpleElementForm: React.FC<FormAddProps> = (props) => {
   const [addDci] = useAddDciMutation();
   const submitHandlerAdd: SubmitHandler<IDciRequest> = (data) => {
     let addMutation;
-
-    switch (title) {
-      case "Marques":
+    switch (type) {
+      case formTypes.MARQUE_MODAL:
         addMutation = addMarque;
         break;
-      case "Forms":
+      case formTypes.FORM_MODAL:
         addMutation = addForm;
         break;
-      case "DCI":
+      case formTypes.DCI_MODAL:
         addMutation = addDci;
         break;
-      case "Category":
+      case formTypes.CATEGORY_MODAL:
         addMutation = addCategory;
         break;
       default:
