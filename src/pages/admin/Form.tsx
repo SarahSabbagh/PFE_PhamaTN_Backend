@@ -12,6 +12,8 @@ import {
 } from "../../redux/api/admin/FormApi";
 import useDebounce from "../../hooks/useDebounce";
 import { useTranslation } from "react-i18next";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import { rolesValue } from "../../core/constants/roles";
 
 export const FormsPage: FC = () => {
   const { t } = useTranslation();
@@ -22,6 +24,7 @@ export const FormsPage: FC = () => {
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
   const debouncedSearchTerm = useDebounce<string>(query, 500);
+  const { user } = useCurrentUser();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -30,7 +33,7 @@ export const FormsPage: FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const { data,isError} = useFormsFilterQuery({
+  const { data, isError } = useFormsFilterQuery({
     ...(query && { search: debouncedSearchTerm }),
     ...{
       page_size: rowsPerPage,
@@ -65,45 +68,51 @@ export const FormsPage: FC = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+  const columnWithoutActions = dciColumns.filter(
+    (item) => item.label !== "ACTIONS"
+  );
   return (
     <PageContainer title={t("form.TITLE_PAGE_FORM")}>
-  
-        <TableFactory<ISimpleElement[]>
-          columns={dciColumns}
-          data={data?.data}
-          sort={{
-            onRequestSort: onRequestSort,
-            sortOrder: sortOrder,
-            sortBy: sortBy,
-          }}
-          handleQueryChange={handleQueryChange}
-          title={t("form.TITLE_FORM")}
-          isError={isError}
-          actions={{
-            add: {
-              add: true,
-              addFormType: formTypes.FORM_MODAL,
-            },
-            edit: {
-              edit: true,
-              editFormType: formTypes.FORM_MODAL,
-            },
-            delete: { delete: true, handleDelete: handleFormDelete },
-          }}
-          handleModal={{
-            handleClickOpen: handleClickOpen,
-            open: open,
-            handleClose: handleClose,
-          }}
-          page={page}
-          count={data?.total ?? 0}
-          rowsPerPageOptions={[10, 25, 50, 100]}
-          rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-   
+      <TableFactory<ISimpleElement[]>
+        columns={user?.role === rolesValue.ADMINISTRATOR
+          ? dciColumns
+          : columnWithoutActions}
+        data={data?.data}
+        sort={{
+          onRequestSort: onRequestSort,
+          sortOrder: sortOrder,
+          sortBy: sortBy,
+        }}
+        handleQueryChange={handleQueryChange}
+        title={t("form.TITLE_FORM")}
+        isError={isError}
+        actions={
+          user?.role === rolesValue.ADMINISTRATOR
+            ? {
+                add: {
+                  add: true,
+                  addFormType: formTypes.FORM_MODAL,
+                },
+                edit: {
+                  edit: true,
+                  editFormType: formTypes.FORM_MODAL,
+                },
+                delete: { delete: true, handleDelete: handleFormDelete },
+              }
+            : {}
+        }
+        handleModal={{
+          handleClickOpen: handleClickOpen,
+          open: open,
+          handleClose: handleClose,
+        }}
+        page={page}
+        count={data?.total ?? 0}
+        rowsPerPageOptions={[10, 25, 50, 100]}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </PageContainer>
   );
 };

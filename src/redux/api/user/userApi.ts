@@ -47,10 +47,20 @@ export const userApi = createApi({
     }),
     updateUser: builder.mutation<IUser, IUpdateUser>({
       query({ id, ...rest }) {
+        const formData = new FormData();
+        rest.name && formData.append("name", rest.name);
+        rest.password && formData.append("password", rest.password);
+        rest.pharmacyFirstName &&
+          formData.append("pharmacyFirstName", rest.pharmacyFirstName);
+        rest.pharmacyLastName &&
+          formData.append("pharmacyLastName", rest.pharmacyLastName);
+        rest.image && formData.append("image", rest.image[0]);
+        rest.fax && formData.append("fax", rest.fax);
+        rest.phone && formData.append("phone", rest.phone);
         return {
           url: endpoints.USERS + "/" + id,
-          method: "PUT",
-          params: rest,
+          method: "POST",
+          body: formData,
         };
       },
       invalidatesTags: ["user", "users"],

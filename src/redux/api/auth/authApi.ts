@@ -31,8 +31,6 @@ export const authApi = createApi({
         const formData = new FormData();
         formData.append("name", registerRequest.name);
         formData.append("email", registerRequest.email);
-        formData.append("name", registerRequest.name);
-        formData.append("email", registerRequest.email);
         formData.append("password", registerRequest.password);
         formData.append("pharmacyFirstName", registerRequest.pharmacyFirstName);
         formData.append("pharmacyLastName", registerRequest.pharmacyLastName);

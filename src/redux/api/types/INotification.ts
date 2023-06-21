@@ -1,3 +1,5 @@
+import { IUser } from "./IUser";
+
 export interface INotificationResponse {
   id: string;
   created_at: string;
@@ -6,8 +8,7 @@ export interface INotificationResponse {
     marque?: string;
     dosage?: string;
     codeLot?: string;
-    name?: string;
-    email?: string;
+    newUser?: IUser;
     message?: string;
   };
 }

@@ -11,6 +11,8 @@ import {
 } from "../../redux/api/admin/MarqueApi";
 import useDebounce from "../../hooks/useDebounce";
 import { useTranslation } from "react-i18next";
+import { rolesValue } from "../../core/constants/roles";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
 
 export const MarquesPage: FC = () => {
   const { t } = useTranslation();
@@ -21,6 +23,7 @@ export const MarquesPage: FC = () => {
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
   const debouncedSearchTerm = useDebounce<string>(query, 500);
+  const { user } = useCurrentUser();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -63,11 +66,15 @@ export const MarquesPage: FC = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+  const columnWithoutActions = dciColumns.filter(
+    (item) => item.label !== "ACTIONS"
+  );
   return (
     <PageContainer title={t("brand.TITLE_PAGE_BRAND")}>
       <TableFactory<ISimpleElement[]>
-        columns={dciColumns}
+        columns={user?.role === rolesValue.ADMINISTRATOR
+          ? dciColumns
+          : columnWithoutActions}
         data={data?.data}
         sort={{
           onRequestSort: onRequestSort,
@@ -77,17 +84,21 @@ export const MarquesPage: FC = () => {
         handleQueryChange={handleQueryChange}
         title={t("brand.TITLE_BRAND")}
         isError={isError}
-        actions={{
-          add: {
-            add: true,
-            addFormType: formTypes.MARQUE_MODAL,
-          },
-          edit: {
-            edit: true,
-            editFormType: formTypes.MARQUE_MODAL,
-          },
-          delete: { delete: true, handleDelete: handleMarqueDelete },
-        }}
+        actions={
+          user?.role === rolesValue.ADMINISTRATOR
+            ? {
+                add: {
+                  add: true,
+                  addFormType: formTypes.MARQUE_MODAL,
+                },
+                edit: {
+                  edit: true,
+                  editFormType: formTypes.MARQUE_MODAL,
+                },
+                delete: { delete: true, handleDelete: handleMarqueDelete },
+              }
+            : {}
+        }
         handleModal={{
           handleClickOpen: handleClickOpen,
           open: open,

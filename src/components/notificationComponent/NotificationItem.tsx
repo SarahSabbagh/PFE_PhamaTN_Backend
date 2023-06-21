@@ -18,6 +18,7 @@ import { notificationTypes } from "../../core/notificationTypes";
 import { DateFormatISO } from "../../core/utils/DateFormat";
 import { useTranslation } from "react-i18next";
 import { NotificationItemProps } from "./NotificationItem.types";
+import { STORAGE_BASE_URL } from "../../configuredURL";
 
 export const NotificationItem: React.FC<NotificationItemProps> = (props) => {
   const { item, handleMarkAsReadNotification } = props;
@@ -27,25 +28,31 @@ export const NotificationItem: React.FC<NotificationItemProps> = (props) => {
 
   switch (type) {
     case notificationTypes.NEW_REGISTRATION_NOTIFICATION:
-      message = item.data.name + " has registered with " + item.data.email;
+      message =
+        item.data.newUser?.name +
+        t("notification.HAS_REGISTERED") +
+        item.data.newUser?.email;
       break;
 
     case notificationTypes.EXPIRATION_NOTIFICATION:
-      message = item.data.codeLot + "batch you own has expired.";
+      message = item.data.codeLot + t("notification.EXPIRED_BATCH");
       break;
     case notificationTypes.EXPIRATION_SOON_NOTIFICATION:
-      message = item.data.codeLot! + " batch will expire soon.";
+      message = item.data.codeLot! + t("notification.BATCH_EXPIRE_SOON");
       break;
     case notificationTypes.STOCK_OUT_NOTIFICATION:
       message =
-        item.data.marque! + "," + item.data.dosage! + " is out of stock.";
+        item.data.marque! +
+        "," +
+        item.data.dosage! +
+        t("notification.OUT_STOCK");
       break;
     case notificationTypes.BE_OUT_OF_STOCK_SOON_NOTIFICATION:
       message =
         item.data.marque! +
         "," +
         item.data.dosage! +
-        " will be out of stock soon.";
+        t("notification.OUT_OF_STOCK_SOON");
       break;
     default:
       message = "";
@@ -55,7 +62,14 @@ export const NotificationItem: React.FC<NotificationItemProps> = (props) => {
     <ListItem alignItems="flex-start">
       <ListItemAvatar>
         {type === notificationTypes.NEW_REGISTRATION_NOTIFICATION && (
-          <Avatar alt="Avatar" src="" />
+          <Avatar
+            alt="Avatar"
+            src={
+              item.data.newUser?.image
+                ? STORAGE_BASE_URL + item.data.newUser.image
+                : ""
+            }
+          />
         )}
         {type === notificationTypes.STOCK_OUT_NOTIFICATION && (
           <ErrorOutlineIcon color="error" />

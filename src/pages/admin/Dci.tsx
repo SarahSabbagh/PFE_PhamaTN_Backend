@@ -11,6 +11,8 @@ import { formTypes } from "../../core/constants/formType";
 import { ISimpleElement } from "../../redux/api/types/IResponseRequest";
 import useDebounce from "../../hooks/useDebounce";
 import { useTranslation } from "react-i18next";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import { rolesValue } from "../../core/constants/roles";
 
 export const DcisPage: FC = () => {
   const { t } = useTranslation();
@@ -21,6 +23,7 @@ export const DcisPage: FC = () => {
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
   const debouncedSearchTerm = useDebounce<string>(query, 500);
+  const { user } = useCurrentUser();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -63,11 +66,15 @@ export const DcisPage: FC = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+  const columnWithoutActions = dciColumns.filter(
+    (item) => item.label !== "ACTIONS"
+  );
   return (
     <PageContainer title={t("dci.TITLE_PAGE_DCI")}>
       <TableFactory<ISimpleElement[]>
-        columns={dciColumns}
+        columns={user?.role === rolesValue.ADMINISTRATOR
+          ? dciColumns
+          : columnWithoutActions}
         data={data?.data}
         sort={{
           onRequestSort: onRequestSort,
@@ -77,17 +84,21 @@ export const DcisPage: FC = () => {
         handleQueryChange={handleQueryChange}
         title={t("dci.TITLE_DCI")}
         isError={isError}
-        actions={{
-          add: {
-            add: true,
-            addFormType: formTypes.DCI_MODAL,
-          },
-          edit: {
-            edit: true,
-            editFormType: formTypes.DCI_MODAL,
-          },
-          delete: { delete: true, handleDelete: handleDciDelete },
-        }}
+        actions={
+          user?.role === rolesValue.ADMINISTRATOR
+            ? {
+                add: {
+                  add: true,
+                  addFormType: formTypes.DCI_MODAL,
+                },
+                edit: {
+                  edit: true,
+                  editFormType: formTypes.DCI_MODAL,
+                },
+                delete: { delete: true, handleDelete: handleDciDelete },
+              }
+            : {}
+        }
         handleModal={{
           handleClickOpen: handleClickOpen,
           open: open,

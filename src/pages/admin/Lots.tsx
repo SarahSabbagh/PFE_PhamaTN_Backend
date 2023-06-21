@@ -12,6 +12,8 @@ import { lotColumns } from "../../core/constants/tableColumns/lotColumns";
 import { transformedLotData } from "../../core/utils/lotDataFormat";
 import useDebounce from "../../hooks/useDebounce";
 import { useTranslation } from "react-i18next";
+import { rolesValue } from "../../core/constants/roles";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
 
 export const LotsPage: FC = () => {
   const { t } = useTranslation();
@@ -22,6 +24,7 @@ export const LotsPage: FC = () => {
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
   const debouncedSearchTerm = useDebounce<string>(query, 500);
+  const { user } = useCurrentUser();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -39,7 +42,7 @@ export const LotsPage: FC = () => {
     },
   });
   const [deleteLot] = useDeleteLotMutation();
-  const handleDciDelete = (id: number) => {
+  const handleLotDelete = (id: number) => {
     deleteLot(id).unwrap();
   };
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,11 +65,17 @@ export const LotsPage: FC = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+  const columnWithoutActions = lotColumns.filter(
+    (item) => item.label !== "ACTIONS"
+  );
   return (
     <PageContainer title={t("lot.TITLE_PAGE_LOT")}>
       <TableFactory<ItransformedLotData[]>
-        columns={lotColumns}
+        columns={
+          user?.role === rolesValue.ADMINISTRATOR
+            ? lotColumns
+            : columnWithoutActions
+        }
         data={data && transformedLotData(data.data)}
         sort={{
           onRequestSort: onRequestSort,
@@ -76,17 +85,21 @@ export const LotsPage: FC = () => {
         handleQueryChange={handleQueryChange}
         title={t("lot.TITLE_LOT")}
         isError={isError}
-        actions={{
-          add: {
-            add: true,
-            addFormType: formTypes.ADD_LOT_MODAL,
-          },
-          edit: {
-            edit: true,
-            editFormType: formTypes.EDIT_LOT_MODAL,
-          },
-          delete: { delete: true, handleDelete: handleDciDelete },
-        }}
+        actions={
+          user?.role === rolesValue.ADMINISTRATOR
+            ? {
+                add: {
+                  add: true,
+                  addFormType: formTypes.ADD_LOT_MODAL,
+                },
+                edit: {
+                  edit: true,
+                  editFormType: formTypes.EDIT_LOT_MODAL,
+                },
+                delete: { delete: true, handleDelete: handleLotDelete },
+              }
+            : {}
+        }
         handleModal={{
           handleClickOpen: handleClickOpen,
           open: open,
