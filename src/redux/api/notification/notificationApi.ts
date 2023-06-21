@@ -7,7 +7,7 @@ import { INotificationResponse } from "../types/INotification";
 const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT as string;
 
 export const notificationApi = createApi({
-  reducerPath: "notificatioApi",
+  reducerPath: "notificationApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${BASE_URL}` + endpoints.NOTIFICATION,
     prepareHeaders: prepareHeaders,

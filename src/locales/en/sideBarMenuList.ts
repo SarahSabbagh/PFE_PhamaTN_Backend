@@ -9,4 +9,5 @@ export const SideBarMenuList = {
   CATEGORY: "Categories",
   FORM: "Forms",
   STOCK: "Stock",
+  SEARCH: "Search Medication",
 };

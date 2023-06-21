@@ -20,6 +20,7 @@ import { Notifications } from "../pages/Notifications";
 import { rolesValue } from "../core/constants/roles";
 import { PrivateRouteRole } from "./privateRoutes/PrivateRouteRole";
 import { StockPage } from "../pages/stock";
+import { SearchPage } from "../pages/SearchPage";
 
 export const routes = createBrowserRouter([
   {
@@ -148,6 +149,20 @@ export const routes = createBrowserRouter([
         element: (
           <PrivateRouteRole
             component={Notifications}
+            accessibleRoles={[
+              rolesValue.PHARMACY,
+              rolesValue.WHOLESALER,
+              rolesValue.ADMINISTRATOR,
+            ]}
+          />
+        ),
+      },
+      {
+        id: " SEARCH",
+        path: paths.SEARCH,
+        element: (
+          <PrivateRouteRole
+            component={SearchPage}
             accessibleRoles={[
               rolesValue.PHARMACY,
               rolesValue.WHOLESALER,

@@ -14,4 +14,5 @@ export const paths = {
   NOTIFICATION: "/notifications",
   PAGE_NOT_FOUND: "/404",
   STOCK: "/stock",
+  SEARCH: "/search",
 };

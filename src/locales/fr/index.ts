@@ -13,6 +13,7 @@ import { medication } from "./medication";
 import { lot } from "./lot";
 import { user } from "./users";
 import { label } from "./label";
+import { searchMedication } from "./searchMedication";
 export const fr = {
   login: login,
   register: register,
@@ -29,4 +30,5 @@ export const fr = {
   user: user,
   label: label,
   notification: notification,
+  searchMedication: searchMedication,
 };

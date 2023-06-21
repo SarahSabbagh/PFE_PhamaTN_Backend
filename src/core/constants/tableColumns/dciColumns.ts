@@ -2,5 +2,5 @@ import { ITableHead } from "../../../components/commonComponents/table/tableHead
 
 export const dciColumns: ITableHead[] = [
   { label: "NAME", accessor: "name", sortable: true },
-  { label: "ACTIONS", accessor: "", isSticky: true, stickyIndex: 0 },
+  { label: "ACTIONS", accessor: "" },
 ];
