@@ -45,8 +45,8 @@ export const SignIn: FC = () => {
         localStorage.setItem(globalVariables.TOKEN, response.access_token);
         navigate(paths.DASHBOARD, { replace: true });
       })
-      .catch(() => {
-        toast.error(t("errorMessages.UNAUTHORIZED"), {
+      .catch((response) => {
+        toast.error(response.data.message, {
           position: toast.POSITION.TOP_CENTER,
         });
       });
