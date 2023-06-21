@@ -11,7 +11,7 @@ export const PrivateRouteAuth: React.FC<Props> = ({
   const navigate = useNavigate();
   React.useEffect(() => {
     if (!isAuthenticated) {
-      return navigate(paths.LOGIN);
+      return navigate(paths.LOGIN, { replace: true });
     }
   }, [isAuthenticated]);
 

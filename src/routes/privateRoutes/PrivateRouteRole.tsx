@@ -15,7 +15,7 @@ export const PrivateRouteRole: React.FC<RoleProps> = ({
       return navigate(paths.PAGE_NOT_FOUND, { replace: true });
     }
     if (!currentRole) {
-      return navigate(paths.LOGIN);
+      return navigate(paths.LOGIN, { replace: true });
     }
   }, [currentRole]);
 

@@ -3,6 +3,7 @@ import { globalVariables } from "../core/constants/globalVariables";
 import { StatusCode } from "../core/constants/httpStatusCode";
 import { useGetUserQuery } from "../redux/api/user/userApi";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
+import { persistor } from "../redux/store";
 
 export const useAccessToken = (): boolean => {
   const token = localStorage.getItem(globalVariables.TOKEN);
@@ -14,6 +15,7 @@ export const useAccessToken = (): boolean => {
       error?.status === StatusCode.HTTP_UNAUTHORIZED
     ) {
       localStorage.clear();
+      persistor.purge();
     }
   }, [error]);
   return localStorage.getItem(globalVariables.TOKEN) !== null;
