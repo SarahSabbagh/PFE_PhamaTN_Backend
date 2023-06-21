@@ -17,6 +17,7 @@ import { stockApi } from "./api/stock/stockApi";
 import { searchMedicationApi } from "./api/searchMed/searchMedApi";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { forgotResetPasswordApi } from "./api/forgotResetPassword/ForgotResetPassword";
 
 const persistConfig = {
   key: "root",
@@ -38,6 +39,7 @@ export const store = configureStore({
     [notificationApi.reducerPath]: notificationApi.reducer,
     [stockApi.reducerPath]: stockApi.reducer,
     [searchMedicationApi.reducerPath]: searchMedicationApi.reducer,
+    [forgotResetPasswordApi.reducerPath]: forgotResetPasswordApi.reducer,
     notification: notificationSlice,
     user: persistedReducer,
   },
@@ -56,6 +58,7 @@ export const store = configureStore({
       notificationApi.middleware,
       stockApi.middleware,
       searchMedicationApi.middleware,
+      forgotResetPasswordApi.middleware,
     ]),
 });
 export const persistor = persistStore(store);

@@ -15,4 +15,5 @@ export const paths = {
   PAGE_NOT_FOUND: "/404",
   STOCK: "/stock",
   SEARCH: "/search",
+  ForgotPassword: "/forgotPassword",
 };

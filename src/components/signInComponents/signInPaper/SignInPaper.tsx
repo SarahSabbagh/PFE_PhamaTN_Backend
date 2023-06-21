@@ -6,13 +6,13 @@ import { StyledSignInPaper, StyledTitle } from "./SignInPaper.style";
 import { SignInPaperProps } from "./SignInPaper.types";
 
 export const SignInPaper: React.FC<SignInPaperProps> = (props) => {
-  const { title, children } = props;
+  const { title, children, forgotPasswordLink} = props;
   return (
     <StyledSignInPaper elevation={3}>
       <Logo />
       <StyledTitle variant="h1">{title}</StyledTitle>
       {children}
-      <SignInLink />
+      <SignInLink forgotPasswordLink={forgotPasswordLink}/>
     </StyledSignInPaper>
   );
 };

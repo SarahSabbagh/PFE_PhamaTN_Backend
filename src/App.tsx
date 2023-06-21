@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { I18nextProvider } from "react-i18next";
 import { RouterProvider } from "react-router-dom";
 import i18n from "./locales/i18n";
+import "react-toastify/dist/ReactToastify.css";
 import { ToastProvider } from "react-toast-notifications";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";

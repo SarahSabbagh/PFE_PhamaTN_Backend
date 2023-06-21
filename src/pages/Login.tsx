@@ -14,7 +14,6 @@ import { useTranslation } from "react-i18next";
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { globalVariables } from "../core/constants/globalVariables";
 import { paths } from "../core/constants/path";
 import { defaultValues } from "../models/login/LoginInitialValue";
