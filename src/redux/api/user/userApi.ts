@@ -1,6 +1,6 @@
 import { endpoints } from "./../../../core/constants/endpoints";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IUser } from "../types/IUser";
+import { IUpdateUser, IUser } from "../types/IUser";
 import { prepareHeaders } from "../../../core/utils/rtk.config";
 import { IResponse } from "../types/IResponseRequest";
 
@@ -12,7 +12,7 @@ export const userApi = createApi({
     baseUrl: `${BASE_URL}`,
     prepareHeaders: prepareHeaders,
   }),
-  tagTypes: ["User"],
+  tagTypes: ["user", "users"],
   endpoints: (builder) => ({
     getUser: builder.query<IUser, void>({
       query() {
@@ -20,6 +20,7 @@ export const userApi = createApi({
           url: endpoints.USER,
         };
       },
+      providesTags: ["user"],
     }),
     users: builder.query<IUser[], void>({
       query() {
@@ -27,6 +28,7 @@ export const userApi = createApi({
           url: endpoints.USERS,
         };
       },
+      providesTags: ["users"],
       transformResponse: (response: { data: IUser[] }) => response.data,
     }),
     deleteUser: builder.mutation<IResponse, number>({
@@ -36,19 +38,22 @@ export const userApi = createApi({
           method: "DELETE",
         };
       },
+      invalidatesTags: ["users"],
     }),
     showUser: builder.query<IUser, number>({
       query: (id) => ({
         url: endpoints.USERS + "/" + id,
       }),
     }),
-    updateUser: builder.mutation<IUser, number>({
-      query(id) {
+    updateUser: builder.mutation<IUser, IUpdateUser>({
+      query({ id, ...rest }) {
         return {
           url: endpoints.USERS + "/" + id,
           method: "PUT",
+          params: rest,
         };
       },
+      invalidatesTags: ["user", "users"],
     }),
   }),
 });

@@ -7,7 +7,7 @@ export const StyledBoxSideBar = styled(Box)<BoxProps>(({ theme }) => ({
   minHeight: "100%",
   minWidth: "15.625rem",
   justifyContent: "flex-start",
-  marginRight: "1rem",
+ // marginRight: "1rem",
   [theme.breakpoints.up("lg")]: {
     display: "block",
   },

@@ -14,10 +14,15 @@ export const PrivateRouteRole: React.FC<RoleProps> = ({
     if (currentRole && !accessibleRoles.includes(currentRole)) {
       return navigate(paths.PAGE_NOT_FOUND, { replace: true });
     }
+    if (!currentRole) {
+      return navigate(paths.LOGIN);
+    }
   }, [currentRole]);
 
   if (currentRole && accessibleRoles.includes(currentRole)) {
     <Navigate to={paths.PAGE_NOT_FOUND} />;
+  } else if (!currentRole) {
+    <Navigate to={paths.LOGIN} />;
   }
   return <RouteComponent />;
 };

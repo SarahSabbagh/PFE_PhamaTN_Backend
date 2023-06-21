@@ -32,4 +32,7 @@ export const endpoints = {
   ADD_LOT_QUANTITY: "/updateLotQuantity",
   SEARCH_MEDICATION: "/api/searchMedication",
   FORWARDGEOCODING: "/api/geocodeAddress",
+  FORGOT_PASSWORD: "/api/forgot-password",
+  VERIFY_PIN: "/api/verify/pin",
+  RESET_PASSWORD: "/api/reset-password",
 };

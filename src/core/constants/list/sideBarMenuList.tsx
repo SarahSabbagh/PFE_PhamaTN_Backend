@@ -26,7 +26,7 @@ export interface ISubMenu {
 }
 
 export const SideBarMenuList: ISideBarMenuList[] = [
-  {
+  /* {
     id: "DASHBOARD",
     title: "SideBarMenuList.DASHBORAD",
     url: paths.DASHBOARD,
@@ -36,6 +36,17 @@ export const SideBarMenuList: ISideBarMenuList[] = [
       rolesValue.PHARMACY,
     ],
     icon: <AutoGraphOutlinedIcon sx={{ color: colors.containerColor }} />,
+  },*/
+  {
+    id: "SEARCH",
+    title: "SideBarMenuList.SEARCH",
+    url: paths.SEARCH,
+    roles: [
+      rolesValue.WHOLESALER,
+      rolesValue.PHARMACY,
+      rolesValue.ADMINISTRATOR,
+    ],
+    icon: <SearchIcon sx={{ color: colors.containerColor }} />,
   },
   {
     id: "USERS",
@@ -44,13 +55,7 @@ export const SideBarMenuList: ISideBarMenuList[] = [
     roles: [rolesValue.ADMINISTRATOR],
     icon: <PeopleAltOutlinedIcon sx={{ color: colors.containerColor }} />,
   },
-  {
-    id: "SEARCH",
-    title: "SideBarMenuList.SEARCH",
-    url: paths.SEARCH,
-    roles: [rolesValue.WHOLESALER, rolesValue.PHARMACY],
-    icon: <SearchIcon sx={{ color: colors.containerColor }} />,
-  },
+
   {
     id: "STOCK",
     title: "SideBarMenuList.STOCK",
@@ -84,7 +89,7 @@ export const SideBarMenuList: ISideBarMenuList[] = [
   {
     id: "DRUGS_INFO",
     title: "SideBarMenuList.DRUGS_INFO",
-    url: "",
+    url: paths.DCI,
     roles: [rolesValue.ADMINISTRATOR],
     icon: <FeedOutlinedIcon sx={{ color: colors.containerColor }} />,
     subMenu: [

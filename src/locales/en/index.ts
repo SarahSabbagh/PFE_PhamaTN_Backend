@@ -14,6 +14,8 @@ import { user } from "./users";
 import { label } from "./label";
 import { notification } from "./notification";
 import { searchMedication } from "./searchMedication";
+import { profil } from "./profil";
+import { forgotResetPassword } from "./forgotResetPassword";
 
 export const en = {
   login: login,
@@ -32,5 +34,6 @@ export const en = {
   label: label,
   notification: notification,
   searchMedication: searchMedication,
-
+  profil: profil,
+  forgotResetPassword: forgotResetPassword,
 };

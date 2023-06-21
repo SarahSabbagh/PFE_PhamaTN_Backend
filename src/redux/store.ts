@@ -15,7 +15,15 @@ import notificationSlice from "./features/notification";
 import userSlice from "./features/userSlice";
 import { stockApi } from "./api/stock/stockApi";
 import { searchMedicationApi } from "./api/searchMed/searchMedApi";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import { forgotResetPasswordApi } from "./api/forgotResetPassword/ForgotResetPassword";
 
+const persistConfig = {
+  key: "root",
+  storage,
+};
+export const persistedReducer = persistReducer(persistConfig, userSlice);
 export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
@@ -31,8 +39,9 @@ export const store = configureStore({
     [notificationApi.reducerPath]: notificationApi.reducer,
     [stockApi.reducerPath]: stockApi.reducer,
     [searchMedicationApi.reducerPath]: searchMedicationApi.reducer,
+    [forgotResetPasswordApi.reducerPath]: forgotResetPasswordApi.reducer,
     notification: notificationSlice,
-    user: userSlice,
+    user: persistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({}).concat([
@@ -49,8 +58,10 @@ export const store = configureStore({
       notificationApi.middleware,
       stockApi.middleware,
       searchMedicationApi.middleware,
+      forgotResetPasswordApi.middleware,
     ]),
 });
+export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 

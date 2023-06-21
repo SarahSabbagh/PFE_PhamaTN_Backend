@@ -1,27 +1,13 @@
 import React from "react";
 import { FC } from "react";
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
-import {
-  Avatar,
-  Button,
-  Divider,
-  Grid,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Button, Divider, Grid, List, Stack, Typography } from "@mui/material";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import DoneIcon from "@mui/icons-material/Done";
 import InboxIcon from "@mui/icons-material/Inbox";
 import { useMarkAsReadMutation } from "../redux/api/notification/notificationApi";
 import { StyledPaper } from "../components/commonComponents/customPaper/StyledPaper.style";
 import { StyledTitle } from "../components/commonComponents/table/tableToolBar/TableToolBar.style";
 import { Loader } from "../components/commonComponents/loader/Loader";
-import { DateFormatISO } from "../core/utils/DateFormat";
-import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import {
@@ -32,12 +18,6 @@ import {
 import { IUser } from "../redux/api/types/IUser";
 import { INotificationResponse } from "../redux/api/types/INotification";
 import { useTranslation } from "react-i18next";
-import WarningAmberIcon from "@mui/icons-material/WarningAmber";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import { StyledTypography } from "../components/commonComponents/customTypography/customTypography.style";
-import TimerOutlinedIcon from "@mui/icons-material/TimerOutlined";
-import TimerOffOutlinedIcon from "@mui/icons-material/TimerOffOutlined";
-import { notificationTypes } from "../core/notificationTypes";
 import { NotificationItem } from "../components/notificationComponent/NotificationItem";
 
 export const Notifications: FC = () => {

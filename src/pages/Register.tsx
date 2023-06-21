@@ -20,7 +20,6 @@ import {
 } from "../redux/api/region/regionApi";
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { defaultValues } from "../models/register/RegisterInitialValues";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 
@@ -72,7 +71,6 @@ export const Register: FC = () => {
   return (
     <PageContainer background={true} title={t("register.TITLE_PAGE_SIGN_UP")}>
       <Grid container>
-        <ToastContainer />
         <SignUpPaper title={t("register.TITLE_SIGN_UP")}>
           <FormProvider {...methods}>
             <Box

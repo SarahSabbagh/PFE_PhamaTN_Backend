@@ -3,7 +3,7 @@ import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
 
 export interface FormAddProps {
   handleClose?: () => void;
-  title: string;
+  type?: string;
 }
 export interface FormAddLotProps {
   handleClose?: () => void;

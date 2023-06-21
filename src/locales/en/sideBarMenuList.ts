@@ -1,5 +1,5 @@
 export const SideBarMenuList = {
-  DASHBORAD: "Dashboard",
+ // DASHBORAD: "Dashboard",
   USERS: "Users",
   MEDICATION: "Medications",
   LOT: "Lots",

@@ -11,16 +11,15 @@ import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
 import { FormEditMedicationProps } from "./EditForm.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUpdateMedicationMutation } from "../../../../redux/api/admin/MedicationApi";
-import { useToasts } from "react-toast-notifications";
 import { Loader } from "../../loader/Loader";
 import { IMedicationRequest } from "../../../../redux/api/types/IMedication";
 import { medicationEditSchema } from "../../../../core/utils/validator/MedicationValidator";
+import { toast } from "react-toastify";
 
 export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
   const { id, handleClose, item, isLoading, dcis, forms, categories, marques } =
     props;
   const { t } = useTranslation();
-  const { addToast } = useToasts();
   const findId = (list: ISimpleElement[], item: string) => {
     const result = list.find((val) => val.name === item);
     return result ? result?.id : 0;
@@ -50,9 +49,8 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
       .unwrap()
       .then(() => {
         handleClose();
-        addToast(t("label.SAVED_SUCCESSFULLY"), {
-          appearance: "success",
-          key: "edit-medication",
+        toast.success(t("label.successfully_modified"), {
+          position: toast.POSITION.TOP_CENTER,
         });
       })
       .catch((error: any) => {
@@ -67,6 +65,7 @@ export const EditMedication: React.FC<FormEditMedicationProps> = (props) => {
       });
   };
   return (
+
     <DialogContent>
       <FormProvider {...methods}>
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>

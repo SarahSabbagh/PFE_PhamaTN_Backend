@@ -10,6 +10,7 @@ import { CustomDatePicker } from "../../../../customDatePicker/CustomDatePicker"
 import { useAddLotMutation } from "../../../../../../redux/api/lot/LotApi";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 type lotStepTwo = TypeOf<typeof lotStepTwoSchema>;
 export const AddLotStepTwo: React.FC<AddLotStepTwoProps> = (props) => {
@@ -48,6 +49,9 @@ export const AddLotStepTwo: React.FC<AddLotStepTwoProps> = (props) => {
       .then(() => {
         //handleError(false);
         handleClose && handleClose();
+        toast.success(t("label.SAVED_SUCCESSFULLY"), {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((error: any) => {
         handleError(true);

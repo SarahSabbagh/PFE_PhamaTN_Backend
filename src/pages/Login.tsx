@@ -14,7 +14,6 @@ import { useTranslation } from "react-i18next";
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { globalVariables } from "../core/constants/globalVariables";
 import { paths } from "../core/constants/path";
 import { defaultValues } from "../models/login/LoginInitialValue";
@@ -43,11 +42,10 @@ export const SignIn: FC = () => {
       .then((response: ILoginResponse) => {
         dispatch(setUser(response.user));
         localStorage.setItem(globalVariables.TOKEN, response.access_token);
-        localStorage.setItem(globalVariables.USER_ROLE, response.user.role);
         navigate(paths.DASHBOARD, { replace: true });
       })
-      .catch(() => {
-        toast.error(t("errorMessages.UNAUTHORIZED"), {
+      .catch((response) => {
+        toast.error(response.data.message, {
           position: toast.POSITION.TOP_CENTER,
         });
       });
@@ -57,7 +55,6 @@ export const SignIn: FC = () => {
     <PageContainer background={true} title={t("login.TITLE_PAGE_SIGN_IN")}>
       <Grid>
         <FormProvider {...methods}>
-          <ToastContainer />
           <SignInPaper title={t("login.TITLE_APP")}>
             <Box
               component="form"

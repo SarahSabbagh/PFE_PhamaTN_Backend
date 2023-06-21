@@ -9,18 +9,18 @@ import { CancelButton } from "../formButton/CancelButton.styles";
 import { FormEditSimpleElementProps } from "./EditForm.types";
 import { useUpdateMarqueMutation } from "../../../../redux/api/admin/MarqueApi";
 import { ISimpleElement } from "../../../../redux/api/types/IResponseRequest";
-import { useToasts } from "react-toast-notifications";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUpdateFormMutation } from "../../../../redux/api/admin/FormApi";
 import { useUpdateDciMutation } from "../../../../redux/api/dci/dciApi";
 import { useUpdateCategoryMutation } from "../../../../redux/api/admin/CategoryApi";
-import { Loader } from "../../loader/Loader";
 import { simpleElementSchema } from "../../../../core/utils/validator/SimpleElementValidator";
+import { formTypes } from "../../../../core/constants/formType";
+import { toast } from "react-toastify";
 
 export const EditSimpleElementForm: React.FC<FormEditSimpleElementProps> = (
   props
 ) => {
-  const { id, handleClose, item, title } = props;
+  const { id, handleClose, item, type } = props;
   const { t } = useTranslation();
   const methods = useForm<ISimpleElement>({
     resolver: zodResolver(simpleElementSchema),
@@ -28,39 +28,26 @@ export const EditSimpleElementForm: React.FC<FormEditSimpleElementProps> = (
     mode: "onChange",
   });
   const { handleSubmit, setError } = methods;
-  const { addToast } = useToasts();
 
-  const [
-    updateMarque,
-    { isLoading: marqueEditIsLoading, isSuccess: marqueEditIsSuccess },
-  ] = useUpdateMarqueMutation();
-  const [
-    updateForm,
-    { isLoading: formEditIsLoading, isSuccess: formEditIsSuccess },
-  ] = useUpdateFormMutation();
-  const [
-    updateDci,
-    { isLoading: dciEditIsLoading, isSuccess: dciEditIsSuccess },
-  ] = useUpdateDciMutation();
-  const [
-    updateCategory,
-    { isLoading: categoryEditIsLoading, isSuccess: categoryEditIsSuccess },
-  ] = useUpdateCategoryMutation();
+  const [updateMarque] = useUpdateMarqueMutation();
+  const [updateForm] = useUpdateFormMutation();
+  const [updateDci] = useUpdateDciMutation();
+  const [updateCategory] = useUpdateCategoryMutation();
 
   const onSubmit: SubmitHandler<ISimpleElement> = async (data) => {
     let updateMutation;
 
-    switch (title) {
-      case "Marques":
+    switch (type) {
+      case formTypes.MARQUE_MODAL:
         updateMutation = updateMarque;
         break;
-      case "Forms":
+      case formTypes.FORM_MODAL:
         updateMutation = updateForm;
         break;
-      case "DCI":
+      case formTypes.DCI_MODAL:
         updateMutation = updateDci;
         break;
-      case "Category":
+      case formTypes.CATEGORY_MODAL:
         updateMutation = updateCategory;
         break;
       default:
@@ -71,9 +58,8 @@ export const EditSimpleElementForm: React.FC<FormEditSimpleElementProps> = (
       .unwrap()
       .then(() => {
         handleClose();
-        addToast("Saved Successfully", {
-          appearance: "success",
-          key: "edit-marque",
+        toast.success(t("label.successfully_modified"), {
+          position: toast.POSITION.TOP_CENTER,
         });
       })
       .catch((error: any) => {
@@ -107,14 +93,7 @@ export const EditSimpleElementForm: React.FC<FormEditSimpleElementProps> = (
                 {t("label.CANCEL")}
               </CancelButton>
               <ConfirmButtonStyled type="submit">
-                {formEditIsLoading ||
-                categoryEditIsLoading ||
-                dciEditIsLoading ||
-                marqueEditIsLoading ? (
-                  <Loader />
-                ) : (
-                  t("label.EDIT")
-                )}
+                {t("label.EDIT")}
               </ConfirmButtonStyled>
             </Grid>
           </Grid>

@@ -15,7 +15,17 @@ export interface IUser {
   status: number;
   active: boolean;
 }
-
+export interface IUpdateUser {
+  id: number;
+  name?: string;
+  pharmacyFirstName?: string;
+  pharmacyLastName?: string;
+  confirmPassword?: string;
+  password?: string ;
+  image?: string;
+  phone?: string;
+  fax?: string;
+}
 export interface IFilterUserRequest {
   role?: number;
   status?: number;

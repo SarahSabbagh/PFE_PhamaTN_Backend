@@ -45,15 +45,19 @@ export const AddElement = <FormAddValues extends Record<string, any>>(
         open={handleModal?.open ?? false}
         onClose={handleModal?.handleClose}
         fullScreen={
-          addProps.addFormType !== formTypes.ADD_SIMPLE_ELEMENT_MODAL &&
-          isMobile
+          ![
+            formTypes.CATEGORY_MODAL,
+            formTypes.DCI_MODAL,
+            formTypes.MARQUE_MODAL,
+            formTypes.FORM_MODAL,
+          ].includes(addProps.addFormType) && isMobile
         }
       >
         <DialogTitle align="center" variant="h3" color="primary">
           {t("label.ADD") + " "} {title.toLocaleLowerCase()}
         </DialogTitle>
         {addProps.addFormType === formTypes.ADD_MEDICATION_MODAL && (
-          <AddMedication title={title} handleClose={handleModal?.handleClose} />
+          <AddMedication handleClose={handleModal?.handleClose} />
         )}
         {addProps.addFormType === formTypes.ADD_LOT_MODAL && (
           <AddLot
@@ -67,9 +71,14 @@ export const AddElement = <FormAddValues extends Record<string, any>>(
         {addProps.addFormType === formTypes.ADD_LOT_TO_STOCK && (
           <AddLotToStock handleClose={handleModal?.handleClose} />
         )}
-        {addProps.addFormType === formTypes.ADD_SIMPLE_ELEMENT_MODAL && (
+        {[
+          formTypes.CATEGORY_MODAL,
+          formTypes.DCI_MODAL,
+          formTypes.MARQUE_MODAL,
+          formTypes.FORM_MODAL,
+        ].includes(addProps.addFormType) && (
           <AddSimpleElementForm
-            title={title}
+            type={addProps.addFormType}
             handleClose={handleModal?.handleClose}
           />
         )}

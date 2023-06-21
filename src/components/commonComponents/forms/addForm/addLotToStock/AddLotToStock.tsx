@@ -11,6 +11,7 @@ import { AddLotToStockProps } from "./AddLotToStock.types";
 import { FormInput } from "../../../InputField/formInput/FormInput";
 import { CancelButton } from "../../formButton/CancelButton.styles";
 import { ConfirmButtonStyled } from "../../formButton/ConfirmButton.styles";
+import { toast } from "react-toastify";
 
 type lotStepOne = TypeOf<typeof addLotToStockSchema>;
 
@@ -34,6 +35,9 @@ export const AddLotToStock: React.FC<AddLotToStockProps> = (props) => {
       .unwrap()
       .then(() => {
         handleClose && handleClose();
+        toast.success(t("label.SAVED_SUCCESSFULLY"), {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((error: any) => {
         for (const key of Object.keys(data)) {

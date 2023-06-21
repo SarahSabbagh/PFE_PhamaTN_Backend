@@ -17,7 +17,6 @@ import {
 } from "../../../core/constants/list/sideBarMenuList";
 import { StyledList, StyledListItemIcon } from "./ListSidebar.style";
 import { useCurrentUser } from "../../../hooks/useCurrentUser";
-import { useTranslation } from "react-i18next";
 import { useAppropriateMenu } from "../../../hooks/translatedMenuHook";
 
 export const ListSidebar: React.FC = () => {
