@@ -55,7 +55,6 @@ export const SignIn: FC = () => {
     <PageContainer background={true} title={t("login.TITLE_PAGE_SIGN_IN")}>
       <Grid>
         <FormProvider {...methods}>
-          <ToastContainer />
           <SignInPaper title={t("login.TITLE_APP")}>
             <Box
               component="form"

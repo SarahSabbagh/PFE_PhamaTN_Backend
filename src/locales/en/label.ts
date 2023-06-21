@@ -24,7 +24,7 @@ export const label = {
   EDIT: "Edit",
   ADD: "Add",
   NAME: "Name",
-  BATCHS:"Batchs",
+  BATCHS: "Batchs",
   MEDICATION_NOT_FOUND: "Medication is not found",
   SELECT_MEDICATION: "Select medication",
   COMFIRM_BATCH_ADDITION: "Confirm batch addition",
@@ -34,6 +34,7 @@ export const label = {
   BACK: "Back",
   ADD_LOT: "Add Drug batch",
   SAVED_SUCCESSFULLY: "Saved Successfully",
+  successfully_modified: "Successfully modified",
   FRENCH: "French",
   ENGLISH: "English",
 };

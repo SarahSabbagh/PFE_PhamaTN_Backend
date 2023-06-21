@@ -18,6 +18,7 @@ import { medicationSchema } from "../../../../core/utils/validator/MedicationVal
 import { useAddMedicationMutation } from "../../../../redux/api/admin/MedicationApi";
 import { defaultValues } from "../../../../models/medication/MedicationInitialValues";
 import { IMedicationRequest } from "../../../../redux/api/types/IMedication";
+import { toast } from "react-toastify";
 
 export const AddMedication: React.FC<FormAddProps> = (props) => {
   const { t } = useTranslation();
@@ -39,6 +40,9 @@ export const AddMedication: React.FC<FormAddProps> = (props) => {
       .unwrap()
       .then(() => {
         handleClose && handleClose();
+        toast.success(t("label.SAVED_SUCCESSFULLY"), {
+          position: toast.POSITION.TOP_CENTER,
+        });
       });
   };
   return (

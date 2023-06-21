@@ -8,19 +8,18 @@ import { CancelButton } from "../formButton/CancelButton.styles";
 import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
 import { FormEditLotProps } from "./EditForm.types";
 import { TypeOf } from "zod";
-import { useToasts } from "react-toast-notifications";
 import { useUpdateLotMutation } from "../../../../redux/api/lot/LotApi";
 import { ItransformedLotData } from "../../../../redux/api/types/ILot";
 import { CustomDatePicker } from "../../customDatePicker/CustomDatePicker";
 import { zodResolver } from "@hookform/resolvers/zod";
 import dayjs from "dayjs";
 import { lotSchema } from "../../../../core/utils/validator/LotValidator";
+import { toast } from "react-toastify";
 export type ILotEditRequest = TypeOf<typeof lotSchema>;
 
 export const EditLot: React.FC<FormEditLotProps> = (props) => {
   const { t } = useTranslation();
   const { handleClose, defaultValues, id } = props;
-  const { addToast } = useToasts();
   const methods = useForm<ItransformedLotData>({
     resolver: zodResolver(lotSchema),
     defaultValues: defaultValues,
@@ -50,9 +49,8 @@ export const EditLot: React.FC<FormEditLotProps> = (props) => {
       .unwrap()
       .then(() => {
         handleClose();
-        addToast("Saved Successfully", {
-          appearance: "success",
-          key: "edit-lot",
+        toast.success(t("label.successfully_modified"), {
+          position: toast.POSITION.TOP_CENTER,
         });
       })
       .catch((error: any) => {

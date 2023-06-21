@@ -11,6 +11,7 @@ import { useMarquesQuery } from "../../../../../redux/api/admin/MarqueApi";
 import { EditLot } from "../../../forms/editForm/EditLot";
 import { useTranslation } from "react-i18next";
 import { EditLotInStock } from "../../../forms/editForm/EditLotInStock";
+import { ToastContainer } from "react-toastify";
 
 export const EditModal: React.FC<ModalEditProps> = (props) => {
   const { t } = useTranslation();

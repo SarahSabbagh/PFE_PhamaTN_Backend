@@ -15,6 +15,7 @@ import { useUpdateDciMutation } from "../../../../redux/api/dci/dciApi";
 import { useUpdateCategoryMutation } from "../../../../redux/api/admin/CategoryApi";
 import { simpleElementSchema } from "../../../../core/utils/validator/SimpleElementValidator";
 import { formTypes } from "../../../../core/constants/formType";
+import { toast } from "react-toastify";
 
 export const EditSimpleElementForm: React.FC<FormEditSimpleElementProps> = (
   props
@@ -57,6 +58,9 @@ export const EditSimpleElementForm: React.FC<FormEditSimpleElementProps> = (
       .unwrap()
       .then(() => {
         handleClose();
+        toast.success(t("label.successfully_modified"), {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((error: any) => {
         for (const key of Object.keys(data)) {

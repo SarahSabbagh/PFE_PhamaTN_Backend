@@ -15,6 +15,7 @@ import { useAddFormMutation } from "../../../../redux/api/admin/FormApi";
 import { useAddDciMutation } from "../../../../redux/api/dci/dciApi";
 import { simpleElementSchema } from "../../../../core/utils/validator/SimpleElementValidator";
 import { formTypes } from "../../../../core/constants/formType";
+import { toast } from "react-toastify";
 type IDciRequest = TypeOf<typeof simpleElementSchema>;
 
 export const AddSimpleElementForm: React.FC<FormAddProps> = (props) => {
@@ -53,6 +54,9 @@ export const AddSimpleElementForm: React.FC<FormAddProps> = (props) => {
       .unwrap()
       .then(() => {
         handleClose && handleClose();
+        toast.success(t("label.SAVED_SUCCESSFULLY"), {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
       .catch((error: any) => {
         for (const key of Object.keys(data)) {

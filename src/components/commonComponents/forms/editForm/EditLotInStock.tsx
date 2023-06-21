@@ -1,24 +1,22 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { DialogContent, Divider, Grid } from "@mui/material";
+import { DialogContent,  Grid } from "@mui/material";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { FormInput } from "../../InputField/formInput/FormInput";
 import { CancelButton } from "../formButton/CancelButton.styles";
 import { ConfirmButtonStyled } from "../formButton/ConfirmButton.styles";
 import { FormEditLotInStockProps } from "./EditForm.types";
-import { useToasts } from "react-toast-notifications";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IStockElementRequest } from "../../../../redux/api/types/IStock";
 import { useUpdateLotQuantityMutation } from "../../../../redux/api/stock/stockApi";
 import { useCurrentUser } from "../../../../hooks/useCurrentUser";
 import { addLotToStockSchema } from "../../../../core/utils/validator/StockValidator";
+import { toast } from "react-toastify";
 
 export const EditLotInStock: React.FC<FormEditLotInStockProps> = (props) => {
   const { t } = useTranslation();
   const { handleClose, defaultValues } = props;
-
-  const { addToast } = useToasts();
   const { userId } = useCurrentUser();
   const methods = useForm<IStockElementRequest>({
     resolver: zodResolver(addLotToStockSchema),
@@ -36,9 +34,8 @@ export const EditLotInStock: React.FC<FormEditLotInStockProps> = (props) => {
       .unwrap()
       .then(() => {
         handleClose();
-        addToast("Saved Successfully", {
-          appearance: "success",
-          key: "edit-lot",
+        toast.success(t("label.successfully_modified"), {
+          position: toast.POSITION.TOP_CENTER,
         });
       })
       .catch((error: any) => {

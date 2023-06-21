@@ -71,7 +71,6 @@ export const Register: FC = () => {
   return (
     <PageContainer background={true} title={t("register.TITLE_PAGE_SIGN_UP")}>
       <Grid container>
-        <ToastContainer />
         <SignUpPaper title={t("register.TITLE_SIGN_UP")}>
           <FormProvider {...methods}>
             <Box
