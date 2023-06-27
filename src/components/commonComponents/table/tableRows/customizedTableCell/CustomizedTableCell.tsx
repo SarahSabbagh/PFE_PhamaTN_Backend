@@ -14,12 +14,11 @@ import { ExpandCellsProps, TableCellsProps } from "./CustomizedTableCell.types";
 import { StyledTableCell } from "./CustomizedTableCell.style";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import { capitalizeText } from "../../../../../core/utils/CapitalizeText";
 
 export const StandardCell: React.FC<TableCellsProps> = (props) => {
   const { element, accessor } = props;
-  const capitalizeText = (text: string): string => {
-    return text && text[0].toUpperCase() + text.slice(1);
-  };
+
   return (
     <TableCell align="center">
       {(typeof element === "string" &&

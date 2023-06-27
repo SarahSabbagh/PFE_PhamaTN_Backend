@@ -15,11 +15,13 @@ import {
 } from "./UserMenu.style";
 import { NavbarProps } from "../Navbar.types";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, store } from "../../../redux/store";
+import { RootState, persistor } from "../../../redux/store";
 import { logout } from "../../../redux/features/userSlice";
 import { userMenu } from "../../../core/constants/list/userMenu";
 import { useAppropriateMenu } from "../../../hooks/translatedMenuHook";
-import { persistStore } from "redux-persist";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
+import { STORAGE_BASE_URL } from "../../../configuredURL";
+import { Item } from "../../footer/item/Item";
 
 export const UserMenu: React.FC<NavbarProps> = (props) => {
   const dispatch = useDispatch();
@@ -27,13 +29,13 @@ export const UserMenu: React.FC<NavbarProps> = (props) => {
   const notificationCount: number = useSelector(
     (state: RootState) => state.notification.notificationCount
   );
+  const { user } = useCurrentUser();
   const translatedMenuList = useAppropriateMenu(userMenu);
   const handleLogout = () => {
     localStorage.clear();
-    persistStore(store).purge();
+    persistor.purge();
     dispatch(logout());
   };
-
   return (
     <Grid item>
       <Box>
@@ -47,7 +49,7 @@ export const UserMenu: React.FC<NavbarProps> = (props) => {
                 horizontal: "right",
               }}
             >
-              <Avatar>A</Avatar>
+              <Avatar src={user.image ? STORAGE_BASE_URL + user.image : ""} />
             </StyledBadge>
           </StyledIconButton>
         </Tooltip>

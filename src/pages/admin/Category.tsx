@@ -11,6 +11,8 @@ import {
 } from "../../redux/api/admin/CategoryApi";
 import useDebounce from "../../hooks/useDebounce";
 import { useTranslation } from "react-i18next";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import { rolesValue } from "../../core/constants/roles";
 
 export const CategoriesPage: FC = () => {
   const { t } = useTranslation();
@@ -21,7 +23,7 @@ export const CategoriesPage: FC = () => {
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
   const debouncedSearchTerm = useDebounce<string>(query, 500);
-
+  const { user } = useCurrentUser();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -62,11 +64,17 @@ export const CategoriesPage: FC = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+  const columnWithoutActions = dciColumns.filter(
+    (item) => item.label !== "ACTIONS"
+  );
   return (
     <PageContainer title={t("category.TITLE_PAGE_CATEGORY")}>
       <TableFactory<ISimpleElement[]>
-        columns={dciColumns}
+        columns={
+          user?.role === rolesValue.ADMINISTRATOR
+            ? dciColumns
+            : columnWithoutActions
+        }
         data={data?.data}
         sort={{
           onRequestSort: onRequestSort,
@@ -76,17 +84,21 @@ export const CategoriesPage: FC = () => {
         handleQueryChange={handleQueryChange}
         title={t("category.TITLE_GATEGORY")}
         isError={isError}
-        actions={{
-          add: {
-            add: true,
-            addFormType: formTypes.CATEGORY_MODAL,
-          },
-          edit: {
-            edit: true,
-            editFormType: formTypes.CATEGORY_MODAL,
-          },
-          delete: { delete: true, handleDelete: handleCategoryDelete },
-        }}
+        actions={
+          user?.role === rolesValue.ADMINISTRATOR
+            ? {
+                add: {
+                  add: true,
+                  addFormType: formTypes.CATEGORY_MODAL,
+                },
+                edit: {
+                  edit: true,
+                  editFormType: formTypes.CATEGORY_MODAL,
+                },
+                delete: { delete: true, handleDelete: handleCategoryDelete },
+              }
+            : {}
+        }
         handleModal={{
           handleClickOpen: handleClickOpen,
           open: open,

@@ -25,7 +25,6 @@ function App() {
               <ToastContainer />
               <RouterProvider router={routes} />
             </LocalizationProvider>
-
             <CssBaseline />
           </ThemeProvider>
         </PersistGate>

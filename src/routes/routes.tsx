@@ -5,7 +5,6 @@ import { Register } from "../pages/Register";
 import { ErrorPage } from "../pages/Error";
 import { Layout, LayoutLogin } from "../layouts/GlobalLayout";
 import { Profile } from "../pages/Profile";
-import { Dashboard } from "../pages/dashboard";
 import { PrivateRouteNoAuth } from "./privateRoutes/PrivateRouteNoAuth";
 import { PrivateRouteAuth } from "./privateRoutes/PrivateRouteAuth";
 import { paths } from "../core/constants/path";
@@ -21,18 +20,19 @@ import { rolesValue } from "../core/constants/roles";
 import { PrivateRouteRole } from "./privateRoutes/PrivateRouteRole";
 import { StockPage } from "../pages/stock";
 import { SearchPage } from "../pages/SearchPage";
+import { ForgetResetPassword } from "../pages/forgotResetPassword/ForgetResetPassword";
 
 export const routes = createBrowserRouter([
   {
-    path: paths.DASHBOARD,
+    path: paths.SEARCH,
     element: <PrivateRouteAuth component={Layout} />,
     children: [
       {
-        id: "DASHBOARD",
+        id: "SEARCH",
         index: true,
         element: (
           <PrivateRouteRole
-            component={Dashboard}
+            component={SearchPage}
             accessibleRoles={[
               rolesValue.ADMINISTRATOR,
               rolesValue.PHARMACY,
@@ -157,20 +157,6 @@ export const routes = createBrowserRouter([
           />
         ),
       },
-      {
-        id: " SEARCH",
-        path: paths.SEARCH,
-        element: (
-          <PrivateRouteRole
-            component={SearchPage}
-            accessibleRoles={[
-              rolesValue.PHARMACY,
-              rolesValue.WHOLESALER,
-              rolesValue.ADMINISTRATOR,
-            ]}
-          />
-        ),
-      },
     ],
   },
   {
@@ -179,6 +165,15 @@ export const routes = createBrowserRouter([
     element: (
       <LayoutLogin>
         <PrivateRouteNoAuth component={SignIn} />
+      </LayoutLogin>
+    ),
+  },
+  {
+    path: paths.ForgotPassword,
+    id: "ForgotPassword",
+    element: (
+      <LayoutLogin>
+        <PrivateRouteNoAuth component={ForgetResetPassword} />
       </LayoutLogin>
     ),
   },

@@ -19,7 +19,7 @@ import {
   useGovernoratesQuery,
 } from "../redux/api/region/regionApi";
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { defaultValues } from "../models/register/RegisterInitialValues";
 import { skipToken } from "@reduxjs/toolkit/dist/query";
 
@@ -28,7 +28,6 @@ export type ISignUpRequest = TypeOf<typeof signUpSchema>;
 export const Register: FC = () => {
   const { t } = useTranslation();
   const VerificationLinkMessage = t("register.SENT_VERIFICATION_LINK");
-
   const [register, { isLoading }] = useRegisterMutation();
   const { data: governorates = [] } = useGovernoratesQuery();
   const methods = useForm<ISignUpRequest>({

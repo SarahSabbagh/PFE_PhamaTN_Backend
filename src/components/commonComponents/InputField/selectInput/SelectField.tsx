@@ -11,6 +11,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { SyledPlaceholder, SelectFieldStyle } from "./SelectField.style";
 import { SelectFieldProps } from "./SelectField.types";
 import { useTranslation } from "react-i18next";
+import { capitalizeText } from "../../../../core/utils/CapitalizeText";
 
 export const SelectField = <TypeOptions,>(
   props: React.PropsWithChildren<
@@ -33,7 +34,7 @@ export const SelectField = <TypeOptions,>(
             </MenuItem>
             {options.map((option: any) => (
               <MenuItem key={option.id} value={option.id}>
-                {option.name}
+                {capitalizeText(option.name)}
               </MenuItem>
             ))}
           </SelectFieldStyle>

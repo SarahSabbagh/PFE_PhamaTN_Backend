@@ -32,6 +32,7 @@ import { CustomTableContainer } from "../components/commonComponents/table/table
 import { dciColumns } from "../core/constants/tableColumns/dciColumns";
 import { searchColumns } from "../core/constants/tableColumns/searchColumns";
 import { transformedSearchMedData } from "../core/utils/searchMedDataFormat";
+import { capitalizeText } from "../core/utils/CapitalizeText";
 
 export const SearchPage: FC = () => {
   const { t } = useTranslation();
@@ -44,6 +45,7 @@ export const SearchPage: FC = () => {
   const { data: categories = [] } = useCategoriesQuery();
   const methods = useForm<ISearchMed>();
   const { user } = useCurrentUser();
+
   const userId = user?.id;
   const address = user?.address;
   const { handleSubmit } = methods;
@@ -62,7 +64,6 @@ export const SearchPage: FC = () => {
   React.useEffect(() => {
     isSuccess && setCenter([latLng.lat, latLng.lng]);
   }, [latLng]);
-  console.log(isLoading);
   return (
     <PageContainer title={t("searchMedication.TITLE_PAGE_SEARCH")}>
       <StyledPaper>
@@ -78,20 +79,20 @@ export const SearchPage: FC = () => {
             <Grid container item rowSpacing={1} columnSpacing={2}>
               <Grid item xs={12} sm={6} md>
                 <CustomAutocomplete
-                  id="dci"
-                  label={t("searchMedication.DCI")}
-                  placeholder={t("searchMedication.DCI")}
-                  name="dci"
-                  options={dcis.map((option: ISimpleElement) => option.name)}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md>
-                <CustomAutocomplete
                   id="marque"
                   label={t("searchMedication.BRAND")}
                   placeholder={t("searchMedication.BRAND")}
                   name="marque"
-                  options={marques.map((option: ISimpleElement) => option.name)}
+                  options={marques.map((option: ISimpleElement) => capitalizeText(option.name))}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md>
+                <CustomAutocomplete
+                  id="dci"
+                  label={t("searchMedication.DCI")}
+                  placeholder={t("searchMedication.DCI")}
+                  name="dci"
+                  options={dcis.map((option: ISimpleElement) => capitalizeText(option.name))}
                 />
               </Grid>
               <Grid item xs={12} sm={6} md>
@@ -101,7 +102,7 @@ export const SearchPage: FC = () => {
                   placeholder={t("searchMedication.CATEGORY")}
                   name="category"
                   options={categories.map(
-                    (option: ISimpleElement) => option.name
+                    (option: ISimpleElement) => capitalizeText(option.name)
                   )}
                 />
               </Grid>
@@ -111,7 +112,7 @@ export const SearchPage: FC = () => {
                   label={t("searchMedication.FORM")}
                   placeholder={t("searchMedication.FORM")}
                   name="form"
-                  options={forms.map((option: ISimpleElement) => option.name)}
+                  options={forms.map((option: ISimpleElement) =>capitalizeText(option.name))}
                 />
               </Grid>
               <Grid item xs={12} sm={6} md>

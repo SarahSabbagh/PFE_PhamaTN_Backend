@@ -11,19 +11,29 @@ import { categoriesApi } from "./api/admin/CategoryApi";
 import { medicationApi } from "./api/admin/MedicationApi";
 import { lotApi } from "./api/lot/LotApi";
 import { notificationApi } from "./api/notification/notificationApi";
-import notificationSlice from "./features/notification";
-import userSlice from "./features/userSlice";
+import notificationReducer from "./features/notification";
+import userReducer from "./features/userSlice";
 import { stockApi } from "./api/stock/stockApi";
 import { searchMedicationApi } from "./api/searchMed/searchMedApi";
-import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { forgotResetPasswordApi } from "./api/forgotResetPassword/ForgotResetPassword";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 
 const persistConfig = {
   key: "root",
   storage,
 };
-export const persistedReducer = persistReducer(persistConfig, userSlice);
+export const persistedReducer = persistReducer(persistConfig, userReducer);
+
 export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
@@ -40,11 +50,15 @@ export const store = configureStore({
     [stockApi.reducerPath]: stockApi.reducer,
     [searchMedicationApi.reducerPath]: searchMedicationApi.reducer,
     [forgotResetPasswordApi.reducerPath]: forgotResetPasswordApi.reducer,
-    notification: notificationSlice,
+    notification: notificationReducer,
     user: persistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({}).concat([
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat([
       authApi.middleware,
       userApi.middleware,
       regionApi.middleware,
@@ -61,8 +75,8 @@ export const store = configureStore({
       forgotResetPasswordApi.middleware,
     ]),
 });
-export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 setupListeners(store.dispatch);
+export const persistor = persistStore(store);

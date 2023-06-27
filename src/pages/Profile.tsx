@@ -1,17 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { FC } from "react";
 import { PageContainer } from "../components/commonComponents/PageContainer/PageContainer";
-import {
-  Avatar,
-  Badge,
-  Box,
-  Divider,
-  Fab,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Box, Divider, Grid, Typography } from "@mui/material";
 import { StyledPaper } from "../components/commonComponents/customPaper/StyledPaper.style";
-import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { useTranslation } from "react-i18next";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { FormInput } from "../components/commonComponents/InputField/formInput/FormInput";
@@ -21,6 +12,9 @@ import { IUpdateUser } from "../redux/api/types/IUser";
 import { useCurrentUser } from "../hooks/useCurrentUser";
 import { ProfilSchema } from "../core/utils/validator/UpdateUserValidator";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { STORAGE_BASE_URL } from "../configuredURL";
+import { StyledAvatar } from "../components/commonComponents/InputField/customInputAvatar/CustomInputAvatar.style";
+import { InputImage } from "../components/signUpComponents/inputImage/InputImage";
 
 export const Profile: FC = () => {
   const { t } = useTranslation();
@@ -42,12 +36,14 @@ export const Profile: FC = () => {
   });
   const { handleSubmit, setError } = methods;
   const submitHandler: SubmitHandler<IUpdateUser> = async (data) => {
+  
     updateUser({
       id: data.id,
       name: data.name?.trim(),
       password: data.password?.trim(),
       pharmacyFirstName: data.pharmacyFirstName?.trim(),
       pharmacyLastName: data.pharmacyLastName?.trim(),
+      image: data.image,
       phone: data.phone?.trim(),
       fax: data.fax?.trim(),
     })
@@ -81,21 +77,9 @@ export const Profile: FC = () => {
               columnSpacing={2}
             >
               <Grid item display="flex" justifyContent="center">
-                <Badge
-                  overlap="circular"
-                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                  badgeContent={
-                    <Fab size="medium" color="primary" aria-label="add">
-                      <PhotoCameraIcon />
-                    </Fab>
-                  }
-                >
-                  <Avatar
-                    alt="Avatar"
-                    src=""
-                    sx={{ width: "125px", height: "125px" }}
-                  />
-                </Badge>
+                <StyledAvatar
+                  src={user.image ? STORAGE_BASE_URL + user.image : ""}
+                />
               </Grid>
               <Grid item display="flex" justifyContent="center">
                 <Typography variant="h5">{user?.name}</Typography>
@@ -107,7 +91,7 @@ export const Profile: FC = () => {
                 </Typography>
                 <Divider />
                 <Grid container item rowSpacing={1} columnSpacing={2} pt="2rem">
-                  <Grid item xs={12}>
+                  <Grid item xs={12} sm={6}>
                     <FormInput
                       id="name"
                       placeholder={t("register.NAME_LABEL")}
@@ -115,6 +99,14 @@ export const Profile: FC = () => {
                       label={t("register.NAME_LABEL")}
                       name="name"
                       required
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <InputImage
+                      id="image"
+                      label={t("register.IMAGE_LABEL")}
+                      placeholder={t("register.IMAGE_LABEL")}
+                      name="image"
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>

@@ -11,6 +11,8 @@ import {
 import { IMedicationElement } from "../../redux/api/types/IMedication";
 import useDebounce from "../../hooks/useDebounce";
 import { useTranslation } from "react-i18next";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import { rolesValue } from "../../core/constants/roles";
 
 export const MedicationsPage: FC = () => {
   const { t } = useTranslation();
@@ -21,7 +23,7 @@ export const MedicationsPage: FC = () => {
   const [sortOrder, setSortOrder] = React.useState<"desc" | "asc">("asc");
   const [open, setOpen] = React.useState(false);
   const debouncedSearchTerm = useDebounce<string>(query, 500);
-
+  const { user } = useCurrentUser();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -63,11 +65,17 @@ export const MedicationsPage: FC = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+  const columnWithoutActions = medicationColumns.filter(
+    (item) => item.label !== "ACTIONS"
+  );
   return (
     <PageContainer title={t("medication.TITLE_PAGE_MEDICATION")}>
       <TableFactory<IMedicationElement[]>
-        columns={medicationColumns}
+        columns={
+          user?.role === rolesValue.ADMINISTRATOR
+            ? medicationColumns
+            : columnWithoutActions
+        }
         data={data?.data}
         sort={{
           onRequestSort: onRequestSort,
@@ -77,17 +85,21 @@ export const MedicationsPage: FC = () => {
         handleQueryChange={handleQueryChange}
         title={t("medication.TITLE_MEDICATION")}
         isError={isError}
-        actions={{
-          add: {
-            add: true,
-            addFormType: formTypes.ADD_MEDICATION_MODAL,
-          },
-          edit: {
-            edit: true,
-            editFormType: formTypes.EDIT_MEDICATION_MODAL,
-          },
-          delete: { delete: true, handleDelete: handleMedicationDelete },
-        }}
+        actions={
+          user?.role === rolesValue.ADMINISTRATOR
+            ? {
+                add: {
+                  add: true,
+                  addFormType: formTypes.ADD_MEDICATION_MODAL,
+                },
+                edit: {
+                  edit: true,
+                  editFormType: formTypes.EDIT_MEDICATION_MODAL,
+                },
+                delete: { delete: true, handleDelete: handleMedicationDelete },
+              }
+            : {}
+        }
         handleModal={{
           handleClickOpen: handleClickOpen,
           open: open,
