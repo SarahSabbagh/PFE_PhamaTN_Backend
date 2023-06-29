@@ -31,7 +31,7 @@ export const lotApi = createApi({
     deleteLot: builder.mutation<IResponse, number>({
       query(id) {
         return {
-          url: endpoints.LOTS + "/" + id,
+          url:`${endpoints.LOTS}/${id}`,
           method: "DELETE",
         };
       },
@@ -40,7 +40,7 @@ export const lotApi = createApi({
     showLot: builder.query<{ data: ILotElement }, number>({
       query(id) {
         return {
-          url: endpoints.LOTS + "/" + id,
+          url: `${endpoints.LOTS}/${id}`,
         };
       },
       providesTags: ["Lot"],
@@ -49,7 +49,7 @@ export const lotApi = createApi({
     updateLot: builder.mutation<IResponse, ILotRequest>({
       query: ({ id, ...request }) => ({
         headers: { Accept: "application/json" },
-        url: endpoints.LOTS + "/" + id,
+        url: `${endpoints.LOTS}/${id}`,
         params: { ...request },
         method: "PUT",
       }),

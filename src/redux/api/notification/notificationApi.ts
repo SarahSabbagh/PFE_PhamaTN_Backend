@@ -9,7 +9,7 @@ const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT as string;
 export const notificationApi = createApi({
   reducerPath: "notificationApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${BASE_URL}` + endpoints.NOTIFICATION,
+    baseUrl: `${BASE_URL}${endpoints.NOTIFICATION}` ,
     prepareHeaders: prepareHeaders,
   }),
   tagTypes: ["Notification"],
@@ -18,7 +18,7 @@ export const notificationApi = createApi({
     Notifications: builder.query<INotificationResponse[], number>({
       query(id) {
         return {
-          url: endpoints.NOTIFICATION_UNREAD_REGISTERED + "/" + id,
+          url:`${endpoints.NOTIFICATION_UNREAD_REGISTERED}/${id}`,
         };
       },
       transformResponse: (response: { data: INotificationResponse[] }) =>

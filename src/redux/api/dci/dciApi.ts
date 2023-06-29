@@ -36,7 +36,7 @@ export const dciApi = createApi({
     deleteDcis: builder.mutation<IResponse, number>({
       query(id) {
         return {
-          url: endpoints.DCIS + "/" + id,
+          url: `${endpoints.DCIS}/${id}`,
           method: "DELETE",
         };
       },
@@ -56,7 +56,7 @@ export const dciApi = createApi({
     showDci: builder.query<{ data: ISimpleElement }, number>({
       query(id) {
         return {
-          url: endpoints.DCIS + "/" + id,
+          url: `${endpoints.DCIS}/${id}`,
         };
       },
       providesTags: ["Dci"],
@@ -65,7 +65,7 @@ export const dciApi = createApi({
     updateDci: builder.mutation<IResponse, ISimpleElement>({
       query: ({ id, name }) => ({
         headers: { Accept: "application/json" },
-        url: endpoints.DCIS + "/" + id,
+        url: `${endpoints.DCIS}/${id}`,
         params: { name: name },
         method: "PUT",
       }),

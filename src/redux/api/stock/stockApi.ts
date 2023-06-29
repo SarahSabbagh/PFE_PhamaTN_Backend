@@ -9,7 +9,7 @@ const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT as string;
 export const stockApi: any = createApi({
   reducerPath: "stockApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${BASE_URL}` + endpoints.STOCK,
+    baseUrl: `${BASE_URL}${endpoints.STOCK}`,
     prepareHeaders: prepareHeaders,
   }),
   tagTypes: ["stock"],
