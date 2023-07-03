@@ -36,7 +36,6 @@ export const Profile: FC = () => {
   });
   const { handleSubmit, setError } = methods;
   const submitHandler: SubmitHandler<IUpdateUser> = async (data) => {
-  
     updateUser({
       id: data.id,
       name: data.name?.trim(),
@@ -60,6 +59,7 @@ export const Profile: FC = () => {
         }
       });
   };
+
   return (
     <PageContainer title={t("profil.TITLE_PAGE_Profil")}>
       <StyledPaper sx={{ p: "2rem" }}>
@@ -78,7 +78,7 @@ export const Profile: FC = () => {
             >
               <Grid item display="flex" justifyContent="center">
                 <StyledAvatar
-                  src={user.image ? STORAGE_BASE_URL + user.image : ""}
+                  src={user?.image ? STORAGE_BASE_URL + user.image : ""}
                 />
               </Grid>
               <Grid item display="flex" justifyContent="center">

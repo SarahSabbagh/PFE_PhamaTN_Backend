@@ -8,5 +8,5 @@ export const notification = {
   EXPIRED_BATCH: " lot que vous possédez a expiré.",
   BATCH_EXPIRE_SOON: " lot va bientôt expirer.",
   OUT_STOCK: " Est en rupture de stock.",
-  OUT_OF_STOCK: " sera bientôt en rupture de stock.",
+  OUT_OF_STOCK_SOON: " sera bientôt en rupture de stock.",
 };
