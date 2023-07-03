@@ -49,7 +49,7 @@ export const UserMenu: React.FC<NavbarProps> = (props) => {
                 horizontal: "right",
               }}
             >
-              <Avatar src={user.image ? STORAGE_BASE_URL + user.image : ""} />
+              <Avatar src={user?.image ? STORAGE_BASE_URL + user.image : ""} />
             </StyledBadge>
           </StyledIconButton>
         </Tooltip>
